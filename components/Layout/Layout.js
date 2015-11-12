@@ -7,13 +7,14 @@
 import React, { PropTypes } from 'react';
 import './Layout.scss';
 import Navigation from '../Navigation';
-import AppBarAndLeftNav from '../NavigationTest/AppBarAndLeftNav';
 
 function Layout({ children }) {
   return (
-    <div className="Layout" style={{"marginLeft": "8", "marginRight":"8", "marginBottom":"8"}}>
-       <AppBarAndLeftNav />
-      {children}
+    <div className="Layout">
+      <Navigation />
+      <div style={{"marginLeft": "60", "marginRight":"60", "marginBottom":"8"}}>
+      	{children}
+      </div>
     </div>
   );
 }
