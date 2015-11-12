@@ -5,7 +5,6 @@
  */
 
 import React, { PropTypes } from 'react';
-import GoogleAnalytics from '../GoogleAnalytics';
 import config from '../../config';
 
 function Html({ title, description, body, debug }) {
@@ -23,7 +22,6 @@ function Html({ title, description, body, debug }) {
       </head>
       <body>
         <div id="app" dangerouslySetInnerHTML={{ __html: body }} />
-        <GoogleAnalytics />
       </body>
     </html>
   );
