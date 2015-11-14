@@ -12,7 +12,7 @@ function Layout({ children }) {
   return (
     <div className="Layout">
       <Navigation />
-      <div style={{"marginLeft": "60", "marginRight":"60", "marginBottom":"8"}}>
+      <div style={{"marginLeft": "60", "marginRight":"60"}}>
       	{children}
       </div>
     </div>

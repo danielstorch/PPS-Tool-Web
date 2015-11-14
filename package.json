@@ -20,7 +20,7 @@
     "history": "^1.12.6",
     "hygienist-middleware": "^0.1.0",
     "lodash.merge": "^3.3.2",
-    "material-ui": "0.13.0",
+    "material-ui": "0.13.2",
     "mkdirp": "^0.5.1",
     "mocha": "^2.3.3",
     "ncp": "^2.0.0",
