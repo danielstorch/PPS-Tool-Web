@@ -17,3 +17,52 @@
 .current-page {
 	color: $text-color;
 }
+
+.Navigation-link {
+  margin: 0.5em 1em;
+  color: $text-color;
+  text-decoration: none;
+  cursor: pointer;
+
+  &:hover {
+    border-bottom: 3px solid $brand-color;
+    color: $text-color;
+  }
+}
+
+.Navigation-sub-link {
+  margin: 0.5em 2em;
+  color: $text-color;
+  text-decoration: none;
+  cursor: pointer;
+
+  &:hover {
+    border-bottom: 3px solid $brand-color;
+    color: $text-color;
+  }
+}
+
+.Navigation-title {
+  padding: 0.5em 1em;
+  color: $text-color;
+  text-decoration: none;
+}
+
+.Navigation-divider {
+    box-sizing: border-box;
+    border-top: solid 1px #e0e0e0;
+    padding-top: 8px;
+    margin-top: 8px;
+    overflow: hidden;
+}
+
+
+
+
+
+
+
+
+
+
+

@@ -13,7 +13,8 @@ injectTapEventPlugin();
 var AppBar = mui.AppBar
   , LeftNav = mui.LeftNav
   , MenuItem = mui.MenuItem
-  , IconButton = mui.IconButton;
+  , IconButton = mui.IconButton
+  , MenuDivider = mui.MenuDivider;
  
 export default class Navigation extends React.Component {
  
@@ -69,12 +70,45 @@ export default class Navigation extends React.Component {
                 iconElementRight={<h1 className="current-page">current-page</h1>}/>
 
         <LeftNav ref="leftNav" docked={this.state.isDocked} onChange={this._onLeftNavChange} style={{"top":"100% - <AppBar.height>" }}>
-            <MenuItem index={0}>Menu</MenuItem>
-            <MenuItem index={1}>
+            <MenuItem index={0}>
               <a className="Navigation-link" href="/" onClick={Link.handleClick}>Home</a>
             </MenuItem>
+            <MenuItem index={1}>
+              <a className="Navigation-link" href="/anleitung" onClick={Link.handleClick}>Tool Anleitung</a>
+            </MenuItem>
             <MenuItem index={2}>
-              <a className="Navigation-link" href="/about" onClick={Link.handleClick}>About</a>
+              <a className="Navigation-link" href="/tips" onClick={Link.handleClick}>Tips und Tricks</a>
+            </MenuItem>
+            <MenuItem index={3}>
+              <a className="Navigation-link" href="/metriken" onClick={Link.handleClick}>Metriken</a>
+            </MenuItem>
+            <MenuItem index={4} className="Navigation-divider"></MenuItem>
+            <MenuItem index={5}>
+              <a className="Navigation-title">Dispositionsplanung</a>
+            </MenuItem>
+            <MenuItem index={6} style={{"lineHeight":"30px" }}>
+              <a className="Navigation-sub-link" href="/dispositionsplanung/damen" onClick={Link.handleClick}>Damen</a>
+            </MenuItem>
+            <MenuItem index={7} style={{"lineHeight":"30px"}}>
+              <a className="Navigation-sub-link" href="/dispositionsplanung/herren" onClick={Link.handleClick}>Herren</a>
+            </MenuItem>
+            <MenuItem index={8} style={{"lineHeight":"30px"}}>
+              <a className="Navigation-sub-link" href="/dispositionsplanung/kinder" onClick={Link.handleClick}>Kinder</a>
+            </MenuItem>
+            <MenuItem index={9}>
+              <a className="Navigation-link" href="/kaufteildisposition" onClick={Link.handleClick}>Kaufteildisposition</a>
+            </MenuItem>
+            <MenuItem index={10}>
+              <a className="Navigation-link" href="/kapazitaetsplanung" onClick={Link.handleClick}>Kapazitätsplanung</a>
+            </MenuItem>
+            <MenuItem index={11}>
+              <a className="Navigation-link" href="/upload" onClick={Link.handleClick}>Upload</a>
+            </MenuItem>
+            <MenuItem index={12}>
+              <a className="Navigation-link" href="/download" onClick={Link.handleClick}>Download</a>
+            </MenuItem>
+            <MenuItem index={13}>
+              <a className="Navigation-link" href="/settings" onClick={Link.handleClick}>Settings</a>
             </MenuItem>
         </LeftNav>
       </div>
