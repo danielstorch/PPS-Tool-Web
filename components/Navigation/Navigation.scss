@@ -6,3 +6,14 @@
 
 @import '../variables.scss';
 
+.icon-close:before {
+    content: url(../../static/close.png);
+}
+
+.icon-open:before {
+    content: url(../../static/apple-touch-icon.png);
+}
+
+.current-page {
+	color: $text-color;
+}
