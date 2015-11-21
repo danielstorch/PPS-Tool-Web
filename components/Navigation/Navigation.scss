@@ -6,12 +6,64 @@
 
 @import '../variables.scss';
 
-.icon-close:before {
-    content: url(../../static/close.png);
+.AppBar-icon-close {
+    content: url(../../static/ic_close_white_32dp_1x.png);
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    overflow: hidden;
 }
 
-.icon-open:before {
-    content: url(../../static/apple-touch-icon.png);
+.AppBar-icon-open{
+    content: url(../../static/ic_menu_white_48dp_1x.png);
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+}
+
+.MenuItem-icon-home{
+    content: url(../../static/ic_home_black_24dp_1x.png);
+}
+
+.MenuItem-icon-kapazitaetsplanung{
+    content: url(../../static/ic_watch_later_black_24dp_1x.png);
+}
+
+.MenuItem-icon-download{
+    content: url(../../static/ic_file_download_black_24dp_1x.png);
+}
+
+.MenuItem-icon-upload{
+    content: url(../../static/ic_file_upload_black_24dp_1x.png);
+}
+
+.MenuItem-icon-settings{
+    content: url(../../static/ic_settings_black_24dp_1x.png);
+}
+
+.MenuItem-icon-dispositionsplanung{
+    content: url(../../static/ic_directions_bike_black_24dp_1x.png);
+}
+
+.MenuItem-icon-kaufteildisposition{
+    content: url(../../static/ic_shopping_cart_black_24dp_1x.png);
+}
+
+.MenuItem-icon-anleitung{
+    content: url(../../static/ic_import_contacts_black_24dp_1x.png);
+}
+
+.MenuItem-icon-tips{
+    content: url(../../static/ic_announcement_black_24dp_1x.png);
+}
+
+.MenuItem-icon-metriken{
+    content: url(../../static/ic_timeline_black_24dp_1x.png);
 }
 
 .current-page {
@@ -31,7 +83,7 @@
 }
 
 .Navigation-sub-link {
-  margin: 0.5em 2em;
+  margin: 0.5em 4em;
   color: $text-color;
   text-decoration: none;
   cursor: pointer;

@@ -25,7 +25,7 @@ export default class Navigation extends React.Component {
     this._onLeftNavChange = this._onLeftNavChange.bind(this);
     this.state = { 
                     isDocked: false
-                  , iconClassName: "icon-open" 
+                  , iconClassName: "AppBar-icon-open" 
                   , currentPage: "Home"
                  };
   }
@@ -43,11 +43,11 @@ export default class Navigation extends React.Component {
 
     if(isDocked){
       this.setState({
-        iconClassName: "icon-close",
+        iconClassName: "AppBar-icon-close",
       });
     }else{
       this.setState({
-        iconClassName: "icon-open",
+        iconClassName: "AppBar-icon-open",
       });
     }
   }
@@ -67,23 +67,24 @@ export default class Navigation extends React.Component {
     return (
       <div id="menu">
         <AppBar title="PPS-Tool" iconClassNameLeft={this.state.iconClassName} onLeftIconButtonTouchTap={this._handleClick} style={{"width":"100%" }}
-                iconElementRight={<h1 className="current-page">current-page</h1>}/>
+                iconElementRight={<a className="">current-page</a>}/>
 
         <LeftNav ref="leftNav" docked={this.state.isDocked} onChange={this._onLeftNavChange} style={{"top":"100% - <AppBar.height>" }}>
-            <MenuItem index={0}>
+            <MenuItem index={0} iconClassName="MenuItem-icon-home" iconStyle={{"marginRight":"0px", "top":"10px"}}>
               <a className="Navigation-link" href="/" onClick={Link.handleClick}>Home</a>
             </MenuItem>
-            <MenuItem index={1}>
+            <MenuItem index={1} iconClassName="MenuItem-icon-anleitung" iconStyle={{"marginRight":"0px", "top":"10px"}}>
               <a className="Navigation-link" href="/anleitung" onClick={Link.handleClick}>Tool Anleitung</a>
             </MenuItem>
-            <MenuItem index={2}>
+            <MenuItem index={2} iconClassName="MenuItem-icon-tips" iconStyle={{"marginRight":"0px", "top":"10px"}}>
               <a className="Navigation-link" href="/tips" onClick={Link.handleClick}>Tips und Tricks</a>
             </MenuItem>
-            <MenuItem index={3}>
+            <MenuItem index={3} iconClassName="MenuItem-icon-metriken" iconStyle={{"marginRight":"0px", "top":"10px"}}>
               <a className="Navigation-link" href="/metriken" onClick={Link.handleClick}>Metriken</a>
             </MenuItem>
-            <MenuItem index={4} className="Navigation-divider"></MenuItem>
-            <MenuItem index={5}>
+            <MenuItem index={4} className="Navigation-divider">
+            </MenuItem>
+            <MenuItem index={5} iconClassName="MenuItem-icon-dispositionsplanung" iconStyle={{"marginRight":"0px", "top":"10px"}}>
               <a className="Navigation-title">Dispositionsplanung</a>
             </MenuItem>
             <MenuItem index={6} style={{"lineHeight":"30px" }}>
@@ -95,19 +96,19 @@ export default class Navigation extends React.Component {
             <MenuItem index={8} style={{"lineHeight":"30px"}}>
               <a className="Navigation-sub-link" href="/dispositionsplanung/kinder" onClick={Link.handleClick}>Kinder</a>
             </MenuItem>
-            <MenuItem index={9}>
+            <MenuItem index={9} iconClassName="MenuItem-icon-kaufteildisposition" iconStyle={{"marginRight":"0px", "top":"10px"}}>
               <a className="Navigation-link" href="/kaufteildisposition" onClick={Link.handleClick}>Kaufteildisposition</a>
             </MenuItem>
-            <MenuItem index={10}>
+            <MenuItem index={10} iconClassName="MenuItem-icon-kapazitaetsplanung" iconStyle={{"marginRight":"0px", "top":"10px"}}>
               <a className="Navigation-link" href="/kapazitaetsplanung" onClick={Link.handleClick}>Kapazitätsplanung</a>
             </MenuItem>
-            <MenuItem index={11}>
+            <MenuItem index={11} iconClassName="MenuItem-icon-upload" iconStyle={{"marginRight":"0px", "top":"10px"}}>
               <a className="Navigation-link" href="/upload" onClick={Link.handleClick}>Upload</a>
             </MenuItem>
-            <MenuItem index={12}>
+            <MenuItem index={12} iconClassName="MenuItem-icon-download" iconStyle={{"marginRight":"0px", "top":"10px"}}>
               <a className="Navigation-link" href="/download" onClick={Link.handleClick}>Download</a>
             </MenuItem>
-            <MenuItem index={13}>
+            <MenuItem index={13} iconClassName="MenuItem-icon-settings" iconStyle={{"marginRight":"0px", "top":"10px"}}>
               <a className="Navigation-link" href="/settings" onClick={Link.handleClick}>Settings</a>
             </MenuItem>
         </LeftNav>
