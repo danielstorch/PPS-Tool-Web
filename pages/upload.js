@@ -5,14 +5,14 @@
  */
 
 import React, { Component } from 'react';
+import UploadXML from '../components/UploadXML'
 
 export default class extends Component {
 
   render() {
     return (
       <div>
-        <h1>Upload Page</h1>
-        <p>Coming soon.</p>
+        <UploadXML/>
       </div>
     );
   }
