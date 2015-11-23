@@ -10,7 +10,6 @@ import ReactDOM from 'react-dom';
 import { canUseDOM } from 'fbjs/lib/ExecutionEnvironment';
 import Location from './core/Location';
 import Layout from './components/Layout';
-import TESTDATA from './util/TESTDATA';
 
 const routes = {}; // Auto-generated on build. See tools/lib/routes-loader.js
 
@@ -21,8 +20,6 @@ const route = async (path, callback) => {
 };
 
 function run() {
-  // Load Mock Product Data into localStorage
-  TESTDATA.init();
 
   const container = document.getElementById('app');
   Location.listen(location => {

@@ -14,7 +14,8 @@ var AppBar = mui.AppBar
   , LeftNav = mui.LeftNav
   , MenuItem = mui.MenuItem
   , IconButton = mui.IconButton
-  , MenuDivider = mui.MenuDivider;
+  , MenuDivider = mui.MenuDivider
+  , DropDownMenu = mui.DropDownMenu;
  
 export default class Navigation extends React.Component {
  
@@ -64,10 +65,25 @@ export default class Navigation extends React.Component {
   }
 
   render() {
+    let menuItems = [
+       { payload: '1', text: 'Never' },
+       { payload: '2', text: 'Every Night' },
+       { payload: '3', text: 'Weeknights' },
+       { payload: '4', text: 'Weekends' },
+       { payload: '5', text: 'Weekly' },
+    ];
+
     return (
       <div id="menu">
-        <AppBar title="PPS-Tool" iconClassNameLeft={this.state.iconClassName} onLeftIconButtonTouchTap={this._handleClick} style={{"width":"100%" }}
-                iconElementRight={<a className="">current-page</a>}/>
+        <AppBar title="PPS-Tool" 
+                iconClassNameLeft={this.state.iconClassName} 
+                onLeftIconButtonTouchTap={this._handleClick} 
+                style={{"width":"100%" }}
+                iconElementRight={
+                  <div>
+                    <a className="">current-page</a>
+                    <DropDownMenu menuItems={menuItems}> </DropDownMenu>
+                  </div>}/>
 
         <LeftNav ref="leftNav" docked={this.state.isDocked} onChange={this._onLeftNavChange} style={{"top":"100% - <AppBar.height>" }}>
             <MenuItem index={0} iconClassName="MenuItem-icon-home" iconStyle={{"marginRight":"0px", "top":"10px"}}>
