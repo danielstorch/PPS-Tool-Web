@@ -1,11 +1,14 @@
 'use strict';
 
-import Reflux from 'reflux';
+var Reflux = require("reflux");
 
-export default PPSToolActions = Reflux.createActions([
+var PPSToolActions = Reflux.createActions([
     // user actions
     'saveResultData',
     'deleteResultData',
     'deleteInputData',
-    'saveInputData'
+    'saveInputData',
+    'changeActivePeriod'
 ]);
+
+module.exports = PPSToolActions;

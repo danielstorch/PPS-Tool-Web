@@ -18,7 +18,7 @@ var AppBar = mui.AppBar
   , DropDownMenu = mui.DropDownMenu;
  
 export default class Navigation extends React.Component {
- 
+
   constructor() {
     super();
  
@@ -64,6 +64,10 @@ export default class Navigation extends React.Component {
     });
   }
 
+  _onDropDownPeriodChange() {
+
+  }
+
   render() {
     let menuItems = [
        { payload: '1', text: 'Never' },
@@ -82,7 +86,7 @@ export default class Navigation extends React.Component {
                 iconElementRight={
                   <div>
                     <a className="">current-page</a>
-                    <DropDownMenu menuItems={menuItems}> </DropDownMenu>
+                    <DropDownMenu menuItems={menuItems} onChange={this._onDropDownPeriodChange}> </DropDownMenu>
                   </div>}/>
 
         <LeftNav ref="leftNav" docked={this.state.isDocked} onChange={this._onLeftNavChange} style={{"top":"100% - <AppBar.height>" }}>
@@ -100,31 +104,34 @@ export default class Navigation extends React.Component {
             </MenuItem>
             <MenuItem index={4} className="Navigation-divider">
             </MenuItem>
-            <MenuItem index={5} iconClassName="MenuItem-icon-dispositionsplanung" iconStyle={{"marginRight":"0px", "top":"10px"}}>
-              <a className="Navigation-title">Dispositionsplanung</a>
+            <MenuItem index={5} iconClassName="MenuItem-icon-auftragsplanung" iconStyle={{"marginRight":"0px", "top":"10px"}}>
+              <a className="Navigation-title">Auftragsplanung</a>
             </MenuItem>
-            <MenuItem index={6} style={{"lineHeight":"30px" }}>
-              <a className="Navigation-sub-link" href="/dispositionsplanung/damen" onClick={Link.handleClick}>Damen</a>
-            </MenuItem>
-            <MenuItem index={7} style={{"lineHeight":"30px"}}>
-              <a className="Navigation-sub-link" href="/dispositionsplanung/herren" onClick={Link.handleClick}>Herren</a>
-            </MenuItem>
-            <MenuItem index={8} style={{"lineHeight":"30px"}}>
-              <a className="Navigation-sub-link" href="/dispositionsplanung/kinder" onClick={Link.handleClick}>Kinder</a>
-            </MenuItem>
-            <MenuItem index={9} iconClassName="MenuItem-icon-kaufteildisposition" iconStyle={{"marginRight":"0px", "top":"10px"}}>
+                <MenuItem index={6} style={{"lineHeight":"30px" }}>
+                  <a className="Navigation-sub-link" href="/auftragsplanung/gesamt" onClick={Link.handleClick}>Gesamt</a>
+                </MenuItem>
+                <MenuItem index={7} style={{"lineHeight":"30px" }}>
+                  <a className="Navigation-sub-link" href="/auftragsplanung/damen" onClick={Link.handleClick}>Damen</a>
+                </MenuItem>
+                <MenuItem index={8} style={{"lineHeight":"30px"}}>
+                  <a className="Navigation-sub-link" href="/auftragsplanung/herren" onClick={Link.handleClick}>Herren</a>
+                </MenuItem>
+                <MenuItem index={9} style={{"lineHeight":"30px"}}>
+                  <a className="Navigation-sub-link" href="/auftragsplanung/kinder" onClick={Link.handleClick}>Kinder</a>
+                </MenuItem>
+            <MenuItem index={10} iconClassName="MenuItem-icon-kaufteildisposition" iconStyle={{"marginRight":"0px", "top":"10px"}}>
               <a className="Navigation-link" href="/kaufteildisposition" onClick={Link.handleClick}>Kaufteildisposition</a>
             </MenuItem>
-            <MenuItem index={10} iconClassName="MenuItem-icon-kapazitaetsplanung" iconStyle={{"marginRight":"0px", "top":"10px"}}>
+            <MenuItem index={11} iconClassName="MenuItem-icon-kapazitaetsplanung" iconStyle={{"marginRight":"0px", "top":"10px"}}>
               <a className="Navigation-link" href="/kapazitaetsplanung" onClick={Link.handleClick}>Kapazitätsplanung</a>
             </MenuItem>
-            <MenuItem index={11} iconClassName="MenuItem-icon-upload" iconStyle={{"marginRight":"0px", "top":"10px"}}>
+            <MenuItem index={12} iconClassName="MenuItem-icon-upload" iconStyle={{"marginRight":"0px", "top":"10px"}}>
               <a className="Navigation-link" href="/upload" onClick={Link.handleClick}>Upload</a>
             </MenuItem>
-            <MenuItem index={12} iconClassName="MenuItem-icon-download" iconStyle={{"marginRight":"0px", "top":"10px"}}>
+            <MenuItem index={13} iconClassName="MenuItem-icon-download" iconStyle={{"marginRight":"0px", "top":"10px"}}>
               <a className="Navigation-link" href="/download" onClick={Link.handleClick}>Download</a>
             </MenuItem>
-            <MenuItem index={13} iconClassName="MenuItem-icon-settings" iconStyle={{"marginRight":"0px", "top":"10px"}}>
+            <MenuItem index={14} iconClassName="MenuItem-icon-settings" iconStyle={{"marginRight":"0px", "top":"10px"}}>
               <a className="Navigation-link" href="/settings" onClick={Link.handleClick}>Settings</a>
             </MenuItem>
         </LeftNav>

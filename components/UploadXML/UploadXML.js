@@ -4,7 +4,9 @@ import Dropzone from 'react-dropzone';
 import mui from 'material-ui';
 import xml2js from 'xml2js';
 
-var Dialog = mui.Dialog;
+var Dialog = mui.Dialog
+  , Snackbar = mui.Snackbar;
+
 var xt="",h3OK=1,xmlDoc;
 var uploadedJavaObject;
 var localStorageJavaObjectName;
@@ -20,7 +22,9 @@ export default class UploadXML extends React.Component {
       openDialogStandardActions: false,
       dialogTitle: "Dialog",
       dialogText: "DialogText",
-      xmlValid: false
+      xmlValid: false,
+      snackBarautoHideDuration: 3000,
+      snackBarmessage: 'Upload done!',
     };
 
   }
@@ -135,6 +139,9 @@ export default class UploadXML extends React.Component {
               console.dir(this.uploadedJavaObject);
 
               localStorage.setItem(this.localStorageJavaObjectName, JSON.stringify(this.uploadedJavaObject));
+
+              //show indication that upload is done
+              this.refs.snackbar.show();
             }else{
               this.setState({
                 openDialogStandardActions: true,
@@ -157,14 +164,16 @@ export default class UploadXML extends React.Component {
     console.log("User pressed submit, so we can delte the old and save the new Data");
     console.log('localStorageObjectName = ', this.localStorageJavaObjectName);
     console.dir(this.uploadedJavaObject);
+    this.setState({
+      openDialogStandardActions: false
+    });
 
     //Saving data after accepting to overrwrite it
     localStorage.removeItem(this.localStorageJavaObjectName);
     localStorage.setItem(this.localStorageJavaObjectName , JSON.stringify(this.uploadedJavaObject));
 
-    this.setState({
-      openDialogStandardActions: false
-    });
+    //show indication that upload is done
+    this.refs.snackbar.show();
   }
 
   _handleRequestClose(buttonClicked) {
@@ -195,6 +204,10 @@ export default class UploadXML extends React.Component {
             <Dropzone onDrop={this._handleDrop.bind(this)} multiple={false} className="file-dropzone">
               <span>Try dropping some files here, or click to select files to upload.</span>
             </Dropzone>
+            <Snackbar
+            ref="snackbar"
+            message={this.state.snackBarmessage}
+            autoHideDuration={this.state.snackBarautoHideDuration}/>
       </div>
     );
   }
