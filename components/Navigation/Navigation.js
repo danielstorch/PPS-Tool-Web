@@ -4,6 +4,7 @@ import React from 'react';
 import mui from 'material-ui';
 import './Navigation.scss';
 import Link from '../Link';
+
  
  // dont need this anymore in react 1.0
  // but now we need it to register clicks like for the left navigation
@@ -30,7 +31,7 @@ export default class Navigation extends React.Component {
                   , currentPage: "Home"
                  };
   }
- 
+
   _handleClick(e) {
     e.preventDefault();
  
@@ -65,7 +66,7 @@ export default class Navigation extends React.Component {
   }
 
   _onDropDownPeriodChange() {
-
+    
   }
 
   render() {
@@ -139,6 +140,10 @@ export default class Navigation extends React.Component {
     );
   }
  
+}
+
+Navigation.defaultProps = {
+  dispatch : function(){}  //noop
 }
  
 Navigation.childContextTypes = {

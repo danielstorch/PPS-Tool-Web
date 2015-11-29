@@ -56,10 +56,7 @@ const config = {
   },
   plugins: [
     new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': DEBUG ? '"development"' : '"production"',
-      '__DEV__': DEBUG,
-    }),
+    new webpack.DefinePlugin({__DEV__: JSON.stringify(JSON.parse(process.env.start_dev || 'false'))}),
   ],
   module: {
     loaders: [

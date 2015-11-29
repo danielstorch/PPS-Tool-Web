@@ -1,8 +1,10 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import './UploadXML.scss';
 import Dropzone from 'react-dropzone';
 import mui from 'material-ui';
 import xml2js from 'xml2js';
+import { saveUploadResultsXML, overrwriteUploadResultsXML } from '../Redux/Actions';
 
 var Dialog = mui.Dialog
   , Snackbar = mui.Snackbar;
@@ -12,7 +14,7 @@ var uploadedJavaObject;
 var localStorageJavaObjectName;
 
 
-export default class UploadXML extends React.Component {
+class UploadXML extends React.Component {
 
   constructor() {
     super();
@@ -140,6 +142,11 @@ export default class UploadXML extends React.Component {
 
               localStorage.setItem(this.localStorageJavaObjectName, JSON.stringify(this.uploadedJavaObject));
 
+
+              //SAVE DATA TO REDUX OBJECT
+              const { dispatch } = this.props
+              dispatch(saveUploadResultsXML(this.uploadedJavaObject));
+
               //show indication that upload is done
               this.refs.snackbar.show();
             }else{
@@ -171,6 +178,10 @@ export default class UploadXML extends React.Component {
     //Saving data after accepting to overrwrite it
     localStorage.removeItem(this.localStorageJavaObjectName);
     localStorage.setItem(this.localStorageJavaObjectName , JSON.stringify(this.uploadedJavaObject));
+
+    //OVERRWRITE DATA TO REDUX OBJECT
+    const { dispatch } = this.props
+    dispatch(overrwriteUploadResultsXML(this.uploadedJavaObject));
 
     //show indication that upload is done
     this.refs.snackbar.show();
@@ -205,10 +216,15 @@ export default class UploadXML extends React.Component {
               <span>Try dropping some files here, or click to select files to upload.</span>
             </Dropzone>
             <Snackbar
-            ref="snackbar"
-            message={this.state.snackBarmessage}
-            autoHideDuration={this.state.snackBarautoHideDuration}/>
+              ref="snackbar"
+              message={this.state.snackBarmessage}
+              autoHideDuration={this.state.snackBarautoHideDuration}
+              style={{"textAlign":"center"}}>
+            </Snackbar>
       </div>
     );
   }
 }
+
+// Wrap the component to inject dispatch and state into it
+export default connect(null)(UploadXML);
