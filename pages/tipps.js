@@ -9,17 +9,17 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { setCurrentPage, closeOpenNavLeft } from '../components/Redux/Actions';
 
-class Metriken extends Component {
+class Tipps extends Component {
 
-componentDidMount(){
-    	this.props.dispatch(setCurrentPage('Metriken'));
+	componentDidMount(){
+    	this.props.dispatch(setCurrentPage('Tipps'));
     	this.props.toggleLeftNav();
   	}
-  	
+
   render() {
     return (
       <div>
-        <h1>Metrics Page</h1>
+        <h1>Tips and Tricks Page</h1>
         <p>Coming soon.</p>
       </div>
     );
@@ -27,4 +27,4 @@ componentDidMount(){
 
 }
 
-export default connect(null, dispatch => ({ dispatch }))(Metriken) 
+export default connect(null, dispatch => ({ dispatch }))(Tipps) 

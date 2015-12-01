@@ -1,10 +1,11 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import './UploadXML.scss';
 import Dropzone from 'react-dropzone';
 import mui from 'material-ui';
 import xml2js from 'xml2js';
-import { saveUploadResultsXML, overrwriteUploadResultsXML } from '../Redux/Actions';
+
+import { connect } from 'react-redux';
+import { saveUploadResultsXML, overrwriteUploadResultsXML, setActiveUploadResultsXMLData } from '../Redux/Actions';
 
 var Dialog = mui.Dialog
   , Snackbar = mui.Snackbar;
@@ -140,12 +141,14 @@ class UploadXML extends React.Component {
               console.log('localStorageObjectName = ', this.localStorageJavaObjectName);
               console.dir(this.uploadedJavaObject);
 
-              localStorage.setItem(this.localStorageJavaObjectName, JSON.stringify(this.uploadedJavaObject));
-
+              if (window.localStorage) {
+                //Saving data after accepting to overrwrite it
+                localStorage.setItem(this.localStorageJavaObjectName, JSON.stringify(this.uploadedJavaObject));
+              }
 
               //SAVE DATA TO REDUX OBJECT
-              const { dispatch } = this.props
-              dispatch(saveUploadResultsXML(this.uploadedJavaObject));
+              this.props.dispatch(saveUploadResultsXML(this.uploadedJavaObject));
+              this.props.dispatch(setActiveUploadResultsXMLData(this.uploadedJavaObject));
 
               //show indication that upload is done
               this.refs.snackbar.show();
@@ -175,13 +178,15 @@ class UploadXML extends React.Component {
       openDialogStandardActions: false
     });
 
-    //Saving data after accepting to overrwrite it
-    localStorage.removeItem(this.localStorageJavaObjectName);
-    localStorage.setItem(this.localStorageJavaObjectName , JSON.stringify(this.uploadedJavaObject));
+    if (window.localStorage) {
+      //Saving data after accepting to overrwrite it
+      localStorage.removeItem(this.localStorageJavaObjectName);
+      localStorage.setItem(this.localStorageJavaObjectName , JSON.stringify(this.uploadedJavaObject));
+    }
 
     //OVERRWRITE DATA TO REDUX OBJECT
-    const { dispatch } = this.props
-    dispatch(overrwriteUploadResultsXML(this.uploadedJavaObject));
+    this.props.dispatch(overrwriteUploadResultsXML(this.uploadedJavaObject));
+    this.props.dispatch(setActiveUploadResultsXMLData(this.uploadedJavaObject));
 
     //show indication that upload is done
     this.refs.snackbar.show();
@@ -227,4 +232,4 @@ class UploadXML extends React.Component {
 }
 
 // Wrap the component to inject dispatch and state into it
-export default connect(null)(UploadXML);
+export default connect(null, dispatch => ({ dispatch }))(UploadXML) 
