@@ -11,9 +11,8 @@ export default class extends Component {
   render() {
     return (
       <div>
-        <h1>GESAMT BERECHNUNG Page</h1>
-        <p>Coming soon.</p>
-      </div>
+        <h1>Dispositionsplanung Gesamt Page</h1>
+        <p>Coming soon.</p>      </div>
     );
   }
 

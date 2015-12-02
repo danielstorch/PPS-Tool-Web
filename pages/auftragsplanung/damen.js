@@ -6,13 +6,14 @@
 
 import React, { Component } from 'react';
 
+import Damen from '../../components/Damen'
+
 export default class extends Component {
 
   render() {
     return (
       <div>
-        <h1>Dispositionsplanung Damen Page</h1>
-        <p>Coming soon.</p>
+        <Damen/>
       </div>
     );
   }
