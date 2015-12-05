@@ -1,6 +1,6 @@
 import { SAVE_UPLOAD_RESULTS_XML, OVERRWRITE_UPLOAD_RESULTS_XML, REMOVE_UPLOAD_RESULTS_XML, SET_ACTIVE_UPLOAD_RESULTS_XML, GET_ACTIVE_UPLOAD_RESULTS_XML } from '../Actions';
 
-export default function upload(state = [], action) {
+export default function UploadXMLReducer(state = [], action) {
   switch (action.type) {
     case SAVE_UPLOAD_RESULTS_XML:
       return [

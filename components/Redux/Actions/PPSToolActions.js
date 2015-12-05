@@ -1,6 +1,36 @@
 
 
 /*
+ * InputXMLReducer action creators and types
+ */
+export const SET_AUFTRAGSPLANUNG_INPUT_XML = 'SET_AUFTRAGSPLANUNG_INPUT_XML'
+export const SET_KAPAZITAETSPLANUNG_INPUT_XML = 'SET_KAPAZITAETSPLANUNG_INPUT_XML'
+export const SET_KAUFTEILDISPOSITION_INPUT_XML = 'SET_KAUFTEILDISPOSITION_INPUT_XML'
+export const INIT_INPUT_XML = 'INIT_INPUT_XML'
+export const SET_INPUT_XML = 'SET_INPUT_XML'
+
+export function setInitInputXML(inputId) {
+  return { type: INIT_INPUT_XML, inputId}
+}
+
+export function setInputXML(inputXML){
+	return { type: SET_INPUT_XML, inputXML}
+}
+
+export function setAuftragsplanungInputXML(auftragsInputXML) {
+  return { type: SET_AUFTRAGSPLANUNG_INPUT_XML, auftragsInputXML}
+}
+
+export function setKapazitaetsplanungInputXML(kapazitaetsplanungInputXML) {
+  return { type: SET_KAPAZITAETSPLANUNG_INPUT_XML, kapazitaetsplanungInputXML}
+}
+
+export function setKaufteildispositionInputXML(kaufteildispositionInputXML) {
+  return { type: SET_KAUFTEILDISPOSITION_INPUT_XML, kaufteildispositionInputXML}
+}
+
+
+/*
  * ActiveUploadXMLReducer action creators and types
  */
 export const SET_ACTIVE_UPLOAD_RESULTS_XML_DATA = 'SET_ACTIVE_UPLOAD_RESULTS_XML_DATA'

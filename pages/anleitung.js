@@ -9,11 +9,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { setCurrentPage, closeOpenNavLeft } from '../components/Redux/Actions';
 
-class Anleitung extends Component {
+class AnleitungPage extends Component {
 
 componentDidMount(){
     	this.props.dispatch(setCurrentPage('Anleitung'));
-    	this.props.toggleLeftNav();
+    	
   	}
   	
   render() {
@@ -27,4 +27,4 @@ componentDidMount(){
 
 }
 
-export default connect(null, dispatch => ({ dispatch }))(Anleitung) 
+export default connect(null, dispatch => ({ dispatch }))(AnleitungPage) 

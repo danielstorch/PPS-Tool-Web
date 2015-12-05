@@ -9,7 +9,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { setCurrentPage, closeOpenNavLeft } from '../components/Redux/Actions';
 
-class Home extends Component {
+class HomePage extends Component {
 	componentDidMount(){
     	this.props.dispatch(setCurrentPage('Home'));
   	}
@@ -26,4 +26,4 @@ class Home extends Component {
 }
 
 // Wrap the component to inject dispatch and state into it
-export default connect(null, dispatch => ({ dispatch }))(Home) 
+export default connect(null, dispatch => ({ dispatch }))(HomePage) 

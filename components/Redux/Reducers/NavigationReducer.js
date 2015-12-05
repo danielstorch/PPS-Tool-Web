@@ -7,7 +7,7 @@ const initialState = {
 
   
 
-export default function upload(state = initialState, action) {
+export default function NavigationReducer(state = initialState, action) {
   switch (action.type) {
     case CLOSE_OPEN_NAV_LEFT:
       return Object.assign({}, state, {

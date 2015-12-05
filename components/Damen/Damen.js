@@ -1,8 +1,9 @@
 import React from 'react';
 import './Damen.scss';
-import Dropzone from 'react-dropzone';
 import mui from 'material-ui';
-import xml2js from 'xml2js';
+import _ from 'lodash'
+import { connect } from 'react-redux';
+import { setAuftragsplanungInputXML } from '../Redux/Actions';
 
 const Table = require('material-ui/lib/table/table');
 const TableBody = require('material-ui/lib/table/table-body');
@@ -22,8 +23,8 @@ var Dialog = mui.Dialog
 
 
 
-export default class UploadXML extends React.Component {
-
+class Damen extends React.Component {
+  //this._handleClick = this._handleClick.bind(this);
   constructor() {
     super();
 
@@ -48,9 +49,66 @@ export default class UploadXML extends React.Component {
 
   }
 
+  getWarteschlangeAmountINPUT(id, isResult, inputXML){
+    var amount = 0;
+    var xmlData;
+    if(isResult){
+
+      var results = this.props.ActiveUploadXML.activeUploadXMLData.uploadedResultsDataObject.results;
+
+      for(let workplace of results.waitinglistworkstations[0].workplace) {
+        if(workplace.hasOwnProperty('waitinglist')){
+          for(let waitinglist of workplace.waitinglist){
+            if(waitinglist.$.item === id){
+              amount += parseInt(waitinglist.$.amount);
+              console.log(amount)
+            }
+          }
+        }
+      }
+    }else{
+      //amount = inputXML.inputDataObject.auftragsplanungInputXMLData.Damen....
+    }
+
+    
+    return amount;
+  }
 
   render() {
+var activeInputXML;
 
+    //Namen:
+    //GL = Geplanter Lagerbestand  Kommt aus Gesamt
+    //AL = aktuelle Lagerbestand
+    //WS = Warteschlange
+    //BA = Bearbeitung
+
+    //Hier am besten die variablen leer anlegen
+    var P1_GL;
+    var P1_AL;
+    var P1_WS;
+    var P1_BA;
+
+    for(let inputXML of this.props.InputXMLs) {
+      //.slice(-1) weil ich nur die periode checken will. input_P6..slice(-1) = 6  und result_P6.slice(-1) = 6
+      if(inputXML.id.slice(-1) === this.props.ActiveUploadXML.activeUploadXMLData.id.slice(-1) && inputXML.id.slice(-2) != '-1'){
+        if(_.isEmpty(inputXML.inputDataObject.auftragsplanungInputXMLData.Damen)){
+
+            //Hier angekommen bedeutet dass das Input leer ist im Globalen staten und wir es befüllen müssen von dem ResultXML
+            //Wir müssen auch danach es mit einem dispatch speichern
+            //
+            //this.props.ActiveUploadXML.activeUploadXMLData
+            
+            // P1_AL = results.warehousestock[0].article[0].$.amount;
+            P1_WS = this.getWarteschlangeAmountINPUT("54", true, inputXML);
+        }else{
+            P1_WS = this.getWarteschlangeAmountINPUT("54", false, inputXML);
+          // wenn es nicht leer ist, dann von dem bestehenden die variablen textID1 befüllen
+          // textID1 = inputXML.auftragsplanungInputXMLData.Damen......
+        }
+      }
+    }
+    
     return (
       <div>
         <h1>Auftragsplanung Damen-Fahrrad</h1>
@@ -106,7 +164,7 @@ export default class UploadXML extends React.Component {
               <TableRowColumn><b><font color="red">E26</font></b></TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Vertriebswunsch" />
+                  hintText="Vertriebswunsch"/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
@@ -452,3 +510,13 @@ export default class UploadXML extends React.Component {
     );
   }
 }
+
+
+function mapStateToProps(state) {
+  return {
+    ActiveUploadXML: state.ActiveUploadXMLReducer,
+    InputXMLs: state.InputXMLReducer
+  }
+}
+
+export default connect(mapStateToProps, dispatch => ({ dispatch }))(Damen)

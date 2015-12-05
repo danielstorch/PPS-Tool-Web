@@ -5,7 +5,7 @@ import mui from 'material-ui';
 import './Navigation.scss';
 import Link from '../Link';
 import { connect } from 'react-redux';
-import { saveUploadResultsXML, setActiveUploadResultsXMLData } from '../Redux/Actions';
+import { saveUploadResultsXML, setActiveUploadResultsXMLData, setInputXML } from '../Redux/Actions';
 
  
  // dont need this anymore in react 1.0
@@ -46,7 +46,8 @@ class Navigation extends React.Component {
         }
 
         if(key.charAt(0) === 'i'){
-
+            var localData = JSON.parse(localStorage.getItem( localStorage.key( i ) ));
+            this.props.dispatch(setInputXML({inputId: key, Data: localData}));
         }
       }
       
@@ -84,11 +85,16 @@ class Navigation extends React.Component {
   }
 
   _onDropDownPeriodChange(e) {
+
     for(let uploadResults of this.props.UploadXMLReducer) {
       if(uploadResults.id === e.target.value){
-         this.props.dispatch(setActiveUploadResultsXMLData(uploadResults));
+        this.props.dispatch(setActiveUploadResultsXMLData(uploadResults));
+        break;
+      }else if(e.target.value === 'result_P-1'){
+        this.props.dispatch(setActiveUploadResultsXMLData({id:"result_P-1"}));
       }
     }
+
   }
 
   getStyles() {
@@ -148,7 +154,7 @@ class Navigation extends React.Component {
                   iconStyleRight={{"marginTop": "0"}}
                   iconElementRight={
                     <div>
-                      <DropDownMenu menuItems={menuItems} onChange={this._onDropDownPeriodChange.bind(this)} style={{"display": "inline-block"}} labelStyle={{"color": "#ffffff"}}> </DropDownMenu>
+                      <DropDownMenu menuItems={menuItems} onChange={this._onDropDownPeriodChange.bind(this)} style={{"display": "inline-block", "marginRight": "1000"}} labelStyle={{"color": "#ffffff"}}> </DropDownMenu>
                     </div>}/>
 
           <LeftNav ref="leftNav" docked={this.state.isDocked} style={{"top":"100% - <AppBar.height>" }}>

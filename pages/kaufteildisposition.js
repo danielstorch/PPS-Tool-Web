@@ -9,11 +9,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { setCurrentPage, closeOpenNavLeft } from '../components/Redux/Actions';
 
-class Kaufteildisposition extends Component {
+class KaufteildispositionPage extends Component {
 
 componentDidMount(){
     	this.props.dispatch(setCurrentPage('Kaufteildisposition'));
-    	this.props.toggleLeftNav();
   	}
   	
   render() {
@@ -27,4 +26,4 @@ componentDidMount(){
 
 }
 
-export default connect(null, dispatch => ({ dispatch }))(Kaufteildisposition) 
+export default connect(null, dispatch => ({ dispatch }))(KaufteildispositionPage) 

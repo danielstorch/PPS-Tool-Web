@@ -14,7 +14,7 @@ function Layout({ children }) {
 	      <Navigation />
 	      <div style={{"marginLeft": "60", "marginRight":"60"}}>
             {children}
-          </div>
+        </div>
 	      <DevTools />
 	    </div>
     </Provider>

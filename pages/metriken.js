@@ -9,11 +9,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { setCurrentPage, closeOpenNavLeft } from '../components/Redux/Actions';
 
-class Metriken extends Component {
+class MetrikenPage extends Component {
 
 componentDidMount(){
     	this.props.dispatch(setCurrentPage('Metriken'));
-    	this.props.toggleLeftNav();
   	}
   	
   render() {
@@ -27,4 +26,4 @@ componentDidMount(){
 
 }
 
-export default connect(null, dispatch => ({ dispatch }))(Metriken) 
+export default connect(null, dispatch => ({ dispatch }))(MetrikenPage) 

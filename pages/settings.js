@@ -9,11 +9,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { setCurrentPage, closeOpenNavLeft } from '../components/Redux/Actions';
 
-class Settings extends Component {
+class SettingsPage extends Component {
 
 componentDidMount(){
     	this.props.dispatch(setCurrentPage('Settings'));
-    	this.props.toggleLeftNav();
   	}
   	
   render() {
@@ -27,4 +26,4 @@ componentDidMount(){
 
 }
 
-export default connect(null, dispatch => ({ dispatch }))(Settings) 
+export default connect(null, dispatch => ({ dispatch }))(SettingsPage) 

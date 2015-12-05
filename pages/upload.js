@@ -10,11 +10,10 @@ import UploadXML from '../components/UploadXML'
 import { connect } from 'react-redux';
 import { setCurrentPage, closeOpenNavLeft } from '../components/Redux/Actions';
 
-class Upload extends Component {
+class UploadPage extends Component {
 
 	componentDidMount(){
     	this.props.dispatch(setCurrentPage('Upload'));
-    	this.props.toggleLeftNav();
   	}
   	
   render() {
@@ -28,4 +27,4 @@ class Upload extends Component {
 }
 
 // Wrap the component to inject dispatch and state into it
-export default connect(null, dispatch => ({ dispatch }))(Upload) 
+export default connect(null, dispatch => ({ dispatch }))(UploadPage) 

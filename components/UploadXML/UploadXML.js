@@ -5,14 +5,15 @@ import mui from 'material-ui';
 import xml2js from 'xml2js';
 
 import { connect } from 'react-redux';
-import { saveUploadResultsXML, overrwriteUploadResultsXML, setActiveUploadResultsXMLData } from '../Redux/Actions';
+import { saveUploadResultsXML, overrwriteUploadResultsXML, setActiveUploadResultsXMLData, setInitInputXML } from '../Redux/Actions';
 
 var Dialog = mui.Dialog
   , Snackbar = mui.Snackbar;
 
 var xt="",h3OK=1,xmlDoc;
 var uploadedJavaObject;
-var localStorageJavaObjectName;
+var localStorageJavaResultObjectName;
+var localStorageJavaInputObjectName;
 
 
 class UploadXML extends React.Component {
@@ -134,21 +135,36 @@ class UploadXML extends React.Component {
             //so i can accsess the result in _onDialogSubmit()
             this.uploadedJavaObject = result;
 
-            this.localStorageJavaObjectName = "result_P" + this.uploadedJavaObject.results.$.period;
+            this.localStorageJavaResultObjectName = "result_P" + this.uploadedJavaObject.results.$.period;
+            this.localStorageJavaInputObjectName = "input_P" + this.uploadedJavaObject.results.$.period;
 
-            if (localStorage.getItem(this.localStorageJavaObjectName) === null) {
+
+            if (localStorage.getItem(this.localStorageJavaResultObjectName) === null) {
               console.log("Nothing found in the LocalStorage, so we can save the Uploaded Data");
-              console.log('localStorageObjectName = ', this.localStorageJavaObjectName);
+              console.log('localStorageObjectName = ', this.localStorageJavaResultObjectName);
               console.dir(this.uploadedJavaObject);
 
               if (window.localStorage) {
                 //Saving data after accepting to overrwrite it
-                localStorage.setItem(this.localStorageJavaObjectName, JSON.stringify(this.uploadedJavaObject));
+                localStorage.setItem(this.localStorageJavaResultObjectName, JSON.stringify(this.uploadedJavaObject));
+                localStorage.setItem(this.localStorageJavaInputObjectName, JSON.stringify({ 
+                                                                                inputDataObject: {
+                                                                                    auftragsplanungInputXMLData : {
+                                                                                      Damen: {},
+                                                                                      Herren: {},
+                                                                                      Kinder: {}
+                                                                                    },
+                                                                                    kapazitaetsplanungInputXMLData: {},
+                                                                                    kaufteildispositionInputXMLData: {}
+                                                                                  }
+                                                                              })
+                                                                            );
               }
+                
 
               //SAVE DATA TO REDUX OBJECT
               this.props.dispatch(saveUploadResultsXML(this.uploadedJavaObject));
-              this.props.dispatch(setActiveUploadResultsXMLData(this.uploadedJavaObject));
+              this.props.dispatch(setInitInputXML(this.localStorageJavaInputObjectName));
 
               //show indication that upload is done
               this.refs.snackbar.show();
@@ -172,7 +188,7 @@ class UploadXML extends React.Component {
 
   _onDialogSubmit() {
     console.log("User pressed submit, so we can delte the old and save the new Data");
-    console.log('localStorageObjectName = ', this.localStorageJavaObjectName);
+    console.log('localStorageObjectName = ', this.localStorageJavaResultObjectName);
     console.dir(this.uploadedJavaObject);
     this.setState({
       openDialogStandardActions: false
@@ -180,8 +196,8 @@ class UploadXML extends React.Component {
 
     if (window.localStorage) {
       //Saving data after accepting to overrwrite it
-      localStorage.removeItem(this.localStorageJavaObjectName);
-      localStorage.setItem(this.localStorageJavaObjectName , JSON.stringify(this.uploadedJavaObject));
+      localStorage.removeItem(this.localStorageJavaResultObjectName);
+      localStorage.setItem(this.localStorageJavaResultObjectName , JSON.stringify(this.uploadedJavaObject));
     }
 
     //OVERRWRITE DATA TO REDUX OBJECT
