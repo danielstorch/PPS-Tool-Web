@@ -47,7 +47,7 @@ class Navigation extends React.Component {
 
         if(key.charAt(0) === 'i'){
             var localData = JSON.parse(localStorage.getItem( localStorage.key( i ) ));
-            this.props.dispatch(setInputXML({inputId: key, Data: localData}));
+            this.props.dispatch(setInputXML(key, localData));
         }
       }
       

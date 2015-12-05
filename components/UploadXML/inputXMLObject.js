@@ -1,0 +1,6 @@
+
+
+getInputObject() {
+
+console.log(dsadas)
+}

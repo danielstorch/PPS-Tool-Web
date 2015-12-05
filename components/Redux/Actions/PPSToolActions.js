@@ -1,24 +1,40 @@
 
-
 /*
+ *
  * InputXMLReducer action creators and types
  */
-export const SET_AUFTRAGSPLANUNG_INPUT_XML = 'SET_AUFTRAGSPLANUNG_INPUT_XML'
+export const SET_AUFTRAGSPLANUNG_DAMEN_INPUT_XML = 'SET_AUFTRAGSPLANUNG_DAMEN_INPUT_XML'
+export const SET_AUFTRAGSPLANUNG_KINDER_INPUT_XML = 'SET_AUFTRAGSPLANUNG_KINDER_INPUT_XML'
+export const SET_AUFTRAGSPLANUNG_HERREN_INPUT_XML = 'SET_AUFTRAGSPLANUNG_HERREN_INPUT_XML'
 export const SET_KAPAZITAETSPLANUNG_INPUT_XML = 'SET_KAPAZITAETSPLANUNG_INPUT_XML'
 export const SET_KAUFTEILDISPOSITION_INPUT_XML = 'SET_KAUFTEILDISPOSITION_INPUT_XML'
 export const INIT_INPUT_XML = 'INIT_INPUT_XML'
 export const SET_INPUT_XML = 'SET_INPUT_XML'
+export const SAVE_INPUT_XML = 'SAVE_INPUT_XML'
+
 
 export function setInitInputXML(inputId) {
   return { type: INIT_INPUT_XML, inputId}
 }
 
-export function setInputXML(inputXML){
-	return { type: SET_INPUT_XML, inputXML}
+export function saveInputXML(inputXML) {
+  return { type: SAVE_INPUT_XML, inputXML}
 }
 
-export function setAuftragsplanungInputXML(auftragsInputXML) {
-  return { type: SET_AUFTRAGSPLANUNG_INPUT_XML, auftragsInputXML}
+export function setInputXML(id, inputXMLData){
+	return { type: SET_INPUT_XML, id, inputXMLData}
+}
+
+export function setAuftragsplanungHerrenInputXML(auftragsHerrenInputXML, id) {
+  return { type: SET_AUFTRAGSPLANUNG_HERREN_INPUT_XML, auftragsHerrenInputXML, id}
+}
+
+export function setAuftragsplanungDamenInputXML(auftragsDamenInputXML, id) {
+  return { type: SET_AUFTRAGSPLANUNG_DAMEN_INPUT_XML, auftragsDamenInputXML, id}
+}
+
+export function setAuftragsplanungKinderInputXML(auftragsKinderInputXML, id) {
+  return { type: SET_AUFTRAGSPLANUNG_KINDER_INPUT_XML, auftragsKinderInputXML, id}
 }
 
 export function setKapazitaetsplanungInputXML(kapazitaetsplanungInputXML) {

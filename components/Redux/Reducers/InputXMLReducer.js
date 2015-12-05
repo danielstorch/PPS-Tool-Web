@@ -1,4 +1,4 @@
-import {SET_AUFTRAGSPLANUNG_INPUT_XML, SET_KAPAZITAETSPLANUNG_INPUT_XML, SET_KAUFTEILDISPOSITION_INPUT_XML, INIT_INPUT_XML , SET_INPUT_XML} from '../Actions';
+import {SET_AUFTRAGSPLANUNG_DAMEN_INPUT_XML, SET_AUFTRAGSPLANUNG_HERREN_INPUT_XML, SET_AUFTRAGSPLANUNG_KINDER_INPUT_XML, SET_KAPAZITAETSPLANUNG_INPUT_XML, SET_KAUFTEILDISPOSITION_INPUT_XML, INIT_INPUT_XML , SET_INPUT_XML} from '../Actions';
 
 
 const initialState = [{ 
@@ -12,8 +12,7 @@ const initialState = [{
         kapazitaetsplanungInputXMLData: {},
         kaufteildispositionInputXMLData: {}
       }
-    }
-  ]
+    }]
 
 export default function InputXMLReducer(state = initialState, action) {
   switch (action.type) {
@@ -37,16 +36,18 @@ export default function InputXMLReducer(state = initialState, action) {
       return [
         ...state,
         {
-          id: action.inputXML.inputId,
-          inputDataObject: action.inputXML.Data
+          id: action.id,
+          inputDataObject: action.inputXMLData
         }
       ]
-    case SET_AUFTRAGSPLANUNG_INPUT_XML:
-
-
-      return Object.assign({}, state, {
-          auftragsplanungInputXMLData : action.auftragsplanungInputXML
-        });
+    case SET_AUFTRAGSPLANUNG_DAMEN_INPUT_XML:
+        return state.map(inputXML =>
+          inputXML.id === action.id ?
+            Object.assign({}, inputXML.inputDataObject.auftragsplanungInputXMLData, { Damen: action.auftragsDamenInputXML }) :
+            inputXML
+        )
+    case SET_AUFTRAGSPLANUNG_HERREN_INPUT_XML:
+    case SET_AUFTRAGSPLANUNG_KINDER_INPUT_XML:
     case SET_KAPAZITAETSPLANUNG_INPUT_XML:
     return Object.assign({}, state, {
         kapazitaetsplanungInputXMLData : action.kapazitaetsplanungInputXML

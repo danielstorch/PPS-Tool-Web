@@ -113,6 +113,156 @@ class UploadXML extends React.Component {
     }
   }
 
+  _getInputXMLData(resultXMLDataObject){
+    
+    var inputXMLObject ={
+                          id : 'result_P-1',
+                          inputDataObject: {
+                            auftragsplanungInputXMLData : {
+                              Herren: {
+                                aktuellerLagerbestand: {
+                                  P1:0,
+                                  E26:0,
+                                  E51:0,
+                                  E16:0,
+                                  E17:0,
+                                  E50:0,
+                                  E4:0,
+                                  E10:0,
+                                  E49:0,
+                                  E7:0,
+                                  E13:0,
+                                  E18:0
+                                },
+                                Warteschlange: {
+                                  P1:0,
+                                  E26:0,
+                                  E51:0,
+                                  E16:0,
+                                  E17:0,
+                                  E50:0,
+                                  E4:0,
+                                  E10:0,
+                                  E49:0,
+                                  E7:0,
+                                  E13:0,
+                                  E18:0
+
+                                },
+                                Bearbeitung: {
+                                  P1:0,
+                                  E26:0,
+                                  E51:0,
+                                  E16:0,
+                                  E17:0,
+                                  E50:0,
+                                  E4:0,
+                                  E10:0,
+                                  E49:0,
+                                  E7:0,
+                                  E13:0,
+                                  E18:0
+                                }
+                              },
+                              Damen: {
+                                aktuellerLagerbestand: {
+                                  P2:0,
+                                  E26:0,
+                                  E56:0,
+                                  E16:0,
+                                  E17:0,
+                                  E55:0,
+                                  E5:0,
+                                  E11:0,
+                                  E54:0,
+                                  E8:0,
+                                  E14:0,
+                                  E19:0
+                                },
+                                Warteschlange: {
+                                  P2:0,
+                                  E26:0,
+                                  E56:0,
+                                  E16:0,
+                                  E17:0,
+                                  E55:0,
+                                  E5:0,
+                                  E11:0,
+                                  E54:0,
+                                  E8:0,
+                                  E14:0,
+                                  E19:0
+                                },
+                                Bearbeitung: {
+                                  P2:0,
+                                  E26:0,
+                                  E56:0,
+                                  E16:0,
+                                  E17:0,
+                                  E55:0,
+                                  E5:0,
+                                  E11:0,
+                                  E54:0,
+                                  E8:0,
+                                  E14:0,
+                                  E19:0
+                                }
+                              },
+                              Kinder: {
+                                aktuellerLagerbestand: {
+                                  P3:0,
+                                  E26:0,
+                                  E31:0,
+                                  E16:0,
+                                  E17:0,
+                                  E30:0,
+                                  E6:0,
+                                  E12:0,
+                                  E29:0,
+                                  E9:0,
+                                  E15:0,
+                                  E20:0
+                                },
+                                Warteschlange: {
+                                  P3:0,
+                                  E26:0,
+                                  E31:0,
+                                  E16:0,
+                                  E17:0,
+                                  E30:0,
+                                  E6:0,
+                                  E12:0,
+                                  E29:0,
+                                  E9:0,
+                                  E15:0,
+                                  E20:0
+                                },
+                                Bearbeitung: {
+                                  P3:0,
+                                  E26:0,
+                                  E31:0,
+                                  E16:0,
+                                  E17:0,
+                                  E30:0,
+                                  E6:0,
+                                  E12:0,
+                                  E29:0,
+                                  E9:0,
+                                  E15:0,
+                                  E20:0
+                                }
+                              }
+                            },
+                            kapazitaetsplanungInputXMLData: {},
+                            kaufteildispositionInputXMLData: {}
+                            }
+                        }
+
+
+   inputXMLObject.inputDataObject.auftragsplanungInputXMLData.Herren.P1 = resultXMLDataObject.warehousestock[0].article[0].$.amount
+
+  }
+
   _handleDrop(files) {
     if (files.length !== 1) {
       throw new Error("Please upload a single file");
@@ -138,33 +288,24 @@ class UploadXML extends React.Component {
             this.localStorageJavaResultObjectName = "result_P" + this.uploadedJavaObject.results.$.period;
             this.localStorageJavaInputObjectName = "input_P" + this.uploadedJavaObject.results.$.period;
 
+           
 
             if (localStorage.getItem(this.localStorageJavaResultObjectName) === null) {
               console.log("Nothing found in the LocalStorage, so we can save the Uploaded Data");
               console.log('localStorageObjectName = ', this.localStorageJavaResultObjectName);
               console.dir(this.uploadedJavaObject);
 
+              
+
               if (window.localStorage) {
                 //Saving data after accepting to overrwrite it
                 localStorage.setItem(this.localStorageJavaResultObjectName, JSON.stringify(this.uploadedJavaObject));
-                localStorage.setItem(this.localStorageJavaInputObjectName, JSON.stringify({ 
-                                                                                inputDataObject: {
-                                                                                    auftragsplanungInputXMLData : {
-                                                                                      Damen: {},
-                                                                                      Herren: {},
-                                                                                      Kinder: {}
-                                                                                    },
-                                                                                    kapazitaetsplanungInputXMLData: {},
-                                                                                    kaufteildispositionInputXMLData: {}
-                                                                                  }
-                                                                              })
-                                                                            );
+                localStorage.setItem(this.localStorageJavaInputObjectName, JSON.stringify(this.uploadedJavaObject));
               }
                 
 
               //SAVE DATA TO REDUX OBJECT
               this.props.dispatch(saveUploadResultsXML(this.uploadedJavaObject));
-              this.props.dispatch(setInitInputXML(this.localStorageJavaInputObjectName));
 
               //show indication that upload is done
               this.refs.snackbar.show();
