@@ -33,6 +33,7 @@ class Damen extends React.Component {
       openDialogStandardActions: false,
       dialogTitle: "Dialog",
       dialogText: "DialogText",
+      displayRowCheckbox: false,
       xmlValid: false,
       snackBarautoHideDuration: 3000,
       snackBarmessage: 'Upload done!',
@@ -81,26 +82,21 @@ class Damen extends React.Component {
           fixedHeader={this.state.fixedHeader}
           selectable={this.state.selectable}
           >
-          <TableHeader>
+          <TableBody>
+          <TableHeader >
             <TableRow selectable={this.state.selectable}>
               <TableHeaderColumn colSpan="7" tooltip='Damen Fahrrad' style={{textAlign: 'center'}}>
                 Damen Fahrrad
               </TableHeaderColumn>
             </TableRow>
-            <TableRow selectable={this.state.selectable}>
-              <TableHeaderColumn tooltip='Artikel'>Artikel</TableHeaderColumn>
-              <TableHeaderColumn tooltip='The Name'>Vertriebswunsch<br> + Rückstande </br> </TableHeaderColumn>
-              <TableHeaderColumn tooltip='The Status'>Bedarf für WS</TableHeaderColumn>
-              <TableHeaderColumn tooltip='The Status'>Geplanter <br> Lagerbestand </br> </TableHeaderColumn>
-              <TableHeaderColumn tooltip='The Status'>Aktueller <br> Lagerbestand </br> </TableHeaderColumn>
-              <TableHeaderColumn tooltip='The Status'>Warteschlange</TableHeaderColumn>
-              <TableHeaderColumn tooltip='The Status'>Bearbeitung</TableHeaderColumn>
-              <TableHeaderColumn tooltip='The Status'>Aufträge</TableHeaderColumn>
-            </TableRow>
           </TableHeader>
-          <TableBody>
-            <TableRow>
-              <TableRowColumn>P2</TableRowColumn>
+          </TableBody>
+
+          <TableBody displayRowCheckbox={this.state.displayRowCheckbox}>
+          <TableRow>
+              <TableRowColumn>
+                Artikel
+              </TableRowColumn>
               <TableRowColumn>
                 Vertriebswunsch
               </TableRowColumn>
@@ -121,6 +117,37 @@ class Damen extends React.Component {
               </TableRowColumn>
               <TableRowColumn>
                 Aufträge
+              </TableRowColumn>
+            </TableRow>
+            <TableRow>
+              <TableRowColumn>P2</TableRowColumn>
+              <TableRowColumn>
+                <TextField
+                  hintText="Vertriebswunsch"/>
+              </TableRowColumn>
+              <TableRowColumn>
+                <TextField
+                  hintText="Bedarf für WS" />
+              </TableRowColumn>
+              <TableRowColumn>
+                <TextField
+                  hintText="Geplanter Lagerbestand" />
+              </TableRowColumn>
+              <TableRowColumn>
+              <TextField
+                  hintText="Aktueller Lagerbestand" />
+            </TableRowColumn>
+              <TableRowColumn>
+              <TextField
+                  hintText="Warteschlange" />
+            </TableRowColumn>
+              <TableRowColumn>
+                <TextField
+                  hintText="Bearbeitung" />
+              </TableRowColumn>
+              <TableRowColumn>
+                <TextField
+                  hintText="Aufträge" />
               </TableRowColumn>
             </TableRow>
             <TableRow>
@@ -155,7 +182,7 @@ class Damen extends React.Component {
               </TableRowColumn>
             </TableRow>
             <TableRow>
-              <TableRowColumn>E56</TableRowColumn>
+              <TableRowColumn displayBorder = {true}>E56</TableRowColumn>
               <TableRowColumn>
                 <TextField
                   hintText="Vertriebswunsch" />
