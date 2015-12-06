@@ -1,51 +1,22 @@
-import {SET_AUFTRAGSPLANUNG_DAMEN_INPUT_XML, SET_AUFTRAGSPLANUNG_HERREN_INPUT_XML, SET_AUFTRAGSPLANUNG_KINDER_INPUT_XML, SET_KAPAZITAETSPLANUNG_INPUT_XML, SET_KAUFTEILDISPOSITION_INPUT_XML, INIT_INPUT_XML , SET_INPUT_XML} from '../Actions';
+import {SAVE_INPUT_XML,SET_AUFTRAGSPLANUNG_DAMEN_INPUT_XML, SET_AUFTRAGSPLANUNG_HERREN_INPUT_XML, SET_AUFTRAGSPLANUNG_KINDER_INPUT_XML, SET_KAPAZITAETSPLANUNG_INPUT_XML, SET_KAUFTEILDISPOSITION_INPUT_XML, INIT_INPUT_XML , SET_INPUT_XML} from '../Actions';
 
-
-const initialState = [{ 
-      id : 'result_P-1',
-      inputDataObject: {
-        auftragsplanungInputXMLData : {
-          Damen: {},
-          Herren: {},
-          Kinder: {}
-        },
-        kapazitaetsplanungInputXMLData: {},
-        kaufteildispositionInputXMLData: {}
-      }
-    }]
-
-export default function InputXMLReducer(state = initialState, action) {
+export default function InputXMLReducer(state = [], action) {
   switch (action.type) {
-    case INIT_INPUT_XML:
-      return [
-        ...state,
-        { 
-          id: action.inputId,
-          inputDataObject: {
-            auftragsplanungInputXMLData : {
-              Damen: {},
-              Herren: {},
-              Kinder: {}
-            },
-            kapazitaetsplanungInputXMLData: {},
-            kaufteildispositionInputXMLData: {}
+    case SAVE_INPUT_XML:
+        return [
+          ...state,
+          {
+            id: "input_P" + action.inputXML.results.$.period,
+            inputDataObject: action.inputXML
           }
-        }
-      ]
-    case SET_INPUT_XML:
-      return [
-        ...state,
-        {
-          id: action.id,
-          inputDataObject: action.inputXMLData
-        }
-      ]
+        ]
     case SET_AUFTRAGSPLANUNG_DAMEN_INPUT_XML:
         return state.map(inputXML =>
           inputXML.id === action.id ?
             Object.assign({}, inputXML.inputDataObject.auftragsplanungInputXMLData, { Damen: action.auftragsDamenInputXML }) :
             inputXML
         )
+
     case SET_AUFTRAGSPLANUNG_HERREN_INPUT_XML:
     case SET_AUFTRAGSPLANUNG_KINDER_INPUT_XML:
     case SET_KAPAZITAETSPLANUNG_INPUT_XML:

@@ -1,4 +1,15 @@
 
+
+/*
+ *
+ * language action creators and types
+ */
+export const SET_LANGUAGE = 'SET_LANGUAGE'
+
+export function setLanguage(languagee) {
+  return { type: SET_LANGUAGE, languagee}
+}
+
 /*
  *
  * InputXMLReducer action creators and types

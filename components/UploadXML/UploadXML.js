@@ -5,7 +5,7 @@ import mui from 'material-ui';
 import xml2js from 'xml2js';
 
 import { connect } from 'react-redux';
-import { saveUploadResultsXML, overrwriteUploadResultsXML, setActiveUploadResultsXMLData, setInitInputXML } from '../Redux/Actions';
+import { saveUploadResultsXML, overrwriteUploadResultsXML, setActiveUploadResultsXMLData, saveInputXML } from '../Redux/Actions';
 
 var Dialog = mui.Dialog
   , Snackbar = mui.Snackbar;
@@ -259,7 +259,7 @@ class UploadXML extends React.Component {
                         }
 
 
-   inputXMLObject.inputDataObject.auftragsplanungInputXMLData.Herren.P1 = resultXMLDataObject.warehousestock[0].article[0].$.amount
+   //inputXMLObject.inputDataObject.auftragsplanungInputXMLData.Herren.P1 = resultXMLDataObject.warehousestock[0].article[0].$.amount
 
   }
 
@@ -306,6 +306,7 @@ class UploadXML extends React.Component {
 
               //SAVE DATA TO REDUX OBJECT
               this.props.dispatch(saveUploadResultsXML(this.uploadedJavaObject));
+              this.props.dispatch(saveInputXML(this.uploadedJavaObject));
 
               //show indication that upload is done
               this.refs.snackbar.show();

@@ -5,7 +5,7 @@ import mui from 'material-ui';
 import './Navigation.scss';
 import Link from '../Link';
 import { connect } from 'react-redux';
-import { saveUploadResultsXML, setActiveUploadResultsXMLData, setInputXML } from '../Redux/Actions';
+import { saveUploadResultsXML, setActiveUploadResultsXMLData, saveInputXML,  setLanguage} from '../Redux/Actions';
 
  
  // dont need this anymore in react 1.0
@@ -47,7 +47,7 @@ class Navigation extends React.Component {
 
         if(key.charAt(0) === 'i'){
             var localData = JSON.parse(localStorage.getItem( localStorage.key( i ) ));
-            this.props.dispatch(setInputXML(key, localData));
+            this.props.dispatch(saveInputXML(localData));
         }
       }
       
@@ -97,6 +97,17 @@ class Navigation extends React.Component {
 
   }
 
+  _onDropDownLanguageChange(e){
+    for(let languages of this.props.internationalReducer.languages) {
+      if(languages.id === e.target.value){
+        this.props.dispatch(setLanguage(languages));
+        this.forceUpdate()
+      }
+    }
+
+    
+  }
+
   getStyles() {
     let styles = {
       title1: {
@@ -135,11 +146,21 @@ class Navigation extends React.Component {
   render() {
 
     //Create DropDown menuitems
-    let menuItems = [{payload: 'result_P-1', text: 'choose Result'}];
+    let menuItemsPeriod = [{payload: 'result_P-1', text: 'choose Result'}];
     for(let uploadResults of this.props.UploadXMLReducer) {
-      menuItems.push({payload: uploadResults.id, text: uploadResults.id});
+      menuItemsPeriod.push({payload: uploadResults.id, text: uploadResults.id});
     }
 
+    //Create DropDown menuitems 
+    console.log(this.props.internationalReducer.activeLanguage.id)
+    let menuItemsLanguage = [{payload: 'DE', text: 'DE'}];
+    for(let languages of this.props.internationalReducer.languages) {
+      if(languages.id != 'DE'){
+          menuItemsLanguage.push({payload: languages.id, text: languages.id});
+      }
+    }
+
+console.log(menuItemsLanguage)
     return (
         <div id="menu">
           <AppBar title={
@@ -154,53 +175,54 @@ class Navigation extends React.Component {
                   iconStyleRight={{"marginTop": "0"}}
                   iconElementRight={
                     <div>
-                      <DropDownMenu menuItems={menuItems} onChange={this._onDropDownPeriodChange.bind(this)} style={{"display": "inline-block", "marginRight": "1000"}} labelStyle={{"color": "#ffffff"}}> </DropDownMenu>
+                      <DropDownMenu menuItems={menuItemsPeriod} onChange={this._onDropDownPeriodChange.bind(this)} style={{"display": "inline-block", "marginRight": "1000"}} labelStyle={{"color": "#ffffff"}}> </DropDownMenu>
+                      <DropDownMenu menuItems={menuItemsLanguage} onChange={this._onDropDownLanguageChange.bind(this)} style={{"display": "inline-block", "marginRight": "1000"}} labelStyle={{"color": "#ffffff"}}> </DropDownMenu>
                     </div>}/>
 
           <LeftNav ref="leftNav" docked={this.state.isDocked} style={{"top":"100% - <AppBar.height>" }}>
               <MenuItem index={0} iconClassName="MenuItem-icon-home" iconStyle={{"marginRight":"0px", "top":"10px"}}>
-                <a className="Navigation-link" href="/" onClick={Link.handleClick}>Home</a>
+                <a className="Navigation-link" href="/" onClick={Link.handleClick}>{this.props.internationalReducer.activeLanguage.strings.Navigation0}</a>
               </MenuItem>
               <MenuItem index={1} iconClassName="MenuItem-icon-anleitung" iconStyle={{"marginRight":"0px", "top":"10px"}}>
-                <a className="Navigation-link" href="/anleitung" onClick={Link.handleClick}>Tool Anleitung</a>
+                <a className="Navigation-link" href="/anleitung" onClick={Link.handleClick}>{this.props.internationalReducer.activeLanguage.strings.Navigation1}</a>
               </MenuItem>
               <MenuItem index={2} iconClassName="MenuItem-icon-tips" iconStyle={{"marginRight":"0px", "top":"10px"}}>
-                <a className="Navigation-link" href="/tipps" onClick={Link.handleClick}>Tips und Tricks</a>
+                <a className="Navigation-link" href="/tipps" onClick={Link.handleClick}>{this.props.internationalReducer.activeLanguage.strings.Navigation12}</a>
               </MenuItem>
               <MenuItem index={3} iconClassName="MenuItem-icon-metriken" iconStyle={{"marginRight":"0px", "top":"10px"}}>
-                <a className="Navigation-link" href="/metriken" onClick={Link.handleClick}>Metriken</a>
+                <a className="Navigation-link" href="/metriken" onClick={Link.handleClick}>{this.props.internationalReducer.activeLanguage.strings.Navigation13}</a>
               </MenuItem>
               <MenuItem index={4} className="Navigation-divider">
               </MenuItem>
               <MenuItem index={5} iconClassName="MenuItem-icon-auftragsplanung" iconStyle={{"marginRight":"0px", "top":"10px"}}>
-                <a className="Navigation-title">Auftragsplanung</a>
+                <a className="Navigation-title">{this.props.internationalReducer.activeLanguage.strings.Navigation2}</a>
               </MenuItem>
                   <MenuItem index={6} style={{"lineHeight":"30px" }}>
-                    <a className="Navigation-sub-link" href="/auftragsplanung/gesamt" onClick={Link.handleClick} >Gesamt</a>
+                    <a className="Navigation-sub-link" href="/auftragsplanung/gesamt" onClick={Link.handleClick} >{this.props.internationalReducer.activeLanguage.strings.Navigation3}</a>
                   </MenuItem>
                   <MenuItem index={7} style={{"lineHeight":"30px" }}>
-                    <a className="Navigation-sub-link" href="/auftragsplanung/damen" onClick={Link.handleClick}>Damen</a>
+                    <a className="Navigation-sub-link" href="/auftragsplanung/damen" onClick={Link.handleClick}>{this.props.internationalReducer.activeLanguage.strings.Navigation4}</a>
                   </MenuItem>
                   <MenuItem index={8} style={{"lineHeight":"30px"}}>
-                    <a className="Navigation-sub-link" href="/auftragsplanung/herren" onClick={Link.handleClick}>Herren</a>
+                    <a className="Navigation-sub-link" href="/auftragsplanung/herren" onClick={Link.handleClick}>{this.props.internationalReducer.activeLanguage.strings.Navigation5}</a>
                   </MenuItem>
                   <MenuItem index={9} style={{"lineHeight":"30px"}}>
-                    <a className="Navigation-sub-link" href="/auftragsplanung/kinder" onClick={Link.handleClick}>Kinder</a>
+                    <a className="Navigation-sub-link" href="/auftragsplanung/kinder" onClick={Link.handleClick}>{this.props.internationalReducer.activeLanguage.strings.Navigation6}</a>
                   </MenuItem>
               <MenuItem index={10} iconClassName="MenuItem-icon-kaufteildisposition" iconStyle={{"marginRight":"0px", "top":"10px"}}>
-                <a className="Navigation-link" href="/kaufteildisposition" onClick={Link.handleClick}>Kaufteildisposition</a>
+                <a className="Navigation-link" href="/kaufteildisposition" onClick={Link.handleClick}>{this.props.internationalReducer.activeLanguage.strings.Navigation7}</a>
               </MenuItem>
               <MenuItem index={11} iconClassName="MenuItem-icon-kapazitaetsplanung" iconStyle={{"marginRight":"0px", "top":"10px"}}>
-                <a className="Navigation-link" href="/kapazitaetsplanung" onClick={Link.handleClick}>Kapazitätsplanung</a>
+                <a className="Navigation-link" href="/kapazitaetsplanung" onClick={Link.handleClick}>{this.props.internationalReducer.activeLanguage.strings.Navigation9}</a>
               </MenuItem>
               <MenuItem index={12} iconClassName="MenuItem-icon-upload" iconStyle={{"marginRight":"0px", "top":"10px"}}>
-                <a className="Navigation-link" href="/upload" onClick={Link.handleClick}>Upload</a>
+                <a className="Navigation-link" href="/upload" onClick={Link.handleClick}>{this.props.internationalReducer.activeLanguage.strings.Navigation8}</a>
               </MenuItem>
               <MenuItem index={13} iconClassName="MenuItem-icon-download" iconStyle={{"marginRight":"0px", "top":"10px"}}>
-                <a className="Navigation-link" href="/download" onClick={Link.handleClick}>Download</a>
+                <a className="Navigation-link" href="/download" onClick={Link.handleClick}>{this.props.internationalReducer.activeLanguage.strings.Navigation10}</a>
               </MenuItem>
               <MenuItem index={14} iconClassName="MenuItem-icon-settings" iconStyle={{"marginRight":"0px", "top":"10px"}}>
-                <a className="Navigation-link" href="/settings" onClick={Link.handleClick}>Settings</a>
+                <a className="Navigation-link" href="/settings" onClick={Link.handleClick}>{this.props.internationalReducer.activeLanguage.strings.Navigation11}</a>
               </MenuItem>
           </LeftNav>
         </div>
@@ -227,8 +249,8 @@ function mapStateToProps(state) {
   return {
     NavigationReducer: state.NavigationReducer,
     UploadXMLReducer: state.UploadXMLReducer,
-    
-    ActiveUploadXML: state.ActiveUploadXMLReducer
+    ActiveUploadXML: state.ActiveUploadXMLReducer,
+    internationalReducer: state.internationalReducer
   }
 }
 
