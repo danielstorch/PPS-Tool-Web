@@ -5,14 +5,14 @@
  */
 
 import React, { Component } from 'react';
+import Herren from '../../components/Herren'
 
 export default class extends Component {
 
   render() {
     return (
       <div>
-        <h1>Dispositionsplanung Herren Page</h1>
-        <p>Coming soon.</p>
+        <Herren/>
       </div>
     );
   }

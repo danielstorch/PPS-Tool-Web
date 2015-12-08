@@ -114,7 +114,7 @@ class UploadXML extends React.Component {
   }
 
   _getInputXMLData(resultXMLDataObject){
-    
+
     var inputXMLObject ={
                           id : 'result_P-1',
                           inputDataObject: {
@@ -259,7 +259,7 @@ class UploadXML extends React.Component {
                         }
 
 
-   //inputXMLObject.inputDataObject.auftragsplanungInputXMLData.Herren.P1 = resultXMLDataObject.warehousestock[0].article[0].$.amount
+   //inputXMLObject.inputDataObject.auftragsplanungInputXMLData.Herren.scss.P1 = resultXMLDataObject.warehousestock[0].article[0].$.amount
 
   }
 
@@ -277,7 +277,7 @@ class UploadXML extends React.Component {
       try {
 
         this._validateXML(evt.target.result);
-        
+
         if(this.state.xmlValid){
           var parser = new xml2js.Parser();
           parser.parseString(evt.target.result, function (err, result) {
@@ -288,21 +288,21 @@ class UploadXML extends React.Component {
             this.localStorageJavaResultObjectName = "result_P" + this.uploadedJavaObject.results.$.period;
             this.localStorageJavaInputObjectName = "input_P" + this.uploadedJavaObject.results.$.period;
 
-           
+
 
             if (localStorage.getItem(this.localStorageJavaResultObjectName) === null) {
               console.log("Nothing found in the LocalStorage, so we can save the Uploaded Data");
               console.log('localStorageObjectName = ', this.localStorageJavaResultObjectName);
               console.dir(this.uploadedJavaObject);
 
-              
+
 
               if (window.localStorage) {
                 //Saving data after accepting to overrwrite it
                 localStorage.setItem(this.localStorageJavaResultObjectName, JSON.stringify(this.uploadedJavaObject));
                 localStorage.setItem(this.localStorageJavaInputObjectName, JSON.stringify(this.uploadedJavaObject));
               }
-                
+
 
               //SAVE DATA TO REDUX OBJECT
               this.props.dispatch(saveUploadResultsXML(this.uploadedJavaObject));
@@ -363,7 +363,7 @@ class UploadXML extends React.Component {
       { text: 'Cancle' },
       { text: 'Submit', onTouchTap: this._onDialogSubmit.bind(this), ref: 'submit' }
     ];
-    
+
     return (
       <div>
             <Dialog
@@ -390,4 +390,4 @@ class UploadXML extends React.Component {
 }
 
 // Wrap the component to inject dispatch and state into it
-export default connect(null, dispatch => ({ dispatch }))(UploadXML) 
+export default connect(null, dispatch => ({ dispatch }))(UploadXML)

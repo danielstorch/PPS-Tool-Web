@@ -5,14 +5,14 @@
  */
 
 import React, { Component } from 'react';
+import Kinder from '../../components/Kinder'
 
 export default class extends Component {
 
   render() {
     return (
       <div>
-        <h1>Dispositionsplanung Kinder Page</h1>
-        <p>Coming soon.</p>
+        <Kinder/>
       </div>
     );
   }

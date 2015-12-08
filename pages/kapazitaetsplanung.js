@@ -8,23 +8,18 @@ import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
 import { setCurrentPage, closeOpenNavLeft } from '../components/Redux/Actions';
-import SortableSimple from '../components/test/index';
+import Kapazitaetsplanung from '../components/Kapazitaetsplanung'
 
+export default class extends Component {
 
-class Kapazitaetsplanung extends Component {
-
-componentDidMount(){
-    	this.props.dispatch(setCurrentPage('Kapazitätsplanung'));
-  	}
-  	
   render() {
     return (
       <div>
-        <SortableSimple/>
+        <Kapazitaetsplanung/>
       </div>
     );
   }
 
 }
 
-export default connect(null, dispatch => ({ dispatch }))(Kapazitaetsplanung) 
+export default connect(null, dispatch => ({ dispatch }))(Kapazitaetsplanung)
