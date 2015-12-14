@@ -5,7 +5,7 @@
  */
 
 import React, { Component } from 'react';
-import Kinder from '../../components/Kinder'
+import Kinder from '../../components/Kinder/Kinder'
 
 export default class extends Component {
 

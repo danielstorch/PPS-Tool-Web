@@ -27,6 +27,8 @@ class Damen extends React.Component {
   //this._handleClick = this._handleClick.bind(this);
   constructor() {
     super();
+    this._getWarehousestock = this._getWarehousestock.bind(this);
+    this._test = this._test.bind(this);
 
     this.state = {
       modal: true,
@@ -45,7 +47,46 @@ class Damen extends React.Component {
       multiSelectable: false,
       enableSelectAll: false,
       deselectOnClickaway: false,
-      height: '650px'
+      height: '650px',
+
+      VE:{P2: 0,
+          E26: 0,
+          E56: 0,
+          E16: 0,
+          E17: 0,
+          E55: 0,
+          E5: 0,
+          E11: 0,
+          E54: 0,
+          E8: 0,
+          E14: 0,
+          E19: 0},
+
+      GL:{P2: 0,
+          E26: 0,
+          E56: 0,
+          E16: 0,
+          E17: 0,
+          E55: 0,
+          E5: 0,
+          E11: 0,
+          E54: 0,
+          E8: 0,
+          E14: 0,
+          E19: 0},
+
+      AU: {P2: 0,
+          E26: 0,
+          E56: 0,
+          E16: 0,
+          E17: 0,
+          E55: 0,
+          E5: 0,
+          E11: 0,
+          E54: 0,
+          E8: 0,
+          E14: 0,
+          E19: 0}
     };
 
   }
@@ -69,6 +110,73 @@ class Damen extends React.Component {
     }
     
     return amount;
+  }
+
+
+  _getWarehousestock(articleId){
+
+    var activePeriodID = this.props.ActiveUploadXML.activeUploadXMLData.id.substring(7);
+    var currentInputXML = this.props.InputXMLs.find(xml => xml.id.substring(6) === activePeriodID); 
+
+    var amount = 0;
+    if(currentInputXML){
+      currentInputXML.inputDataObject.results.warehousestock[0].article.forEach(function (element){
+        if(element.$.id === articleId){
+          amount = parseInt(element.$.amount) + amount
+        }
+      }.bind(this))
+
+    }
+
+    console.log("Warehousestock: "+ articleId, amount)
+   
+    return amount
+  }
+
+  _getWaitingslistworkstation(articleId){
+    var activePeriodID = this.props.ActiveUploadXML.activeUploadXMLData.id.substring(7);
+    var currentInputXML = this.props.InputXMLs.find(xml => xml.id.substring(6) === activePeriodID); 
+
+    var currentAmount = 0;
+    if(currentInputXML){
+      currentInputXML.inputDataObject.results.waitinglistworkstations[0].workplace.forEach(function (elementStation){
+        if(elementStation.waitinglist){
+            elementStation.waitinglist.foreach(function (elementWaitinglist){
+              if(elementWaitinglist.$.item === articleId){
+                currentAmount = parseInt(elementWaitinglist.$.amount) + currentAmount
+              }
+            }.bind(this))
+          }
+      }.bind(this))
+
+    }
+
+    console.log("Waitingslistworkstation: "+ articleId, currentAmount)
+    return currentAmount
+  }
+
+  _getOrdersinwork(articleId){
+    var activePeriodID = this.props.ActiveUploadXML.activeUploadXMLData.id.substring(7);
+    var currentInputXML = this.props.InputXMLs.find(xml => xml.id.substring(6) === activePeriodID); 
+
+    var currentAmount = 0;
+    if(currentInputXML){
+      currentInputXML.inputDataObject.results.ordersinwork[0].workplace.forEach(function (elementWorkplace){
+        if(elementWorkplace.$.item === articleId){
+          currentAmount = parseInt(elementWorkplace.$.amount) + currentAmount
+        }
+      }.bind(this))
+
+    }
+
+    console.log("Ordersinwork: "+ articleId, currentAmount)
+    return currentAmount
+  }
+
+  _test(){
+    console.log()
+
+    return this.refs.ALP2.getValue()
   }
 
   render() {
@@ -127,7 +235,7 @@ class Damen extends React.Component {
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Bedarf für WS" />
+                  hintText="Bedarf für WS"/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
@@ -135,7 +243,9 @@ class Damen extends React.Component {
               </TableRowColumn>
               <TableRowColumn>
               <TextField
-                  hintText="Aktueller Lagerbestand" />
+                  hintText="Aktueller Lagerbestand" 
+                  value={this._getWarehousestock("1")}
+                  ref='ALP2'/>
             </TableRowColumn>
               <TableRowColumn>
               <TextField
@@ -147,7 +257,7 @@ class Damen extends React.Component {
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Aufträge" />
+                  hintText="Aufträge"/>
               </TableRowColumn>
             </TableRow>
             <TableRow>

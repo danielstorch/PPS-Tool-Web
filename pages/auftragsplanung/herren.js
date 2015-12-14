@@ -5,7 +5,7 @@
  */
 
 import React, { Component } from 'react';
-import Herren from '../../components/Herren'
+import Herren from '../../components/Herren/Herren'
 
 export default class extends Component {
 
