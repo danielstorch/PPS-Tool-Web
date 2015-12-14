@@ -269,7 +269,9 @@ class Kinder extends React.Component {
     this.state.AU.E12 = Math.max(0,(this.state.VR.E12 + this.state.BW.E12 + this.state.GL.E12 - this.state.AL.E12 - this.state.WS.E12 - this.state.BA.E12))
     this.state.VR.E29 = this.state.AU.E12
     this.state.AU.E29 = Math.max(0,(this.state.VR.E29 + this.state.BW.E29 + this.state.GL.E29 - this.state.AL.E29 - this.state.WS.E29 - this.state.BA.E29))
-    this.state.VR.E15 = this.state.AU.E29
+    this.state.VR.E9 = this.state.AU.E29
+    this.state.AU.E9 = Math.max(0,(this.state.VR.E9 + this.state.BW.E9 + this.state.GL.E9 - this.state.AL.E9 - this.state.WS.E9 - this.state.BA.E9))
+    this.state.VR.E15 = this.state.AU.E9
     this.state.AU.E15 = Math.max(0,(this.state.VR.E15 + this.state.BW.E15 + this.state.GL.E15 - this.state.AL.E15 - this.state.WS.E15 - this.state.BA.E15))
     this.state.VR.E20 = this.state.AU.E15
     this.state.AU.E20 = Math.max(0,(this.state.VR.E20 + this.state.BW.E20 + this.state.GL.E20 - this.state.AL.E20 - this.state.WS.E20 - this.state.BA.E20))

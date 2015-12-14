@@ -39,7 +39,7 @@ class Damen extends React.Component {
     //WS = Warteschlange
     //BA = Bearbeitung
     //AU = Aufträge
-    
+
     this.state = {
       modal: true,
       openDialogStandardActions: false,
@@ -275,7 +275,9 @@ class Damen extends React.Component {
     this.state.AU.E11 = Math.max(0,(this.state.VR.E11 + this.state.BW.E11 + this.state.GL.E11 - this.state.AL.E11 - this.state.WS.E11 - this.state.BA.E11))
     this.state.VR.E54 = this.state.AU.E11
     this.state.AU.E54 = Math.max(0,(this.state.VR.E54 + this.state.BW.E54 + this.state.GL.E54 - this.state.AL.E54 - this.state.WS.E54 - this.state.BA.E54))
-    this.state.VR.E14 = this.state.AU.E54
+    this.state.VR.E8 = this.state.AU.E54
+    this.state.AU.E8 = Math.max(0,(this.state.VR.E8 + this.state.BW.E8 + this.state.GL.E8 - this.state.AL.E8 - this.state.WS.E8 - this.state.BA.E8))
+    this.state.VR.E14 = this.state.AU.E8
     this.state.AU.E14 = Math.max(0,(this.state.VR.E14 + this.state.BW.E14 + this.state.GL.E14 - this.state.AL.E14 - this.state.WS.E14 - this.state.BA.E14))
     this.state.VR.E19 = this.state.AU.E14
     this.state.AU.E19 = Math.max(0,(this.state.VR.E19 + this.state.BW.E19 + this.state.GL.E19 - this.state.AL.E19 - this.state.WS.E19 - this.state.BA.E19))
@@ -285,7 +287,7 @@ class Damen extends React.Component {
   _getWarehousestock(articleId){
 
     var activePeriodID = this.props.ActiveUploadXML.activeUploadXMLData.id.substring(7);
-    var currentInputXML = this.props.InputXMLs.find(xml => xml.id.substring(6) === activePeriodID); 
+    var currentInputXML = this.props.InputXMLs.find(xml => xml.id.substring(6) === activePeriodID);
 
     var amount = 0;
     if(currentInputXML){
@@ -298,13 +300,13 @@ class Damen extends React.Component {
     }
 
     //console.log("Warehousestock: "+ articleId, amount)
-   
+
     return amount
   }
 
   _getWaitingslistworkstation(articleId){
     var activePeriodID = this.props.ActiveUploadXML.activeUploadXMLData.id.substring(7);
-    var currentInputXML = this.props.InputXMLs.find(xml => xml.id.substring(6) === activePeriodID); 
+    var currentInputXML = this.props.InputXMLs.find(xml => xml.id.substring(6) === activePeriodID);
 
     var currentAmount = 0;
     if(currentInputXML){
@@ -326,7 +328,7 @@ class Damen extends React.Component {
 
   _getOrdersinwork(articleId){
     var activePeriodID = this.props.ActiveUploadXML.activeUploadXMLData.id.substring(7);
-    var currentInputXML = this.props.InputXMLs.find(xml => xml.id.substring(6) === activePeriodID); 
+    var currentInputXML = this.props.InputXMLs.find(xml => xml.id.substring(6) === activePeriodID);
 
     var currentAmount = 0;
     if(currentInputXML){
@@ -421,7 +423,7 @@ class Damen extends React.Component {
                 dialogText: "Please be sure that every field is a numeric"
               });
       }
-      
+
     }else{
               this.setState({
                 openDialogStandardActions: true,
@@ -455,7 +457,7 @@ class Damen extends React.Component {
       let standardActions = [
       { text: 'Ok', onTouchTap: this._onDialogOk.bind(this), ref: 'ok' }
     ];
-      
+
     return (
       <div>
         <div>
@@ -520,7 +522,7 @@ class Damen extends React.Component {
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Geplanter Lagerbestand" 
+                    hintText="Geplanter Lagerbestand"
                     value={this.state.GL.P2}
                     id="P2"
                     errorText={this.state.errorTextGL.P2}
@@ -529,19 +531,19 @@ class Damen extends React.Component {
                 </TableRowColumn>
                 <TableRowColumn>
                 <TextField
-                    hintText="Aktueller Lagerbestand" 
+                    hintText="Aktueller Lagerbestand"
                     value={this.state.AL.P2}
                     disabled={true}/>
               </TableRowColumn>
                 <TableRowColumn>
                 <TextField
-                    hintText="Warteschlange" 
+                    hintText="Warteschlange"
                     value={this.state.WS.P2}
                     disabled={true}/>
               </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Bearbeitung" 
+                    hintText="Bearbeitung"
                     value = {this.state.BA.P2}
                     disabled={true}/>
                 </TableRowColumn>
@@ -566,13 +568,13 @@ class Damen extends React.Component {
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Bedarf für WS" 
+                    hintText="Bedarf für WS"
                     disabled={true}
                     value={this.state.BW.P2}/>
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Geplanter Lagerbestand" 
+                    hintText="Geplanter Lagerbestand"
                     value={this.state.GL.E26}
                     id="E26"
                     errorText={this.state.errorTextGL.E26}
@@ -582,7 +584,7 @@ class Damen extends React.Component {
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Aktueller Lagerbestand" 
+                    hintText="Aktueller Lagerbestand"
                     value={this.state.AL.E26}
                     disabled={true}/>
                 </TableRowColumn>
@@ -594,13 +596,13 @@ class Damen extends React.Component {
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Bearbeitung" 
+                    hintText="Bearbeitung"
                     value = {this.state.BA.E26}
                     disabled={true}/>
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Aufträge" 
+                    hintText="Aufträge"
                     value = {this.state.AU.E26}
                     disabled={true}/>
                 </TableRowColumn>
@@ -609,7 +611,7 @@ class Damen extends React.Component {
                 <TableRowColumn displayBorder = {true}>E56</TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Vertriebswunsch" 
+                    hintText="Vertriebswunsch"
                     value={this.state.VR.E56}
                     id="E56"
                     errorText={this.state.errorTextVR.E56}
@@ -619,13 +621,13 @@ class Damen extends React.Component {
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Bedarf für WS" 
+                    hintText="Bedarf für WS"
                     value={this.state.BW.P2}
                     disabled={true}/>
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Geplanter Lagerbestand" 
+                    hintText="Geplanter Lagerbestand"
                     value={this.state.GL.E56}
                     id="E56"
                     errorText={this.state.errorTextGL.E56}
@@ -635,25 +637,25 @@ class Damen extends React.Component {
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Aktueller Lagerbestand" 
+                    hintText="Aktueller Lagerbestand"
                     value={this.state.AL.E56}
                     disabled={true}/>
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Warteschlange" 
+                    hintText="Warteschlange"
                     value={this.state.WS.E56}
                     disabled={true}/>
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Bearbeitung" 
+                    hintText="Bearbeitung"
                     value = {this.state.BA.E56}
                     disabled={true}/>
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Aufträge" 
+                    hintText="Aufträge"
                     value = {this.state.AU.E56}
                     disabled={true}/>
                 </TableRowColumn>
@@ -663,7 +665,7 @@ class Damen extends React.Component {
                 <TableRowColumn>
                   <TextField
                     id="E16"
-                    hintText="Vertriebswunsch" 
+                    hintText="Vertriebswunsch"
                     value={this.state.VR.E16}
                     errorText={this.state.errorTextVR.E16}
                     errorStyle={{color:'orange'}}
@@ -672,13 +674,13 @@ class Damen extends React.Component {
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Bedarf für WS" 
+                    hintText="Bedarf für WS"
                     disabled={true}
                     value={this.state.BW.E16}/>
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Geplanter Lagerbestand" 
+                    hintText="Geplanter Lagerbestand"
                     value={this.state.GL.E16}
                     id="E16"
                     errorText={this.state.errorTextGL.E16}
@@ -688,25 +690,25 @@ class Damen extends React.Component {
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Aktueller Lagerbestand" 
+                    hintText="Aktueller Lagerbestand"
                     value={this.state.AL.E16}
                     disabled={true}/>
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Warteschlange" 
+                    hintText="Warteschlange"
                     value={this.state.WS.E16}
                     disabled={true}/>
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Bearbeitung" 
+                    hintText="Bearbeitung"
                     value = {this.state.BA.E16}
                     disabled={true}/>
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Aufträge" 
+                    hintText="Aufträge"
                     value = {this.state.AU.E16}
                     disabled={true}/>
                 </TableRowColumn>
@@ -716,7 +718,7 @@ class Damen extends React.Component {
                 <TableRowColumn>
                   <TextField
                     id="E17"
-                    hintText="Vertriebswunsch" 
+                    hintText="Vertriebswunsch"
                     value={this.state.VR.E17}
                     errorText={this.state.errorTextVR.E17}
                     errorStyle={{color:'orange'}}
@@ -725,13 +727,13 @@ class Damen extends React.Component {
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Bedarf für WS" 
+                    hintText="Bedarf für WS"
                     disabled={true}
                     value={this.state.BW.E56}/>
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Geplanter Lagerbestand" 
+                    hintText="Geplanter Lagerbestand"
                     value={this.state.GL.E17}
                     id="E17"
                     errorText={this.state.errorTextGL.E17}
@@ -741,25 +743,25 @@ class Damen extends React.Component {
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Aktueller Lagerbestand" 
+                    hintText="Aktueller Lagerbestand"
                     value={this.state.AL.E17}
                     disabled={true}/>
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Warteschlange" 
+                    hintText="Warteschlange"
                     value={this.state.WS.E17}
                     disabled={true}/>
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Bearbeitung" 
+                    hintText="Bearbeitung"
                     value = {this.state.BA.E17}
                     disabled={true}/>
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Aufträge" 
+                    hintText="Aufträge"
                     value = {this.state.AU.E17}
                     disabled={true}/>
                 </TableRowColumn>
@@ -769,7 +771,7 @@ class Damen extends React.Component {
                 <TableRowColumn>
                   <TextField
                     id="E55"
-                    hintText="Vertriebswunsch" 
+                    hintText="Vertriebswunsch"
                     value={this.state.VR.E55}
                     errorText={this.state.errorTextVR.E55}
                     errorStyle={{color:'orange'}}
@@ -778,13 +780,13 @@ class Damen extends React.Component {
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Bedarf für WS" 
+                    hintText="Bedarf für WS"
                     disabled={true}
                     value={this.state.BW.E55}/>
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Geplanter Lagerbestand" 
+                    hintText="Geplanter Lagerbestand"
                     value={this.state.GL.E55}
                     id="E55"
                     errorText={this.state.errorTextGL.E55}
@@ -794,25 +796,25 @@ class Damen extends React.Component {
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Aktueller Lagerbestand" 
+                    hintText="Aktueller Lagerbestand"
                     value={this.state.AL.E55}
                     disabled={true}/>
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Warteschlange" 
+                    hintText="Warteschlange"
                     value={this.state.WS.E55}
                     disabled={true}/>
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Bearbeitung" 
+                    hintText="Bearbeitung"
                     value = {this.state.BA.E55}
                     disabled={true}/>
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Aufträge" 
+                    hintText="Aufträge"
                     value = {this.state.AU.E55}
                     disabled={true}/>
                 </TableRowColumn>
@@ -822,7 +824,7 @@ class Damen extends React.Component {
                 <TableRowColumn>
                   <TextField
                     id="E5"
-                    hintText="Vertriebswunsch" 
+                    hintText="Vertriebswunsch"
                     value={this.state.VR.E5}
                     errorText={this.state.errorTextVR.E5}
                     errorStyle={{color:'orange'}}
@@ -831,7 +833,7 @@ class Damen extends React.Component {
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Bedarf für WS" 
+                    hintText="Bedarf für WS"
                     disabled={true}
                     value={this.state.BW.E5}/>
                 </TableRowColumn>
@@ -847,25 +849,25 @@ class Damen extends React.Component {
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Aktueller Lagerbestand" 
+                    hintText="Aktueller Lagerbestand"
                     value={this.state.AL.E5}
                     disabled={true}/>
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Warteschlange" 
+                    hintText="Warteschlange"
                     value={this.state.WS.E5}
                     disabled={true}/>
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Bearbeitung" 
+                    hintText="Bearbeitung"
                     value = {this.state.BA.E5}
                     disabled={true}/>
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Aufträge" 
+                    hintText="Aufträge"
                     value = {this.state.AU.E5}
                     disabled={true}/>
                 </TableRowColumn>
@@ -875,7 +877,7 @@ class Damen extends React.Component {
                 <TableRowColumn>
                   <TextField
                     id="E11"
-                    hintText="Vertriebswunsch" 
+                    hintText="Vertriebswunsch"
                   value={this.state.VR.E11}
                   errorText={this.state.errorTextVR.E11}
                     errorStyle={{color:'orange'}}
@@ -884,13 +886,13 @@ class Damen extends React.Component {
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Bedarf für WS" 
+                    hintText="Bedarf für WS"
                     disabled={true}
                     value={this.state.BW.E11}/>
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Geplanter Lagerbestand" 
+                    hintText="Geplanter Lagerbestand"
                     value={this.state.GL.E11}
                     id="E11"
                     errorText={this.state.errorTextGL.E11}
@@ -900,25 +902,25 @@ class Damen extends React.Component {
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Aktueller Lagerbestand" 
+                    hintText="Aktueller Lagerbestand"
                     value={this.state.AL.E11}
                     disabled={true}/>
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Warteschlange" 
+                    hintText="Warteschlange"
                     value={this.state.WS.E11}
                     disabled={true}/>
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Bearbeitung" 
+                    hintText="Bearbeitung"
                     value = {this.state.BA.E11}
                     disabled={true}/>
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Aufträge" 
+                    hintText="Aufträge"
                     value = {this.state.AU.E11}
                     disabled={true}/>
                 </TableRowColumn>
@@ -928,7 +930,7 @@ class Damen extends React.Component {
               <TableRowColumn>
                 <TextField
                   id="E54"
-                  hintText="Vertriebswunsch" 
+                  hintText="Vertriebswunsch"
                   value={this.state.VR.E54}
                   errorText={this.state.errorTextVR.E54}
                     errorStyle={{color:'orange'}}
@@ -937,13 +939,13 @@ class Damen extends React.Component {
               </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Bedarf für WS" 
+                    hintText="Bedarf für WS"
                     disabled={true}
                     value={this.state.BW.E54}/>
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Geplanter Lagerbestand" 
+                    hintText="Geplanter Lagerbestand"
                     value={this.state.GL.E54}
                     id="E54"
                     errorText={this.state.errorTextGL.E54}
@@ -953,25 +955,25 @@ class Damen extends React.Component {
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Aktueller Lagerbestand" 
+                    hintText="Aktueller Lagerbestand"
                     value={this.state.AL.E54}
                     disabled={true}/>
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Warteschlange" 
+                    hintText="Warteschlange"
                     value={this.state.WS.E54}
                     disabled={true}/>
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Bearbeitung" 
+                    hintText="Bearbeitung"
                     value = {this.state.BA.E54}
                     disabled={true}/>
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Aufträge" 
+                    hintText="Aufträge"
                     value = {this.state.AU.E54}
                     disabled={true}/>
                 </TableRowColumn>
@@ -981,7 +983,7 @@ class Damen extends React.Component {
                 <TableRowColumn>
                   <TextField
                     id="E8"
-                    hintText="Vertriebswunsch" 
+                    hintText="Vertriebswunsch"
                     value={this.state.VR.E8}
                     errorText={this.state.errorTextVR.E8}
                     errorStyle={{color:'orange'}}
@@ -990,13 +992,13 @@ class Damen extends React.Component {
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Bedarf für WS" 
+                    hintText="Bedarf für WS"
                     disabled={true}
                     value={this.state.BW.E8}/>
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Geplanter Lagerbestand" 
+                    hintText="Geplanter Lagerbestand"
                     value={this.state.GL.E8}
                     id="E8"
                     errorText={this.state.errorTextGL.E8}
@@ -1006,25 +1008,25 @@ class Damen extends React.Component {
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Aktueller Lagerbestand" 
+                    hintText="Aktueller Lagerbestand"
                     value={this.state.AL.E8}
                     disabled={true}/>
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Warteschlange" 
+                    hintText="Warteschlange"
                     value={this.state.WS.E8}
                     disabled={true}/>
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Bearbeitung" 
+                    hintText="Bearbeitung"
                     value = {this.state.BA.E8}
                     disabled={true}/>
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Aufträge" 
+                    hintText="Aufträge"
                     value = {this.state.AU.E8}
                     disabled={true}/>
                 </TableRowColumn>
@@ -1034,7 +1036,7 @@ class Damen extends React.Component {
                 <TableRowColumn>
                   <TextField
                     id="E14"
-                    hintText="Vertriebswunsch" 
+                    hintText="Vertriebswunsch"
                     value={this.state.VR.E14}
                     errorText={this.state.errorTextVR.E14}
                     errorStyle={{color:'orange'}}
@@ -1043,13 +1045,13 @@ class Damen extends React.Component {
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Bedarf für WS" 
+                    hintText="Bedarf für WS"
                     disabled={true}
                     value={this.state.BW.E14}/>
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Geplanter Lagerbestand" 
+                    hintText="Geplanter Lagerbestand"
                     value={this.state.GL.E14}
                     id="E14"
                     errorText={this.state.errorTextGL.E14}
@@ -1059,25 +1061,25 @@ class Damen extends React.Component {
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Aktueller Lagerbestand" 
+                    hintText="Aktueller Lagerbestand"
                     value={this.state.AL.E14}
                     disabled={true}/>
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Warteschlange" 
+                    hintText="Warteschlange"
                     value={this.state.WS.E14}
                     disabled={true}/>
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Bearbeitung" 
+                    hintText="Bearbeitung"
                     value = {this.state.BA.E14}
                     disabled={true}/>
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Aufträge" 
+                    hintText="Aufträge"
                     value = {this.state.AU.E14}
                     disabled={true}/>
                 </TableRowColumn>
@@ -1087,7 +1089,7 @@ class Damen extends React.Component {
                 <TableRowColumn>
                   <TextField
                     id="E19"
-                    hintText="Vertriebswunsch" 
+                    hintText="Vertriebswunsch"
                     value={this.state.VR.E19}
                     errorText={this.state.errorTextVR.E19}
                     errorStyle={{color:'orange'}}
@@ -1096,13 +1098,13 @@ class Damen extends React.Component {
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Bedarf für WS" 
+                    hintText="Bedarf für WS"
                     disabled={true}
                     value={this.state.BW.E19}/>
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Geplanter Lagerbestand" 
+                    hintText="Geplanter Lagerbestand"
                     value={this.state.GL.E19}
                     id="E19"
                     errorText={this.state.errorTextGL.E19}
@@ -1112,25 +1114,25 @@ class Damen extends React.Component {
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Aktueller Lagerbestand" 
+                    hintText="Aktueller Lagerbestand"
                     value={this.state.AL.E19}
                     disabled={true}/>
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Warteschlange" 
+                    hintText="Warteschlange"
                     value={this.state.AL.E19}
                     disabled={true}/>
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Bearbeitung" 
+                    hintText="Bearbeitung"
                     value = {this.state.AL.E19}
                     disabled={true}/>
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Aufträge" 
+                    hintText="Aufträge"
                     value = {this.state.AU.E19}
                     disabled={true}/>
                 </TableRowColumn>

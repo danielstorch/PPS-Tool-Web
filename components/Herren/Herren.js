@@ -191,7 +191,7 @@ class Herren extends React.Component {
 
   _updateVariables(){
     console.log('_updateVariables Method');
-    
+
     this.state.currentPeriode = this.props.ActiveUploadXML.activeUploadXMLData.id
 
     //BW
@@ -250,6 +250,29 @@ class Herren extends React.Component {
     this.state.BA.E13 = this._getOrdersinwork('13');
     this.state.BA.E18 = this._getOrdersinwork('18');
 
+    this.state.AU.P1 = Math.max(0,(this.state.VR.P1 + this.state.GL.P1 - this.state.AL.P1 - this.state.WS.P1 - this.state.BA.P1));
+    this.state.VR.E26 = this.state.AU.P1
+    this.state.AU.E26 =  Math.max(0,(this.state.VR.E26 + this.state.BW.E26 + this.state.GL.E26 - this.state.AL.E26 - this.state.WS.E26 - this.state.BA.E26))
+    this.state.VR.E51 = this.state.AU.E26
+    this.state.AU.E51 = Math.max(0,(this.state.VR.E51 + this.state.BW.E51 + this.state.GL.E51 - this.state.AL.E51 - this.state.WS.E51 - this.state.BA.E51))
+    this.state.VR.E16 = this.state.AU.E51
+    this.state.AU.E16 = Math.max(0,(this.state.VR.E16 + this.state.BW.E16 + this.state.GL.E16 - this.state.AL.E16 - this.state.WS.E16 - this.state.BA.E16))
+    this.state.VR.E17 = this.state.AU.E16
+    this.state.AU.E17 = Math.max(0,(this.state.VR.E17 + this.state.BW.E17 + this.state.GL.E17 - this.state.AL.E17 - this.state.WS.E17 - this.state.BA.E17))
+    this.state.VR.E50 = this.state.AU.E17
+    this.state.AU.E50 = Math.max(0,(this.state.VR.E50 + this.state.BW.E50 + this.state.GL.E50 - this.state.AL.E50 - this.state.WS.E50 - this.state.BA.E50))
+    this.state.VR.E4 = this.state.AU.E50
+    this.state.AU.E4 = Math.max(0,(this.state.VR.E4 + this.state.BW.E4 + this.state.GL.E4 - this.state.AL.E4 - this.state.WS.E4 - this.state.BA.E4))
+    this.state.VR.E10 = this.state.AU.E4
+    this.state.AU.E10 = Math.max(0,(this.state.VR.E10 + this.state.BW.E10 + this.state.GL.E10 - this.state.AL.E10 - this.state.WS.E10 - this.state.BA.E10))
+    this.state.VR.E49 = this.state.AU.E10
+    this.state.AU.E49 = Math.max(0,(this.state.VR.E49 + this.state.BW.E49 + this.state.GL.E49 - this.state.AL.E49 - this.state.WS.E49 - this.state.BA.E49))
+    this.state.VR.E7 = this.state.AU.E49
+    this.state.AU.E7 = Math.max(0,(this.state.VR.E7 + this.state.BW.E7 + this.state.GL.E7 - this.state.AL.E7 - this.state.WS.E7 - this.state.BA.E7))
+    this.state.VR.E13 = this.state.AU.E7
+    this.state.AU.E13 = Math.max(0,(this.state.VR.E13 + this.state.BW.E13 + this.state.GL.E13 - this.state.AL.E13 - this.state.WS.E13 - this.state.BA.E13))
+    this.state.VR.E18 = this.state.AU.E13
+    this.state.AU.E18 = Math.max(0,(this.state.VR.E18 + this.state.BW.E18 + this.state.GL.E18 - this.state.AL.E18 - this.state.WS.E18 - this.state.BA.E18))
 
 
   }
@@ -299,7 +322,7 @@ class Herren extends React.Component {
 
   _getWaitingslistworkstation(articleId){
     var activePeriodID = this.props.ActiveUploadXML.activeUploadXMLData.id.substring(7);
-    var currentInputXML = this.props.InputXMLs.find(xml => xml.id.substring(6) === activePeriodID); 
+    var currentInputXML = this.props.InputXMLs.find(xml => xml.id.substring(6) === activePeriodID);
 
     var currentAmount = 0;
     if(currentInputXML){
@@ -352,7 +375,7 @@ class Herren extends React.Component {
       errorTextList[articleId] = 'This field must be numeric.'
       value = 0
     }
-    VRList[articleId] = value
+    VRList[articleId] = parseInt(value)
 
 
     this.setState({
@@ -376,7 +399,7 @@ class Herren extends React.Component {
       errorTextList[articleId] = 'This field must be numeric.'
       value = 0
     }
-    VRList[articleId] = value
+    VRList[articleId] = parseInt(value)
 
     this.setState({
       errorTextGL: errorTextList,
@@ -420,7 +443,7 @@ _handleButtonClick(e){
                 dialogText: "Please be sure that every field is a numeric"
               });
       }
-      
+
     }else{
               this.setState({
                 openDialogStandardActions: true,
@@ -447,7 +470,7 @@ _handleButtonClick(e){
   render() {
 
     // if(this.state.currentPeriode !== this.props.ActiveUploadXML.activeUploadXMLData.id){
-    //   
+    //
     //   console.log("ALLES WIRD GEUPDATED")
     // }
 this._updateVariables()
