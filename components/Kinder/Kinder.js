@@ -13,16 +13,12 @@ const TableHeaderColumn = require('material-ui/lib/table/table-header-column');
 const TableRow = require('material-ui/lib/table/table-row');
 const TableRowColumn = require('material-ui/lib/table/table-row-column');
 const RaisedButton = require('material-ui/lib/raised-button');
+const Dialog = require('material-ui/lib/dialog');
+const Snackbar = require('material-ui/lib/snackbar');
 
 
 
 const TextField = require('material-ui/lib/text-field');
-
-
-
-var Dialog = mui.Dialog
-  , Snackbar = mui.Snackbar;
-
 
 
 class Kinder extends React.Component {
@@ -34,7 +30,8 @@ class Kinder extends React.Component {
     this._getOrdersinwork = this._getOrdersinwork.bind(this);
     this._handleVetriebswunschChange = this._handleVetriebswunschChange.bind(this);
     this._handleLagerBestandChange = this._handleLagerBestandChange.bind(this);
-
+    this._handleButtonClick = this._handleButtonClick.bind(this);
+    this._handleRequestClose = this._handleRequestClose.bind(this);
 
     this.state = {
       modal: true,
@@ -44,7 +41,7 @@ class Kinder extends React.Component {
       displayRowCheckbox: false,
       xmlValid: false,
       snackBarautoHideDuration: 3000,
-      snackBarmessage: 'Upload done!',
+      snackBarmessage: 'Save completed!',
       fixedHeader: true,
       fixedFooter: true,
       stripedRows: false,
@@ -55,6 +52,8 @@ class Kinder extends React.Component {
       deselectOnClickaway: false,
       height: '650px',
       buttonDisabled: false,
+
+      currentPeriode: "",
 
       VR:{P3: 0,
         E26: 0,
@@ -195,6 +194,7 @@ class Kinder extends React.Component {
   _updateVariables(){
     console.log('_updateVariables Method');
 
+    this.state.currentPeriode = this.props.ActiveUploadXML.activeUploadXMLData.id
 
 
     //BW
@@ -383,6 +383,68 @@ class Kinder extends React.Component {
     });
   }
 
+  _handleButtonClick(e){
+
+    var errorlol = false;
+    if(this.props.ActiveUploadXML.activeUploadXMLData.id !=='result_P-1'){
+
+      console.log("ldosakdosadsa")
+      Object.keys(this.state.errorText).forEach(function(key) {
+        if(this.state.errorText[key] !== ''){
+          errorlol = true;
+        }
+      }.bind(this));
+
+      Object.keys(this.state.errorTextGL).forEach(function(key) {
+        if(this.state.errorTextGL[key] !== ''){
+          errorlol = true;
+        }
+      }.bind(this));
+      console.log("ldosakdosadsa")
+      if(!errorlol){
+        var auftragsplanungKinder = [];
+
+        auftragsplanungKinder.push(this.state.VR)
+        auftragsplanungKinder.push(this.state.BW)
+        auftragsplanungKinder.push(this.state.GL)
+        auftragsplanungKinder.push(this.state.AL)
+        auftragsplanungKinder.push(this.state.WS)
+        auftragsplanungKinder.push(this.state.BA)
+        auftragsplanungKinder.push(this.state.AU)
+        this.props.dispatch(setAuftragsplanungKinderInputXML(auftragsplanungKinder, this.props.ActiveUploadXML.activeUploadXMLData.id.substring(7)));
+        this.refs.snackbar.show();
+      }else{
+        console.log("ldosakdosadsa")
+        this.setState({
+          openDialogStandardActions: true,
+          dialogTitle: "Error",
+          dialogText: "Please be sure that every field is a numeric"
+        });
+      }
+
+    }else{
+      this.setState({
+        openDialogStandardActions: true,
+        dialogTitle: "Error",
+        dialogText: "Please choose a vaild periode"
+      });
+    }
+  }
+
+  _handleRequestClose(buttonClicked) {
+    if (!buttonClicked && this.state.modal) return;
+    this.setState({
+      openDialogStandardActions: false
+    });
+  }
+
+
+  _onDialogOk() {
+    this.setState({
+      openDialogStandardActions: false
+    });
+  }
+
   render() {
 
     if(this.state.currentPeriode !== this.props.ActiveUploadXML.activeUploadXMLData.id){
@@ -390,11 +452,15 @@ class Kinder extends React.Component {
       console.log("ALLES WIRD GEUPDATED")
     }
 
+    let standardActions = [
+      { text: 'Ok', onTouchTap: this._onDialogOk.bind(this), ref: 'ok' }
+    ];
+
     return (
       <div>
         <h1>Auftragsplanung Kinder-Fahrrad</h1>
 
-        <RaisedButton label="Default" primary={true} disabled={this.state.buttonDisabled}/>
+        <RaisedButton label="Save" primary={true} onTouchTap={this._handleButtonClick} />
 
         <Table
           height={this.state.height}
@@ -1070,6 +1136,22 @@ class Kinder extends React.Component {
 
           </TableBody>
         </Table>
+
+        <Dialog
+          ref="standardDialog"
+          title={this.state.dialogTitle}
+          actions={standardActions}
+          actionFocus="ok"
+          open={this.state.openDialogStandardActions}
+          onRequestClose={this._handleRequestClose}>
+          {this.state.dialogText}
+        </Dialog>
+        <Snackbar
+          ref="snackbar"
+          message={this.state.snackBarmessage}
+          autoHideDuration={this.state.snackBarautoHideDuration}
+          style={{"textAlign":"center"}}>
+        </Snackbar>
 
       </div>
 
