@@ -252,7 +252,28 @@ class Kinder extends React.Component {
     this.state.BA.E15 = this._getOrdersinwork('15');
     this.state.BA.E20 = this._getOrdersinwork('20');
 
-    console.log(this._getOrdersinwork('18'));
+    this.state.AU.P3 = Math.max(0,(this.state.VR.P3 + this.state.GL.P3 - this.state.AL.P3 - this.state.WS.P3 - this.state.BA.P3));
+    this.state.VR.E26 = this.state.AU.P3
+    this.state.AU.E26 =  Math.max(0,(this.state.VR.E26 + this.state.BW.E26 + this.state.GL.E26 - this.state.AL.E26 - this.state.WS.E26 - this.state.BA.E26))
+    this.state.VR.E31 = this.state.AU.E26
+    this.state.AU.E31 = Math.max(0,(this.state.VR.E31 + this.state.BW.E31 + this.state.GL.E31 - this.state.AL.E31 - this.state.WS.E31 - this.state.BA.E31))
+    this.state.VR.E16 = this.state.AU.E31
+    this.state.AU.E16 = Math.max(0,(this.state.VR.E16 + this.state.BW.E16 + this.state.GL.E16 - this.state.AL.E16 - this.state.WS.E16 - this.state.BA.E16))
+    this.state.VR.E17 = this.state.AU.E16
+    this.state.AU.E17 = Math.max(0,(this.state.VR.E17 + this.state.BW.E17 + this.state.GL.E17 - this.state.AL.E17 - this.state.WS.E17 - this.state.BA.E17))
+    this.state.VR.E30 = this.state.AU.E17
+    this.state.AU.E30 = Math.max(0,(this.state.VR.E30 + this.state.BW.E30 + this.state.GL.E30 - this.state.AL.E30 - this.state.WS.E30 - this.state.BA.E30))
+    this.state.VR.E6 = this.state.AU.E30
+    this.state.AU.E6 = Math.max(0,(this.state.VR.E6 + this.state.BW.E6 + this.state.GL.E6 - this.state.AL.E6 - this.state.WS.E6 - this.state.BA.E6))
+    this.state.VR.E12 = this.state.AU.E6
+    this.state.AU.E12 = Math.max(0,(this.state.VR.E12 + this.state.BW.E12 + this.state.GL.E12 - this.state.AL.E12 - this.state.WS.E12 - this.state.BA.E12))
+    this.state.VR.E29 = this.state.AU.E12
+    this.state.AU.E29 = Math.max(0,(this.state.VR.E29 + this.state.BW.E29 + this.state.GL.E29 - this.state.AL.E29 - this.state.WS.E29 - this.state.BA.E29))
+    this.state.VR.E15 = this.state.AU.E29
+    this.state.AU.E15 = Math.max(0,(this.state.VR.E15 + this.state.BW.E15 + this.state.GL.E15 - this.state.AL.E15 - this.state.WS.E15 - this.state.BA.E15))
+    this.state.VR.E20 = this.state.AU.E15
+    this.state.AU.E20 = Math.max(0,(this.state.VR.E20 + this.state.BW.E20 + this.state.GL.E20 - this.state.AL.E20 - this.state.WS.E20 - this.state.BA.E20))
+
 
 
 
@@ -353,7 +374,7 @@ class Kinder extends React.Component {
     }else{
       errorTextList[articleId] = 'This field must be numeric.'
     }
-    VRList[articleId] = value
+    VRList[articleId] = parseInt(value)
 
     this.setState({
       errorText: errorTextList,
@@ -375,7 +396,7 @@ class Kinder extends React.Component {
     }else{
       errorTextList[articleId] = 'This field must be numeric.'
     }
-    VRList[articleId] = value
+    VRList[articleId] = parseInt(value)
 
     this.setState({
       errorTextGL: errorTextList,
@@ -447,10 +468,10 @@ class Kinder extends React.Component {
 
   render() {
 
-    if(this.state.currentPeriode !== this.props.ActiveUploadXML.activeUploadXMLData.id){
+   // if(this.state.currentPeriode !== this.props.ActiveUploadXML.activeUploadXMLData.id){
       this._updateVariables()
-      console.log("ALLES WIRD GEUPDATED")
-    }
+   //   console.log("ALLES WIRD GEUPDATED")
+   // }
 
     let standardActions = [
       { text: 'Ok', onTouchTap: this._onDialogOk.bind(this), ref: 'ok' }
