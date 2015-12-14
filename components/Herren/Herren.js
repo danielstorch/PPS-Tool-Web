@@ -315,8 +315,6 @@ class Herren extends React.Component {
 
     }
 
-    console.log("Warehousestock: "+ articleId, amount)
-
     return Math.round(amount);
   }
 
@@ -425,15 +423,13 @@ _handleButtonClick(e){
 
 
       if(!errorlol){
-        var auftragsplanungHerren = [];
-
-        auftragsplanungHerren.push(this.state.VR)
-        auftragsplanungHerren.push(this.state.BW)
-        auftragsplanungHerren.push(this.state.GL)
-        auftragsplanungHerren.push(this.state.AL)
-        auftragsplanungHerren.push(this.state.WS)
-        auftragsplanungHerren.push(this.state.BA)
-        auftragsplanungHerren.push(this.state.AU)
+        var auftragsplanungHerren = {auftragsplanungHerren:{VR:this.state.VR,
+                                    BW:this.state.BW,
+                                    GL:this.state.GL,
+                                    AL:this.state.AL,
+                                    WS:this.state.WS,
+                                    BA:this.state.BA,
+                                    AU:this.state.AU}}
         this.props.dispatch(setAuftragsplanungHerrenInputXML(auftragsplanungHerren, this.props.ActiveUploadXML.activeUploadXMLData.id.substring(7)));
         this.refs.snackbar.show();
       }else{

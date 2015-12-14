@@ -11,14 +11,21 @@ export default function InputXMLReducer(state = [], action) {
           }
         ]
     case SET_AUFTRAGSPLANUNG_DAMEN_INPUT_XML:
-        return state.map(inputXML =>
-          inputXML.id === action.id ?
-            Object.assign({}, inputXML.inputDataObject.auftragsplanungInputXMLData, { Damen: action.auftragsDamenInputXML }) :
-            inputXML
-        )
+      return state.map(inputXML =>
+          inputXML.id.substring(6) === action.id.substring(7) ?
+            Object.assign({}, inputXML, inputXML.inputDataObject['auftragsDamenInputXML']= action.auftragsDamenInputXML) :
+            inputXML)
 
     case SET_AUFTRAGSPLANUNG_HERREN_INPUT_XML:
+      return state.map(inputXML =>
+          inputXML.id.substring(6) === action.id.substring(7) ?
+            Object.assign({}, inputXML, inputXML.inputDataObject['auftragsHerrenInputXML']= action.auftragsHerrenInputXML) :
+            inputXML)
     case SET_AUFTRAGSPLANUNG_KINDER_INPUT_XML:
+      return state.map(inputXML =>
+          inputXML.id.substring(6) === action.id.substring(7) ?
+            Object.assign({}, inputXML, inputXML.inputDataObject['auftragsKinderInputXML']= action.auftragsKinderInputXML) :
+            inputXML)
     case SET_KAPAZITAETSPLANUNG_INPUT_XML:
     return Object.assign({}, state, {
         kapazitaetsplanungInputXMLData : action.kapazitaetsplanungInputXML

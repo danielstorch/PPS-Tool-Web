@@ -251,14 +251,7 @@ class Damen extends React.Component {
     this.state.BA.E14 = this._getOrdersinwork("14")
     this.state.BA.E19 = this._getOrdersinwork("19")
 
-    this.state.AU.P2 = this.state.VR.P2 + this.state.GL.P2 - this.state.AL.P2 - this.state.WS.P2 - this.state.BA.P2
-
-    console.log(this.state.VR.P2)
-    console.log(this.state.GL.P2)
-    console.log(this.state.AL.P2)
-    console.log(this.state.WS.P2)
-    console.log(this.state.BA.P2)
-    console.log(this.state.AU.P2)
+    this.state.AU.P2 = Math.max(0,(this.state.VR.P2 + this.state.GL.P2 - this.state.AL.P2 - this.state.WS.P2 - this.state.BA.P2))
     this.state.VR.E26 = this.state.AU.P2
     this.state.AU.E26 =  Math.max(0,(this.state.VR.E26 + this.state.BW.E26 + this.state.GL.E26 - this.state.AL.E26 - this.state.WS.E26 - this.state.BA.E26))
     this.state.VR.E56 = this.state.AU.E26
@@ -357,6 +350,7 @@ class Damen extends React.Component {
       errorTextGLList[articleId] = ''
     }else{
       errorTextGLList[articleId] = 'This field must be numeric.'
+      value = 0
     }
     GLList[articleId] = parseInt(value)
 
@@ -379,6 +373,7 @@ class Damen extends React.Component {
       errorTextVRList[articleId] = ''
     }else{
       errorTextVRList[articleId] = 'This field must be numeric.'
+      value = 0
     }
     VRList[articleId] = parseInt(value)
 
@@ -405,16 +400,14 @@ class Damen extends React.Component {
           }
       }.bind(this));
       if(!errorlol){
-        var auftragsplanungDamen = [];
-
-        auftragsplanungDamen.push(this.state.VR)
-        auftragsplanungDamen.push(this.state.BW)
-        auftragsplanungDamen.push(this.state.GL)
-        auftragsplanungDamen.push(this.state.AL)
-        auftragsplanungDamen.push(this.state.WS)
-        auftragsplanungDamen.push(this.state.BA)
-        auftragsplanungDamen.push(this.state.AU)
-        this.props.dispatch(setAuftragsplanungDamenInputXML(auftragsplanungDamen, this.props.ActiveUploadXML.activeUploadXMLData.id.substring(7)));
+        var auftragsplanungDamen = {auftragsplanungDamen:{VR:this.state.VR,
+                                    BW:this.state.BW,
+                                    GL:this.state.GL,
+                                    AL:this.state.AL,
+                                    WS:this.state.WS,
+                                    BA:this.state.BA,
+                                    AU:this.state.AU}}
+        this.props.dispatch(setAuftragsplanungDamenInputXML(auftragsplanungDamen, this.props.ActiveUploadXML.activeUploadXMLData.id));
         this.refs.snackbar.show();
       }else{
               this.setState({

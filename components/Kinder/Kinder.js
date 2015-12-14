@@ -375,6 +375,7 @@ class Kinder extends React.Component {
       errorTextList[articleId] = ''
     }else{
       errorTextList[articleId] = 'This field must be numeric.'
+      value = 0
     }
     VRList[articleId] = parseInt(value)
 
@@ -397,6 +398,7 @@ class Kinder extends React.Component {
       errorTextList[articleId] = ''
     }else{
       errorTextList[articleId] = 'This field must be numeric.'
+      value = 0
     }
     VRList[articleId] = parseInt(value)
 
@@ -411,7 +413,6 @@ class Kinder extends React.Component {
     var errorlol = false;
     if(this.props.ActiveUploadXML.activeUploadXMLData.id !=='result_P-1'){
 
-      console.log("ldosakdosadsa")
       Object.keys(this.state.errorText).forEach(function(key) {
         if(this.state.errorText[key] !== ''){
           errorlol = true;
@@ -423,21 +424,17 @@ class Kinder extends React.Component {
           errorlol = true;
         }
       }.bind(this));
-      console.log("ldosakdosadsa")
       if(!errorlol){
-        var auftragsplanungKinder = [];
-
-        auftragsplanungKinder.push(this.state.VR)
-        auftragsplanungKinder.push(this.state.BW)
-        auftragsplanungKinder.push(this.state.GL)
-        auftragsplanungKinder.push(this.state.AL)
-        auftragsplanungKinder.push(this.state.WS)
-        auftragsplanungKinder.push(this.state.BA)
-        auftragsplanungKinder.push(this.state.AU)
+        var auftragsplanungKinder = {auftragsplanungKinder:{VR:this.state.VR,
+                                    BW:this.state.BW,
+                                    GL:this.state.GL,
+                                    AL:this.state.AL,
+                                    WS:this.state.WS,
+                                    BA:this.state.BA,
+                                    AU:this.state.AU}}
         this.props.dispatch(setAuftragsplanungKinderInputXML(auftragsplanungKinder, this.props.ActiveUploadXML.activeUploadXMLData.id.substring(7)));
         this.refs.snackbar.show();
       }else{
-        console.log("ldosakdosadsa")
         this.setState({
           openDialogStandardActions: true,
           dialogTitle: "Error",
