@@ -19,21 +19,10 @@ export const SET_AUFTRAGSPLANUNG_KINDER_INPUT_XML = 'SET_AUFTRAGSPLANUNG_KINDER_
 export const SET_AUFTRAGSPLANUNG_HERREN_INPUT_XML = 'SET_AUFTRAGSPLANUNG_HERREN_INPUT_XML'
 export const SET_KAPAZITAETSPLANUNG_INPUT_XML = 'SET_KAPAZITAETSPLANUNG_INPUT_XML'
 export const SET_KAUFTEILDISPOSITION_INPUT_XML = 'SET_KAUFTEILDISPOSITION_INPUT_XML'
-export const INIT_INPUT_XML = 'INIT_INPUT_XML'
-export const SET_INPUT_XML = 'SET_INPUT_XML'
 export const SAVE_INPUT_XML = 'SAVE_INPUT_XML'
-
-
-export function setInitInputXML(inputId) {
-  return { type: INIT_INPUT_XML, inputId}
-}
 
 export function saveInputXML(inputXML) {
   return { type: SAVE_INPUT_XML, inputXML}
-}
-
-export function setInputXML(id, inputXMLData){
-	return { type: SET_INPUT_XML, id, inputXMLData}
 }
 
 export function setAuftragsplanungHerrenInputXML(auftragsHerrenInputXML, id) {

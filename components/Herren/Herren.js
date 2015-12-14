@@ -445,7 +445,6 @@ class Herren extends React.Component {
                 <TextField
                   hintText="Vertriebswunsch"
                   id="P1"
-                  hintText="Vertriebswunsch"
                   errorText={this.state.errorText.P1}
                   errorStyle={{color:'orange'}}
                   onChange={this._handleVetriebswunschChange}
@@ -496,7 +495,6 @@ class Herren extends React.Component {
                 <TextField
                   hintText="Vertriebswunsch"
                   id="E26"
-                  hintText="Vertriebswunsch"
                   errorText={this.state.errorText.E26}
                   errorStyle={{color:'orange'}}
                   onChange={this._handleVetriebswunschChange}
@@ -549,7 +547,6 @@ class Herren extends React.Component {
                 <TextField
                   hintText="Vertriebswunsch"
                   id="E51"
-                  hintText="Vertriebswunsch"
                   errorText={this.state.errorText.E51}
                   errorStyle={{color:'orange'}}
                   onChange={this._handleVetriebswunschChange}
@@ -602,7 +599,6 @@ class Herren extends React.Component {
                 <TextField
                   hintText="Vertriebswunsch"
                   id="E16"
-                  hintText="Vertriebswunsch"
                   errorText={this.state.errorText.E16}
                   errorStyle={{color:'orange'}}
                   onChange={this._handleVetriebswunschChange}
@@ -655,7 +651,6 @@ class Herren extends React.Component {
                 <TextField
                   hintText="Vertriebswunsch"
                   id="E17"
-                  hintText="Vertriebswunsch"
                   errorText={this.state.errorText.E17}
                   errorStyle={{color:'orange'}}
                   onChange={this._handleVetriebswunschChange}
@@ -708,7 +703,6 @@ class Herren extends React.Component {
                 <TextField
                   hintText="Vertriebswunsch"
                   id="E50"
-                  hintText="Vertriebswunsch"
                   errorText={this.state.errorText.E50}
                   errorStyle={{color:'orange'}}
                   onChange={this._handleVetriebswunschChange}
@@ -761,7 +755,6 @@ class Herren extends React.Component {
                 <TextField
                   hintText="Vertriebswunsch"
                   id="E4"
-                  hintText="Vertriebswunsch"
                   errorText={this.state.errorText.E4}
                   errorStyle={{color:'orange'}}
                   onChange={this._handleVetriebswunschChange}
@@ -814,7 +807,6 @@ class Herren extends React.Component {
                 <TextField
                   hintText="Vertriebswunsch"
                   id="E10"
-                  hintText="Vertriebswunsch"
                   errorText={this.state.errorText.E10}
                   errorStyle={{color:'orange'}}
                   onChange={this._handleVetriebswunschChange}
@@ -868,7 +860,6 @@ class Herren extends React.Component {
                 hintText="Vertriebswunsch"
                 value= {this.state.VR.E49}
                 id="E49"
-                hintText="Vertriebswunsch"
                 errorText={this.state.errorText.E49}
                 errorStyle={{color:'orange'}}
                 onChange={this._handleVetriebswunschChange}/>
@@ -921,7 +912,6 @@ class Herren extends React.Component {
                   hintText="Vertriebswunsch"
                   value= {this.state.VR.E7}
                   id="E7"
-                  hintText="Vertriebswunsch"
                   errorText={this.state.errorText.E7}
                   errorStyle={{color:'orange'}}
                   onChange={this._handleVetriebswunschChange}/>
@@ -972,7 +962,6 @@ class Herren extends React.Component {
                 <TextField
                   hintText="Vertriebswunsch"
                   id="E13"
-                  hintText="Vertriebswunsch"
                   errorText={this.state.errorText.E13}
                   errorStyle={{color:'orange'}}
                   onChange={this._handleVetriebswunschChange}
@@ -1024,7 +1013,6 @@ class Herren extends React.Component {
                 <TextField
                   hintText="Vertriebswunsch"
                   id="E18"
-                  hintText="Vertriebswunsch"
                   errorText={this.state.errorText.E18}
                   errorStyle={{color:'orange'}}
                   onChange={this._handleVetriebswunschChange}
