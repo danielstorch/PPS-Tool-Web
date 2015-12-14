@@ -12,6 +12,8 @@ const TableHeader = require('material-ui/lib/table/table-header');
 const TableHeaderColumn = require('material-ui/lib/table/table-header-column');
 const TableRow = require('material-ui/lib/table/table-row');
 const TableRowColumn = require('material-ui/lib/table/table-row-column');
+const RaisedButton = require('material-ui/lib/raised-button');
+
 
 
 const TextField = require('material-ui/lib/text-field');
@@ -52,6 +54,7 @@ class Kinder extends React.Component {
       enableSelectAll: false,
       deselectOnClickaway: false,
       height: '650px',
+      buttonDisabled: false,
 
       VR:{P3: 0,
         E26: 0,
@@ -391,6 +394,8 @@ class Kinder extends React.Component {
       <div>
         <h1>Auftragsplanung Kinder-Fahrrad</h1>
 
+        <RaisedButton label="Default" primary={true} disabled={this.state.buttonDisabled}/>
+
         <Table
           height={this.state.height}
           fixedHeader={this.state.fixedHeader}
@@ -488,7 +493,6 @@ class Kinder extends React.Component {
                 <TextField
                   hintText="Vertriebswunsch"
                   id="E26"
-                  hintText="Vertriebswunsch"
                   errorText={this.state.errorText.E26}
                   errorStyle={{color:'orange'}}
                   onChange={this._handleVetriebswunschChange}
@@ -542,7 +546,6 @@ class Kinder extends React.Component {
                 <TextField
                   hintText="Vertriebswunsch"
                   id="E31"
-                  hintText="Vertriebswunsch"
                   errorText={this.state.errorText.E31}
                   errorStyle={{color:'orange'}}
                   onChange={this._handleVetriebswunschChange}
@@ -594,7 +597,6 @@ class Kinder extends React.Component {
               <TableRowColumn><b><font color="red">E16</font></b></TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Vertriebswunsch"
                   id="E16"
                   hintText="Vertriebswunsch"
                   errorText={this.state.errorText.E16}
@@ -646,7 +648,6 @@ class Kinder extends React.Component {
                 <TextField
                   hintText="Vertriebswunsch"
                   id="E17"
-                  hintText="Vertriebswunsch"
                   errorText={this.state.errorText.E17}
                   errorStyle={{color:'orange'}}
                   onChange={this._handleVetriebswunschChange}
@@ -700,7 +701,6 @@ class Kinder extends React.Component {
               <TextField
                 hintText="Vertriebswunsch"
                 id="E30"
-                hintText="Vertriebswunsch"
                 errorText={this.state.errorText.E30}
                 errorStyle={{color:'orange'}}
                 onChange={this._handleVetriebswunschChange}
@@ -754,7 +754,6 @@ class Kinder extends React.Component {
                 <TextField
                   hintText="Vertriebswunsch"
                   id="E6"
-                  hintText="Vertriebswunsch"
                   errorText={this.state.errorText.E6}
                   errorStyle={{color:'orange'}}
                   onChange={this._handleVetriebswunschChange}
@@ -808,7 +807,6 @@ class Kinder extends React.Component {
                 <TextField
                   hintText="Vertriebswunsch"
                   id="E12"
-                  hintText="Vertriebswunsch"
                   errorText={this.state.errorText.E12}
                   errorStyle={{color:'orange'}}
                   onChange={this._handleVetriebswunschChange}
@@ -862,7 +860,6 @@ class Kinder extends React.Component {
                 <TextField
                   hintText="Vertriebswunsch"
                   id="E29"
-                  hintText="Vertriebswunsch"
                   errorText={this.state.errorText.E29}
                   errorStyle={{color:'orange'}}
                   onChange={this._handleVetriebswunschChange}
@@ -916,7 +913,6 @@ class Kinder extends React.Component {
                 <TextField
                   hintText="Vertriebswunsch"
                   id="E9"
-                  hintText="Vertriebswunsch"
                   errorText={this.state.errorText.E9}
                   errorStyle={{color:'orange'}}
                   onChange={this._handleVetriebswunschChange}
@@ -970,7 +966,6 @@ class Kinder extends React.Component {
                 <TextField
                   hintText="Vertriebswunsch"
                   id="E15"
-                  hintText="Vertriebswunsch"
                   errorText={this.state.errorText.E15}
                   errorStyle={{color:'orange'}}
                   onChange={this._handleVetriebswunschChange}
@@ -1022,7 +1017,6 @@ class Kinder extends React.Component {
               <TableRowColumn>E20</TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Vertriebswunsch"
                   id="E20"
                   hintText="Vertriebswunsch"
                   errorText={this.state.errorText.E20}
@@ -1078,6 +1072,7 @@ class Kinder extends React.Component {
         </Table>
 
       </div>
+
     );
   }
 }

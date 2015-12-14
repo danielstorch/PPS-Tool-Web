@@ -12,6 +12,7 @@ const TableHeader = require('material-ui/lib/table/table-header');
 const TableHeaderColumn = require('material-ui/lib/table/table-header-column');
 const TableRow = require('material-ui/lib/table/table-row');
 const TableRowColumn = require('material-ui/lib/table/table-row-column');
+const RaisedButton = require('material-ui/lib/raised-button');
 
 
 const TextField = require('material-ui/lib/text-field');
@@ -53,6 +54,8 @@ class Herren extends React.Component {
       enableSelectAll: false,
       deselectOnClickaway: false,
       height: '650px',
+      buttonDisabled: false,
+
 
       VR:{P1: 0,
         E26: 0,
@@ -391,6 +394,8 @@ class Herren extends React.Component {
     return (
       <div>
         <h1>Auftragsplanung Herren-Fahrrad</h1>
+
+        <RaisedButton label="Default" primary={true} disabled={this.state.buttonDisabled}/>
 
         <Table
           height={this.state.height}
