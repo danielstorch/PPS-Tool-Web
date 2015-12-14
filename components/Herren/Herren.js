@@ -27,6 +27,10 @@ class Herren extends React.Component {
   //this._handleClick = this._handleClick.bind(this);
   constructor() {
     super();
+    this._getWarehousestock = this._getWarehousestock.bind(this);
+    this._getWaitingslistworkstation = this._getWaitingslistworkstation.bind(this);
+    this._getOrdersinwork = this._getOrdersinwork.bind(this);
+
 
     this.state = {
       modal: true,
@@ -45,8 +49,48 @@ class Herren extends React.Component {
       multiSelectable: false,
       enableSelectAll: false,
       deselectOnClickaway: false,
-      height: '650px'
+      height: '650px',
+
+      VR:{P1: 0,
+        E26: 0,
+        E51: 0,
+        E16: 0,
+        E17: 0,
+        E50: 0,
+        E4: 0,
+        E10: 0,
+        E49: 0,
+        E7: 0,
+        E13: 0,
+        E18: 0},
+
+      GL:{P1: 0,
+        E26: 0,
+        E51: 0,
+        E16: 0,
+        E17: 0,
+        E50: 0,
+        E4: 0,
+        E10: 0,
+        E49: 0,
+        E7: 0,
+        E13: 0,
+        E18: 0},
+
+      AU: {P1: 0,
+        E26: 0,
+        E51: 0,
+        E16: 0,
+        E17: 0,
+        E50: 0,
+        E4: 0,
+        E10: 0,
+        E49: 0,
+        E7: 0,
+        E13: 0,
+        E18: 0},
     };
+
 
   }
 
@@ -69,6 +113,67 @@ class Herren extends React.Component {
     }
 
     return amount;
+  }
+
+
+  _getWarehousestock(articleId){
+
+    var activePeriodID = this.props.ActiveUploadXML.activeUploadXMLData.id.substring(7);
+    var currentInputXML = this.props.InputXMLs.find(xml => xml.id.substring(6) === activePeriodID);
+
+    var amount = 0;
+    if(currentInputXML){
+      currentInputXML.inputDataObject.results.warehousestock[0].article.forEach(function (element){
+        if(element.$.id === articleId){
+          amount = parseInt(element.$.amount) + amount
+        }
+      }.bind(this))
+
+    }
+
+    console.log("Warehousestock: "+ articleId, amount)
+
+    return Math.round(amount);
+  }
+
+  _getWaitingslistworkstation(articleId){
+    var activePeriodID = this.props.ActiveUploadXML.activeUploadXMLData.id.substring(7);
+    var currentInputXML = this.props.InputXMLs.find(xml => xml.id.substring(6) === activePeriodID);
+
+    var currentAmount = 0;
+    if(currentInputXML){
+      currentInputXML.inputDataObject.results.waitinglistworkstations[0].workplace.forEach(function (elementStation){
+        if(elementStation.waitinglist){
+          elementStation.waitinglist.foreach(function (elementWaitinglist){
+            if(elementWaitinglist.$.item === articleId){
+              currentAmount = parseInt(elementWaitinglist.$.amount) + currentAmount
+            }
+          }.bind(this))
+        }
+      }.bind(this))
+
+    }
+
+    console.log("Waitingslistworkstation: "+ articleId, currentAmount)
+    return currentAmount
+  }
+
+  _getOrdersinwork(articleId){
+    var activePeriodID = this.props.ActiveUploadXML.activeUploadXMLData.id.substring(7);
+    var currentInputXML = this.props.InputXMLs.find(xml => xml.id.substring(6) === activePeriodID);
+
+    var currentAmount = 0;
+    if(currentInputXML){
+      currentInputXML.inputDataObject.results.ordersinwork[0].workplace.forEach(function (elementWorkplace){
+        if(elementWorkplace.$.item === articleId){
+          currentAmount = parseInt(elementWorkplace.$.amount) + currentAmount
+        }
+      }.bind(this))
+
+    }
+
+    console.log("Ordersinwork: "+ articleId, currentAmount)
+    return currentAmount
   }
 
   render() {
@@ -123,372 +228,514 @@ class Herren extends React.Component {
               <TableRowColumn>P1</TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Vertriebswunsch"/>
+                  hintText="Vertriebswunsch"
+                  value= {this.state.VR.P1}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Bedarf für WS" />
+                  hintText="Bedarf für WS"
+                  disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Geplanter Lagerbestand" />
+                  hintText="Geplanter Lagerbestand"
+                  value= {this.state.GL.P1}/>
               </TableRowColumn>
               <TableRowColumn>
               <TextField
-                  hintText="Aktueller Lagerbestand" />
+                  hintText="Aktueller Lagerbestand"
+                value = {this._getWarehousestock("1")}
+                  disabled = {true}/>
             </TableRowColumn>
               <TableRowColumn>
               <TextField
-                  hintText="Warteschlange" />
+                  hintText="Warteschlange"
+                  value = {this._getWaitingslistworkstation("1")}
+                  disabled = {true}/>
+                />
             </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Bearbeitung" />
+                  hintText="Bearbeitung"
+                  value = {this._getOrdersinwork("1")}
+                  disabled = {true}/>
+                />
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Aufträge" />
+                  hintText="Aufträge"
+                  value= {this.state.AU.P1}
+                  disabled = {true}/>
               </TableRowColumn>
             </TableRow>
             <TableRow>
               <TableRowColumn><b><font color="red">E26</font></b></TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Vertriebswunsch"/>
+                  hintText="Vertriebswunsch"
+                  value= {this.state.VR.E26}/>
+                />
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Bedarf für WS" />
+                  hintText="Bedarf für WS"
+                  disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Geplanter Lagerbestand" />
+                  hintText="Geplanter Lagerbestand"
+                  value= {this.state.GL.E26}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Aktueller Lagerbestand" />
+                  hintText="Aktueller Lagerbestand"
+                  value = {Math.ceil(this._getWarehousestock("26")/3)}
+                  disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Warteschlange" />
+                  hintText="Warteschlange"
+                  value = {this._getWaitingslistworkstation("26")}
+                  disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Bearbeitung" />
+                  hintText="Bearbeitung"
+                  value = {this._getOrdersinwork("26")}
+                  disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Aufträge" />
+                  hintText="Aufträge"
+                  value= {this.state.AU.E26}
+                  disabled = {true}/>
               </TableRowColumn>
             </TableRow>
             <TableRow>
               <TableRowColumn displayBorder = {true}>E51</TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Vertriebswunsch" />
+                  hintText="Vertriebswunsch"
+                  value= {this.state.VR.E51}/>
+                />
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Bedarf für WS" />
+                  hintText="Bedarf für WS"
+                  disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Geplanter Lagerbestand" />
+                  hintText="Geplanter Lagerbestand"
+                  value= {this.state.GL.E51}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Aktueller Lagerbestand" />
+                  hintText="Aktueller Lagerbestand"
+                  value = {this._getWarehousestock("51")}
+                  disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Warteschlange" />
+                  hintText="Warteschlange"
+                  value = {this._getWaitingslistworkstation("51")}
+                  disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Bearbeitung" />
+                  hintText="Bearbeitung"
+                  value = {this._getOrdersinwork("51")}
+                  disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Aufträge" />
+                  hintText="Aufträge"
+                  value= {this.state.AU.E51}
+                  disabled = {true}/>
               </TableRowColumn>
             </TableRow>
             <TableRow>
               <TableRowColumn><b><font color="red">E16</font></b></TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Vertriebswunsch" />
+                  hintText="Vertriebswunsch"
+                  value= {this.state.VR.E16}/>
+                />
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Bedarf für WS" />
+                  hintText="Bedarf für WS"
+                  disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Geplanter Lagerbestand" />
+                  hintText="Geplanter Lagerbestand"
+                  value= {this.state.GL.E16}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Aktueller Lagerbestand" />
+                  hintText="Aktueller Lagerbestand"
+                  value = {Math.ceil(this._getWarehousestock("16")/3)}
+                  disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Warteschlange" />
+                  hintText="Warteschlange"
+                  value = {this._getWaitingslistworkstation("16")}
+                  disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Bearbeitung" />
+                  hintText="Bearbeitung"
+                  value = {this._getOrdersinwork("16")}
+                  disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Aufträge" />
+                  hintText="Aufträge"
+                  value= {this.state.AU.E16}
+                  disabled = {true}/>
               </TableRowColumn>
             </TableRow>
             <TableRow>
               <TableRowColumn><b><font color="red">E17</font></b></TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Vertriebswunsch" />
+                  hintText="Vertriebswunsch"
+                  value= {this.state.VR.E17}/>
+                />
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Bedarf für WS" />
+                  hintText="Bedarf für WS"
+                  disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Geplanter Lagerbestand" />
+                  hintText="Geplanter Lagerbestand"
+                  value= {this.state.GL.E17}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Aktueller Lagerbestand" />
+                  hintText="Aktueller Lagerbestand"
+                  value = {Math.ceil(this._getWarehousestock("17")/3)}
+                  disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Warteschlange" />
+                  hintText="Warteschlange"
+                  value = {this._getWaitingslistworkstation("17")}
+                  disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Bearbeitung" />
+                  hintText="Bearbeitung"
+                  value = {this._getOrdersinwork("17")}
+                  disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Aufträge" />
+                  hintText="Aufträge"
+                  value= {this.state.AU.E17}
+                  disabled = {true}/>
               </TableRowColumn>
             </TableRow>
             <TableRow>
               <TableRowColumn>E50</TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Vertriebswunsch" />
+                  hintText="Vertriebswunsch"
+                  value= {this.state.VR.E50}/>
+                />
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Bedarf für WS" />
+                  hintText="Bedarf für WS"
+                  disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Geplanter Lagerbestand" />
+                  hintText="Geplanter Lagerbestand"
+                  value= {this.state.GL.E50}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Aktueller Lagerbestand" />
+                  hintText="Aktueller Lagerbestand"
+                  value = {this._getWarehousestock("50")}
+                  disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Warteschlange" />
+                  hintText="Warteschlange"
+                  value = {this._getWaitingslistworkstation("50")}
+                  disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Bearbeitung" />
+                  hintText="Bearbeitung"
+                  value = {this._getOrdersinwork("50")}
+                  disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Aufträge" />
+                  hintText="Aufträge"
+                  value= {this.state.AU.E50}
+                  disabled = {true}/>
               </TableRowColumn>
             </TableRow>
             <TableRow>
               <TableRowColumn>E4</TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Vertriebswunsch" />
+                  hintText="Vertriebswunsch"
+                  value= {this.state.VR.E4}/>
+                />
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Bedarf für WS" />
+                  hintText="Bedarf für WS"
+                  disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Geplanter Lagerbestand" />
+                  hintText="Geplanter Lagerbestand"
+                  value= {this.state.GL.E4}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Aktueller Lagerbestand" />
+                  hintText="Aktueller Lagerbestand"
+                  value = {this._getWarehousestock("4")}
+                  disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Warteschlange" />
+                  hintText="Warteschlange"
+                  value = {this._getWaitingslistworkstation("4")}
+                  disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Bearbeitung" />
+                  hintText="Bearbeitung"
+                  value = {this._getOrdersinwork("4")}
+                  disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Aufträge" />
+                  hintText="Aufträge"
+                  value= {this.state.AU.E4}
+                  disabled = {true}/>
               </TableRowColumn>
             </TableRow>
             <TableRow>
               <TableRowColumn>E10</TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Vertriebswunsch" />
+                  hintText="Vertriebswunsch"
+                  value= {this.state.VR.E10}/>
+                />
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Bedarf für WS" />
+                  hintText="Bedarf für WS"
+                  disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Geplanter Lagerbestand" />
+                  hintText="Geplanter Lagerbestand"
+                  value= {this.state.GL.E10}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Aktueller Lagerbestand" />
+                  hintText="Aktueller Lagerbestand"
+                  value = {this._getWarehousestock("10")}
+                  disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Warteschlange" />
+                  hintText="Warteschlange"
+                  value = {this._getWaitingslistworkstation("10")}
+                  disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Bearbeitung" />
+                  hintText="Bearbeitung"
+                  value = {this._getOrdersinwork("10")}
+                  disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Aufträge" />
+                  hintText="Aufträge"
+                  value= {this.state.AU.E10}
+                  disabled = {true}/>
               </TableRowColumn>
             </TableRow>
             <TableRow>
             <TableRowColumn>E49</TableRowColumn>
             <TableRowColumn>
               <TextField
-                hintText="Vertriebswunsch" />
+                hintText="Vertriebswunsch"
+                value= {this.state.VR.E49}/>
+              />
             </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Bedarf für WS" />
+                  hintText="Bedarf für WS"
+                  disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Geplanter Lagerbestand" />
+                  hintText="Geplanter Lagerbestand"
+                  value= {this.state.GL.E49}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Aktueller Lagerbestand" />
+                  hintText="Aktueller Lagerbestand"
+                  value = {this._getWarehousestock("49")}
+                  disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Warteschlange" />
+                  hintText="Warteschlange"
+                  value = {this._getWaitingslistworkstation("49")}
+                  disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Bearbeitung" />
+                  hintText="Bearbeitung"
+                  value = {this._getOrdersinwork("49")}
+                  disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Aufträge" />
+                  hintText="Aufträge"
+                  value= {this.state.AU.E49}
+                  disabled = {true}/>
               </TableRowColumn>
           </TableRow>
             <TableRow>
               <TableRowColumn>E7</TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Vertriebswunsch" />
+                  hintText="Vertriebswunsch"
+                  value= {this.state.VR.E7}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Bedarf für WS" />
+                  hintText="Bedarf für WS"
+                  disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Geplanter Lagerbestand" />
+                  hintText="Geplanter Lagerbestand"
+                  value= {this.state.GL.E7}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Aktueller Lagerbestand" />
+                  hintText="Aktueller Lagerbestand"
+                  value = {this._getWarehousestock("7")}
+                  disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Warteschlange" />
+                  hintText="Warteschlange"
+                  value = {this._getWaitingslistworkstation("7")}
+                  disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Bearbeitung" />
+                  hintText="Bearbeitung"
+                  value = {this._getOrdersinwork("7")}
+                  disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Aufträge" />
+                  hintText="Aufträge"
+                  value= {this.state.AU.E7}
+                  disabled = {true}/>
               </TableRowColumn>
             </TableRow>
             <TableRow>
               <TableRowColumn>E13</TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Vertriebswunsch" />
+                  hintText="Vertriebswunsch"
+                  value= {this.state.VR.E13}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Bedarf für WS" />
+                  hintText="Bedarf für WS"
+                  disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Geplanter Lagerbestand" />
+                  hintText="Geplanter Lagerbestand"
+                  value= {this.state.GL.E13}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Aktueller Lagerbestand" />
+                  hintText="Aktueller Lagerbestand"
+                  value = {this._getWarehousestock("13")}
+                  disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Warteschlange" />
+                  hintText="Warteschlange"
+                  value = {this._getWaitingslistworkstation("13")}
+                  disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Bearbeitung" />
+                  hintText="Bearbeitung"
+                  value = {this._getOrdersinwork("13")}
+                  disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Aufträge" />
+                  hintText="Aufträge"
+                  value= {this.state.AU.E13}
+                  disabled = {true}/>
               </TableRowColumn>
             </TableRow>
             <TableRow>
               <TableRowColumn>E18</TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Vertriebswunsch" />
+                  hintText="Vertriebswunsch"
+                  value= {this.state.VR.E18}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Bedarf für WS" />
+                  hintText="Bedarf für WS"
+                  disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Geplanter Lagerbestand" />
+                  hintText="Geplanter Lagerbestand"
+                  value= {this.state.GL.E18}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Aktueller Lagerbestand" />
+                  hintText="Aktueller Lagerbestand"
+                  value = {this._getWarehousestock("18")}
+                  disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Warteschlange" />
+                  hintText="Warteschlange"
+                  value = {this._getWaitingslistworkstation("18")}
+                  disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Bearbeitung" />
+                  hintText="Bearbeitung"
+                  value = {this._getOrdersinwork("18")}
+                  disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Aufträge" />
+                  hintText="Aufträge"
+                  value= {this.state.AU.E18}
+                  disabled = {true}/>
               </TableRowColumn>
 
             </TableRow>
