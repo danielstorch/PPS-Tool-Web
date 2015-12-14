@@ -66,7 +66,60 @@ class Kinder extends React.Component {
         E15: 0,
         E20: 0},
 
-      GL:{P3: 0,
+      BW:{P3: 0,
+        E26: 0,
+        E31: 0,
+        E16: 0,
+        E17: 0,
+        E30: 0,
+        E6: 0,
+        E12: 0,
+        E29: 0,
+        E9: 0,
+        E15: 0,
+        E20: 0},
+
+      GL: {P3: 0,
+        E26: 0,
+        E31: 0,
+        E16: 0,
+        E17: 0,
+        E30: 0,
+        E6: 0,
+        E12: 0,
+        E29: 0,
+        E9: 0,
+        E15: 0,
+        E20: 0},
+
+      AL: {P3: 0,
+        E26: 0,
+        E31: 0,
+        E16: 0,
+        E17: 0,
+        E30: 0,
+        E6: 0,
+        E12: 0,
+        E29: 0,
+        E9: 0,
+        E15: 0,
+        E20: 0},
+
+
+      WS: {P3: 0,
+        E26: 0,
+        E31: 0,
+        E16: 0,
+        E17: 0,
+        E30: 0,
+        E6: 0,
+        E12: 0,
+        E29: 0,
+        E9: 0,
+        E15: 0,
+        E20: 0},
+
+      BA: {P3: 0,
         E26: 0,
         E31: 0,
         E16: 0,
@@ -119,6 +172,76 @@ class Kinder extends React.Component {
         E20: ''}
 
     };
+
+  }
+
+  componentWillMount(){
+    console.log('componentWillMount');
+    this._updateVariables();
+  }
+
+  _updateVariables(){
+    console.log('_updateVariables Method');
+
+
+    //BW
+    this.state.BW.E26 = this._getWaitingslistworkstation('3');
+    this.state.BW.E31 = this._getWaitingslistworkstation('3');
+    this.state.BW.E16 = this._getWaitingslistworkstation('31');
+    this.state.BW.E17 = this._getWaitingslistworkstation('31');
+    this.state.BW.E30 = this._getWaitingslistworkstation('31');
+    this.state.BW.E6 = this._getWaitingslistworkstation('30');
+    this.state.BW.E12 = this._getWaitingslistworkstation('30');
+    this.state.BW.E29 = this._getWaitingslistworkstation('30');
+    this.state.BW.E9 = this._getWaitingslistworkstation('29');
+    this.state.BW.E15 = this._getWaitingslistworkstation('29');
+    this.state.BW.E20 = this._getWaitingslistworkstation('29');
+
+    //AL
+    this.state.AL.P3 = this._getWarehousestock('3');
+    this.state.AL.E26 = Math.ceil(this._getWarehousestock('26'));
+    this.state.AL.E31 = this._getWarehousestock('31');
+    this.state.AL.E16 = Math.ceil(this._getWarehousestock('16'));
+    this.state.AL.E17 = Math.ceil(this._getWarehousestock('17'));
+    this.state.AL.E30 = this._getWarehousestock('30');
+    this.state.AL.E6 = this._getWarehousestock('6');
+    this.state.AL.E12 = this._getWarehousestock('12');
+    this.state.AL.E29 = this._getWarehousestock('29');
+    this.state.AL.E9 = this._getWarehousestock('9');
+    this.state.AL.E15 = this._getWarehousestock('15');
+    this.state.AL.E20 = this._getWarehousestock('20');
+
+    //WS
+    this.state.WS.P3 = this._getWaitingslistworkstation('3');
+    this.state.WS.E26 = this._getWaitingslistworkstation('26');
+    this.state.WS.E31 = this._getWaitingslistworkstation('31');
+    this.state.WS.E16 = this._getWaitingslistworkstation('16');
+    this.state.WS.E17 = this._getWaitingslistworkstation('17');
+    this.state.WS.E30 = this._getWaitingslistworkstation('30');
+    this.state.WS.E6 = this._getWaitingslistworkstation('6');
+    this.state.WS.E12 = this._getWaitingslistworkstation('12');
+    this.state.WS.E29 = this._getWaitingslistworkstation('29');
+    this.state.WS.E9 = this._getWaitingslistworkstation('9');
+    this.state.WS.E15 = this._getWaitingslistworkstation('15');
+    this.state.WS.E20 = this._getWaitingslistworkstation('20');
+
+    //BA
+    this.state.BA.P3 = this._getOrdersinwork('3');
+    this.state.BA.E26 = this._getOrdersinwork('26');
+    this.state.BA.E31 = this._getOrdersinwork('31');
+    this.state.BA.E16 = this._getOrdersinwork('16');
+    this.state.BA.E17 = this._getOrdersinwork('17');
+    this.state.BA.E30 = this._getOrdersinwork('30');
+    this.state.BA.E6 = this._getOrdersinwork('6');
+    this.state.BA.E12 = this._getOrdersinwork('12');
+    this.state.BA.E29 = this._getOrdersinwork('29');
+    this.state.BA.E9 = this._getOrdersinwork('9');
+    this.state.BA.E15 = this._getOrdersinwork('15');
+    this.state.BA.E20 = this._getOrdersinwork('20');
+
+    console.log(this._getOrdersinwork('18'));
+
+
 
   }
 
@@ -301,16 +424,12 @@ class Kinder extends React.Component {
                 <TextField
                   hintText="Vertriebswunsch"
                   id="P3"
-                  hintText="Vertriebswunsch"
                   errorText={this.state.errorText.P3}
                   errorStyle={{color:'orange'}}
                   onChange={this._handleVetriebswunschChange}
                   value= {this.state.VR.P3}/>
-              </TableRowColumn>
+              </TableRowColumn> 
               <TableRowColumn>
-                <TextField
-                  hintText="Bedarf für WS"
-                  disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
@@ -324,20 +443,20 @@ class Kinder extends React.Component {
               <TableRowColumn>
                 <TextField
                   hintText="Aktueller Lagerbestand"
-                  value = {this._getWarehousestock("3")}
+                  value = {this.state.AL.P3}
                   disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
                   hintText="Warteschlange"
-                  value = {this._getWaitingslistworkstation("3")}
+                  value = {this.state.WS.P3}
                   disabled = {true}/>
                 />
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
                   hintText="Bearbeitung"
-                  value = {this._getOrdersinwork("3")}
+                  value = {this.state.BA.P3}
                   disabled = {true}/>
                 />
               </TableRowColumn>
@@ -363,6 +482,7 @@ class Kinder extends React.Component {
               <TableRowColumn>
                 <TextField
                   hintText="Bedarf für WS"
+                  value = {this.state.BW.E26}
                   disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
@@ -377,20 +497,20 @@ class Kinder extends React.Component {
               <TableRowColumn>
                 <TextField
                   hintText="Aktueller Lagerbestand"
-                  value = {Math.ceil(this._getWarehousestock("26")/3)}
+                  value = {this.state.AL.E26}
                   disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
                   hintText="Warteschlange"
-                  value = {this._getWaitingslistworkstation("26")}
+                  value = {this.state.WS.E26}
                   disabled = {true}/>
                 />
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
                   hintText="Bearbeitung"
-                  value = {this._getOrdersinwork("26")}
+                  value = {this.state.BA.E26}
                   disabled = {true}/>
                 />
               </TableRowColumn>
@@ -416,6 +536,7 @@ class Kinder extends React.Component {
               <TableRowColumn>
                 <TextField
                   hintText="Bedarf für WS"
+                  value = {this.state.BW.E31}
                   disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
@@ -430,20 +551,20 @@ class Kinder extends React.Component {
               <TableRowColumn>
                 <TextField
                   hintText="Aktueller Lagerbestand"
-                  value = {this._getWarehousestock("31")}
+                  value = {this.state.AL.E31}
                   disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
                   hintText="Warteschlange"
-                  value = {this._getWaitingslistworkstation("31")}
+                  value = {this.state.WS.E31}
                   disabled = {true}/>
                 />
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
                   hintText="Bearbeitung"
-                  value = {this._getOrdersinwork("31")}
+                  value = {this.state.BA.E31}
                   disabled = {true}/>
                 />
               </TableRowColumn>
@@ -469,6 +590,7 @@ class Kinder extends React.Component {
               <TableRowColumn>
                 <TextField
                   hintText="Bedarf für WS"
+                  value = {this.state.BW.E16}
                   disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
@@ -479,20 +601,20 @@ class Kinder extends React.Component {
               <TableRowColumn>
                 <TextField
                   hintText="Aktueller Lagerbestand"
-                  value = {Math.ceil(this._getWarehousestock("16")/3)}
+                  value = {this.state.AL.E16}
                   disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
                   hintText="Warteschlange"
-                  value = {this._getWaitingslistworkstation("16")}
+                  value = {this.state.WS.E16}
                   disabled = {true}/>
                 />
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
                   hintText="Bearbeitung"
-                  value = {this._getOrdersinwork("16")}
+                  value = {this.state.BA.E16}
                   disabled = {true}/>
                 />
               </TableRowColumn>
@@ -518,6 +640,7 @@ class Kinder extends React.Component {
               <TableRowColumn>
                 <TextField
                   hintText="Bedarf für WS"
+                  value = {this.state.BW.E17}
                   disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
@@ -532,20 +655,20 @@ class Kinder extends React.Component {
               <TableRowColumn>
                 <TextField
                   hintText="Aktueller Lagerbestand"
-                  value = {Math.ceil(this._getWarehousestock("17")/3)}
+                  value = {this.state.AL.E17}
                   disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
                   hintText="Warteschlange"
-                  value = {this._getWaitingslistworkstation("17")}
+                  value = {this.state.WS.E17}
                   disabled = {true}/>
                 />
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
                   hintText="Bearbeitung"
-                  value = {this._getOrdersinwork("17")}
+                  value = {this.state.BA.E17}
                   disabled = {true}/>
                 />
               </TableRowColumn>
@@ -571,6 +694,7 @@ class Kinder extends React.Component {
             <TableRowColumn>
               <TextField
                 hintText="Bedarf für WS"
+                value = {this.state.BW.E30}
                 disabled = {true}/>
             </TableRowColumn>
             <TableRowColumn>
@@ -585,20 +709,20 @@ class Kinder extends React.Component {
             <TableRowColumn>
               <TextField
                 hintText="Aktueller Lagerbestand"
-                value = {this._getWarehousestock("30")}
+                value = {this.state.AL.E30}
                 disabled = {true}/>
             </TableRowColumn>
             <TableRowColumn>
               <TextField
                 hintText="Warteschlange"
-                value = {this._getWaitingslistworkstation("30")}
+                value = {this.state.WS.E30}
                 disabled = {true}/>
               />
             </TableRowColumn>
             <TableRowColumn>
               <TextField
                 hintText="Bearbeitung"
-                value = {this._getOrdersinwork("30")}
+                value = {this.state.BA.E30}
                 disabled = {true}/>
               />
             </TableRowColumn>
@@ -624,6 +748,7 @@ class Kinder extends React.Component {
               <TableRowColumn>
                 <TextField
                   hintText="Bedarf für WS"
+                  value = {this.state.BW.E6}
                   disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
@@ -638,20 +763,20 @@ class Kinder extends React.Component {
               <TableRowColumn>
                 <TextField
                   hintText="Aktueller Lagerbestand"
-                  value = {this._getWarehousestock("6")}
+                  value = {this.state.AL.E6}
                   disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
                   hintText="Warteschlange"
-                  value = {this._getWaitingslistworkstation("6")}
+                  value = {this.state.WS.E6}
                   disabled = {true}/>
                 />
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
                   hintText="Bearbeitung"
-                  value = {this._getOrdersinwork("6")}
+                  value = {this.state.BA.E6}
                   disabled = {true}/>
                 />
               </TableRowColumn>
@@ -677,6 +802,7 @@ class Kinder extends React.Component {
               <TableRowColumn>
                 <TextField
                   hintText="Bedarf für WS"
+                  value = {this.state.BW.E12}
                   disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
@@ -691,20 +817,20 @@ class Kinder extends React.Component {
               <TableRowColumn>
                 <TextField
                   hintText="Aktueller Lagerbestand"
-                  value = {this._getWarehousestock("12")}
+                  value = {this.state.AL.E12}
                   disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
                   hintText="Warteschlange"
-                  value = {this._getWaitingslistworkstation("12")}
+                  value = {this.state.WS.E12}
                   disabled = {true}/>
                 />
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
                   hintText="Bearbeitung"
-                  value = {this._getOrdersinwork("12")}
+                  value = {this.state.BA.E12}
                   disabled = {true}/>
                 />
               </TableRowColumn>
@@ -730,6 +856,7 @@ class Kinder extends React.Component {
               <TableRowColumn>
                 <TextField
                   hintText="Bedarf für WS"
+                  value = {this.state.BW.E29}
                   disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
@@ -744,20 +871,20 @@ class Kinder extends React.Component {
               <TableRowColumn>
                 <TextField
                   hintText="Aktueller Lagerbestand"
-                  value = {this._getWarehousestock("29")}
+                  value = {this.state.AL.E29}
                   disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
                   hintText="Warteschlange"
-                  value = {this._getWaitingslistworkstation("29")}
+                  value = {this.state.WS.E29}
                   disabled = {true}/>
                 />
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
                   hintText="Bearbeitung"
-                  value = {this._getOrdersinwork("29")}
+                  value = {this.state.BA.E29}
                   disabled = {true}/>
                 />
               </TableRowColumn>
@@ -783,6 +910,7 @@ class Kinder extends React.Component {
               <TableRowColumn>
                 <TextField
                   hintText="Bedarf für WS"
+                  value = {this.state.BW.E9}
                   disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
@@ -797,20 +925,20 @@ class Kinder extends React.Component {
               <TableRowColumn>
                 <TextField
                   hintText="Aktueller Lagerbestand"
-                  value = {this._getWarehousestock("9")}
+                  value = {this.state.AL.E9}
                   disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
                   hintText="Warteschlange"
-                  value = {this._getWaitingslistworkstation("9")}
+                  value = {this.state.WS.E9}
                   disabled = {true}/>
                 />
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
                   hintText="Bearbeitung"
-                  value = {this._getOrdersinwork("9")}
+                  value = {this.state.BA.E9}
                   disabled = {true}/>
                 />
               </TableRowColumn>
@@ -836,6 +964,7 @@ class Kinder extends React.Component {
               <TableRowColumn>
                 <TextField
                   hintText="Bedarf für WS"
+                  value = {this.state.BW.E15}
                   disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
@@ -850,20 +979,20 @@ class Kinder extends React.Component {
               <TableRowColumn>
                 <TextField
                   hintText="Aktueller Lagerbestand"
-                  value = {this._getWarehousestock("15")}
+                  value = {this.state.AL.E15}
                   disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
                   hintText="Warteschlange"
-                  value = {this._getWaitingslistworkstation("15")}
+                  value = {this.state.WS.E15}
                   disabled = {true}/>
                 />
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
                   hintText="Bearbeitung"
-                  value = {this._getOrdersinwork("15")}
+                  value = {this.state.BA.E15}
                   disabled = {true}/>
                 />
               </TableRowColumn>
@@ -889,6 +1018,7 @@ class Kinder extends React.Component {
               <TableRowColumn>
                 <TextField
                   hintText="Bedarf für WS"
+                  value = {this.state.BW.E20}
                   disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
@@ -903,20 +1033,20 @@ class Kinder extends React.Component {
               <TableRowColumn>
                 <TextField
                   hintText="Aktueller Lagerbestand"
-                  value = {this._getWarehousestock("20")}
+                  value = {this.state.AL.E20}
                   disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
                   hintText="Warteschlange"
-                  value = {this._getWaitingslistworkstation("20")}
+                  value = {this.state.WS.E20}
                   disabled = {true}/>
                 />
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
                   hintText="Bearbeitung"
-                  value = {this._getOrdersinwork("20")}
+                  value = {this.state.BA.E20}
                   disabled = {true}/>
                 />
               </TableRowColumn>

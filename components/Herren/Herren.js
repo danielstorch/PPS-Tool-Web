@@ -67,7 +67,59 @@ class Herren extends React.Component {
         E13: 0,
         E18: 0},
 
+      BW:{P1: 0,
+        E26: 0,
+        E51: 0,
+        E16: 0,
+        E17: 0,
+        E50: 0,
+        E4: 0,
+        E10: 0,
+        E49: 0,
+        E7: 0,
+        E13: 0,
+        E18: 0},
+
       GL:{P1: 0,
+        E26: 0,
+        E51: 0,
+        E16: 0,
+        E17: 0,
+        E50: 0,
+        E4: 0,
+        E10: 0,
+        E49: 0,
+        E7: 0,
+        E13: 0,
+        E18: 0},
+
+      AL:{P1: 0,
+        E26: 0,
+        E51: 0,
+        E16: 0,
+        E17: 0,
+        E50: 0,
+        E4: 0,
+        E10: 0,
+        E49: 0,
+        E7: 0,
+        E13: 0,
+        E18: 0},
+
+      WS:{P1: 0,
+        E26: 0,
+        E51: 0,
+        E16: 0,
+        E17: 0,
+        E50: 0,
+        E4: 0,
+        E10: 0,
+        E49: 0,
+        E7: 0,
+        E13: 0,
+        E18: 0},
+
+      BA:{P1: 0,
         E26: 0,
         E51: 0,
         E16: 0,
@@ -119,10 +171,81 @@ class Herren extends React.Component {
         E13: '',
         E18: ''}
 
-};
+    };
+
+  }
+
+  componentWillMount(){
+    console.log('componentWillMount');
+    this._updateVariables();
+  }
+
+  _updateVariables(){
+    console.log('_updateVariables Method');
+
+
+    //BW
+    this.state.BW.E26 = this._getWaitingslistworkstation('1');
+    this.state.BW.E51 = this._getWaitingslistworkstation('1');
+    this.state.BW.E16 = this._getWaitingslistworkstation('51');
+    this.state.BW.E17 = this._getWaitingslistworkstation('51');
+    this.state.BW.E50 = this._getWaitingslistworkstation('51');
+    this.state.BW.E4 = this._getWaitingslistworkstation('50');
+    this.state.BW.E10 = this._getWaitingslistworkstation('50');
+    this.state.BW.E49 = this._getWaitingslistworkstation('50');
+    this.state.BW.E7 = this._getWaitingslistworkstation('49');
+    this.state.BW.E13 = this._getWaitingslistworkstation('49');
+    this.state.BW.E18 = this._getWaitingslistworkstation('49');
+
+    //AL
+    this.state.AL.P1 = this._getWarehousestock('1');
+     this.state.AL.E26 = Math.ceil(this._getWarehousestock('26')/3); 
+    this.state.AL.E51 = this._getWarehousestock('51'); 
+    this.state.AL.E16 = Math.ceil(this._getWarehousestock('16')/3);
+    this.state.AL.E17 = Math.ceil(this._getWarehousestock('17')/3);
+     this.state.AL.E50 = this._getWarehousestock('50');
+     this.state.AL.E4 = this._getWarehousestock('4'); 
+    this.state.AL.E10 = this._getWarehousestock('10'); 
+    this.state.AL.E49 = this._getWarehousestock('49'); 
+    this.state.AL.E7 = this._getWarehousestock('7'); 
+    this.state.AL.E13 = this._getWarehousestock('13');
+     this.state.AL.E18 = this._getWarehousestock('18');
+
+
+    //WS
+    this.state.WS.P1 = this._getWaitingslistworkstation('1');
+    this.state.WS.E26 = this._getWaitingslistworkstation('26');
+    this.state.WS.E51 = this._getWaitingslistworkstation('51');
+    this.state.WS.E16 = this._getWaitingslistworkstation('16');
+    this.state.WS.E17 = this._getWaitingslistworkstation('17');
+    this.state.WS.E50 = this._getWaitingslistworkstation('50');
+    this.state.WS.E4 = this._getWaitingslistworkstation('4');
+    this.state.WS.E10 = this._getWaitingslistworkstation('10');
+    this.state.WS.E49 = this._getWaitingslistworkstation('49');
+    this.state.WS.E7 = this._getWaitingslistworkstation('7');
+    this.state.WS.E13 = this._getWaitingslistworkstation('13');
+    this.state.WS.E18 = this._getWaitingslistworkstation('18');
+
+    //BA
+    this.state.BA.P1 = this._getOrdersinwork('1');
+    this.state.BA.E26 = this._getOrdersinwork('26');
+    this.state.BA.E51 = this._getOrdersinwork('51');
+    this.state.BA.E16 = this._getOrdersinwork('16');
+    this.state.BA.E17 = this._getOrdersinwork('17');
+    this.state.BA.E50 = this._getOrdersinwork('50');
+    this.state.BA.E4 = this._getOrdersinwork('4');
+    this.state.BA.E10 = this._getOrdersinwork('10');
+    this.state.BA.E49 = this._getOrdersinwork('49');
+    this.state.BA.E7 = this._getOrdersinwork('7');
+    this.state.BA.E13 = this._getOrdersinwork('13');
+    this.state.BA.E18 = this._getOrdersinwork('18');
+
+    console.log(this._getOrdersinwork('18'));
+
 
 
   }
+
 
   getWarteschlangeAmountINPUT(id, isResult, inputXML){
     var amount = 0;
@@ -311,9 +434,7 @@ class Herren extends React.Component {
                   value= {this.state.VR.P1}/>
               </TableRowColumn>
               <TableRowColumn>
-                <TextField
-                  hintText="Bedarf für WS"
-                  disabled = {true}/>
+
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
@@ -327,20 +448,20 @@ class Herren extends React.Component {
               <TableRowColumn>
               <TextField
                   hintText="Aktueller Lagerbestand"
-                value = {this._getWarehousestock("1")}
+                  value = {this.state.AL.P1}
                   disabled = {true}/>
             </TableRowColumn>
               <TableRowColumn>
               <TextField
                   hintText="Warteschlange"
-                  value = {this._getWaitingslistworkstation("1")}
+                  value = {this.state.WS.P1}
                   disabled = {true}/>
                 />
             </TableRowColumn>
               <TableRowColumn>
                 <TextField
                   hintText="Bearbeitung"
-                  value = {this._getOrdersinwork("1")}
+                  value = {this.state.BA.P1}
                   disabled = {true}/>
                 />
               </TableRowColumn>
@@ -367,6 +488,7 @@ class Herren extends React.Component {
               <TableRowColumn>
                 <TextField
                   hintText="Bedarf für WS"
+                  value = {this.state.BW.E26}
                   disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
@@ -381,19 +503,19 @@ class Herren extends React.Component {
               <TableRowColumn>
                 <TextField
                   hintText="Aktueller Lagerbestand"
-                  value = {Math.ceil(this._getWarehousestock("26")/3)}
+                  value = {this.state.AL.E26}
                   disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
                   hintText="Warteschlange"
-                  value = {this._getWaitingslistworkstation("26")}
+                  value = {this.state.WS.E26}
                   disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
                   hintText="Bearbeitung"
-                  value = {this._getOrdersinwork("26")}
+                  value = {this.state.BA.E26}
                   disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
@@ -419,6 +541,7 @@ class Herren extends React.Component {
               <TableRowColumn>
                 <TextField
                   hintText="Bedarf für WS"
+                  value = {this.state.BW.E51}
                   disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
@@ -433,19 +556,19 @@ class Herren extends React.Component {
               <TableRowColumn>
                 <TextField
                   hintText="Aktueller Lagerbestand"
-                  value = {this._getWarehousestock("51")}
+                  value = {this.state.AL.E51}
                   disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
                   hintText="Warteschlange"
-                  value = {this._getWaitingslistworkstation("51")}
+                  value = {this.state.WS.E51}
                   disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
                   hintText="Bearbeitung"
-                  value = {this._getOrdersinwork("51")}
+                  value = {this.state.BA.E51}
                   disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
@@ -471,6 +594,7 @@ class Herren extends React.Component {
               <TableRowColumn>
                 <TextField
                   hintText="Bedarf für WS"
+                  value = {this.state.BW.E16}
                   disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
@@ -485,19 +609,19 @@ class Herren extends React.Component {
               <TableRowColumn>
                 <TextField
                   hintText="Aktueller Lagerbestand"
-                  value = {Math.ceil(this._getWarehousestock("16")/3)}
+                  value = {this.state.AL.E16}
                   disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
                   hintText="Warteschlange"
-                  value = {this._getWaitingslistworkstation("16")}
+                  value = {this.state.WS.E16}
                   disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
                   hintText="Bearbeitung"
-                  value = {this._getOrdersinwork("16")}
+                  value = {this.state.BA.E16}
                   disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
@@ -523,6 +647,7 @@ class Herren extends React.Component {
               <TableRowColumn>
                 <TextField
                   hintText="Bedarf für WS"
+                  value = {this.state.BW.E17}
                   disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
@@ -537,19 +662,19 @@ class Herren extends React.Component {
               <TableRowColumn>
                 <TextField
                   hintText="Aktueller Lagerbestand"
-                  value = {Math.ceil(this._getWarehousestock("17")/3)}
+                  value = {this.state.AL.E17}
                   disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
                   hintText="Warteschlange"
-                  value = {this._getWaitingslistworkstation("17")}
+                  value = {this.state.WS.E17}
                   disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
                   hintText="Bearbeitung"
-                  value = {this._getOrdersinwork("17")}
+                  value = {this.state.BA.E17}
                   disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
@@ -575,6 +700,7 @@ class Herren extends React.Component {
               <TableRowColumn>
                 <TextField
                   hintText="Bedarf für WS"
+                  value = {this.state.BW.E50}
                   disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
@@ -589,19 +715,19 @@ class Herren extends React.Component {
               <TableRowColumn>
                 <TextField
                   hintText="Aktueller Lagerbestand"
-                  value = {this._getWarehousestock("50")}
+                  value = {this.state.AL.E50}
                   disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
                   hintText="Warteschlange"
-                  value = {this._getWaitingslistworkstation("50")}
+                  value = {this.state.WS.E50}
                   disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
                   hintText="Bearbeitung"
-                  value = {this._getOrdersinwork("50")}
+                  value = {this.state.BA.E50}
                   disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
@@ -627,6 +753,7 @@ class Herren extends React.Component {
               <TableRowColumn>
                 <TextField
                   hintText="Bedarf für WS"
+                  value = {this.state.BW.E4}
                   disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
@@ -641,19 +768,19 @@ class Herren extends React.Component {
               <TableRowColumn>
                 <TextField
                   hintText="Aktueller Lagerbestand"
-                  value = {this._getWarehousestock("4")}
+                  value = {this.state.AL.E4}
                   disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
                   hintText="Warteschlange"
-                  value = {this._getWaitingslistworkstation("4")}
+                  value = {this.state.WS.E4}
                   disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
                   hintText="Bearbeitung"
-                  value = {this._getOrdersinwork("4")}
+                  value = {this.state.BA.E4}
                   disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
@@ -679,6 +806,7 @@ class Herren extends React.Component {
               <TableRowColumn>
                 <TextField
                   hintText="Bedarf für WS"
+                  value = {this.state.BW.E10}
                   disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
@@ -693,19 +821,19 @@ class Herren extends React.Component {
               <TableRowColumn>
                 <TextField
                   hintText="Aktueller Lagerbestand"
-                  value = {this._getWarehousestock("10")}
+                  value = {this.state.AL.E10}
                   disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
                   hintText="Warteschlange"
-                  value = {this._getWaitingslistworkstation("10")}
+                  value = {this.state.WS.E10}
                   disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
                   hintText="Bearbeitung"
-                  value = {this._getOrdersinwork("10")}
+                  value = {this.state.BA.E10}
                   disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
@@ -731,6 +859,7 @@ class Herren extends React.Component {
               <TableRowColumn>
                 <TextField
                   hintText="Bedarf für WS"
+                  value = {this.state.BW.E49}
                   disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
@@ -745,19 +874,19 @@ class Herren extends React.Component {
               <TableRowColumn>
                 <TextField
                   hintText="Aktueller Lagerbestand"
-                  value = {this._getWarehousestock("49")}
+                  value = {this.state.AL.E49}
                   disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
                   hintText="Warteschlange"
-                  value = {this._getWaitingslistworkstation("49")}
+                  value = {this.state.WS.E49}
                   disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
                   hintText="Bearbeitung"
-                  value = {this._getOrdersinwork("49")}
+                  value = {this.state.BA.E49}
                   disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
@@ -782,6 +911,7 @@ class Herren extends React.Component {
               <TableRowColumn>
                 <TextField
                   hintText="Bedarf für WS"
+                  value = {this.state.BW.E7}
                   disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
@@ -796,19 +926,19 @@ class Herren extends React.Component {
               <TableRowColumn>
                 <TextField
                   hintText="Aktueller Lagerbestand"
-                  value = {this._getWarehousestock("7")}
+                  value = {this.state.AL.E7}
                   disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
                   hintText="Warteschlange"
-                  value = {this._getWaitingslistworkstation("7")}
+                  value = {this.state.WS.E7}
                   disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
                   hintText="Bearbeitung"
-                  value = {this._getOrdersinwork("7")}
+                  value = {this.state.BA.E7}
                   disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
@@ -833,6 +963,7 @@ class Herren extends React.Component {
               <TableRowColumn>
                 <TextField
                   hintText="Bedarf für WS"
+                  value = {this.state.BW.E13}
                   disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
@@ -847,19 +978,19 @@ class Herren extends React.Component {
               <TableRowColumn>
                 <TextField
                   hintText="Aktueller Lagerbestand"
-                  value = {this._getWarehousestock("13")}
+                  value = {this.state.AL.E13}
                   disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
                   hintText="Warteschlange"
-                  value = {this._getWaitingslistworkstation("13")}
+                  value = {this.state.WS.E13}
                   disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
                   hintText="Bearbeitung"
-                  value = {this._getOrdersinwork("13")}
+                  value = {this.state.BA.E13}
                   disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
@@ -884,6 +1015,7 @@ class Herren extends React.Component {
               <TableRowColumn>
                 <TextField
                   hintText="Bedarf für WS"
+                  value = {this.state.BW.E18}
                   disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
@@ -898,19 +1030,19 @@ class Herren extends React.Component {
               <TableRowColumn>
                 <TextField
                   hintText="Aktueller Lagerbestand"
-                  value = {this._getWarehousestock("18")}
+                  value = {this.state.AL.E18}
                   disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
                   hintText="Warteschlange"
-                  value = {this._getWaitingslistworkstation("18")}
+                  value = {this.state.WS.E18}
                   disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
                   hintText="Bearbeitung"
-                  value = {this._getOrdersinwork("18")}
+                  value = {this.state.BA.E18}
                   disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
