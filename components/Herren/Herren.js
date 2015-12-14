@@ -189,10 +189,6 @@ class Herren extends React.Component {
     return true;
   }
 
-  componentWillReceiveProps(){
-    this._updateVariables();
-
-  }
   _updateVariables(){
     console.log('_updateVariables Method');
     
@@ -253,8 +249,6 @@ class Herren extends React.Component {
     this.state.BA.E7 = this._getOrdersinwork('7');
     this.state.BA.E13 = this._getOrdersinwork('13');
     this.state.BA.E18 = this._getOrdersinwork('18');
-
-    console.log(this._getOrdersinwork('18'));
 
 
 
@@ -356,8 +350,10 @@ class Herren extends React.Component {
       errorTextList[articleId] = ''
     }else{
       errorTextList[articleId] = 'This field must be numeric.'
+      value = 0
     }
     VRList[articleId] = value
+
 
     this.setState({
       errorText: errorTextList,
@@ -378,6 +374,7 @@ class Herren extends React.Component {
       errorTextList[articleId] = ''
     }else{
       errorTextList[articleId] = 'This field must be numeric.'
+      value = 0
     }
     VRList[articleId] = value
 
@@ -449,11 +446,11 @@ _handleButtonClick(e){
 
   render() {
 
-    if(this.state.currentPeriode !== this.props.ActiveUploadXML.activeUploadXMLData.id){
-      this._updateVariables()
-      console.log("ALLES WIRD GEUPDATED")
-    }
-
+    // if(this.state.currentPeriode !== this.props.ActiveUploadXML.activeUploadXMLData.id){
+    //   
+    //   console.log("ALLES WIRD GEUPDATED")
+    // }
+this._updateVariables()
 
       let standardActions = [
       { text: 'Ok', onTouchTap: this._onDialogOk.bind(this), ref: 'ok' }
@@ -464,7 +461,7 @@ _handleButtonClick(e){
         <div>
         <h1>Auftragsplanung Herren-Fahrrad</h1>
 
-        <RaisedButton label="Default" primary={true} disabled={this.state.buttonDisabled}/>
+        <RaisedButton label="Save" primary={true} onTouchTap={this._handleButtonClick}/>
 
         <Table
           height={this.state.height}
