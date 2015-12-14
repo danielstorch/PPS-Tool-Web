@@ -498,7 +498,8 @@ class Herren extends React.Component {
                   errorText={this.state.errorText.E26}
                   errorStyle={{color:'orange'}}
                   onChange={this._handleVetriebswunschChange}
-                  value= {this.state.VR.E26}/>
+                  value= {this.state.VR.E26}
+                  disabled = {true}/>
                 />
               </TableRowColumn>
               <TableRowColumn>
@@ -514,7 +515,8 @@ class Herren extends React.Component {
                   errorText={this.state.errorTextGL.E26}
                   errorStyle={{color:'orange'}}
                   onChange={this._handleLagerBestandChange}
-                  value= {this.state.GL.E26}/>
+                  value= {this.state.GL.E26}
+                  disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
@@ -550,7 +552,8 @@ class Herren extends React.Component {
                   errorText={this.state.errorText.E51}
                   errorStyle={{color:'orange'}}
                   onChange={this._handleVetriebswunschChange}
-                  value= {this.state.VR.E51}/>
+                  value= {this.state.VR.E51}
+                  disabled = {true}/>
                 />
               </TableRowColumn>
               <TableRowColumn>
@@ -566,7 +569,8 @@ class Herren extends React.Component {
                   errorText={this.state.errorTextGL.E51}
                   errorStyle={{color:'orange'}}
                   onChange={this._handleLagerBestandChange}
-                  value= {this.state.GL.E51}/>
+                  value= {this.state.GL.E51}
+                  disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
@@ -602,7 +606,8 @@ class Herren extends React.Component {
                   errorText={this.state.errorText.E16}
                   errorStyle={{color:'orange'}}
                   onChange={this._handleVetriebswunschChange}
-                  value= {this.state.VR.E16}/>
+                  value= {this.state.VR.E16}
+                  disabled = {true}/>
                 />
               </TableRowColumn>
               <TableRowColumn>
@@ -618,7 +623,8 @@ class Herren extends React.Component {
                   errorText={this.state.errorTextGL.E16}
                   errorStyle={{color:'orange'}}
                   onChange={this._handleLagerBestandChange}
-                  value= {this.state.GL.E16}/>
+                  value= {this.state.GL.E16}
+                  disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
@@ -654,7 +660,8 @@ class Herren extends React.Component {
                   errorText={this.state.errorText.E17}
                   errorStyle={{color:'orange'}}
                   onChange={this._handleVetriebswunschChange}
-                  value= {this.state.VR.E17}/>
+                  value= {this.state.VR.E17}
+                  disabled = {true}/>
                 />
               </TableRowColumn>
               <TableRowColumn>
@@ -670,7 +677,8 @@ class Herren extends React.Component {
                   errorText={this.state.errorTextGL.E17}
                   errorStyle={{color:'orange'}}
                   onChange={this._handleLagerBestandChange}
-                  value= {this.state.GL.E17}/>
+                  value= {this.state.GL.E17}
+                  disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
@@ -706,7 +714,8 @@ class Herren extends React.Component {
                   errorText={this.state.errorText.E50}
                   errorStyle={{color:'orange'}}
                   onChange={this._handleVetriebswunschChange}
-                  value= {this.state.VR.E50}/>
+                  value= {this.state.VR.E50}
+                  disabled = {true}/>
                 />
               </TableRowColumn>
               <TableRowColumn>
@@ -722,7 +731,8 @@ class Herren extends React.Component {
                   errorText={this.state.errorTextGL.E50}
                   errorStyle={{color:'orange'}}
                   onChange={this._handleLagerBestandChange}
-                  value= {this.state.GL.E50}/>
+                  value= {this.state.GL.E50}
+                  disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
@@ -758,7 +768,8 @@ class Herren extends React.Component {
                   errorText={this.state.errorText.E4}
                   errorStyle={{color:'orange'}}
                   onChange={this._handleVetriebswunschChange}
-                  value= {this.state.VR.E4}/>
+                  value= {this.state.VR.E4}
+                  disabled = {true}/>
                 />
               </TableRowColumn>
               <TableRowColumn>
@@ -774,7 +785,8 @@ class Herren extends React.Component {
                   errorText={this.state.errorTextGL.E4}
                   errorStyle={{color:'orange'}}
                   onChange={this._handleLagerBestandChange}
-                  value= {this.state.GL.E4}/>
+                  value= {this.state.GL.E4}
+                  disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
@@ -810,7 +822,8 @@ class Herren extends React.Component {
                   errorText={this.state.errorText.E10}
                   errorStyle={{color:'orange'}}
                   onChange={this._handleVetriebswunschChange}
-                  value= {this.state.VR.E10}/>
+                  value= {this.state.VR.E10}
+                  disabled = {true}/>
                 />
               </TableRowColumn>
               <TableRowColumn>
@@ -826,7 +839,8 @@ class Herren extends React.Component {
                   errorText={this.state.errorTextGL.E10}
                   errorStyle={{color:'orange'}}
                   onChange={this._handleLagerBestandChange}
-                  value= {this.state.GL.E10}/>
+                  value= {this.state.GL.E10}
+                  disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
@@ -862,7 +876,8 @@ class Herren extends React.Component {
                 id="E49"
                 errorText={this.state.errorText.E49}
                 errorStyle={{color:'orange'}}
-                onChange={this._handleVetriebswunschChange}/>
+                onChange={this._handleVetriebswunschChange}
+                disabled = {true}/>
               />
             </TableRowColumn>
               <TableRowColumn>
@@ -878,7 +893,8 @@ class Herren extends React.Component {
                   errorText={this.state.errorTextGL.E49}
                   errorStyle={{color:'orange'}}
                   onChange={this._handleLagerBestandChange}
-                  value= {this.state.GL.E49}/>
+                  value= {this.state.GL.E49}
+                  disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
@@ -914,7 +930,8 @@ class Herren extends React.Component {
                   id="E7"
                   errorText={this.state.errorText.E7}
                   errorStyle={{color:'orange'}}
-                  onChange={this._handleVetriebswunschChange}/>
+                  onChange={this._handleVetriebswunschChange}
+                  disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
@@ -929,7 +946,8 @@ class Herren extends React.Component {
                   errorText={this.state.errorTextGL.E7}
                   errorStyle={{color:'orange'}}
                   onChange={this._handleLagerBestandChange}
-                  value= {this.state.GL.E7}/>
+                  value= {this.state.GL.E7}
+                  disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
@@ -965,7 +983,8 @@ class Herren extends React.Component {
                   errorText={this.state.errorText.E13}
                   errorStyle={{color:'orange'}}
                   onChange={this._handleVetriebswunschChange}
-                  value= {this.state.VR.E13}/>
+                  value= {this.state.VR.E13}
+                  disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
@@ -980,7 +999,8 @@ class Herren extends React.Component {
                   errorText={this.state.errorTextGL.E13}
                   errorStyle={{color:'orange'}}
                   onChange={this._handleLagerBestandChange}
-                  value= {this.state.GL.E13}/>
+                  value= {this.state.GL.E13}
+                  disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
@@ -1016,7 +1036,8 @@ class Herren extends React.Component {
                   errorText={this.state.errorText.E18}
                   errorStyle={{color:'orange'}}
                   onChange={this._handleVetriebswunschChange}
-                  value= {this.state.VR.E18}/>
+                  value= {this.state.VR.E18}
+                  disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
@@ -1031,7 +1052,8 @@ class Herren extends React.Component {
                   errorText={this.state.errorTextGL.E18}
                   errorStyle={{color:'orange'}}
                   onChange={this._handleLagerBestandChange}
-                  value= {this.state.GL.E18}/>
+                  value= {this.state.GL.E18}
+                  disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
