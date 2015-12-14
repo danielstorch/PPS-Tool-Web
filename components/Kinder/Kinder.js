@@ -180,8 +180,18 @@ class Kinder extends React.Component {
     this._updateVariables();
   }
 
+  shouldComponentUpdate(){
+    return true;
+  }
+
+  componentWillReceiveProps(){
+    this._updateVariables();
+
+  }
+
   _updateVariables(){
     console.log('_updateVariables Method');
+
 
 
     //BW
@@ -372,6 +382,11 @@ class Kinder extends React.Component {
 
   render() {
 
+    if(this.state.currentPeriode !== this.props.ActiveUploadXML.activeUploadXMLData.id){
+      this._updateVariables()
+      console.log("ALLES WIRD GEUPDATED")
+    }
+
     return (
       <div>
         <h1>Auftragsplanung Kinder-Fahrrad</h1>
@@ -428,7 +443,7 @@ class Kinder extends React.Component {
                   errorStyle={{color:'orange'}}
                   onChange={this._handleVetriebswunschChange}
                   value= {this.state.VR.P3}/>
-              </TableRowColumn> 
+              </TableRowColumn>
               <TableRowColumn>
               </TableRowColumn>
               <TableRowColumn>

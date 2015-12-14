@@ -180,6 +180,14 @@ class Herren extends React.Component {
     this._updateVariables();
   }
 
+  shouldComponentUpdate(){
+    return true;
+  }
+
+  componentWillReceiveProps(){
+    this._updateVariables();
+
+  }
   _updateVariables(){
     console.log('_updateVariables Method');
 
@@ -374,6 +382,11 @@ class Herren extends React.Component {
   }
 
   render() {
+
+    if(this.state.currentPeriode !== this.props.ActiveUploadXML.activeUploadXMLData.id){
+      this._updateVariables()
+      console.log("ALLES WIRD GEUPDATED")
+    }
 
     return (
       <div>
