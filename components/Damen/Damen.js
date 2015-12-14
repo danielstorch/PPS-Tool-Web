@@ -29,6 +29,7 @@ class Damen extends React.Component {
     super();
     this._getWarehousestock = this._getWarehousestock.bind(this);
     this._handleVetriebswunschChange = this._handleVetriebswunschChange.bind(this);
+    this._handleGeplanterLagerbestandChange = this._handleGeplanterLagerbestandChange.bind(this);
 
     this.state = {
       modal: true,
@@ -88,7 +89,20 @@ class Damen extends React.Component {
           E14: 0,
           E19: 0},
 
-      errorText:{P2: '',
+      errorTextVR:{P2: '',
+          E26: '',
+          E56: '',
+          E16: '',
+          E17: '',
+          E55: '',
+          E5: '',
+          E11: '',
+          E54: '',
+          E8: '',
+          E14: '',
+          E19: ''
+        },
+        errorTextGL:{P2: '',
           E26: '',
           E56: '',
           E16: '',
@@ -167,24 +181,46 @@ class Damen extends React.Component {
     return currentAmount
   }
 
+  _handleGeplanterLagerbestandChange(e){
+
+    let articleId = e.target.id
+    let value = e.target.value;
+    let GLList = this.state.GL;
+    let errorTextGLList = this.state.errorTextGL
+
+    let isNumeric = !isNaN(parseFloat(value)) && isFinite(value);
+
+    if(isNumeric){
+      errorTextGLList[articleId] = ''
+    }else{
+      errorTextGLList[articleId] = 'This field must be numeric.'
+    }
+    GLList[articleId] = value
+
+    this.setState({
+      errorTextGL: errorTextGLList,
+      GL: GLList
+    });
+  }
+
   _handleVetriebswunschChange(e){
 
     let articleId = e.target.id
     let value = e.target.value;
     let VRList = this.state.VR;
-    let errorTextList = this.state.errorText
+    let errorTextVRList = this.state.errorTextVR
 
     let isNumeric = !isNaN(parseFloat(value)) && isFinite(value);
 
     if(isNumeric){
-      errorTextList[articleId] = ''
+      errorTextVRList[articleId] = ''
     }else{
-      errorTextList[articleId] = 'This field must be numeric.'
+      errorTextVRList[articleId] = 'This field must be numeric.'
     }
     VRList[articleId] = value
 
     this.setState({
-      errorText: errorTextList,
+      errorTextVR: errorTextVRList,
       VR: VRList
     });
   }
@@ -244,7 +280,7 @@ class Damen extends React.Component {
                   id="P2"
                   hintText="Vertriebswunsch"
                   value={this.state.VR.P2}
-                  errorText={this.state.errorText.P2}
+                  errorText={this.state.errorTextVR.P2}
                   errorStyle={{color:'orange'}}
                   onChange={this._handleVetriebswunschChange}/>
               </TableRowColumn>
@@ -253,7 +289,11 @@ class Damen extends React.Component {
               <TableRowColumn>
                 <TextField
                   hintText="Geplanter Lagerbestand" 
-                  value={this.state.GL.P2}/>
+                  value={this.state.GL.P2}
+                  id="P2"
+                  errorText={this.state.errorTextGL.P2}
+                  errorStyle={{color:'orange'}}
+                  onChange={this._handleGeplanterLagerbestandChange}/>
               </TableRowColumn>
               <TableRowColumn>
               <TextField
@@ -287,19 +327,24 @@ class Damen extends React.Component {
                   hintText="Vertriebswunsch"
                   value = {this.state.VR.E26}
                   id="E26"
-                  errorText={this.state.errorText.E26}
+                  errorText={this.state.errorTextVR.E26}
                   errorStyle={{color:'orange'}}
                   onChange={this._handleVetriebswunschChange}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
                   hintText="Bedarf für WS" 
-                  disabled={true}/>
+                  disabled={true}
+                  value={this._getWaitingslistworkstation("2")}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
                   hintText="Geplanter Lagerbestand" 
-                  value={this.state.GL.E26}/>
+                  value={this.state.GL.E26}
+                  id="E26"
+                  errorText={this.state.errorTextGL.E26}
+                  errorStyle={{color:'orange'}}
+                  onChange={this._handleGeplanterLagerbestandChange}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
@@ -333,19 +378,24 @@ class Damen extends React.Component {
                   hintText="Vertriebswunsch" 
                   value={this.state.VR.E56}
                   id="E56"
-                  errorText={this.state.errorText.E56}
+                  errorText={this.state.errorTextVR.E56}
                   errorStyle={{color:'orange'}}
                   onChange={this._handleVetriebswunschChange}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
                   hintText="Bedarf für WS" 
-                  disabled={true}/>
+                  disabled={true}
+                  value={this._getWaitingslistworkstation("2")}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
                   hintText="Geplanter Lagerbestand" 
-                  value={this.state.GL.E56}/>
+                  value={this.state.GL.E56}
+                  id="E56"
+                  errorText={this.state.errorTextGL.E56}
+                  errorStyle={{color:'orange'}}
+                  onChange={this._handleGeplanterLagerbestandChange}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
@@ -379,19 +429,24 @@ class Damen extends React.Component {
                   id="E16"
                   hintText="Vertriebswunsch" 
                   value={this.state.VR.E16}
-                  errorText={this.state.errorText.E16}
+                  errorText={this.state.errorTextVR.E16}
                   errorStyle={{color:'orange'}}
                   onChange={this._handleVetriebswunschChange}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
                   hintText="Bedarf für WS" 
-                  disabled={true}/>
+                  disabled={true}
+                  value={this._getWaitingslistworkstation("56")}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
                   hintText="Geplanter Lagerbestand" 
-                  value={this.state.GL.E16}/>
+                  value={this.state.GL.E16}
+                  id="E16"
+                  errorText={this.state.errorTextGL.E16}
+                  errorStyle={{color:'orange'}}
+                  onChange={this._handleGeplanterLagerbestandChange}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
@@ -425,19 +480,24 @@ class Damen extends React.Component {
                   id="E17"
                   hintText="Vertriebswunsch" 
                   value={this.state.VR.E17}
-                  errorText={this.state.errorText.E17}
+                  errorText={this.state.errorTextVR.E17}
                   errorStyle={{color:'orange'}}
                   onChange={this._handleVetriebswunschChange}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
                   hintText="Bedarf für WS" 
-                  disabled={true}/>
+                  disabled={true}
+                  value={this._getWaitingslistworkstation("56")}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
                   hintText="Geplanter Lagerbestand" 
-                  value={this.state.GL.E17}/>
+                  value={this.state.GL.E17}
+                  id="E17"
+                  errorText={this.state.errorTextGL.E17}
+                  errorStyle={{color:'orange'}}
+                  onChange={this._handleGeplanterLagerbestandChange}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
@@ -471,19 +531,24 @@ class Damen extends React.Component {
                   id="E55"
                   hintText="Vertriebswunsch" 
                   value={this.state.VR.E55}
-                  errorText={this.state.errorText.E55}
+                  errorText={this.state.errorTextVR.E55}
                   errorStyle={{color:'orange'}}
                   onChange={this._handleVetriebswunschChange}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
                   hintText="Bedarf für WS" 
-                  disabled={true}/>
+                  disabled={true}
+                  value={this._getWaitingslistworkstation("56")}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
                   hintText="Geplanter Lagerbestand" 
-                  value={this.state.GL.E55}/>
+                  value={this.state.GL.E55}
+                  id="E55"
+                  errorText={this.state.errorTextGL.E55}
+                  errorStyle={{color:'orange'}}
+                  onChange={this._handleGeplanterLagerbestandChange}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
@@ -517,19 +582,24 @@ class Damen extends React.Component {
                   id="E5"
                   hintText="Vertriebswunsch" 
                   value={this.state.VR.E5}
-                  errorText={this.state.errorText.E5}
+                  errorText={this.state.errorTextVR.E5}
                   errorStyle={{color:'orange'}}
                   onChange={this._handleVetriebswunschChange}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
                   hintText="Bedarf für WS" 
-                  disabled={true}/>
+                  disabled={true}
+                  value={this._getWaitingslistworkstation("55")}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
                   hintText="Geplanter Lagerbestand"
-                  value={this.state.GL.E5}/>
+                  value={this.state.GL.E5}
+                  id="E5"
+                  errorText={this.state.errorTextGL.E5}
+                  errorStyle={{color:'orange'}}
+                  onChange={this._handleGeplanterLagerbestandChange}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
@@ -563,19 +633,24 @@ class Damen extends React.Component {
                   id="E11"
                   hintText="Vertriebswunsch" 
                 value={this.state.VR.E11}
-                errorText={this.state.errorText.E11}
+                errorText={this.state.errorTextVR.E11}
                   errorStyle={{color:'orange'}}
                   onChange={this._handleVetriebswunschChange}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
                   hintText="Bedarf für WS" 
-                  disabled={true}/>
+                  disabled={true}
+                  value={this._getWaitingslistworkstation("55")}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
                   hintText="Geplanter Lagerbestand" 
-                  value={this.state.GL.E11}/>
+                  value={this.state.GL.E11}
+                  id="E11"
+                  errorText={this.state.errorTextGL.E11}
+                  errorStyle={{color:'orange'}}
+                  onChange={this._handleGeplanterLagerbestandChange}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
@@ -609,19 +684,24 @@ class Damen extends React.Component {
                 id="E54"
                 hintText="Vertriebswunsch" 
                 value={this.state.VR.E54}
-                errorText={this.state.errorText.E54}
+                errorText={this.state.errorTextVR.E54}
                   errorStyle={{color:'orange'}}
                   onChange={this._handleVetriebswunschChange}/>
             </TableRowColumn>
               <TableRowColumn>
                 <TextField
                   hintText="Bedarf für WS" 
-                  disabled={true}/>
+                  disabled={true}
+                  value={this._getWaitingslistworkstation("55")}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
                   hintText="Geplanter Lagerbestand" 
-                  value={this.state.GL.E54}/>
+                  value={this.state.GL.E54}
+                  id="E54"
+                  errorText={this.state.errorTextGL.E54}
+                  errorStyle={{color:'orange'}}
+                  onChange={this._handleGeplanterLagerbestandChange}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
@@ -655,19 +735,24 @@ class Damen extends React.Component {
                   id="E8"
                   hintText="Vertriebswunsch" 
                   value={this.state.VR.E8}
-                  errorText={this.state.errorText.E8}
+                  errorText={this.state.errorTextVR.E8}
                   errorStyle={{color:'orange'}}
                   onChange={this._handleVetriebswunschChange}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
                   hintText="Bedarf für WS" 
-                  disabled={true}/>
+                  disabled={true}
+                  value={this._getWaitingslistworkstation("54")}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
                   hintText="Geplanter Lagerbestand" 
-                  value={this.state.GL.E8}/>
+                  value={this.state.GL.E8}
+                  id="E8"
+                  errorText={this.state.errorTextGL.E8}
+                  errorStyle={{color:'orange'}}
+                  onChange={this._handleGeplanterLagerbestandChange}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
@@ -701,19 +786,24 @@ class Damen extends React.Component {
                   id="E14"
                   hintText="Vertriebswunsch" 
                   value={this.state.VR.E14}
-                  errorText={this.state.errorText.E14}
+                  errorText={this.state.errorTextVR.E14}
                   errorStyle={{color:'orange'}}
                   onChange={this._handleVetriebswunschChange}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
                   hintText="Bedarf für WS" 
-                  disabled={true}/>
+                  disabled={true}
+                  value={this._getWaitingslistworkstation("54")}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
                   hintText="Geplanter Lagerbestand" 
-                  value={this.state.GL.E14}/>
+                  value={this.state.GL.E14}
+                  id="E14"
+                  errorText={this.state.errorTextGL.E14}
+                  errorStyle={{color:'orange'}}
+                  onChange={this._handleGeplanterLagerbestandChange}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
@@ -747,19 +837,24 @@ class Damen extends React.Component {
                   id="E19"
                   hintText="Vertriebswunsch" 
                   value={this.state.VR.E19}
-                  errorText={this.state.errorText.E19}
+                  errorText={this.state.errorTextVR.E19}
                   errorStyle={{color:'orange'}}
                   onChange={this._handleVetriebswunschChange}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
                   hintText="Bedarf für WS" 
-                  disabled={true}/>
+                  disabled={true}
+                  value={this._getWaitingslistworkstation("54")}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
                   hintText="Geplanter Lagerbestand" 
-                  value={this.state.GL.E19}/>
+                  value={this.state.GL.E19}
+                  id="E19"
+                  errorText={this.state.errorTextGL.E19}
+                  errorStyle={{color:'orange'}}
+                  onChange={this._handleGeplanterLagerbestandChange}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
