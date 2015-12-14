@@ -31,6 +31,15 @@ class Damen extends React.Component {
     this._handleVetriebswunschChange = this._handleVetriebswunschChange.bind(this);
     this._handleGeplanterLagerbestandChange = this._handleGeplanterLagerbestandChange.bind(this);
 
+
+    //VR = Vertriebswunsch + Rückstände
+    //BW = Bedarf für WS
+    //GL = Geplanter Lagerbestand
+    //AL = aktueller Lagerbestand
+    //WS = Warteschlange
+    //BA = Bearbeitung
+    //AU = Aufträge
+    
     this.state = {
       modal: true,
       openDialogStandardActions: false,
@@ -63,7 +72,60 @@ class Damen extends React.Component {
           E14: 0,
           E19: 0},
 
+      BW:{P2: 0,
+          E26: 0,
+          E56: 0,
+          E16: 0,
+          E17: 0,
+          E55: 0,
+          E5: 0,
+          E11: 0,
+          E54: 0,
+          E8: 0,
+          E14: 0,
+          E19: 0},
+
+
       GL:{P2: 0,
+          E26: 0,
+          E56: 0,
+          E16: 0,
+          E17: 0,
+          E55: 0,
+          E5: 0,
+          E11: 0,
+          E54: 0,
+          E8: 0,
+          E14: 0,
+          E19: 0},
+
+      AL:{P2: 0,
+          E26: 0,
+          E56: 0,
+          E16: 0,
+          E17: 0,
+          E55: 0,
+          E5: 0,
+          E11: 0,
+          E54: 0,
+          E8: 0,
+          E14: 0,
+          E19: 0},
+
+      WS:{P2: 0,
+          E26: 0,
+          E56: 0,
+          E16: 0,
+          E17: 0,
+          E55: 0,
+          E5: 0,
+          E11: 0,
+          E54: 0,
+          E8: 0,
+          E14: 0,
+          E19: 0},
+
+      BA:{P2: 0,
           E26: 0,
           E56: 0,
           E16: 0,
@@ -119,6 +181,9 @@ class Damen extends React.Component {
 
   }
 
+  componentDidMount(){
+    console.log(this._getWarehousestock(E26));
+  }
 
 
   _getWarehousestock(articleId){
