@@ -361,18 +361,19 @@ class Damen extends React.Component {
     var errorlol = false;
     if(this.props.ActiveUploadXML.activeUploadXMLData.id !=='result_P-1'){
 
-      this.state.errorTextVR.keys(obj).forEach(function(key) {
-          if(obj !== ''){
+      console.log("ldosakdosadsa")
+      Object.keys(this.state.errorTextVR).forEach(function(key) {
+          if(this.state.errorTextVR[key] !== ''){
             errorlol = true;
           }
-      });
+      }.bind(this));
 
-      this.state.errorTextGL.keys(obj).forEach(function(key) {
-          if(obj !== ''){
+      Object.keys(this.state.errorTextGL).forEach(function(key) {
+          if(this.state.errorTextGL[key] !== ''){
             errorlol = true;
           }
-      });
-            
+      }.bind(this));
+            console.log("ldosakdosadsa")
       if(!errorlol){
         var auftragsplanungDamen = [];
 
@@ -386,6 +387,7 @@ class Damen extends React.Component {
         this.props.dispatch(setAuftragsplanungDamenInputXML(auftragsplanungDamen, this.props.ActiveUploadXML.activeUploadXMLData.id.substring(7)));
         this.refs.snackbar.show();
       }else{
+        console.log("ldosakdosadsa")
               this.setState({
                 openDialogStandardActions: true,
                 dialogTitle: "Error",
