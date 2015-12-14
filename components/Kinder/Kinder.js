@@ -32,12 +32,16 @@ class Kinder extends React.Component {
     this._handleLagerBestandChange = this._handleLagerBestandChange.bind(this);
     this._handleButtonClick = this._handleButtonClick.bind(this);
     this._handleRequestClose = this._handleRequestClose.bind(this);
+    this._handleResetButtonClick = this._handleResetButtonClick.bind(this);
 
     this.state = {
       modal: true,
       openDialogStandardActions: false,
       dialogTitle: "Dialog",
       dialogText: "DialogText",
+
+      resetButtonDisabled: true,
+
       displayRowCheckbox: false,
       xmlValid: false,
       snackBarautoHideDuration: 3000,
@@ -192,9 +196,20 @@ class Kinder extends React.Component {
   }
 
   _updateVariables(){
-    console.log('_updateVariables Method');
 
-    this.state.currentPeriode = this.props.ActiveUploadXML.activeUploadXMLData.id
+    var activePeriodID = this.props.ActiveUploadXML.activeUploadXMLData.id.substring(7);
+    var currentInputXML = this.props.InputXMLs.find(xml => xml.id.substring(6) === activePeriodID);
+
+    if(currentInputXML && currentInputXML.auftragsplanungKinder){
+      this.state.VR.P3 = currentInputXML.auftragsplanungKinder.VR.P3
+      this.state.GL.P3 = currentInputXML.auftragsplanungKinder.GL.P3
+
+      this.state.resetButtonDisabled = false
+
+    }else{
+      this.state.resetButtonDisabled = true
+      
+    }
 
 
     //BW
@@ -330,17 +345,17 @@ class Kinder extends React.Component {
     if(currentInputXML){
       currentInputXML.inputDataObject.results.waitinglistworkstations[0].workplace.forEach(function (elementStation){
         if(elementStation.waitinglist){
-          elementStation.waitinglist.foreach(function (elementWaitinglist){
-            if(elementWaitinglist.$.item === articleId){
-              currentAmount = parseInt(elementWaitinglist.$.amount) + currentAmount
-            }
-          }.bind(this))
-        }
+            elementStation.waitinglist.forEach(function (elementWaitinglist){
+              if(elementWaitinglist.$.item === articleId){
+                currentAmount = parseInt(elementWaitinglist.$.amount) + currentAmount
+              }
+            }.bind(this))
+          }
       }.bind(this))
 
     }
 
-    console.log("Waitingslistworkstation: "+ articleId, currentAmount)
+    //console.log("Waitingslistworkstation: "+ articleId, currentAmount)
     return currentAmount
   }
 
@@ -432,7 +447,7 @@ class Kinder extends React.Component {
                                     WS:this.state.WS,
                                     BA:this.state.BA,
                                     AU:this.state.AU}}
-        this.props.dispatch(setAuftragsplanungKinderInputXML(auftragsplanungKinder, this.props.ActiveUploadXML.activeUploadXMLData.id.substring(7)));
+        this.props.dispatch(setAuftragsplanungKinderInputXML(auftragsplanungKinder, this.props.ActiveUploadXML.activeUploadXMLData.id));
         this.refs.snackbar.show();
       }else{
         this.setState({
@@ -458,6 +473,11 @@ class Kinder extends React.Component {
     });
   }
 
+  _handleResetButtonClick(e){
+    this.props.dispatch(resetAuftragsplanungKinderInputXML(this.props.ActiveUploadXML.activeUploadXMLData.id))
+    this.state.resetButtonDisabled = true
+  }
+
 
   _onDialogOk() {
     this.setState({
@@ -481,6 +501,7 @@ class Kinder extends React.Component {
         <h1>Auftragsplanung Kinder-Fahrrad</h1>
 
         <RaisedButton label="Save" primary={true} onTouchTap={this._handleButtonClick} />
+        <RaisedButton label="Reset" secondary={true} disabled={this.state.resetButtonDisabled} onTouchTap={this._handleResetButtonClick}/>
 
         <Table
           height={this.state.height}

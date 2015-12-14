@@ -30,6 +30,7 @@ class Damen extends React.Component {
     this._handleGeplanterLagerbestandChange = this._handleGeplanterLagerbestandChange.bind(this);
     this._handleButtonClick = this._handleButtonClick.bind(this);
     this._handleRequestClose = this._handleRequestClose.bind(this);
+    this._handleResetButtonClick = this._handleResetButtonClick.bind(this);
 
 
     //VR = Vertriebswunsch + Rückstände
@@ -47,6 +48,8 @@ class Damen extends React.Component {
       dialogText: "DialogText",
       snackBarautoHideDuration: 3000,
       snackBarmessage: 'Save completed!',
+
+      resetButtonDisabled: true,
 
       displayRowCheckbox: false,
       fixedHeader: true,
@@ -197,8 +200,19 @@ class Damen extends React.Component {
 
 
   _updateVariables(){
+    var activePeriodID = this.props.ActiveUploadXML.activeUploadXMLData.id.substring(7);
+    var currentInputXML = this.props.InputXMLs.find(xml => xml.id.substring(6) === activePeriodID);
 
-    this.state.currentPeriode = this.props.ActiveUploadXML.activeUploadXMLData.id
+    if(currentInputXML && currentInputXML.auftragsplanungDamen){
+      this.state.VR.P2 = currentInputXML.auftragsplanungDamen.VR.P2
+      this.state.GL.P2 = currentInputXML.auftragsplanungDamen.GL.P2
+
+      this.state.resetButtonDisabled = false
+
+    }else{
+      this.state.resetButtonDisabled = true
+      
+    }
 
     this.state.BW.E26 = this._getWaitingslistworkstation("2")
     this.state.BW.E56 = this._getWaitingslistworkstation("2")
@@ -433,6 +447,10 @@ class Damen extends React.Component {
     });
   }
 
+_handleResetButtonClick(e){
+    this.props.dispatch(resetAuftragsplanungDAMENInputXML(this.props.ActiveUploadXML.activeUploadXMLData.id))
+    this.state.resetButtonDisabled = true
+  }
 
   _onDialogOk() {
     this.setState({
@@ -457,6 +475,7 @@ class Damen extends React.Component {
           <h1>Auftragsplanung Damen-Fahrrad</h1>
 
           <RaisedButton label="Save" primary={true} onTouchTap={this._handleButtonClick} />
+          <RaisedButton label="Reset" secondary={true} disabled={this.state.resetButtonDisabled} onTouchTap={this._handleResetButtonClick}/>
 
           <Table
             height={this.state.height}

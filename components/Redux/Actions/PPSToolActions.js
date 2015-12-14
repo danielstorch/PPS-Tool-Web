@@ -17,6 +17,9 @@ export function setLanguage(languagee) {
 export const SET_AUFTRAGSPLANUNG_DAMEN_INPUT_XML = 'SET_AUFTRAGSPLANUNG_DAMEN_INPUT_XML'
 export const SET_AUFTRAGSPLANUNG_KINDER_INPUT_XML = 'SET_AUFTRAGSPLANUNG_KINDER_INPUT_XML'
 export const SET_AUFTRAGSPLANUNG_HERREN_INPUT_XML = 'SET_AUFTRAGSPLANUNG_HERREN_INPUT_XML'
+export const RESET_AUFTRAGSPLANUNG_HERREN_INPUT_XML = 'RESET_AUFTRAGSPLANUNG_HERREN_INPUT_XML'
+export const RESET_AUFTRAGSPLANUNG_KINDER_INPUT_XML = 'RESET_AUFTRAGSPLANUNG_KINDER_INPUT_XML'
+export const RESET_AUFTRAGSPLANUNG_DAMEN_INPUT_XML = 'RESET_AUFTRAGSPLANUNG_DAMEN_INPUT_XML'
 export const SET_KAPAZITAETSPLANUNG_INPUT_XML = 'SET_KAPAZITAETSPLANUNG_INPUT_XML'
 export const SET_KAUFTEILDISPOSITION_INPUT_XML = 'SET_KAUFTEILDISPOSITION_INPUT_XML'
 export const SAVE_INPUT_XML = 'SAVE_INPUT_XML'
@@ -29,12 +32,24 @@ export function setAuftragsplanungHerrenInputXML(auftragsHerrenInputXML, id) {
   return { type: SET_AUFTRAGSPLANUNG_HERREN_INPUT_XML, auftragsHerrenInputXML, id}
 }
 
+export function resetAuftragsplanungHerrenInputXML(id) {
+  return { type: RESET_AUFTRAGSPLANUNG_HERREN_INPUT_XML, id}
+}
+
 export function setAuftragsplanungDamenInputXML(auftragsDamenInputXML, id) {
-  return { type: SET_AUFTRAGSPLANUNG_DAMEN_INPUT_XML, auftragsDamenInputXML, id}
+  return { type: SET_AUFTRAGSPLANUNG_DAMEN_INPUT_XML, auftragsDamenInputXML ,id}
+}
+
+export function resetAuftragsplanungDamenInputXML(id) {
+  return { type: RESET_AUFTRAGSPLANUNG_DAMEN_INPUT_XML, id}
 }
 
 export function setAuftragsplanungKinderInputXML(auftragsKinderInputXML, id) {
   return { type: SET_AUFTRAGSPLANUNG_KINDER_INPUT_XML, auftragsKinderInputXML, id}
+}
+
+export function resetAuftragsplanungKinderInputXML(id) {
+  return { type: RESET_AUFTRAGSPLANUNG_KINDER_INPUT_XML, id}
 }
 
 export function setKapazitaetsplanungInputXML(kapazitaetsplanungInputXML) {

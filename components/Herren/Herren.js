@@ -33,7 +33,8 @@ class Herren extends React.Component {
     this._getOrdersinwork = this._getOrdersinwork.bind(this);
     this._handleVetriebswunschChange = this._handleVetriebswunschChange.bind(this);
     this._handleLagerBestandChange = this._handleLagerBestandChange.bind(this);
-    this._handleButtonClick = this._handleButtonClick.bind(this);
+    this._handleSaveButtonClick = this._handleSaveButtonClick.bind(this);
+    this._handleResetButtonClick = this._handleResetButtonClick.bind(this);
     this._handleRequestClose = this._handleRequestClose.bind(this);
 
 
@@ -45,6 +46,8 @@ class Herren extends React.Component {
       dialogText: "DialogText",
       snackBarautoHideDuration: 3000,
       snackBarmessage: 'Save completed!',
+
+      resetButtonDisabled: true,
 
       fixedHeader: true,
       fixedFooter: true,
@@ -181,7 +184,6 @@ class Herren extends React.Component {
   }
 
   componentWillMount(){
-    console.log('componentWillMount');
     this._updateVariables();
   }
 
@@ -190,65 +192,77 @@ class Herren extends React.Component {
   }
 
   _updateVariables(){
-    console.log('_updateVariables Method');
 
-    this.state.currentPeriode = this.props.ActiveUploadXML.activeUploadXMLData.id
+    var activePeriodID = this.props.ActiveUploadXML.activeUploadXMLData.id.substring(7);
+    var currentInputXML = this.props.InputXMLs.find(xml => xml.id.substring(6) === activePeriodID);
+
+    if(currentInputXML && currentInputXML.auftragsplanungHerren){
+      this.state.VR.P1 = currentInputXML.auftragsplanungHerren.VR.P1
+      this.state.GL.P1 = currentInputXML.auftragsplanungHerren.GL.P1
+
+      this.state.resetButtonDisabled = false
+
+    }else{
+      this.state.resetButtonDisabled = true
+      
+    }
 
     //BW
-    this.state.BW.E26 = this._getWaitingslistworkstation('1');
-    this.state.BW.E51 = this._getWaitingslistworkstation('1');
-    this.state.BW.E16 = this._getWaitingslistworkstation('51');
-    this.state.BW.E17 = this._getWaitingslistworkstation('51');
-    this.state.BW.E50 = this._getWaitingslistworkstation('51');
-    this.state.BW.E4 = this._getWaitingslistworkstation('50');
-    this.state.BW.E10 = this._getWaitingslistworkstation('50');
-    this.state.BW.E49 = this._getWaitingslistworkstation('50');
-    this.state.BW.E7 = this._getWaitingslistworkstation('49');
-    this.state.BW.E13 = this._getWaitingslistworkstation('49');
-    this.state.BW.E18 = this._getWaitingslistworkstation('49');
+      this.state.BW.E26 = this._getWaitingslistworkstation('1');
+      this.state.BW.E51 = this._getWaitingslistworkstation('1');
+      this.state.BW.E16 = this._getWaitingslistworkstation('51');
+      this.state.BW.E17 = this._getWaitingslistworkstation('51');
+      this.state.BW.E50 = this._getWaitingslistworkstation('51');
+      this.state.BW.E4 = this._getWaitingslistworkstation('50');
+      this.state.BW.E10 = this._getWaitingslistworkstation('50');
+      this.state.BW.E49 = this._getWaitingslistworkstation('50');
+      this.state.BW.E7 = this._getWaitingslistworkstation('49');
+      this.state.BW.E13 = this._getWaitingslistworkstation('49');
+      this.state.BW.E18 = this._getWaitingslistworkstation('49');
 
-    //AL
-    this.state.AL.P1 = this._getWarehousestock('1');
-     this.state.AL.E26 = Math.ceil(this._getWarehousestock('26')/3); 
-    this.state.AL.E51 = this._getWarehousestock('51'); 
-    this.state.AL.E16 = Math.ceil(this._getWarehousestock('16')/3);
-    this.state.AL.E17 = Math.ceil(this._getWarehousestock('17')/3);
-     this.state.AL.E50 = this._getWarehousestock('50');
-     this.state.AL.E4 = this._getWarehousestock('4'); 
-    this.state.AL.E10 = this._getWarehousestock('10'); 
-    this.state.AL.E49 = this._getWarehousestock('49'); 
-    this.state.AL.E7 = this._getWarehousestock('7'); 
-    this.state.AL.E13 = this._getWarehousestock('13');
-     this.state.AL.E18 = this._getWarehousestock('18');
+      //AL
+      this.state.AL.P1 = this._getWarehousestock('1');
+       this.state.AL.E26 = Math.ceil(this._getWarehousestock('26')/3); 
+      this.state.AL.E51 = this._getWarehousestock('51'); 
+      this.state.AL.E16 = Math.ceil(this._getWarehousestock('16')/3);
+      this.state.AL.E17 = Math.ceil(this._getWarehousestock('17')/3);
+       this.state.AL.E50 = this._getWarehousestock('50');
+       this.state.AL.E4 = this._getWarehousestock('4'); 
+      this.state.AL.E10 = this._getWarehousestock('10'); 
+      this.state.AL.E49 = this._getWarehousestock('49'); 
+      this.state.AL.E7 = this._getWarehousestock('7'); 
+      this.state.AL.E13 = this._getWarehousestock('13');
+       this.state.AL.E18 = this._getWarehousestock('18');
 
 
-    //WS
-    this.state.WS.P1 = this._getWaitingslistworkstation('1');
-    this.state.WS.E26 = this._getWaitingslistworkstation('26');
-    this.state.WS.E51 = this._getWaitingslistworkstation('51');
-    this.state.WS.E16 = this._getWaitingslistworkstation('16');
-    this.state.WS.E17 = this._getWaitingslistworkstation('17');
-    this.state.WS.E50 = this._getWaitingslistworkstation('50');
-    this.state.WS.E4 = this._getWaitingslistworkstation('4');
-    this.state.WS.E10 = this._getWaitingslistworkstation('10');
-    this.state.WS.E49 = this._getWaitingslistworkstation('49');
-    this.state.WS.E7 = this._getWaitingslistworkstation('7');
-    this.state.WS.E13 = this._getWaitingslistworkstation('13');
-    this.state.WS.E18 = this._getWaitingslistworkstation('18');
+      //WS
+      this.state.WS.P1 = this._getWaitingslistworkstation('1');
+      this.state.WS.E26 = this._getWaitingslistworkstation('26');
+      this.state.WS.E51 = this._getWaitingslistworkstation('51');
+      this.state.WS.E16 = this._getWaitingslistworkstation('16');
+      this.state.WS.E17 = this._getWaitingslistworkstation('17');
+      this.state.WS.E50 = this._getWaitingslistworkstation('50');
+      this.state.WS.E4 = this._getWaitingslistworkstation('4');
+      this.state.WS.E10 = this._getWaitingslistworkstation('10');
+      this.state.WS.E49 = this._getWaitingslistworkstation('49');
+      this.state.WS.E7 = this._getWaitingslistworkstation('7');
+      this.state.WS.E13 = this._getWaitingslistworkstation('13');
+      this.state.WS.E18 = this._getWaitingslistworkstation('18');
 
-    //BA
-    this.state.BA.P1 = this._getOrdersinwork('1');
-    this.state.BA.E26 = this._getOrdersinwork('26');
-    this.state.BA.E51 = this._getOrdersinwork('51');
-    this.state.BA.E16 = this._getOrdersinwork('16');
-    this.state.BA.E17 = this._getOrdersinwork('17');
-    this.state.BA.E50 = this._getOrdersinwork('50');
-    this.state.BA.E4 = this._getOrdersinwork('4');
-    this.state.BA.E10 = this._getOrdersinwork('10');
-    this.state.BA.E49 = this._getOrdersinwork('49');
-    this.state.BA.E7 = this._getOrdersinwork('7');
-    this.state.BA.E13 = this._getOrdersinwork('13');
-    this.state.BA.E18 = this._getOrdersinwork('18');
+      //BA
+      this.state.BA.P1 = this._getOrdersinwork('1');
+      this.state.BA.E26 = this._getOrdersinwork('26');
+      this.state.BA.E51 = this._getOrdersinwork('51');
+      this.state.BA.E16 = this._getOrdersinwork('16');
+      this.state.BA.E17 = this._getOrdersinwork('17');
+      this.state.BA.E50 = this._getOrdersinwork('50');
+      this.state.BA.E4 = this._getOrdersinwork('4');
+      this.state.BA.E10 = this._getOrdersinwork('10');
+      this.state.BA.E49 = this._getOrdersinwork('49');
+      this.state.BA.E7 = this._getOrdersinwork('7');
+      this.state.BA.E13 = this._getOrdersinwork('13');
+      this.state.BA.E18 = this._getOrdersinwork('18');
+    
 
     this.state.AU.P1 = Math.max(0,(this.state.VR.P1 + this.state.GL.P1 - this.state.AL.P1 - this.state.WS.P1 - this.state.BA.P1));
     this.state.VR.E26 = this.state.AU.P1
@@ -276,29 +290,6 @@ class Herren extends React.Component {
 
 
   }
-
-
-  getWarteschlangeAmountINPUT(id, isResult, inputXML){
-    var amount = 0;
-    var xmlData;
-    if(isResult){
-
-      var results = this.props.ActiveUploadXML.activeUploadXMLData.uploadedResultsDataObject.results;
-
-      for(let workplace of results.waitinglistworkstations[0].workplace) {
-        if(workplace.hasOwnProperty('waitinglist')){
-          for(let waitinglist of workplace.waitinglist){
-            if(waitinglist.$.item === id){
-              amount += parseInt(waitinglist.$.amount);
-            }
-          }
-        }
-      }
-    }
-
-    return amount;
-  }
-
 
   _getWarehousestock(articleId){
 
@@ -404,7 +395,7 @@ class Herren extends React.Component {
       GL: VRList
     });
   }
-_handleButtonClick(e){
+_handleSaveButtonClick(e){
 
     var errorlol = false;
     if(this.props.ActiveUploadXML.activeUploadXMLData.id !=='result_P-1'){
@@ -430,7 +421,7 @@ _handleButtonClick(e){
                                     WS:this.state.WS,
                                     BA:this.state.BA,
                                     AU:this.state.AU}}
-        this.props.dispatch(setAuftragsplanungHerrenInputXML(auftragsplanungHerren, this.props.ActiveUploadXML.activeUploadXMLData.id.substring(7)));
+        this.props.dispatch(setAuftragsplanungHerrenInputXML(auftragsplanungHerren, this.props.ActiveUploadXML.activeUploadXMLData.id));
         this.refs.snackbar.show();
       }else{
               this.setState({
@@ -456,6 +447,10 @@ _handleButtonClick(e){
     });
   }
 
+  _handleResetButtonClick(e){
+    this.props.dispatch(resetAuftragsplanungHerrenInputXML(this.props.ActiveUploadXML.activeUploadXMLData.id))
+    this.state.resetButtonDisabled = true
+  }
 
   _onDialogOk() {
     this.setState({
@@ -480,7 +475,8 @@ this._updateVariables()
         <div>
         <h1>Auftragsplanung Herren-Fahrrad</h1>
 
-        <RaisedButton label="Save" primary={true} onTouchTap={this._handleButtonClick}/>
+        <RaisedButton label="Save" primary={true} onTouchTap={this._handleSaveButtonClick}/>
+        <RaisedButton label="Reset" secondary={true} disabled={this.state.resetButtonDisabled} onTouchTap={this._handleResetButtonClick}/>
 
         <Table
           height={this.state.height}
