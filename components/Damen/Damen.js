@@ -213,10 +213,10 @@ class Damen extends React.Component {
     this.state.BW.E19 = this._getWaitingslistworkstation("54")
 
     this.state.AL.P2 = this._getWarehousestock("2")
-    this.state.AL.E26 = this._getWarehousestock("26")/3
+    this.state.AL.E26 = Math.ceil(this._getWarehousestock("26")/3)
     this.state.AL.E56 = this._getWarehousestock("56")
-    this.state.AL.E16 = this._getWarehousestock("16")/3
-    this.state.AL.E17 = this._getWarehousestock("17")/3
+    this.state.AL.E16 = Math.ceil(this._getWarehousestock("16")/3)
+    this.state.AL.E17 = Math.ceil(this._getWarehousestock("17")/3)
     this.state.AL.E55 = this._getWarehousestock("55")
     this.state.AL.E5 = this._getWarehousestock("5")
     this.state.AL.E11 = this._getWarehousestock("11")
@@ -250,6 +250,36 @@ class Damen extends React.Component {
     this.state.BA.E8 = this._getOrdersinwork("8")
     this.state.BA.E14 = this._getOrdersinwork("14")
     this.state.BA.E19 = this._getOrdersinwork("19")
+
+    this.state.AU.P2 = this.state.VR.P2 + this.state.GL.P2 - this.state.AL.P2 - this.state.WS.P2 - this.state.BA.P2
+
+    console.log(this.state.VR.P2)
+    console.log(this.state.GL.P2)
+    console.log(this.state.AL.P2)
+    console.log(this.state.WS.P2)
+    console.log(this.state.BA.P2)
+    console.log(this.state.AU.P2)
+    this.state.VR.E26 = this.state.AU.P2
+    this.state.AU.E26 =  Math.max(0,(this.state.VR.E26 + this.state.BW.E26 + this.state.GL.E26 - this.state.AL.E26 - this.state.WS.E26 - this.state.BA.E26))
+    this.state.VR.E56 = this.state.AU.E26
+    this.state.AU.E56 = Math.max(0,(this.state.VR.E56 + this.state.BW.E56 + this.state.GL.E56 - this.state.AL.E56 - this.state.WS.E56 - this.state.BA.E56))
+    this.state.VR.E16 = this.state.AU.E56
+    this.state.AU.E16 = Math.max(0,(this.state.VR.E16 + this.state.BW.E16 + this.state.GL.E16 - this.state.AL.E16 - this.state.WS.E16 - this.state.BA.E16))
+    this.state.VR.E17 = this.state.AU.E16
+    this.state.AU.E17 = Math.max(0,(this.state.VR.E17 + this.state.BW.E17 + this.state.GL.E17 - this.state.AL.E17 - this.state.WS.E17 - this.state.BA.E17))
+    this.state.VR.E55 = this.state.AU.E17
+    this.state.AU.E55 = Math.max(0,(this.state.VR.E55 + this.state.BW.E55 + this.state.GL.E55 - this.state.AL.E55 - this.state.WS.E55 - this.state.BA.E55))
+    this.state.VR.E5 = this.state.AU.E55
+    this.state.AU.E5 = Math.max(0,(this.state.VR.E5 + this.state.BW.E5 + this.state.GL.E5 - this.state.AL.E5 - this.state.WS.E5 - this.state.BA.E5))
+    this.state.VR.E11 = this.state.AU.E5
+    this.state.AU.E11 = Math.max(0,(this.state.VR.E11 + this.state.BW.E11 + this.state.GL.E11 - this.state.AL.E11 - this.state.WS.E11 - this.state.BA.E11))
+    this.state.VR.E54 = this.state.AU.E11
+    this.state.AU.E54 = Math.max(0,(this.state.VR.E54 + this.state.BW.E54 + this.state.GL.E54 - this.state.AL.E54 - this.state.WS.E54 - this.state.BA.E54))
+    this.state.VR.E14 = this.state.AU.E54
+    this.state.AU.E14 = Math.max(0,(this.state.VR.E14 + this.state.BW.E14 + this.state.GL.E14 - this.state.AL.E14 - this.state.WS.E14 - this.state.BA.E14))
+    this.state.VR.E19 = this.state.AU.E14
+    this.state.AU.E19 = Math.max(0,(this.state.VR.E19 + this.state.BW.E19 + this.state.GL.E19 - this.state.AL.E19 - this.state.WS.E19 - this.state.BA.E19))
+
   }
 
   _getWarehousestock(articleId){
@@ -326,7 +356,7 @@ class Damen extends React.Component {
     }else{
       errorTextGLList[articleId] = 'This field must be numeric.'
     }
-    GLList[articleId] = value
+    GLList[articleId] = parseInt(value)
 
     this.setState({
       errorTextGL: errorTextGLList,
@@ -348,7 +378,7 @@ class Damen extends React.Component {
     }else{
       errorTextVRList[articleId] = 'This field must be numeric.'
     }
-    VRList[articleId] = value
+    VRList[articleId] = parseInt(value)
 
     this.setState({
       errorTextVR: errorTextVRList,
@@ -361,7 +391,6 @@ class Damen extends React.Component {
     var errorlol = false;
     if(this.props.ActiveUploadXML.activeUploadXMLData.id !=='result_P-1'){
 
-      console.log("ldosakdosadsa")
       Object.keys(this.state.errorTextVR).forEach(function(key) {
           if(this.state.errorTextVR[key] !== ''){
             errorlol = true;
@@ -373,7 +402,6 @@ class Damen extends React.Component {
             errorlol = true;
           }
       }.bind(this));
-            console.log("ldosakdosadsa")
       if(!errorlol){
         var auftragsplanungDamen = [];
 
@@ -387,7 +415,6 @@ class Damen extends React.Component {
         this.props.dispatch(setAuftragsplanungDamenInputXML(auftragsplanungDamen, this.props.ActiveUploadXML.activeUploadXMLData.id.substring(7)));
         this.refs.snackbar.show();
       }else{
-        console.log("ldosakdosadsa")
               this.setState({
                 openDialogStandardActions: true,
                 dialogTitle: "Error",
@@ -419,11 +446,11 @@ class Damen extends React.Component {
   }
 
   render() {
-      if(this.state.currentPeriode !== this.props.ActiveUploadXML.activeUploadXMLData.id){
-        this._updateVariables()
-        console.log("ALLES WIRD GEUPDATED")
-      }
-
+      // if(this.state.currentPeriode !== this.props.ActiveUploadXML.activeUploadXMLData.id){
+      //   this._updateVariables()
+      //   console.log("ALLES WIRD GEUPDATED")
+      // }
+      this._updateVariables()
 
       let standardActions = [
       { text: 'Ok', onTouchTap: this._onDialogOk.bind(this), ref: 'ok' }
@@ -534,7 +561,8 @@ class Damen extends React.Component {
                     id="E26"
                     errorText={this.state.errorTextVR.E26}
                     errorStyle={{color:'orange'}}
-                    onChange={this._handleVetriebswunschChange}/>
+                    onChange={this._handleVetriebswunschChange}
+                    disabled={true}/>
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
@@ -549,7 +577,8 @@ class Damen extends React.Component {
                     id="E26"
                     errorText={this.state.errorTextGL.E26}
                     errorStyle={{color:'orange'}}
-                    onChange={this._handleGeplanterLagerbestandChange}/>
+                    onChange={this._handleGeplanterLagerbestandChange}
+                    disabled={true}/>
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
@@ -585,13 +614,14 @@ class Damen extends React.Component {
                     id="E56"
                     errorText={this.state.errorTextVR.E56}
                     errorStyle={{color:'orange'}}
-                    onChange={this._handleVetriebswunschChange}/>
+                    onChange={this._handleVetriebswunschChange}
+                    disabled={true}/>
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
                     hintText="Bedarf für WS" 
-                    disabled={true}
-                    value={this.state.BW.P2}/>
+                    value={this.state.BW.P2}
+                    disabled={true}/>
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
@@ -600,7 +630,8 @@ class Damen extends React.Component {
                     id="E56"
                     errorText={this.state.errorTextGL.E56}
                     errorStyle={{color:'orange'}}
-                    onChange={this._handleGeplanterLagerbestandChange}/>
+                    onChange={this._handleGeplanterLagerbestandChange}
+                    disabled={true}/>
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
@@ -636,7 +667,8 @@ class Damen extends React.Component {
                     value={this.state.VR.E16}
                     errorText={this.state.errorTextVR.E16}
                     errorStyle={{color:'orange'}}
-                    onChange={this._handleVetriebswunschChange}/>
+                    onChange={this._handleVetriebswunschChange}
+                    disabled={true}/>
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
@@ -651,7 +683,8 @@ class Damen extends React.Component {
                     id="E16"
                     errorText={this.state.errorTextGL.E16}
                     errorStyle={{color:'orange'}}
-                    onChange={this._handleGeplanterLagerbestandChange}/>
+                    onChange={this._handleGeplanterLagerbestandChange}
+                    disabled={true}/>
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
@@ -687,7 +720,8 @@ class Damen extends React.Component {
                     value={this.state.VR.E17}
                     errorText={this.state.errorTextVR.E17}
                     errorStyle={{color:'orange'}}
-                    onChange={this._handleVetriebswunschChange}/>
+                    onChange={this._handleVetriebswunschChange}
+                    disabled={true}/>
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
@@ -702,7 +736,8 @@ class Damen extends React.Component {
                     id="E17"
                     errorText={this.state.errorTextGL.E17}
                     errorStyle={{color:'orange'}}
-                    onChange={this._handleGeplanterLagerbestandChange}/>
+                    onChange={this._handleGeplanterLagerbestandChange}
+                    disabled={true}/>
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
@@ -738,7 +773,8 @@ class Damen extends React.Component {
                     value={this.state.VR.E55}
                     errorText={this.state.errorTextVR.E55}
                     errorStyle={{color:'orange'}}
-                    onChange={this._handleVetriebswunschChange}/>
+                    onChange={this._handleVetriebswunschChange}
+                    disabled={true}/>
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
@@ -753,7 +789,8 @@ class Damen extends React.Component {
                     id="E55"
                     errorText={this.state.errorTextGL.E55}
                     errorStyle={{color:'orange'}}
-                    onChange={this._handleGeplanterLagerbestandChange}/>
+                    onChange={this._handleGeplanterLagerbestandChange}
+                    disabled={true}/>
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
@@ -789,7 +826,8 @@ class Damen extends React.Component {
                     value={this.state.VR.E5}
                     errorText={this.state.errorTextVR.E5}
                     errorStyle={{color:'orange'}}
-                    onChange={this._handleVetriebswunschChange}/>
+                    onChange={this._handleVetriebswunschChange}
+                    disabled={true}/>
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
@@ -804,7 +842,8 @@ class Damen extends React.Component {
                     id="E5"
                     errorText={this.state.errorTextGL.E5}
                     errorStyle={{color:'orange'}}
-                    onChange={this._handleGeplanterLagerbestandChange}/>
+                    onChange={this._handleGeplanterLagerbestandChange}
+                    disabled={true}/>
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
@@ -840,7 +879,8 @@ class Damen extends React.Component {
                   value={this.state.VR.E11}
                   errorText={this.state.errorTextVR.E11}
                     errorStyle={{color:'orange'}}
-                    onChange={this._handleVetriebswunschChange}/>
+                    onChange={this._handleVetriebswunschChange}
+                    disabled={true}/>
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
@@ -855,7 +895,8 @@ class Damen extends React.Component {
                     id="E11"
                     errorText={this.state.errorTextGL.E11}
                     errorStyle={{color:'orange'}}
-                    onChange={this._handleGeplanterLagerbestandChange}/>
+                    onChange={this._handleGeplanterLagerbestandChange}
+                    disabled={true}/>
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
@@ -891,7 +932,8 @@ class Damen extends React.Component {
                   value={this.state.VR.E54}
                   errorText={this.state.errorTextVR.E54}
                     errorStyle={{color:'orange'}}
-                    onChange={this._handleVetriebswunschChange}/>
+                    onChange={this._handleVetriebswunschChange}
+                    disabled={true}/>
               </TableRowColumn>
                 <TableRowColumn>
                   <TextField
@@ -906,7 +948,8 @@ class Damen extends React.Component {
                     id="E54"
                     errorText={this.state.errorTextGL.E54}
                     errorStyle={{color:'orange'}}
-                    onChange={this._handleGeplanterLagerbestandChange}/>
+                    onChange={this._handleGeplanterLagerbestandChange}
+                    disabled={true}/>
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
@@ -942,7 +985,8 @@ class Damen extends React.Component {
                     value={this.state.VR.E8}
                     errorText={this.state.errorTextVR.E8}
                     errorStyle={{color:'orange'}}
-                    onChange={this._handleVetriebswunschChange}/>
+                    onChange={this._handleVetriebswunschChange}
+                    disabled={true}/>
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
@@ -957,7 +1001,8 @@ class Damen extends React.Component {
                     id="E8"
                     errorText={this.state.errorTextGL.E8}
                     errorStyle={{color:'orange'}}
-                    onChange={this._handleGeplanterLagerbestandChange}/>
+                    onChange={this._handleGeplanterLagerbestandChange}
+                    disabled={true}/>
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
@@ -993,7 +1038,8 @@ class Damen extends React.Component {
                     value={this.state.VR.E14}
                     errorText={this.state.errorTextVR.E14}
                     errorStyle={{color:'orange'}}
-                    onChange={this._handleVetriebswunschChange}/>
+                    onChange={this._handleVetriebswunschChange}
+                    disabled={true}/>
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
@@ -1008,7 +1054,8 @@ class Damen extends React.Component {
                     id="E14"
                     errorText={this.state.errorTextGL.E14}
                     errorStyle={{color:'orange'}}
-                    onChange={this._handleGeplanterLagerbestandChange}/>
+                    onChange={this._handleGeplanterLagerbestandChange}
+                    disabled={true}/>
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
@@ -1044,7 +1091,8 @@ class Damen extends React.Component {
                     value={this.state.VR.E19}
                     errorText={this.state.errorTextVR.E19}
                     errorStyle={{color:'orange'}}
-                    onChange={this._handleVetriebswunschChange}/>
+                    onChange={this._handleVetriebswunschChange}
+                    disabled={true}/>
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
@@ -1059,7 +1107,8 @@ class Damen extends React.Component {
                     id="E19"
                     errorText={this.state.errorTextGL.E19}
                     errorStyle={{color:'orange'}}
-                    onChange={this._handleGeplanterLagerbestandChange}/>
+                    onChange={this._handleGeplanterLagerbestandChange}
+                    disabled={true}/>
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
