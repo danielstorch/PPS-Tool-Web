@@ -25,6 +25,7 @@ class Gesamt extends React.Component {
     this._handleResetButtonClick = this._handleResetButtonClick.bind(this)
     this._handlePrognoseChange = this._handlePrognoseChange.bind(this)
     this._handleProduktionLagerChange = this._handleProduktionLagerChange.bind(this)
+    this._updateLocalStorage = this._updateLocalStorage.bind(this)
 
     this.state = {
       modal: true,
@@ -107,13 +108,13 @@ class Gesamt extends React.Component {
     var currentInputXML = this.props.InputXMLs.find(xml => xml.id.substring(6) === activePeriodID);
 
     console.log(currentInputXML)
-    if(currentInputXML && currentInputXML.auftragsplanungGesamt){
-      this.state.P1.ProduktionLager = currentInputXML.auftragsplanungGesamt.P1.ProduktionLager
-      this.state.P1.Prognose = currentInputXML.auftragsplanungGesamt.P1.Prognose
-      this.state.P2.ProduktionLager = currentInputXML.auftragsplanungGesamt.P2.ProduktionLager
-      this.state.P2.Prognose = currentInputXML.auftragsplanungGesamt.P2.Prognose
-      this.state.P3.ProduktionLager = currentInputXML.auftragsplanungGesamt.P3.ProduktionLager
-      this.state.P3.Prognose = currentInputXML.auftragsplanungGesamt.P3.Prognose
+    if(currentInputXML && currentInputXML.inputDataObject.auftragsplanungGesamt){
+      this.state.P1.ProduktionLager = currentInputXML.inputDataObject.auftragsplanungGesamt.P1.ProduktionLager
+      this.state.P1.Prognose = currentInputXML.inputDataObject.auftragsplanungGesamt.P1.Prognose
+      this.state.P2.ProduktionLager = currentInputXML.inputDataObject.auftragsplanungGesamt.P2.ProduktionLager
+      this.state.P2.Prognose = currentInputXML.inputDataObject.auftragsplanungGesamt.P2.Prognose
+      this.state.P3.ProduktionLager = currentInputXML.inputDataObject.auftragsplanungGesamt.P3.ProduktionLager
+      this.state.P3.Prognose = currentInputXML.inputDataObject.auftragsplanungGesamt.P3.Prognose
 
       this.state.resetButtonDisabled = false
 
@@ -258,6 +259,18 @@ class Gesamt extends React.Component {
     
   }
 
+  _updateLocalStorage(){
+    if (window.localStorage) {
+          var activePeriodID = this.props.ActiveUploadXML.activeUploadXMLData.id.substring(7);
+          var currentInputXML = this.props.InputXMLs.find(xml => xml.id.substring(6) === activePeriodID);
+          console.log(currentInputXML)
+          localStorage.removeItem(currentInputXML.id);
+          localStorage.setItem(currentInputXML.id, JSON.stringify(currentInputXML.inputDataObject));
+          
+        }else{
+          alert('LocalStorage is not supported in your browser');
+        }
+  }
 
   _handleRequestClose(buttonClicked) {
     if (!buttonClicked && this.state.modal) return;
@@ -296,6 +309,7 @@ class Gesamt extends React.Component {
                                       Summe:this.state.Summe
                                     }
         this.props.dispatch(setAuftragsplanungGesamtInputXML(auftragsplanungGesamt, this.props.ActiveUploadXML.activeUploadXMLData.id));
+        this._updateLocalStorage()
         this.refs.snackbar.show();
       }else{
               this.setState({
@@ -324,6 +338,8 @@ class Gesamt extends React.Component {
       this.state.P2.Prognose = 0
       this.state.P3.ProduktionLager = 0
       this.state.P3.Prognose = 0
+
+      this._updateLocalStorage()
   }
 
   render() {

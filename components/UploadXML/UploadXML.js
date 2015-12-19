@@ -170,7 +170,7 @@ class UploadXML extends React.Component {
           }.bind(this));
         }
       } catch (err) {
-          //alert("Unable to upload XML. Please make sure you upload a " + "XML file in the correct format.");
+          alert("Unable to upload XML. Please make sure you upload a " + "XML file in the correct format.");
           console.error(err);
       }
     };
@@ -189,12 +189,14 @@ class UploadXML extends React.Component {
     if (window.localStorage) {
       //Saving data after accepting to overrwrite it
       localStorage.removeItem(this.localStorageJavaResultObjectName);
+      localStorage.removeItem(this.localStorageJavaInputObjectName);
+
       localStorage.setItem(this.localStorageJavaResultObjectName , JSON.stringify(this.uploadedJavaObject));
+      localStorage.setItem(this.localStorageJavaInputObjectName, JSON.stringify(this.uploadedJavaObject));
     }
 
     //OVERRWRITE DATA TO REDUX OBJECT
     this.props.dispatch(overrwriteUploadResultsXML(this.uploadedJavaObject));
-    this.props.dispatch(setActiveUploadResultsXMLData(this.uploadedJavaObject));
 
     //show indication that upload is done
     this.refs.snackbar.show();

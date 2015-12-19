@@ -36,6 +36,7 @@ class Herren extends React.Component {
     this._handleSaveButtonClick = this._handleSaveButtonClick.bind(this);
     this._handleResetButtonClick = this._handleResetButtonClick.bind(this);
     this._handleRequestClose = this._handleRequestClose.bind(this);
+    this._updateLocalStorage = this._updateLocalStorage.bind(this);
 
 
 
@@ -196,9 +197,9 @@ class Herren extends React.Component {
     var activePeriodID = this.props.ActiveUploadXML.activeUploadXMLData.id.substring(7);
     var currentInputXML = this.props.InputXMLs.find(xml => xml.id.substring(6) === activePeriodID);
 
-    if(currentInputXML && currentInputXML.auftragsplanungHerren){
-      this.state.VR.P1 = currentInputXML.auftragsplanungHerren.VR.P1
-      this.state.GL.P1 = currentInputXML.auftragsplanungHerren.GL.P1
+    if(currentInputXML && currentInputXML.inputDataObject.auftragsplanungHerren){
+      this.state.VR.P1 = currentInputXML.inputDataObject.auftragsplanungHerren.VR.P1
+      this.state.GL.P1 = currentInputXML.inputDataObject.auftragsplanungHerren.GL.P1
 
       this.state.resetButtonDisabled = false
 
@@ -373,6 +374,19 @@ class Herren extends React.Component {
     });
   }
 
+  _updateLocalStorage(){
+    if (window.localStorage) {
+          var activePeriodID = this.props.ActiveUploadXML.activeUploadXMLData.id.substring(7);
+          var currentInputXML = this.props.InputXMLs.find(xml => xml.id.substring(6) === activePeriodID);
+          console.log(currentInputXML)
+          localStorage.removeItem(currentInputXML.id);
+          localStorage.setItem(currentInputXML.id, JSON.stringify(currentInputXML.inputDataObject));
+          
+        }else{
+          alert('LocalStorage is not supported in your browser');
+        }
+  }
+
   _handleLagerBestandChange(e){
 
     let articleId = e.target.id
@@ -424,6 +438,7 @@ _handleSaveButtonClick(e){
                                     AU:this.state.AU
                                   }
         this.props.dispatch(setAuftragsplanungHerrenInputXML(auftragsplanungHerren, this.props.ActiveUploadXML.activeUploadXMLData.id));
+        this._updateLocalStorage();
         this.refs.snackbar.show();
       }else{
               this.setState({
@@ -453,6 +468,8 @@ _handleSaveButtonClick(e){
     this.props.dispatch(resetAuftragsplanungHerrenInputXML(this.props.ActiveUploadXML.activeUploadXMLData.id))
     this.state.VR.P1 = 0
     this.state.GL.P1 = 0
+
+    this._updateLocalStorage();
   }
 
   _onDialogOk() {

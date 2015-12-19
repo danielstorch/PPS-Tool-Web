@@ -31,6 +31,7 @@ class Damen extends React.Component {
     this._handleButtonClick = this._handleButtonClick.bind(this);
     this._handleRequestClose = this._handleRequestClose.bind(this);
     this._handleResetButtonClick = this._handleResetButtonClick.bind(this);
+    this._updateLocalStorage = this._updateLocalStorage.bind(this)
 
 
     //VR = Vertriebswunsch + Rückstände
@@ -203,9 +204,9 @@ class Damen extends React.Component {
     var activePeriodID = this.props.ActiveUploadXML.activeUploadXMLData.id.substring(7);
     var currentInputXML = this.props.InputXMLs.find(xml => xml.id.substring(6) === activePeriodID);
 
-    if(currentInputXML && currentInputXML.auftragsplanungDamen){
-      this.state.VR.P2 = currentInputXML.auftragsplanungDamen.VR.P2
-      this.state.GL.P2 = currentInputXML.auftragsplanungDamen.GL.P2
+    if(currentInputXML && currentInputXML.inputDataObject.auftragsplanungDamen){
+      this.state.VR.P2 = currentInputXML.inputDataObject.auftragsplanungDamen.VR.P2
+      this.state.GL.P2 = currentInputXML.inputDataObject.auftragsplanungDamen.GL.P2
 
       this.state.resetButtonDisabled = false
 
@@ -422,6 +423,10 @@ class Damen extends React.Component {
                                     BA:this.state.BA,
                                     AU:this.state.AU}
         this.props.dispatch(setAuftragsplanungDamenInputXML(auftragsplanungDamen, this.props.ActiveUploadXML.activeUploadXMLData.id));
+
+        //UPDATE LOCAL STORAGE
+        this._updateLocalStorage();
+        
         this.refs.snackbar.show();
       }else{
               this.setState({
@@ -440,6 +445,19 @@ class Damen extends React.Component {
     }
   }
 
+  _updateLocalStorage(){
+    if (window.localStorage) {
+          var activePeriodID = this.props.ActiveUploadXML.activeUploadXMLData.id.substring(7);
+          var currentInputXML = this.props.InputXMLs.find(xml => xml.id.substring(6) === activePeriodID);
+          console.log(currentInputXML)
+          localStorage.removeItem(currentInputXML.id);
+          localStorage.setItem(currentInputXML.id, JSON.stringify(currentInputXML.inputDataObject));
+          
+        }else{
+          alert('LocalStorage is not supported in your browser');
+        }
+  }
+
   _handleRequestClose(buttonClicked) {
     if (!buttonClicked && this.state.modal) return;
     this.setState({
@@ -451,6 +469,9 @@ _handleResetButtonClick(e){
     this.props.dispatch(resetAuftragsplanungDamenInputXML(this.props.ActiveUploadXML.activeUploadXMLData.id))
     this.state.VR.P2 = 0
     this.state.GL.P2 = 0
+
+    //UpDATE LOCALSTORAGE
+    this._updateLocalStorage();
   }
 
   _onDialogOk() {
