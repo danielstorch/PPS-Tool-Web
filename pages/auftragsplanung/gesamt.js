@@ -6,13 +6,15 @@
 
 import React, { Component } from 'react';
 
+import Gesamt from '../../components/Gesamt'
+
 export default class extends Component {
 
   render() {
     return (
       <div>
-        <h1>Dispositionsplanung Gesamt Page</h1>
-        <p>Coming soon.</p>      </div>
+        <Gesamt/>   
+      </div>
     );
   }
 

@@ -175,8 +175,8 @@ console.log(menuItemsLanguage)
                   iconStyleRight={{"marginTop": "0"}}
                   iconElementRight={
                     <div>
-                      <DropDownMenu menuItems={menuItemsPeriod} onChange={this._onDropDownPeriodChange.bind(this)} style={{"display": "inline-block", "marginRight": "1000"}} labelStyle={{"color": "#ffffff"}}> </DropDownMenu>
-                      <DropDownMenu menuItems={menuItemsLanguage} onChange={this._onDropDownLanguageChange.bind(this)} style={{"display": "inline-block", "marginRight": "1000"}} labelStyle={{"color": "#ffffff"}}> </DropDownMenu>
+                      <DropDownMenu menuItems={menuItemsPeriod} onChange={this._onDropDownPeriodChange.bind(this)} style={{"display": "inline-block"}} labelStyle={{"color": "#ffffff"}}> </DropDownMenu>
+                      <DropDownMenu menuItems={menuItemsLanguage} onChange={this._onDropDownLanguageChange.bind(this)} style={{"display": "inline-block"}} labelStyle={{"color": "#ffffff"}}> </DropDownMenu>
                     </div>}/>
 
           <LeftNav ref="leftNav" docked={this.state.isDocked} style={{"top":"100% - <AppBar.height>" }}>
