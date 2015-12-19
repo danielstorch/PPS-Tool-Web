@@ -3,7 +3,7 @@ import './Damen.scss';
 import mui from 'material-ui';
 import _ from 'lodash'
 import { connect } from 'react-redux';
-import { setAuftragsplanungDamenInputXML } from '../Redux/Actions';
+import { setAuftragsplanungDamenInputXML, resetAuftragsplanungDamenInputXML } from '../Redux/Actions';
 
 const Table = require('material-ui/lib/table/table');
 const TableBody = require('material-ui/lib/table/table-body');
@@ -414,13 +414,13 @@ class Damen extends React.Component {
           }
       }.bind(this));
       if(!errorlol){
-        var auftragsplanungDamen = {auftragsplanungDamen:{VR:this.state.VR,
+        var auftragsplanungDamen = {VR:this.state.VR,
                                     BW:this.state.BW,
                                     GL:this.state.GL,
                                     AL:this.state.AL,
                                     WS:this.state.WS,
                                     BA:this.state.BA,
-                                    AU:this.state.AU}}
+                                    AU:this.state.AU}
         this.props.dispatch(setAuftragsplanungDamenInputXML(auftragsplanungDamen, this.props.ActiveUploadXML.activeUploadXMLData.id));
         this.refs.snackbar.show();
       }else{
@@ -448,8 +448,9 @@ class Damen extends React.Component {
   }
 
 _handleResetButtonClick(e){
-    this.props.dispatch(resetAuftragsplanungDAMENInputXML(this.props.ActiveUploadXML.activeUploadXMLData.id))
-    this.state.resetButtonDisabled = true
+    this.props.dispatch(resetAuftragsplanungDamenInputXML(this.props.ActiveUploadXML.activeUploadXMLData.id))
+    this.state.VR.P2 = 0
+    this.state.GL.P2 = 0
   }
 
   _onDialogOk() {

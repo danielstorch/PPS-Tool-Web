@@ -6,8 +6,15 @@
 
 import React, { Component } from 'react';
 import Kinder from '../../components/Kinder/Kinder'
+import { connect } from 'react-redux';
+import { setCurrentPage, closeOpenNavLeft } from '../../components/Redux/Actions';
 
-export default class extends Component {
+class KinderPage extends Component {
+
+	componentDidMount(){
+    	this.props.dispatch(setCurrentPage('Kinder'));
+    	
+  	}
 
   render() {
     return (
@@ -18,3 +25,5 @@ export default class extends Component {
   }
 
 }
+
+export default connect(null, dispatch => ({ dispatch }))(KinderPage) 

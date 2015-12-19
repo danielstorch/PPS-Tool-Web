@@ -7,8 +7,15 @@
 import React, { Component } from 'react';
 
 import Damen from '../../components/Damen'
+import { connect } from 'react-redux';
+import { setCurrentPage, closeOpenNavLeft } from '../../components/Redux/Actions';
 
-export default class extends Component {
+class DamenPage extends Component {
+
+	componentDidMount(){
+    	this.props.dispatch(setCurrentPage('Damen'));
+    	
+  	}
 
   render() {
     return (
@@ -19,3 +26,4 @@ export default class extends Component {
   }
 
 }
+export default connect(null, dispatch => ({ dispatch }))(DamenPage) 

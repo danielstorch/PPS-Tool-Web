@@ -3,6 +3,7 @@ import './Gesamt.scss';
 import mui from 'material-ui';
 import _ from 'lodash'
 import { connect } from 'react-redux';
+import { setAuftragsplanungGesamtInputXML, resetAuftragsplanungGesamtInputXML } from '../Redux/Actions';
 
 var TableBody = mui.TableBody
   , TableHeader = mui.TableHeader
@@ -12,12 +13,18 @@ var TableBody = mui.TableBody
   , TableRowColumn = mui.TableRowColumn
   , Dialog = mui.Dialog
   , Snackbar = mui.Snackbar
-  , TextField = mui.TextField;
+  , TextField = mui.TextField
+  , RaisedButton = mui.RaisedButton;
 
 
 class Gesamt extends React.Component {
   constructor() {
     super();
+
+    this._handleSaveButtonClick = this._handleSaveButtonClick.bind(this)
+    this._handleResetButtonClick = this._handleResetButtonClick.bind(this)
+    this._handlePrognoseChange = this._handlePrognoseChange.bind(this)
+    this._handleProduktionLagerChange = this._handleProduktionLagerChange.bind(this)
 
     this.state = {
       modal: true,
@@ -40,204 +47,217 @@ class Gesamt extends React.Component {
       deselectOnClickaway: false,
       height: '300px',
       P1: {
-        P1: {
-          BedarfPeriode: 0,
+          Prognose: 0,
           ProduktionLager: 0,
           ProduktionGesamt: 0,
           ProduktionAuftraege: 0,
           Lagerbestand: 0
         },
-        P2: {
-          BedarfPeriode: 0,
-          ProduktionLager: 0,
-          ProduktionGesamt: 0,
-          ProduktionAuftraege: 0,
-          Lagerbestand: 0
-        },
-        P3: {
-          BedarfPeriode: 0,
-          ProduktionLager: 0,
-          ProduktionGesamt: 0,
-          ProduktionAuftraege: 0,
-          Lagerbestand: 0
-        },
-        Summe: {
-          ProduktionLager: 0,
-          ProduktionGesamt: 0,
-          ProduktionAuftraege: 0
-        }
-      },
       P2: {
-        P1: {
-          BedarfPeriode: 0,
+          Prognose: 0,
           ProduktionLager: 0,
           ProduktionGesamt: 0,
           ProduktionAuftraege: 0,
           Lagerbestand: 0
         },
-        P2: {
-          BedarfPeriode: 0,
-          ProduktionLager: 0,
-          ProduktionGesamt: 0,
-          ProduktionAuftraege: 0,
-          Lagerbestand: 0
-        },
-        P3: {
-          BedarfPeriode: 0,
-          ProduktionLager: 0,
-          ProduktionGesamt: 0,
-          ProduktionAuftraege: 0,
-          Lagerbestand: 0
-        },
-        Summe: {
-          ProduktionLager: 0,
-          ProduktionGesamt: 0,
-          ProduktionAuftraege: 0
-        }
-      },
       P3: {
-        P1: {
-          BedarfPeriode: 0,
+          Prognose: 0,
           ProduktionLager: 0,
           ProduktionGesamt: 0,
           ProduktionAuftraege: 0,
           Lagerbestand: 0
         },
-        P2: {
-          BedarfPeriode: 0,
-          ProduktionLager: 0,
-          ProduktionGesamt: 0,
-          ProduktionAuftraege: 0,
-          Lagerbestand: 0
-        },
-        P3: {
-          BedarfPeriode: 0,
-          ProduktionLager: 0,
-          ProduktionGesamt: 0,
-          ProduktionAuftraege: 0,
-          Lagerbestand: 0
-        },
-        Summe: {
+      Summe: {
+          Prognose:0,
           ProduktionLager: 0,
           ProduktionGesamt: 0,
           ProduktionAuftraege: 0
-        }
+        },
+
+        errorTextPrognose:{
+          P1: '',
+          P2: '',
+          P3: ''
       },
-      P4: {
-        P1: {
-          BedarfPeriode: 0,
-          ProduktionLager: 0,
-          ProduktionGesamt: 0,
-          ProduktionAuftraege: 0,
-          Lagerbestand: 0
-        },
-        P2: {
-          BedarfPeriode: 0,
-          ProduktionLager: 0,
-          ProduktionGesamt: 0,
-          ProduktionAuftraege: 0,
-          Lagerbestand: 0
-        },
-        P3: {
-          BedarfPeriode: 0,
-          ProduktionLager: 0,
-          ProduktionGesamt: 0,
-          ProduktionAuftraege: 0,
-          Lagerbestand: 0
-        },
-        Summe: {
-          ProduktionLager: 0,
-          ProduktionGesamt: 0,
-          ProduktionAuftraege: 0
-        }
-      },
-      P5: {
-        P1: {
-          BedarfPeriode: 0,
-          ProduktionLager: 0,
-          ProduktionGesamt: 0,
-          ProduktionAuftraege: 0,
-          Lagerbestand: 0
-        },
-        P2: {
-          BedarfPeriode: 0,
-          ProduktionLager: 0,
-          ProduktionGesamt: 0,
-          ProduktionAuftraege: 0,
-          Lagerbestand: 0
-        },
-        P3: {
-          BedarfPeriode: 0,
-          ProduktionLager: 0,
-          ProduktionGesamt: 0,
-          ProduktionAuftraege: 0,
-          Lagerbestand: 0
-        },
-        Summe: {
-          ProduktionLager: 0,
-          ProduktionGesamt: 0,
-          ProduktionAuftraege: 0
-        }
-      },
-      P6: {
-        P1: {
-          BedarfPeriode: 0,
-          ProduktionLager: 0,
-          ProduktionGesamt: 0,
-          ProduktionAuftraege: 0,
-          Lagerbestand: 0
-        },
-        P2: {
-          BedarfPeriode: 0,
-          ProduktionLager: 0,
-          ProduktionGesamt: 0,
-          ProduktionAuftraege: 0,
-          Lagerbestand: 0
-        },
-        P3: {
-          BedarfPeriode: 0,
-          ProduktionLager: 0,
-          ProduktionGesamt: 0,
-          ProduktionAuftraege: 0,
-          Lagerbestand: 0
-        },
-        Summe: {
-          ProduktionLager: 0,
-          ProduktionGesamt: 0,
-          ProduktionAuftraege: 0
-        }
-      },
-      P7: {
-        P1: {
-          BedarfPeriode: 0,
-          ProduktionLager: 0,
-          ProduktionGesamt: 0,
-          ProduktionAuftraege: 0,
-          Lagerbestand: 0
-        },
-        P2: {
-          BedarfPeriode: 0,
-          ProduktionLager: 0,
-          ProduktionGesamt: 0,
-          ProduktionAuftraege: 0,
-          Lagerbestand: 0
-        },
-        P3: {
-          BedarfPeriode: 0,
-          ProduktionLager: 0,
-          ProduktionGesamt: 0,
-          ProduktionAuftraege: 0,
-          Lagerbestand: 0
-        },
-        Summe: {
-          ProduktionLager: 0,
-          ProduktionGesamt: 0,
-          ProduktionAuftraege: 0
-        }
+      errorTextProduktionLager:{
+          P1: '',
+          P2: '',
+          P3: ''
       }
     };
 
   }
+
+  componentWillMount(){
+    this._updateVariables();
+  }
+
+  shouldComponentUpdate(){
+    return true;
+  }
+
+  componentWillReceiveProps(){
+    this._updateVariables();
+
+  }
+
+
+  _updateVariables(){
+    var activePeriodID = this.props.ActiveUploadXML.activeUploadXMLData.id.substring(7);
+    var currentInputXML = this.props.InputXMLs.find(xml => xml.id.substring(6) === activePeriodID);
+
+    console.log(currentInputXML)
+    if(currentInputXML && currentInputXML.auftragsplanungGesamt){
+      this.state.P1.ProduktionLager = currentInputXML.auftragsplanungGesamt.P1.ProduktionLager
+      this.state.P1.Prognose = currentInputXML.auftragsplanungGesamt.P1.Prognose
+      this.state.P2.ProduktionLager = currentInputXML.auftragsplanungGesamt.P2.ProduktionLager
+      this.state.P2.Prognose = currentInputXML.auftragsplanungGesamt.P2.Prognose
+      this.state.P3.ProduktionLager = currentInputXML.auftragsplanungGesamt.P3.ProduktionLager
+      this.state.P3.Prognose = currentInputXML.auftragsplanungGesamt.P3.Prognose
+
+      this.state.resetButtonDisabled = false
+
+    }else{
+      this.state.resetButtonDisabled = true
+      
+    }
+
+    //Aktueller Lagerstand AUS DER XML
+    this.state.P1.Lagerbestand = this._getLagerbestand('1');
+    this.state.P2.Lagerbestand = this._getLagerbestand('2');
+    this.state.P3.Lagerbestand = this._getLagerbestand('3');
+
+    //Produktion für Auftrag
+    this.state.P1.ProduktionAuftraege = this.state.P1.Prognose - this.state.P1.Lagerbestand;
+    this.state.P2.ProduktionAuftraege = this.state.P2.Prognose - this.state.P2.Lagerbestand;
+    this.state.P3.ProduktionAuftraege = this.state.P3.Prognose - this.state.P3.Lagerbestand;
+
+    //Produktion Gesamt
+    this.state.P1.ProduktionGesamt = this.state.P1.ProduktionAuftraege + this.state.P1.ProduktionLager;
+    this.state.P2.ProduktionGesamt = this.state.P2.ProduktionAuftraege + this.state.P2.ProduktionLager;
+    this.state.P3.ProduktionGesamt = this.state.P3.ProduktionAuftraege + this.state.P3.ProduktionLager;
+
+    //Summe
+    this.state.Summe.Prognose = this.state.P1.Prognose + this.state.P2.Prognose + this.state.P3.Prognose 
+    this.state.Summe.ProduktionLager = this.state.P1.ProduktionLager + this.state.P2.ProduktionLager + this.state.P3.ProduktionLager
+    this.state.Summe.ProduktionGesamt = this.state.P1.ProduktionGesamt + this.state.P2.ProduktionGesamt + this.state.P3.ProduktionGesamt  
+    this.state.Summe.ProduktionAuftraege = this.state.P1.ProduktionAuftraege + this.state.P2.ProduktionAuftraege + this.state.P3.ProduktionAuftraege
+  }
+
+
+  _getLagerbestand(articleId){
+    var activePeriodID = this.props.ActiveUploadXML.activeUploadXMLData.id.substring(7);
+    var currentInputXML = this.props.InputXMLs.find(xml => xml.id.substring(6) === activePeriodID);
+
+    var amount = 0;
+    if(currentInputXML){
+      currentInputXML.inputDataObject.results.warehousestock[0].article.forEach(function (element){
+        if(element.$.id === articleId){
+          amount = parseInt(element.$.amount) + amount
+        }
+      }.bind(this))
+
+    }
+    console.log("Lagerbestand: "+ articleId, amount)
+    return Math.round(amount);
+  }
+
+  _handleProduktionLagerChange(e){
+
+    let articleId = e.target.id
+    let value = e.target.value;
+    let errorTextList = this.state.errorTextProduktionLager
+
+    let periode = [];
+
+    if(e.target.id == 'P1'){
+      periode = this.state.P1
+    }else if(e.target.id == 'P2'){
+      periode = this.state.P2
+    }else if(e.target.id == 'P3'){
+      periode = this.state.P3
+    }
+
+    let isNumeric = !isNaN(parseFloat(value)) && isFinite(value);
+
+    if(isNumeric){
+      errorTextList[articleId] = ''
+    }else{
+      errorTextList[articleId] = 'This field must be numeric.'
+      value = 0
+    }
+    periode["ProduktionLager"] = parseInt(value)
+
+
+    if(e.target.id == 'P1'){
+      this.setState({
+        errorText: errorTextList,
+        P1: periode
+      });
+
+    } else if(e.target.id == 'P2'){
+      this.setState({
+        errorText: errorTextList,
+        P2: periode
+      });
+
+    } else if(e.target.id == 'P3'){
+      this.setState({
+        errorText: errorTextList,
+        P3: periode
+      });
+    }
+  }
+
+  _handlePrognoseChange(e){
+
+    let articleId = e.target.id
+    let value = e.target.value;
+    let errorTextList = this.state.errorTextPrognose
+
+    let periode = [];
+
+    if(e.target.id == 'P1'){
+      periode = this.state.P1
+    }else if(e.target.id == 'P2'){
+      periode = this.state.P2
+    }else if(e.target.id == 'P3'){
+      periode = this.state.P3
+    }
+
+    let isNumeric = !isNaN(parseFloat(value)) && isFinite(value);
+
+    if(isNumeric){
+      errorTextList[articleId] = ''
+    }else{
+      errorTextList[articleId] = 'This field must be numeric.'
+      value = 0
+    }
+    periode["Prognose"] = parseInt(value)
+
+
+    if(e.target.id == 'P1'){
+      this.setState({
+        errorText: errorTextList,
+        P1: periode
+      });
+
+    } else if(e.target.id == 'P2'){
+      this.setState({
+        errorText: errorTextList,
+        P2: periode
+      });
+
+    } else if(e.target.id == 'P3'){
+      this.setState({
+        errorText: errorTextList,
+        P3: periode
+      });
+
+    }
+    
+  }
+
 
   _handleRequestClose(buttonClicked) {
     if (!buttonClicked && this.state.modal) return;
@@ -251,8 +271,63 @@ class Gesamt extends React.Component {
       openDialogStandardActions: false
     });
   }
+  _handleSaveButtonClick(e){
+    var errorlol = false;
+    if(this.props.ActiveUploadXML.activeUploadXMLData.id !=='result_P-1'){
+
+      Object.keys(this.state.errorTextPrognose).forEach(function(key) {
+          if(this.state.errorTextPrognose[key] !== ''){
+            errorlol = true;
+          }
+      }.bind(this));
+
+      Object.keys(this.state.errorTextProduktionLager).forEach(function(key) {
+          if(this.state.errorTextProduktionLager[key] !== ''){
+            errorlol = true;
+          }
+      }.bind(this));
+
+
+      if(!errorlol){
+        var auftragsplanungGesamt = {
+                                      P1:this.state.P1,
+                                      P2:this.state.P2,
+                                      P3:this.state.P3,
+                                      Summe:this.state.Summe
+                                    }
+        this.props.dispatch(setAuftragsplanungGesamtInputXML(auftragsplanungGesamt, this.props.ActiveUploadXML.activeUploadXMLData.id));
+        this.refs.snackbar.show();
+      }else{
+              this.setState({
+                openDialogStandardActions: true,
+                dialogTitle: "Error",
+                dialogText: "Please be sure that every field is a numeric"
+              });
+      }
+
+    }else{
+              this.setState({
+                openDialogStandardActions: true,
+                dialogTitle: "Error",
+                dialogText: "Please choose a vaild periode"
+              });
+    }
+  }
+
+  _handleResetButtonClick(e){
+    
+    this.props.dispatch(resetAuftragsplanungGesamtInputXML(this.props.ActiveUploadXML.activeUploadXMLData.id))
+
+      this.state.P1.ProduktionLager = 0
+      this.state.P1.Prognose = 0
+      this.state.P2.ProduktionLager = 0
+      this.state.P2.Prognose = 0
+      this.state.P3.ProduktionLager = 0
+      this.state.P3.Prognose = 0
+  }
 
   render() {
+    this._updateVariables()
 
     let standardActions = [
       { text: 'Ok', onTouchTap: this._onDialogOk.bind(this), ref: 'ok' }
@@ -262,9 +337,9 @@ class Gesamt extends React.Component {
      <div>
       <h1>Auftragsplanung Gesamt</h1>
         <div>
-              <div style={{ "width": "100%", "textAlign": "center" }}>
-                <h3>Periode 1</h3>
-              </div>
+        <RaisedButton label="Save" primary={true} onTouchTap={this._handleSaveButtonClick}/>
+        <RaisedButton label="Reset" secondary={true} disabled={this.state.resetButtonDisabled} onTouchTap={this._handleResetButtonClick}/>
+             
               <div>
                   <Table
                     height={this.state.height}
@@ -289,7 +364,7 @@ class Gesamt extends React.Component {
                           Lagerbestand
                         </TableRowColumn>
                         <TableRowColumn>
-                          Bedarf in der Periode
+                          Prognose
                         </TableRowColumn>
                         <TableRowColumn>
                           Produktion für Aufträge
@@ -308,23 +383,39 @@ class Gesamt extends React.Component {
                         </TableRowColumn>
                         <TableRowColumn>
                           <TextField
-                              hintText="Lagerbestand"/>
+                              hintText="Lagerbestand"
+                              value={this.state.P1.Lagerbestand}
+                              disabled = {true}/>
                         </TableRowColumn>
                         <TableRowColumn>
                           <TextField
-                              hintText="Bedarf in der Periode"/>
+                              hintText="Prognose"
+                              id="P1"
+                              errorText={this.state.errorTextPrognose.P1}
+                              errorStyle={{color:'orange'}}
+                              onChange={this._handlePrognoseChange}
+                              value= {this.state.P1.Prognose}/>
                         </TableRowColumn>
                         <TableRowColumn>
                           <TextField
-                              hintText="Produktion für Aufträge"/>
+                              hintText="Produktion für Aufträge"
+                              value={this.state.P1.ProduktionAuftraege}
+                              disabled = {true}/>
                         </TableRowColumn>
                         <TableRowColumn>
                         <TextField
-                              hintText="Produktion für Lage"/>
+                              hintText="Produktion für Lage"
+                              id="P1"
+                              errorText={this.state.errorTextProduktionLager.P1}
+                              errorStyle={{color:'orange'}}
+                              onChange={this._handleProduktionLagerChange}
+                              value={this.state.P1.ProduktionLager}/>
                       </TableRowColumn>
                         <TableRowColumn>
                         <TextField
-                              hintText="Produktion gesamt"/>
+                              hintText="Produktion gesamt"
+                              value={this.state.P1.ProduktionGesamt}
+                              disabled = {true}/>
                       </TableRowColumn>
                       </TableRow>
 
@@ -334,23 +425,39 @@ class Gesamt extends React.Component {
                         </TableRowColumn>
                         <TableRowColumn>
                           <TextField
-                              hintText="Lagerbestand"/>
+                              hintText="Lagerbestand"
+                              value={this.state.P2.Lagerbestand}
+                              disabled = {true}/>
                         </TableRowColumn>
                         <TableRowColumn>
                           <TextField
-                              hintText="Bedarf in der Periode"/>
+                              hintText="Prognose"
+                              id="P2"
+                              errorText={this.state.errorTextPrognose.P2}
+                              errorStyle={{color:'orange'}}
+                              onChange={this._handlePrognoseChange}
+                              value= {this.state.P2.Prognose}/>
                         </TableRowColumn>
                         <TableRowColumn>
                           <TextField
-                              hintText="Produktion für Aufträge"/>
+                              hintText="Produktion für Aufträge"
+                              value={this.state.P2.ProduktionAuftraege}
+                              disabled = {true}/>
                         </TableRowColumn>
                         <TableRowColumn>
                         <TextField
-                              hintText="Produktion für Lage"/>
+                              hintText="Produktion für Lage"
+                              id="P2"
+                              errorText={this.state.errorTextProduktionLager.P2}
+                              errorStyle={{color:'orange'}}
+                              onChange={this._handleProduktionLagerChange}
+                              value={this.state.P2.ProduktionLager}/>
                       </TableRowColumn>
                         <TableRowColumn>
                         <TextField
-                              hintText="Produktion gesamt"/>
+                              hintText="Produktion gesamt"
+                              value={this.state.P2.ProduktionGesamt}
+                              disabled = {true}/>
                       </TableRowColumn>
                       </TableRow>
 
@@ -360,23 +467,39 @@ class Gesamt extends React.Component {
                         </TableRowColumn>
                         <TableRowColumn>
                           <TextField
-                              hintText="Lagerbestand"/>
+                              hintText="Lagerbestand"
+                              value={this.state.P3.Lagerbestand}
+                              disabled = {true}/>
                         </TableRowColumn>
                         <TableRowColumn>
                           <TextField
-                              hintText="Bedarf in der Periode"/>
+                              hintText="Prognose"
+                              id="P3"
+                              errorText={this.state.errorTextPrognose.P3}
+                              errorStyle={{color:'orange'}}
+                              onChange={this._handlePrognoseChange}
+                              value= {this.state.P3.Prognose}/>
                         </TableRowColumn>
                         <TableRowColumn>
                           <TextField
-                              hintText="Produktion für Aufträge"/>
+                              hintText="Produktion für Aufträge"
+                              value={this.state.P3.ProduktionAuftraege}
+                              disabled = {true}/>
                         </TableRowColumn>
                         <TableRowColumn>
                         <TextField
-                              hintText="Produktion für Lage"/>
+                              hintText="Produktion für Lage"
+                              id="P3"
+                              errorText={this.state.errorTextProduktionLager.P3}
+                              errorStyle={{color:'orange'}}
+                              onChange={this._handleProduktionLagerChange}
+                              value={this.state.P3.ProduktionLager}/>
                       </TableRowColumn>
                         <TableRowColumn>
                         <TextField
-                              hintText="Produktion gesamt"/>
+                              hintText="Produktion gesamt"
+                              value={this.state.P3.ProduktionGesamt}
+                              disabled = {true}/>
                       </TableRowColumn>
                       </TableRow>
 
@@ -388,19 +511,27 @@ class Gesamt extends React.Component {
                         </TableRowColumn>
                         <TableRowColumn>
                           <TextField
-                              hintText="Bedarf in der Periode"/>
+                              hintText="Prognose"
+                              value={this.state.Summe.Prognose}
+                              disabled = {true}/>
                         </TableRowColumn>
                         <TableRowColumn>
                           <TextField
-                              hintText="Produktion für Aufträge"/>
+                              hintText="Produktion für Aufträge"
+                              value={this.state.Summe.ProduktionAuftraege}
+                              disabled = {true}/>
                         </TableRowColumn>
                         <TableRowColumn>
                         <TextField
-                              hintText="Produktion für Lage"/>
+                              hintText="Produktion für Lage"
+                              value={this.state.Summe.ProduktionLager}
+                              disabled = {true}/>
                       </TableRowColumn>
                         <TableRowColumn>
                         <TextField
-                              hintText="Produktion gesamt"/>
+                              hintText="Produktion gesamt"
+                              value={this.state.Summe.ProduktionGesamt}
+                              disabled = {true}/>
                       </TableRowColumn>
                       </TableRow>
 

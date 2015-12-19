@@ -3,7 +3,7 @@ import './Kinder.scss';
 import mui from 'material-ui';
 import _ from 'lodash'
 import { connect } from 'react-redux';
-import { setAuftragsplanungKinderInputXML } from '../Redux/Actions';
+import { setAuftragsplanungKinderInputXML, resetAuftragsplanungKinderInputXML } from '../Redux/Actions';
 
 const Table = require('material-ui/lib/table/table');
 const TableBody = require('material-ui/lib/table/table-body');
@@ -440,13 +440,13 @@ class Kinder extends React.Component {
         }
       }.bind(this));
       if(!errorlol){
-        var auftragsplanungKinder = {auftragsplanungKinder:{VR:this.state.VR,
+        var auftragsplanungKinder = {VR:this.state.VR,
                                     BW:this.state.BW,
                                     GL:this.state.GL,
                                     AL:this.state.AL,
                                     WS:this.state.WS,
                                     BA:this.state.BA,
-                                    AU:this.state.AU}}
+                                    AU:this.state.AU}
         this.props.dispatch(setAuftragsplanungKinderInputXML(auftragsplanungKinder, this.props.ActiveUploadXML.activeUploadXMLData.id));
         this.refs.snackbar.show();
       }else{
@@ -475,7 +475,8 @@ class Kinder extends React.Component {
 
   _handleResetButtonClick(e){
     this.props.dispatch(resetAuftragsplanungKinderInputXML(this.props.ActiveUploadXML.activeUploadXMLData.id))
-    this.state.resetButtonDisabled = true
+    this.state.VR.P3 = 0
+    this.state.GL.P3 = 0
   }
 
 

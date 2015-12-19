@@ -17,6 +17,8 @@ export function setLanguage(languagee) {
 export const SET_AUFTRAGSPLANUNG_DAMEN_INPUT_XML = 'SET_AUFTRAGSPLANUNG_DAMEN_INPUT_XML'
 export const SET_AUFTRAGSPLANUNG_KINDER_INPUT_XML = 'SET_AUFTRAGSPLANUNG_KINDER_INPUT_XML'
 export const SET_AUFTRAGSPLANUNG_HERREN_INPUT_XML = 'SET_AUFTRAGSPLANUNG_HERREN_INPUT_XML'
+export const SET_AUFTRAGSPLANUNG_GESAMT_INPUT_XML = 'SET_AUFTRAGSPLANUNG_GESAMT_INPUT_XML'
+export const RESET_AUFTRAGSPLANUNG_GESAMT_INPUT_XML = 'RESET_AUFTRAGSPLANUNG_GESAMT_INPUT_XML'
 export const RESET_AUFTRAGSPLANUNG_HERREN_INPUT_XML = 'RESET_AUFTRAGSPLANUNG_HERREN_INPUT_XML'
 export const RESET_AUFTRAGSPLANUNG_KINDER_INPUT_XML = 'RESET_AUFTRAGSPLANUNG_KINDER_INPUT_XML'
 export const RESET_AUFTRAGSPLANUNG_DAMEN_INPUT_XML = 'RESET_AUFTRAGSPLANUNG_DAMEN_INPUT_XML'
@@ -28,24 +30,31 @@ export function saveInputXML(inputXML) {
   return { type: SAVE_INPUT_XML, inputXML}
 }
 
-export function setAuftragsplanungHerrenInputXML(auftragsHerrenInputXML, id) {
-  return { type: SET_AUFTRAGSPLANUNG_HERREN_INPUT_XML, auftragsHerrenInputXML, id}
+export function setAuftragsplanungGesamtInputXML(auftragsplanungGesamt, id) {
+  return { type: SET_AUFTRAGSPLANUNG_GESAMT_INPUT_XML, auftragsplanungGesamt, id}
+}
+
+export function resetAuftragsplanungGesamtInputXML(id) {
+  return { type: RESET_AUFTRAGSPLANUNG_GESAMT_INPUT_XML, id}
+}
+export function setAuftragsplanungHerrenInputXML(auftragsplanungHerren, id) {
+  return { type: SET_AUFTRAGSPLANUNG_HERREN_INPUT_XML, auftragsplanungHerren, id}
 }
 
 export function resetAuftragsplanungHerrenInputXML(id) {
   return { type: RESET_AUFTRAGSPLANUNG_HERREN_INPUT_XML, id}
 }
 
-export function setAuftragsplanungDamenInputXML(auftragsDamenInputXML, id) {
-  return { type: SET_AUFTRAGSPLANUNG_DAMEN_INPUT_XML, auftragsDamenInputXML ,id}
+export function setAuftragsplanungDamenInputXML(auftragsplanungDamen, id) {
+  return { type: SET_AUFTRAGSPLANUNG_DAMEN_INPUT_XML, auftragsplanungDamen ,id}
 }
 
 export function resetAuftragsplanungDamenInputXML(id) {
   return { type: RESET_AUFTRAGSPLANUNG_DAMEN_INPUT_XML, id}
 }
 
-export function setAuftragsplanungKinderInputXML(auftragsKinderInputXML, id) {
-  return { type: SET_AUFTRAGSPLANUNG_KINDER_INPUT_XML, auftragsKinderInputXML, id}
+export function setAuftragsplanungKinderInputXML(auftragsplanungKinder, id) {
+  return { type: SET_AUFTRAGSPLANUNG_KINDER_INPUT_XML, auftragsplanungKinder, id}
 }
 
 export function resetAuftragsplanungKinderInputXML(id) {

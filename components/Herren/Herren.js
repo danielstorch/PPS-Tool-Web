@@ -3,7 +3,7 @@ import './Herren.scss';
 import mui from 'material-ui';
 import _ from 'lodash'
 import { connect } from 'react-redux';
-import { setAuftragsplanungHerrenInputXML } from '../Redux/Actions';
+import { setAuftragsplanungHerrenInputXML, resetAuftragsplanungHerrenInputXML } from '../Redux/Actions';
 
 const Table = require('material-ui/lib/table/table');
 const TableBody = require('material-ui/lib/table/table-body');
@@ -48,7 +48,7 @@ class Herren extends React.Component {
       snackBarmessage: 'Save completed!',
 
       resetButtonDisabled: true,
-
+      displayRowCheckbox: false,
       fixedHeader: true,
       fixedFooter: true,
       stripedRows: false,
@@ -414,13 +414,15 @@ _handleSaveButtonClick(e){
 
 
       if(!errorlol){
-        var auftragsplanungHerren = {auftragsplanungHerren:{VR:this.state.VR,
+        var auftragsplanungHerren = {
+                                    VR:this.state.VR,
                                     BW:this.state.BW,
                                     GL:this.state.GL,
                                     AL:this.state.AL,
                                     WS:this.state.WS,
                                     BA:this.state.BA,
-                                    AU:this.state.AU}}
+                                    AU:this.state.AU
+                                  }
         this.props.dispatch(setAuftragsplanungHerrenInputXML(auftragsplanungHerren, this.props.ActiveUploadXML.activeUploadXMLData.id));
         this.refs.snackbar.show();
       }else{
@@ -449,7 +451,8 @@ _handleSaveButtonClick(e){
 
   _handleResetButtonClick(e){
     this.props.dispatch(resetAuftragsplanungHerrenInputXML(this.props.ActiveUploadXML.activeUploadXMLData.id))
-    this.state.resetButtonDisabled = true
+    this.state.VR.P1 = 0
+    this.state.GL.P1 = 0
   }
 
   _onDialogOk() {

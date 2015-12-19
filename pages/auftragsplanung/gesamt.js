@@ -7,8 +7,15 @@
 import React, { Component } from 'react';
 
 import Gesamt from '../../components/Gesamt'
+import { connect } from 'react-redux';
+import { setCurrentPage, closeOpenNavLeft } from '../../components/Redux/Actions';
 
-export default class extends Component {
+class GesamtPage extends Component {
+
+	componentDidMount(){
+    	this.props.dispatch(setCurrentPage('Gesamt'));
+    	
+  	}
 
   render() {
     return (
@@ -19,3 +26,5 @@ export default class extends Component {
   }
 
 }
+
+export default connect(null, dispatch => ({ dispatch }))(GesamtPage) 
