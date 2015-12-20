@@ -5,6 +5,7 @@
  */
 
 import React, { Component } from 'react';
+import Home from '../components/Download'
 
 import { connect } from 'react-redux';
 import { setCurrentPage, closeOpenNavLeft } from '../components/Redux/Actions';
@@ -18,8 +19,7 @@ componentDidMount(){
   render() {
     return (
       <div>
-        <h1>Download Page</h1>
-        <p>Coming soon.</p>
+        <Home/>
       </div>
     );
   }

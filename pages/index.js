@@ -9,6 +9,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { setCurrentPage, closeOpenNavLeft } from '../components/Redux/Actions';
 
+import Home from '../components/Home'
+
 class HomePage extends Component {
 	componentDidMount(){
     	this.props.dispatch(setCurrentPage('Home'));
@@ -17,8 +19,7 @@ class HomePage extends Component {
   render() {
     return (
       <div>
-        <h1>Home Page</h1>
-        <p>Coming soon.</p>
+        <Home/>
       </div>
     );
   }
