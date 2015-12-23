@@ -402,8 +402,36 @@ class Kapazitaetsplanung extends React.Component {
     this.state.Arbeitsplatz14.Kapazitätsbedarf = this.state.Arbeitsplatz14.E16;
     this.state.Arbeitsplatz15.Kapazitätsbedarf = this.state.Arbeitsplatz15.E17 + this.state.Arbeitsplatz15.E26;
 
+    this.state.Arbeitsplatz1.RüstzeitGesamt = this.state.Arbeitsplatz1.RüstzeitVorgang * this.state.Arbeitsplatz1.RüstVorgänge;
+    this.state.Arbeitsplatz2.RüstzeitGesamt = this.state.Arbeitsplatz2.RüstzeitVorgang * this.state.Arbeitsplatz2.RüstVorgänge;
+    this.state.Arbeitsplatz3.RüstzeitGesamt = this.state.Arbeitsplatz3.RüstzeitVorgang * this.state.Arbeitsplatz3.RüstVorgänge;
+    this.state.Arbeitsplatz4.RüstzeitGesamt = this.state.Arbeitsplatz4.RüstzeitVorgang * this.state.Arbeitsplatz4.RüstVorgänge;
+    this.state.Arbeitsplatz6.RüstzeitGesamt = this.state.Arbeitsplatz6.RüstzeitVorgang * this.state.Arbeitsplatz6.RüstVorgänge;
+    this.state.Arbeitsplatz7.RüstzeitGesamt = this.state.Arbeitsplatz7.RüstzeitVorgang * this.state.Arbeitsplatz7.RüstVorgänge;
+    this.state.Arbeitsplatz8.RüstzeitGesamt = this.state.Arbeitsplatz8.RüstzeitVorgang * this.state.Arbeitsplatz8.RüstVorgänge;
+    this.state.Arbeitsplatz9.RüstzeitGesamt = this.state.Arbeitsplatz9.RüstzeitVorgang * this.state.Arbeitsplatz9.RüstVorgänge;
+    this.state.Arbeitsplatz10.RüstzeitGesamt = this.state.Arbeitsplatz10.RüstzeitVorgang * this.state.Arbeitsplatz10.RüstVorgänge;
+    this.state.Arbeitsplatz11.RüstzeitGesamt = this.state.Arbeitsplatz11.RüstzeitVorgang * this.state.Arbeitsplatz11.RüstVorgänge;
+    this.state.Arbeitsplatz12.RüstzeitGesamt = this.state.Arbeitsplatz12.RüstzeitVorgang * this.state.Arbeitsplatz12.RüstVorgänge;
+    this.state.Arbeitsplatz13.RüstzeitGesamt = this.state.Arbeitsplatz13.RüstzeitVorgang * this.state.Arbeitsplatz13.RüstVorgänge;
+    this.state.Arbeitsplatz14.RüstzeitGesamt = this.state.Arbeitsplatz14.RüstzeitVorgang * this.state.Arbeitsplatz14.RüstVorgänge;
+    this.state.Arbeitsplatz15.RüstzeitGesamt = this.state.Arbeitsplatz15.RüstzeitVorgang * this.state.Arbeitsplatz15.RüstVorgänge;
 
 
+    this.state.Arbeitsplatz1.Gesamtkapazitätbedarf = this.state.Arbeitsplatz1.Kapazitätsbedarf + this.state.Arbeitsplatz1.RüstzeitGesamt + this.state.Arbeitsplatz1.Warteschlange;
+    this.state.Arbeitsplatz2.Gesamtkapazitätbedarf = this.state.Arbeitsplatz2.Kapazitätsbedarf + this.state.Arbeitsplatz2.RüstzeitGesamt + this.state.Arbeitsplatz2.Warteschlange;
+    this.state.Arbeitsplatz3.Gesamtkapazitätbedarf = this.state.Arbeitsplatz3.Kapazitätsbedarf + this.state.Arbeitsplatz3.RüstzeitGesamt + this.state.Arbeitsplatz3.Warteschlange;
+    this.state.Arbeitsplatz4.Gesamtkapazitätbedarf = this.state.Arbeitsplatz4.Kapazitätsbedarf + this.state.Arbeitsplatz4.RüstzeitGesamt + this.state.Arbeitsplatz4.Warteschlange;
+    this.state.Arbeitsplatz6.Gesamtkapazitätbedarf = this.state.Arbeitsplatz6.Kapazitätsbedarf + this.state.Arbeitsplatz6.RüstzeitGesamt + this.state.Arbeitsplatz6.Warteschlange;
+    this.state.Arbeitsplatz7.Gesamtkapazitätbedarf = this.state.Arbeitsplatz7.Kapazitätsbedarf + this.state.Arbeitsplatz7.RüstzeitGesamt + this.state.Arbeitsplatz7.Warteschlange;
+    this.state.Arbeitsplatz8.Gesamtkapazitätbedarf = this.state.Arbeitsplatz8.Kapazitätsbedarf + this.state.Arbeitsplatz8.RüstzeitGesamt + this.state.Arbeitsplatz8.Warteschlange;
+    this.state.Arbeitsplatz9.Gesamtkapazitätbedarf = this.state.Arbeitsplatz9.Kapazitätsbedarf + this.state.Arbeitsplatz9.RüstzeitGesamt + this.state.Arbeitsplatz9.Warteschlange;
+    this.state.Arbeitsplatz10.Gesamtkapazitätbedarf = this.state.Arbeitsplatz10.Kapazitätsbedarf + this.state.Arbeitsplatz10.RüstzeitGesamt + this.state.Arbeitsplatz10.Warteschlange;
+    this.state.Arbeitsplatz11.Gesamtkapazitätbedarf = this.state.Arbeitsplatz11.Kapazitätsbedarf + this.state.Arbeitsplatz11.RüstzeitGesamt + this.state.Arbeitsplatz11.Warteschlange;
+    this.state.Arbeitsplatz12.Gesamtkapazitätbedarf = this.state.Arbeitsplatz12.Kapazitätsbedarf + this.state.Arbeitsplatz12.RüstzeitGesamt + this.state.Arbeitsplatz12.Warteschlange;
+    this.state.Arbeitsplatz13.Gesamtkapazitätbedarf = this.state.Arbeitsplatz13.Kapazitätsbedarf + this.state.Arbeitsplatz13.RüstzeitGesamt + this.state.Arbeitsplatz13.Warteschlange;
+    this.state.Arbeitsplatz14.Gesamtkapazitätbedarf = this.state.Arbeitsplatz14.Kapazitätsbedarf + this.state.Arbeitsplatz14.RüstzeitGesamt + this.state.Arbeitsplatz14.Warteschlange;
+    this.state.Arbeitsplatz15.Gesamtkapazitätbedarf = this.state.Arbeitsplatz15.Kapazitätsbedarf + this.state.Arbeitsplatz15.RüstzeitGesamt + this.state.Arbeitsplatz15.Warteschlange;
   }
 
   render(){
