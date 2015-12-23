@@ -2,6 +2,7 @@ import React from 'react';
 import './Damen.scss';
 import mui from 'material-ui';
 import _ from 'lodash'
+import Link from '../Link';
 import { connect } from 'react-redux';
 import { setAuftragsplanungDamenInputXML, resetAuftragsplanungDamenInputXML } from '../Redux/Actions';
 
@@ -205,46 +206,84 @@ class Damen extends React.Component {
 
     if(initial == true || this.state.currentPeriode != activePeriodID){
 
-      console.log("First IF")
-      
-       if(currentInputXML && currentInputXML.inputDataObject.auftragsplanungDamen){
-        this.state.VR.P2 = currentInputXML.inputDataObject.auftragsplanungDamen.VR.P2
-        this.state.GL.P2 = currentInputXML.inputDataObject.auftragsplanungDamen.GL.P2
-        this.state.GL.E26 = currentInputXML.inputDataObject.auftragsplanungDamen.GL.E26
-        this.state.GL.E56 = currentInputXML.inputDataObject.auftragsplanungDamen.GL.E56
-        this.state.GL.E16 = currentInputXML.inputDataObject.auftragsplanungDamen.GL.E16
-        this.state.GL.E17 = currentInputXML.inputDataObject.auftragsplanungDamen.GL.E17
-        this.state.GL.E55 = currentInputXML.inputDataObject.auftragsplanungDamen.GL.E55
-        this.state.GL.E5 = currentInputXML.inputDataObject.auftragsplanungDamen.GL.E5
-        this.state.GL.E11 = currentInputXML.inputDataObject.auftragsplanungDamen.GL.E11
-        this.state.GL.E54 = currentInputXML.inputDataObject.auftragsplanungDamen.GL.E54
-        this.state.GL.E8 = currentInputXML.inputDataObject.auftragsplanungDamen.GL.E8
-        this.state.GL.E14 = currentInputXML.inputDataObject.auftragsplanungDamen.GL.E14
-        this.state.GL.E19 = currentInputXML.inputDataObject.auftragsplanungDamen.GL.E19
-        this.state.resetButtonDisabled = false
+      if(currentInputXML){
 
-        console.log("SEcond IF", currentInputXML.inputDataObject)
+        if( currentInputXML && currentInputXML.inputDataObject.auftragsplanungDamen ){
 
+          this.state.VR.P2 = currentInputXML.inputDataObject.auftragsplanungDamen.VR.P2
+          this.state.GL.P2 = currentInputXML.inputDataObject.auftragsplanungDamen.GL.P2
+
+          this.state.GL.E26 = currentInputXML.inputDataObject.auftragsplanungDamen.GL.E26
+          this.state.GL.E56 = currentInputXML.inputDataObject.auftragsplanungDamen.GL.E56
+          this.state.GL.E16 = currentInputXML.inputDataObject.auftragsplanungDamen.GL.E16
+          this.state.GL.E17 = currentInputXML.inputDataObject.auftragsplanungDamen.GL.E17
+          this.state.GL.E55 = currentInputXML.inputDataObject.auftragsplanungDamen.GL.E55
+          this.state.GL.E5 = currentInputXML.inputDataObject.auftragsplanungDamen.GL.E5
+          this.state.GL.E11 = currentInputXML.inputDataObject.auftragsplanungDamen.GL.E11
+          this.state.GL.E54 = currentInputXML.inputDataObject.auftragsplanungDamen.GL.E54
+          this.state.GL.E8 = currentInputXML.inputDataObject.auftragsplanungDamen.GL.E8
+          this.state.GL.E14 = currentInputXML.inputDataObject.auftragsplanungDamen.GL.E14
+          this.state.GL.E19 = currentInputXML.inputDataObject.auftragsplanungDamen.GL.E19
+
+          this.state.resetButtonDisabled = false
+
+        } else if(currentInputXML.inputDataObject.auftragsplanungGesamt){
+
+          this.state.VR.P2 = currentInputXML.inputDataObject.auftragsplanungGesamt.P2.Prognose
+          this.state.GL.P2 = currentInputXML.inputDataObject.auftragsplanungGesamt.P2.ProduktionLager
+
+          this.state.GL.E26 = currentInputXML.inputDataObject.auftragsplanungGesamt.P2.ProduktionLager
+          this.state.GL.E56 = currentInputXML.inputDataObject.auftragsplanungGesamt.P2.ProduktionLager
+          this.state.GL.E16 = currentInputXML.inputDataObject.auftragsplanungGesamt.P2.ProduktionLager
+          this.state.GL.E17 = currentInputXML.inputDataObject.auftragsplanungGesamt.P2.ProduktionLager
+          this.state.GL.E55 = currentInputXML.inputDataObject.auftragsplanungGesamt.P2.ProduktionLager
+          this.state.GL.E5 = currentInputXML.inputDataObject.auftragsplanungGesamt.P2.ProduktionLager
+          this.state.GL.E11 = currentInputXML.inputDataObject.auftragsplanungGesamt.P2.ProduktionLager
+          this.state.GL.E54 = currentInputXML.inputDataObject.auftragsplanungGesamt.P2.ProduktionLager
+          this.state.GL.E8 = currentInputXML.inputDataObject.auftragsplanungGesamt.P2.ProduktionLager
+          this.state.GL.E14 = currentInputXML.inputDataObject.auftragsplanungGesamt.P2.ProduktionLager
+          this.state.GL.E19 = currentInputXML.inputDataObject.auftragsplanungGesamt.P2.ProduktionLager
+
+          this.state.resetButtonDisabled = true
+
+        } else{
+
+          this.state.VR.P2 = 0
+          this.state.GL.P2 = 0
+          this.state.GL.E26 = 0
+          this.state.GL.E56 = 0
+          this.state.GL.E16 = 0
+          this.state.GL.E17 = 0
+          this.state.GL.E55 = 0
+          this.state.GL.E5 = 0
+          this.state.GL.E11 = 0
+          this.state.GL.E54 = 0
+          this.state.GL.E8 = 0
+          this.state.GL.E14 = 0
+          this.state.GL.E19 = 0
+
+          this.state.resetButtonDisabled = true
+
+        }
       }else{
-        this.state.VR.P2 = 0
-        this.state.GL.P2 = 0
-        this.state.GL.E26 = 0
-        this.state.GL.E56 = 0
-        this.state.GL.E16 = 0
-        this.state.GL.E17 = 0
-        this.state.GL.E55 = 0
-        this.state.GL.E5 = 0
-        this.state.GL.E11 = 0
-        this.state.GL.E54 = 0
-        this.state.GL.E8 = 0
-        this.state.GL.E14 = 0
-        this.state.GL.E19 = 0
-        console.log("SEcond else")
 
-        this.state.resetButtonDisabled = true
+          this.state.VR.P2 = 0
+          this.state.GL.P2 = 0
+          this.state.GL.E26 = 0
+          this.state.GL.E56 = 0
+          this.state.GL.E16 = 0
+          this.state.GL.E17 = 0
+          this.state.GL.E55 = 0
+          this.state.GL.E5 = 0
+          this.state.GL.E11 = 0
+          this.state.GL.E54 = 0
+          this.state.GL.E8 = 0
+          this.state.GL.E14 = 0
+          this.state.GL.E19 = 0
 
-      }
-
+          this.state.resetButtonDisabled = true
+        }
+      
       this.setState({
         currentPeriode: activePeriodID
       });
@@ -305,6 +344,7 @@ class Damen extends React.Component {
     this.state.BA.E19 = this._getOrdersinwork("19")
 
     this.state.AU.P2 = Math.max(0,(this.state.VR.P2 + this.state.GL.P2 - this.state.AL.P2 - this.state.WS.P2 - this.state.BA.P2))
+
     this.state.VR.E26 = this.state.AU.P2
     this.state.AU.E26 =  Math.max(0,(this.state.VR.E26 + this.state.BW.E26 + this.state.GL.E26 - this.state.AL.E26 - this.state.WS.E26 - this.state.BA.E26))
     this.state.VR.E56 = this.state.AU.E26
@@ -411,6 +451,8 @@ class Damen extends React.Component {
       errorTextGL: errorTextGLList,
       GL: GLList
     });
+
+    this._updateVariables(false)
   }
 
   _handleVetriebswunschChange(e){
@@ -434,6 +476,8 @@ class Damen extends React.Component {
       errorTextVR: errorTextVRList,
       VR: VRList
     });
+
+    this._updateVariables(false)
   }
 
   _handleButtonClick(e){
@@ -468,6 +512,11 @@ class Damen extends React.Component {
         this._updateLocalStorage();
         
         this.refs.snackbar.show();
+
+        this.setState({
+          resetButtonDisabled: false
+        });
+
       }else{
               this.setState({
                 openDialogStandardActions: true,
@@ -507,8 +556,30 @@ class Damen extends React.Component {
 
 _handleResetButtonClick(e){
     this.props.dispatch(resetAuftragsplanungDamenInputXML(this.props.ActiveUploadXML.activeUploadXMLData.id))
-    this.state.VR.P2 = 0
-    this.state.GL.P2 = 0
+    let VRList = this.state.VR;
+    let GLList = this.state.GL;
+
+    VRList.P2 = 0
+    GLList.P2 = 0
+    GLList.E26 = 0
+    GLList.E56 = 0
+    GLList.E16 = 0
+    GLList.E17 = 0
+    GLList.E55 = 0
+    GLList.E5 = 0
+    GLList.E11 = 0
+    GLList.E54 = 0
+    GLList.E8 = 0
+    GLList.E14 = 0
+    GLList.E19 = 0
+
+    this.setState({
+          resetButtonDisabled: true,
+          VR: VRList,
+          GL: GLList
+        });
+
+    this._updateVariables(false);
 
     //UpDATE LOCALSTORAGE
     this._updateLocalStorage();
@@ -538,7 +609,14 @@ _handleResetButtonClick(e){
 
           <RaisedButton label="Save" primary={true} onTouchTap={this._handleButtonClick} />
           <RaisedButton label="Reset" secondary={true} disabled={this.state.resetButtonDisabled} onTouchTap={this._handleResetButtonClick}/>
-
+          <div className="navigationButtons"> 
+          <div className="beforeButtonWrapper" >
+            <a className="beforeButton" href="/auftragsplanung/herren" onClick={Link.handleClick}>previous</a>
+          </div>
+          <div className="nextButtonWrapper">
+            <a className="nextButton" href="/auftragsplanung/kinder" onClick={Link.handleClick}>next!</a>
+          </div>
+        </div>
           <Table
             height={this.state.height}
             fixedHeader={this.state.fixedHeader}

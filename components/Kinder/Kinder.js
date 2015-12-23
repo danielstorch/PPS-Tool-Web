@@ -2,6 +2,7 @@ import React from 'react';
 import './Kinder.scss';
 import mui from 'material-ui';
 import _ from 'lodash'
+import Link from '../Link';
 import { connect } from 'react-redux';
 import { setAuftragsplanungKinderInputXML, resetAuftragsplanungKinderInputXML } from '../Redux/Actions';
 
@@ -182,36 +183,67 @@ class Kinder extends React.Component {
 
   }
 
-  componentWillMount(){
-    console.log('componentWillMount');
-    this._updateVariables();
+   componentWillMount(){
+    this._updateVariables(true)
   }
 
-  shouldComponentUpdate(){
-    return true;
-  }
+  componentDidUpdate(){
 
-  componentWillReceiveProps(){
-    this._updateVariables();
+    this._updateVariables(false);
 
   }
 
-  _updateVariables(){
+  _updateVariables(initial){
 
     var activePeriodID = this.props.ActiveUploadXML.activeUploadXMLData.id.substring(7);
     var currentInputXML = this.props.InputXMLs.find(xml => xml.id.substring(6) === activePeriodID);
 
-    if(currentInputXML && currentInputXML.inputDataObject.auftragsplanungKinder){
-      this.state.VR.P3 = currentInputXML.inputDataObject.auftragsplanungKinder.VR.P3
-      this.state.GL.P3 = currentInputXML.inputDataObject.auftragsplanungKinder.GL.P3
+    if(initial == true || this.state.currentPeriode != activePeriodID){
 
-      this.state.resetButtonDisabled = false
+    
+      if(currentInputXML && currentInputXML.inputDataObject.auftragsplanungKinder){
+        this.state.VR.P3 = currentInputXML.inputDataObject.auftragsplanungKinder.VR.P3
+        this.state.GL.P3 = currentInputXML.inputDataObject.auftragsplanungKinder.GL.P3
 
-    }else{
-      this.state.resetButtonDisabled = true
-      
-    }
+        this.state.E26 = currentInputXML.inputDataObject.auftragsplanungKinder.GL.E26
+        this.state.E31 = currentInputXML.inputDataObject.auftragsplanungKinder.GL.E31
+        this.state.E16 = currentInputXML.inputDataObject.auftragsplanungKinder.GL.E16
+        this.state.E17 = currentInputXML.inputDataObject.auftragsplanungKinder.GL.E17
+        this.state.E30 = currentInputXML.inputDataObject.auftragsplanungKinder.GL.E30
+        this.state.E6 = currentInputXML.inputDataObject.auftragsplanungKinder.GL.E6
+        this.state.E12 = currentInputXML.inputDataObject.auftragsplanungKinder.GL.E12
+        this.state.E29 = currentInputXML.inputDataObject.auftragsplanungKinder.GL.E29
+        this.state.E9 = currentInputXML.inputDataObject.auftragsplanungKinder.GL.E9
+        this.state.E15 = currentInputXML.inputDataObject.auftragsplanungKinder.GL.E15
+        this.state.E20 = currentInputXML.inputDataObject.auftragsplanungKinder.GL.E20
 
+        this.state.resetButtonDisabled = false
+
+      }else{
+
+        this.state.VR.P3 = 0
+        this.state.GL.P3 = 0
+        this.state.E26 = 0
+        this.state.E31 = 0
+        this.state.E16 = 0
+        this.state.E17 = 0
+        this.state.E30 = 0
+        this.state.E6 = 0
+        this.state.E12 = 0
+        this.state.E29 = 0
+        this.state.E9 = 0
+        this.state.E15 = 0
+        this.state.E20 = 0
+
+
+        this.state.resetButtonDisabled = true
+        
+      }
+
+      this.setState({
+        currentPeriode: activePeriodID
+      });
+  }
 
     //BW
     this.state.BW.E26 = this._getWaitingslistworkstation('3');
@@ -506,11 +538,6 @@ class Kinder extends React.Component {
 
   render() {
 
-   // if(this.state.currentPeriode !== this.props.ActiveUploadXML.activeUploadXMLData.id){
-      this._updateVariables()
-   //   console.log("ALLES WIRD GEUPDATED")
-   // }
-
     let standardActions = [
       { text: 'Ok', onTouchTap: this._onDialogOk.bind(this), ref: 'ok' }
     ];
@@ -521,7 +548,14 @@ class Kinder extends React.Component {
 
         <RaisedButton label="Save" primary={true} onTouchTap={this._handleButtonClick} />
         <RaisedButton label="Reset" secondary={true} disabled={this.state.resetButtonDisabled} onTouchTap={this._handleResetButtonClick}/>
-
+        <div className="navigationButtons"> 
+          <div className="beforeButtonWrapper" >
+            <a className="beforeButton" href="/auftragsplanung/damen" onClick={Link.handleClick}>previous</a>
+          </div>
+          <div className="nextButtonWrapper">
+            <a className="nextButton" href="/kapazitaetsplanung" onClick={Link.handleClick}>next!</a>
+          </div>
+        </div>
         <Table
           height={this.state.height}
           fixedHeader={this.state.fixedHeader}

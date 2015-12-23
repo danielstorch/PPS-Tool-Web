@@ -2,6 +2,7 @@ import React from 'react';
 import './Herren.scss';
 import mui from 'material-ui';
 import _ from 'lodash'
+import Link from '../Link';
 import { connect } from 'react-redux';
 import { setAuftragsplanungHerrenInputXML, resetAuftragsplanungHerrenInputXML } from '../Redux/Actions';
 
@@ -41,6 +42,7 @@ class Herren extends React.Component {
 
 
     this.state = {
+      currentPeriode:"",
       modal: true,
       openDialogStandardActions: false,
       dialogTitle: "Dialog",
@@ -184,28 +186,68 @@ class Herren extends React.Component {
 
   }
 
-  componentWillMount(){
-    this._updateVariables();
+   componentWillMount(){
+    this._updateVariables(true)
   }
 
-  shouldComponentUpdate(){
-    return true;
+  componentDidUpdate(){
+
+    this._updateVariables(false);
+
   }
 
-  _updateVariables(){
+  _updateVariables(initial){
 
     var activePeriodID = this.props.ActiveUploadXML.activeUploadXMLData.id.substring(7);
     var currentInputXML = this.props.InputXMLs.find(xml => xml.id.substring(6) === activePeriodID);
 
-    if(currentInputXML && currentInputXML.inputDataObject.auftragsplanungHerren){
-      this.state.VR.P1 = currentInputXML.inputDataObject.auftragsplanungHerren.VR.P1
-      this.state.GL.P1 = currentInputXML.inputDataObject.auftragsplanungHerren.GL.P1
+    if(initial == true || this.state.currentPeriode != activePeriodID){
 
-      this.state.resetButtonDisabled = false
 
-    }else{
-      this.state.resetButtonDisabled = true
-      
+      if(currentInputXML && currentInputXML.inputDataObject.auftragsplanungHerren){
+        this.state.VR.P1 = currentInputXML.inputDataObject.auftragsplanungHerren.VR.P1
+        this.state.GL.P1 = currentInputXML.inputDataObject.auftragsplanungHerren.GL.P1
+
+        this.state.GL.E26 = currentInputXML.inputDataObject.auftragsplanungHerren.GL.E26
+        this.state.GL.E51 = currentInputXML.inputDataObject.auftragsplanungHerren.GL.E51
+        this.state.GL.E16 = currentInputXML.inputDataObject.auftragsplanungHerren.GL.E16
+        this.state.GL.E17 = currentInputXML.inputDataObject.auftragsplanungHerren.GL.E17
+        this.state.GL.E50 = currentInputXML.inputDataObject.auftragsplanungHerren.GL.E50
+        this.state.GL.E4 = currentInputXML.inputDataObject.auftragsplanungHerren.GL.E4
+        this.state.GL.E10 = currentInputXML.inputDataObject.auftragsplanungHerren.GL.E10
+        this.state.GL.E49 = currentInputXML.inputDataObject.auftragsplanungHerren.GL.E49
+        this.state.GL.E7 = currentInputXML.inputDataObject.auftragsplanungHerren.GL.E7
+        this.state.GL.E13 = currentInputXML.inputDataObject.auftragsplanungHerren.GL.E13
+        this.state.GL.E18 = currentInputXML.inputDataObject.auftragsplanungHerren.GL.E18
+
+
+        this.state.resetButtonDisabled = false
+
+      }else{
+
+        this.state.VR.P1 = 0
+        this.state.GL.P1 = 0
+
+        this.state.GL.E26 = 0
+        this.state.GL.E51 = 0
+        this.state.GL.E16 = 0
+        this.state.GL.E17 = 0
+        this.state.GL.E50 = 0
+        this.state.GL.E4 = 0
+        this.state.GL.E10 = 0
+        this.state.GL.E49 = 0
+        this.state.GL.E7 = 0
+        this.state.GL.E13 = 0
+        this.state.GL.E18 = 0
+
+
+        this.state.resetButtonDisabled = true
+        
+      }
+
+      this.setState({
+          currentPeriode: activePeriodID
+        });
     }
 
     //BW
@@ -480,12 +522,6 @@ _handleSaveButtonClick(e){
 
   render() {
 
-    // if(this.state.currentPeriode !== this.props.ActiveUploadXML.activeUploadXMLData.id){
-    //
-    //   console.log("ALLES WIRD GEUPDATED")
-    // }
-this._updateVariables()
-
       let standardActions = [
       { text: 'Ok', onTouchTap: this._onDialogOk.bind(this), ref: 'ok' }
     ];
@@ -497,6 +533,15 @@ this._updateVariables()
 
         <RaisedButton label="Save" primary={true} onTouchTap={this._handleSaveButtonClick}/>
         <RaisedButton label="Reset" secondary={true} disabled={this.state.resetButtonDisabled} onTouchTap={this._handleResetButtonClick}/>
+
+        <div className="navigationButtons"> 
+          <div className="beforeButtonWrapper" >
+            <a className="beforeButton" href="/auftragsplanung/gesamt" onClick={Link.handleClick}>previous</a>
+          </div>
+          <div className="nextButtonWrapper">
+            <a className="nextButton" href="/auftragsplanung/damen" onClick={Link.handleClick}>next!</a>
+          </div>
+        </div>
 
         <Table
           height={this.state.height}
@@ -574,14 +619,12 @@ this._updateVariables()
                   hintText="Warteschlange"
                   value = {this.state.WS.P1}
                   disabled = {true}/>
-                />
             </TableRowColumn>
               <TableRowColumn>
                 <TextField
                   hintText="Bearbeitung"
                   value = {this.state.BA.P1}
                   disabled = {true}/>
-                />
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
@@ -601,7 +644,6 @@ this._updateVariables()
                   onChange={this._handleVetriebswunschChange}
                   value= {this.state.VR.E26}
                   disabled = {true}/>
-                />
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
@@ -655,7 +697,6 @@ this._updateVariables()
                   onChange={this._handleVetriebswunschChange}
                   value= {this.state.VR.E51}
                   disabled = {true}/>
-                />
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
@@ -709,7 +750,6 @@ this._updateVariables()
                   onChange={this._handleVetriebswunschChange}
                   value= {this.state.VR.E16}
                   disabled = {true}/>
-                />
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
@@ -763,7 +803,6 @@ this._updateVariables()
                   onChange={this._handleVetriebswunschChange}
                   value= {this.state.VR.E17}
                   disabled = {true}/>
-                />
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
@@ -817,7 +856,6 @@ this._updateVariables()
                   onChange={this._handleVetriebswunschChange}
                   value= {this.state.VR.E50}
                   disabled = {true}/>
-                />
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
@@ -871,7 +909,6 @@ this._updateVariables()
                   onChange={this._handleVetriebswunschChange}
                   value= {this.state.VR.E4}
                   disabled = {true}/>
-                />
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
@@ -925,7 +962,6 @@ this._updateVariables()
                   onChange={this._handleVetriebswunschChange}
                   value= {this.state.VR.E10}
                   disabled = {true}/>
-                />
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
@@ -979,7 +1015,6 @@ this._updateVariables()
                 errorStyle={{color:'orange'}}
                 onChange={this._handleVetriebswunschChange}
                 disabled = {true}/>
-              />
             </TableRowColumn>
               <TableRowColumn>
                 <TextField

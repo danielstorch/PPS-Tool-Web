@@ -29,6 +29,8 @@ class Gesamt extends React.Component {
     this._updateLocalStorage = this._updateLocalStorage.bind(this)
 
     this.state = {
+      currentPeriode:"",
+
       modal: true,
       openDialogStandardActions: false,
       dialogTitle: "Dialog",
@@ -91,37 +93,48 @@ class Gesamt extends React.Component {
   }
 
   componentWillMount(){
-    this._updateVariables();
+    this._updateVariables(true)
   }
 
-  shouldComponentUpdate(){
-    return true;
-  }
+  componentDidUpdate(){
 
-  componentWillReceiveProps(){
-    this._updateVariables();
+    this._updateVariables(false);
 
   }
 
 
-  _updateVariables(){
+  _updateVariables(initial){
     var activePeriodID = this.props.ActiveUploadXML.activeUploadXMLData.id.substring(7);
     var currentInputXML = this.props.InputXMLs.find(xml => xml.id.substring(6) === activePeriodID);
 
-    console.log(currentInputXML)
-    if(currentInputXML && currentInputXML.inputDataObject.auftragsplanungGesamt){
-      this.state.P1.ProduktionLager = currentInputXML.inputDataObject.auftragsplanungGesamt.P1.ProduktionLager
-      this.state.P1.Prognose = currentInputXML.inputDataObject.auftragsplanungGesamt.P1.Prognose
-      this.state.P2.ProduktionLager = currentInputXML.inputDataObject.auftragsplanungGesamt.P2.ProduktionLager
-      this.state.P2.Prognose = currentInputXML.inputDataObject.auftragsplanungGesamt.P2.Prognose
-      this.state.P3.ProduktionLager = currentInputXML.inputDataObject.auftragsplanungGesamt.P3.ProduktionLager
-      this.state.P3.Prognose = currentInputXML.inputDataObject.auftragsplanungGesamt.P3.Prognose
+    if(initial == true || this.state.currentPeriode != activePeriodID){
 
-      this.state.resetButtonDisabled = false
+      if(currentInputXML && currentInputXML.inputDataObject.auftragsplanungGesamt){
+        this.state.P1.ProduktionLager = currentInputXML.inputDataObject.auftragsplanungGesamt.P1.ProduktionLager
+        this.state.P1.Prognose = currentInputXML.inputDataObject.auftragsplanungGesamt.P1.Prognose
+        this.state.P2.ProduktionLager = currentInputXML.inputDataObject.auftragsplanungGesamt.P2.ProduktionLager
+        this.state.P2.Prognose = currentInputXML.inputDataObject.auftragsplanungGesamt.P2.Prognose
+        this.state.P3.ProduktionLager = currentInputXML.inputDataObject.auftragsplanungGesamt.P3.ProduktionLager
+        this.state.P3.Prognose = currentInputXML.inputDataObject.auftragsplanungGesamt.P3.Prognose
 
-    }else{
-      this.state.resetButtonDisabled = true
-      
+        this.state.resetButtonDisabled = false
+
+      }else{
+
+        this.state.P1.ProduktionLager = 0
+        this.state.P1.Prognose = 0
+        this.state.P2.ProduktionLager = 0
+        this.state.P2.Prognose = 0
+        this.state.P3.ProduktionLager = 0
+        this.state.P3.Prognose = 0
+
+        this.state.resetButtonDisabled = true
+        
+      }
+
+      this.setState({
+          currentPeriode: activePeriodID
+        });
     }
 
     //Aktueller Lagerstand AUS DER XML
@@ -312,6 +325,11 @@ class Gesamt extends React.Component {
         this.props.dispatch(setAuftragsplanungGesamtInputXML(auftragsplanungGesamt, this.props.ActiveUploadXML.activeUploadXMLData.id));
         this._updateLocalStorage()
         this.refs.snackbar.show();
+
+        this.setState({
+          resetButtonDisabled: false
+        });
+
       }else{
               this.setState({
                 openDialogStandardActions: true,
@@ -344,7 +362,6 @@ class Gesamt extends React.Component {
   }
 
   render() {
-    this._updateVariables()
 
     let standardActions = [
       { text: 'Ok', onTouchTap: this._onDialogOk.bind(this), ref: 'ok' }
@@ -363,7 +380,7 @@ class Gesamt extends React.Component {
             <a className="beforeButton" href="/" onClick={Link.handleClick}>previous</a>
           </div>
           <div className="nextButtonWrapper">
-            <a className="nextButton" href="/auftragsplanung/damen" onClick={Link.handleClick}>next!</a>
+            <a className="nextButton" href="/auftragsplanung/herren" onClick={Link.handleClick}>next!</a>
           </div>
         </div>
         
