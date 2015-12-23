@@ -2,6 +2,7 @@ import React from 'react';
 import './Gesamt.scss';
 import mui from 'material-ui';
 import _ from 'lodash'
+import Link from '../Link';
 import { connect } from 'react-redux';
 import { setAuftragsplanungGesamtInputXML, resetAuftragsplanungGesamtInputXML } from '../Redux/Actions';
 
@@ -353,8 +354,19 @@ class Gesamt extends React.Component {
      <div>
       <h1>Auftragsplanung Gesamt</h1>
         <div>
+        
         <RaisedButton label="Save" primary={true} onTouchTap={this._handleSaveButtonClick}/>
         <RaisedButton label="Reset" secondary={true} disabled={this.state.resetButtonDisabled} onTouchTap={this._handleResetButtonClick}/>
+
+        <div className="navigationButtons"> 
+          <div className="beforeButtonWrapper" >
+            <a className="beforeButton" href="/" onClick={Link.handleClick}>previous</a>
+          </div>
+          <div className="nextButtonWrapper">
+            <a className="nextButton" href="/auftragsplanung/damen" onClick={Link.handleClick}>next!</a>
+          </div>
+        </div>
+        
              
               <div>
                   <Table

@@ -7,7 +7,8 @@ import './Home.scss';
 import Link from '../Link';
 
 var RaisedButton = mui.RaisedButton,
-    FontIcon = mui.FontIcon;
+    FontIcon = mui.FontIcon,
+    FloatingActionButton = mui.FloatingActionButton;
  
 class Home extends React.Component {
 
@@ -20,38 +21,14 @@ class Home extends React.Component {
 
     return (
         <div>
+          <div className="wrappper">
+            <h1 className="headder"> Welcome to the PSS-Tool from ZweiRad! </h1>
 
-        <RaisedButton className="shake-little"  linkButton={true} href="/auftragsplanung/gesamt" onTouchTap={Link.handleClick} secondary={true} label={this.props.internationalReducer.activeLanguage.strings.Auftragsplanung + " " +this.props.internationalReducer.activeLanguage.strings.Gesamt}>
-         
-        </RaisedButton>
-        
-          <div className="shake-little button-well" style={{"display": "inline-block", "width": "50%","margin": "0 auto"}}>
-            <a className="button auftragsplanung" href="/auftragsplanung/gesamt" onClick={Link.handleClick}>{this.props.internationalReducer.activeLanguage.strings.Auftragsplanung + " " +this.props.internationalReducer.activeLanguage.strings.Gesamt}</a>
+            <div className="shake-slow shake-constant shake-constant--hover startButtonWrapper">
+                <a className="startButton" href="/auftragsplanung/gesamt" onClick={Link.handleClick}>Start here!</a>
+            </div>
           </div>
-          <div className="shake-little button-well" style={{"display": "inline-block", "width": "50%","margin": "0 auto"}}>
-            <a className="button auftragsplanung" href="/auftragsplanung/damen" onClick={Link.handleClick}>{this.props.internationalReducer.activeLanguage.strings.Auftragsplanung + " " +this.props.internationalReducer.activeLanguage.strings.Damen}</a>
-          </div>
-          <div className="shake-little button-well" style={{"display": "inline-block", "width": "50%","margin": "0 auto"}}>
-            <a className="button auftragsplanung" href="/auftragsplanung/herren" onClick={Link.handleClick}>{this.props.internationalReducer.activeLanguage.strings.Auftragsplanung + " " +this.props.internationalReducer.activeLanguage.strings.Herren}</a>
-          </div>
-          <div className="shake-little button-well" style={{"display": "inline-block", "width": "50%","margin": "0 auto"}}>
-            <a className="button auftragsplanung" href="/auftragsplanung/kinder" onClick={Link.handleClick}>{this.props.internationalReducer.activeLanguage.strings.Auftragsplanung + " " + this.props.internationalReducer.activeLanguage.strings.Kinder}</a>
-          </div>
-          <div className="shake-little button-well" style={{"display": "inline-block", "width": "50%","margin": "0 auto"}}>
-            <a className="button kaufteildisposition" href="/kaufteildisposition" onClick={Link.handleClick}>{this.props.internationalReducer.activeLanguage.strings.Kaufteildisposition}</a>
-          </div>
-          <div className="shake-little button-well" style={{"display": "inline-block", "width": "50%","margin": "0 auto"}}>
-            <a className="button kapazitaetsplanung" href="/kapazitaetsplanung" onClick={Link.handleClick}>{this.props.internationalReducer.activeLanguage.strings.Kapazitaetsplanung}</a>
-          </div>
-          <div className="shake-little button-well" style={{"display": "inline-block", "width": "50%","margin": "0 auto"}}>
-            <a className="button upload" href="/upload" onClick={Link.handleClick}>{this.props.internationalReducer.activeLanguage.strings.Upload}</a>
-          </div>
-          <div className="shake-little button-well" style={{"display": "inline-block", "width": "50%","margin": "0 auto"}}>
-            <a className="button download" href="/download" onClick={Link.handleClick}>{this.props.internationalReducer.activeLanguage.strings.Download}</a>
-          </div>
-          <div className="shake-little button-well" style={{"display": "inline-block", "width": "50%","margin": "0 auto"}}>
-            <a className="button anleitung" href="/anleitung" onClick={Link.handleClick}>{this.props.internationalReducer.activeLanguage.strings.Anleitung}</a>
-          </div>
+
         </div>
     );
   }

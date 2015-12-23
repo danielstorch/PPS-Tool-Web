@@ -32,23 +32,26 @@ export default function InputXMLReducer(state = [], action) {
     case SET_AUFTRAGSPLANUNG_DAMEN_INPUT_XML:
        let givenObjDamen = state.filter(inputXML => inputXML.id.substring(6) === action.id.substring(7))[0]
 
+       console.log(givenObjGesamt)
         if(givenObjDamen.inputDataObject.auftragsplanungDamen){
           givenObjDamen.inputDataObject.auftragsplanungDamen = action.auftragsplanungDamen
         }else{
           givenObjDamen.inputDataObject['auftragsplanungDamen'] = action.auftragsplanungDamen
         }
 
-        return state.map(inputXML => inputXML.id.substring(6) === action.id.substring(7) ? Object.assign({}, inputXML, givenObjDamen) : inputXML)
+        var lol = state.map(inputXML => inputXML.id.substring(6) === action.id.substring(7) ? Object.assign({}, inputXML, givenObjDamen) : inputXML)
+        return lol
     case SET_AUFTRAGSPLANUNG_GESAMT_INPUT_XML:
 
         let givenObjGesamt = state.filter(inputXML => inputXML.id.substring(6) === action.id.substring(7))[0]
 
+        
         if(givenObjGesamt.inputDataObject.auftragsplanungGesamt){
           givenObjGesamt.inputDataObject.auftragsplanungGesamt = action.auftragsplanungGesamt
         }else{
           givenObjGesamt.inputDataObject['auftragsplanungGesamt'] = action.auftragsplanungGesamt
         }
-
+        
         return state.map(inputXML => inputXML.id.substring(6) === action.id.substring(7) ? Object.assign({}, inputXML, givenObjGesamt) : inputXML)
 
     case SET_AUFTRAGSPLANUNG_HERREN_INPUT_XML:
