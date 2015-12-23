@@ -187,158 +187,23 @@ class Damen extends React.Component {
 
   }
   componentWillMount(){
-    var activePeriodID = this.props.ActiveUploadXML.activeUploadXMLData.id.substring(7);
-    var currentInputXML = this.props.InputXMLs.find(xml => xml.id.substring(6) === activePeriodID);
-    this.state.currentPeriode = activePeriodID
-
-
-    if(currentInputXML && currentInputXML.inputDataObject.auftragsplanungDamen){
-      this.state.VR.P2 = currentInputXML.inputDataObject.auftragsplanungDamen.VR.P2
-      this.state.GL.P2 = currentInputXML.inputDataObject.auftragsplanungDamen.GL.P2
-      this.state.GL.E26 = currentInputXML.inputDataObject.auftragsplanungDamen.GL.E26
-      this.state.GL.E56 = currentInputXML.inputDataObject.auftragsplanungDamen.GL.E56
-      this.state.GL.E16 = currentInputXML.inputDataObject.auftragsplanungDamen.GL.E16
-      this.state.GL.E17 = currentInputXML.inputDataObject.auftragsplanungDamen.GL.E17
-      this.state.GL.E55 = currentInputXML.inputDataObject.auftragsplanungDamen.GL.E55
-      this.state.GL.E5 = currentInputXML.inputDataObject.auftragsplanungDamen.GL.E5
-      this.state.GL.E11 = currentInputXML.inputDataObject.auftragsplanungDamen.GL.E11
-      this.state.GL.E54 = currentInputXML.inputDataObject.auftragsplanungDamen.GL.E54
-      this.state.GL.E8 = currentInputXML.inputDataObject.auftragsplanungDamen.GL.E8
-      this.state.GL.E14 = currentInputXML.inputDataObject.auftragsplanungDamen.GL.E14
-      this.state.GL.E19 = currentInputXML.inputDataObject.auftragsplanungDamen.GL.E19
-      this.state.resetButtonDisabled = false
-
-    }else{
-      this.state.VR.P2 = 0
-      this.state.GL.P2 = 0
-      this.state.GL.E26 = 0
-      this.state.GL.E56 = 0
-      this.state.GL.E16 = 0
-      this.state.GL.E17 = 0
-      this.state.GL.E55 = 0
-      this.state.GL.E5 = 0
-      this.state.GL.E11 = 0
-      this.state.GL.E54 = 0
-      this.state.GL.E8 = 0
-      this.state.GL.E14 = 0
-      this.state.GL.E19 = 0
-
-      this.state.resetButtonDisabled = true
-
-    }
-
-    this.state.BW.E26 = this._getWaitingslistworkstation("2")
-    this.state.BW.E56 = this._getWaitingslistworkstation("2")
-    this.state.BW.E16 = this._getWaitingslistworkstation("56")
-    this.state.BW.E17 = this._getWaitingslistworkstation("56")
-    this.state.BW.E55 = this._getWaitingslistworkstation("56")
-    this.state.BW.E5 = this._getWaitingslistworkstation("55")
-    this.state.BW.E11 = this._getWaitingslistworkstation("55")
-    this.state.BW.E54 = this._getWaitingslistworkstation("55")
-    this.state.BW.E8 = this._getWaitingslistworkstation("54")
-    this.state.BW.E14 = this._getWaitingslistworkstation("54")
-    this.state.BW.E19 = this._getWaitingslistworkstation("54")
-
-    this.state.AL.P2 = this._getWarehousestock("2")
-    this.state.AL.E26 = Math.ceil(this._getWarehousestock("26")/3)
-    this.state.AL.E56 = this._getWarehousestock("56")
-    this.state.AL.E16 = Math.ceil(this._getWarehousestock("16")/3)
-    this.state.AL.E17 = Math.ceil(this._getWarehousestock("17")/3)
-    this.state.AL.E55 = this._getWarehousestock("55")
-    this.state.AL.E5 = this._getWarehousestock("5")
-    this.state.AL.E11 = this._getWarehousestock("11")
-    this.state.AL.E54 = this._getWarehousestock("54")
-    this.state.AL.E8 = this._getWarehousestock("8")
-    this.state.AL.E14 = this._getWarehousestock("14")
-    this.state.AL.E19 = this._getWarehousestock("19")
-
-    this.state.WS.P2 = this._getWaitingslistworkstation("2")
-    this.state.WS.E26 = this._getWaitingslistworkstation("26")
-    this.state.WS.E56 = this._getWaitingslistworkstation("56")
-    this.state.WS.E16 = this._getWaitingslistworkstation("16")
-    this.state.WS.E17 = this._getWaitingslistworkstation("17")
-    this.state.WS.E55 = this._getWaitingslistworkstation("55")
-    this.state.WS.E5 = this._getWaitingslistworkstation("5")
-    this.state.WS.E11 = this._getWaitingslistworkstation("11")
-    this.state.WS.E54 = this._getWaitingslistworkstation("54")
-    this.state.WS.E8 = this._getWaitingslistworkstation("8")
-    this.state.WS.E14 = this._getWaitingslistworkstation("14")
-    this.state.WS.E19 = this._getWaitingslistworkstation("19")
-
-    this.state.BA.P2 = this._getOrdersinwork("2")
-    this.state.BA.E26 = this._getOrdersinwork("26")
-    this.state.BA.E56 = this._getOrdersinwork("56")
-    this.state.BA.E16 = this._getOrdersinwork("16")
-    this.state.BA.E17 = this._getOrdersinwork("17")
-    this.state.BA.E55 = this._getOrdersinwork("55")
-    this.state.BA.E5 = this._getOrdersinwork("5")
-    this.state.BA.E11 = this._getOrdersinwork("11")
-    this.state.BA.E54 = this._getOrdersinwork("54")
-    this.state.BA.E8 = this._getOrdersinwork("8")
-    this.state.BA.E14 = this._getOrdersinwork("14")
-    this.state.BA.E19 = this._getOrdersinwork("19")
-
-    this.state.AU.P2 = Math.max(0,(this.state.VR.P2 + this.state.GL.P2 - this.state.AL.P2 - this.state.WS.P2 - this.state.BA.P2))
-    this.state.VR.E26 = this.state.AU.P2
-    this.state.AU.E26 =  Math.max(0,(this.state.VR.E26 + this.state.BW.E26 + this.state.GL.E26 - this.state.AL.E26 - this.state.WS.E26 - this.state.BA.E26))
-    this.state.VR.E56 = this.state.AU.E26
-    this.state.AU.E56 = Math.max(0,(this.state.VR.E56 + this.state.BW.E56 + this.state.GL.E56 - this.state.AL.E56 - this.state.WS.E56 - this.state.BA.E56))
-    this.state.VR.E16 = this.state.AU.E56
-    this.state.AU.E16 = Math.max(0,(this.state.VR.E16 + this.state.BW.E16 + this.state.GL.E16 - this.state.AL.E16 - this.state.WS.E16 - this.state.BA.E16))
-    this.state.VR.E17 = this.state.AU.E16
-    this.state.AU.E17 = Math.max(0,(this.state.VR.E17 + this.state.BW.E17 + this.state.GL.E17 - this.state.AL.E17 - this.state.WS.E17 - this.state.BA.E17))
-    this.state.VR.E55 = this.state.AU.E17
-    this.state.AU.E55 = Math.max(0,(this.state.VR.E55 + this.state.BW.E55 + this.state.GL.E55 - this.state.AL.E55 - this.state.WS.E55 - this.state.BA.E55))
-    this.state.VR.E5 = this.state.AU.E55
-    this.state.AU.E5 = Math.max(0,(this.state.VR.E5 + this.state.BW.E5 + this.state.GL.E5 - this.state.AL.E5 - this.state.WS.E5 - this.state.BA.E5))
-    this.state.VR.E11 = this.state.AU.E5
-    this.state.AU.E11 = Math.max(0,(this.state.VR.E11 + this.state.BW.E11 + this.state.GL.E11 - this.state.AL.E11 - this.state.WS.E11 - this.state.BA.E11))
-    this.state.VR.E54 = this.state.AU.E11
-    this.state.AU.E54 = Math.max(0,(this.state.VR.E54 + this.state.BW.E54 + this.state.GL.E54 - this.state.AL.E54 - this.state.WS.E54 - this.state.BA.E54))
-    this.state.VR.E8 = this.state.AU.E54
-    this.state.AU.E8 = Math.max(0,(this.state.VR.E8 + this.state.BW.E8 + this.state.GL.E8 - this.state.AL.E8 - this.state.WS.E8 - this.state.BA.E8))
-    this.state.VR.E14 = this.state.AU.E8
-    this.state.AU.E14 = Math.max(0,(this.state.VR.E14 + this.state.BW.E14 + this.state.GL.E14 - this.state.AL.E14 - this.state.WS.E14 - this.state.BA.E14))
-    this.state.VR.E19 = this.state.AU.E14
-    this.state.AU.E19 = Math.max(0,(this.state.VR.E19 + this.state.BW.E19 + this.state.GL.E19 - this.state.AL.E19 - this.state.WS.E19 - this.state.BA.E19))
-
-  }
-
-  shouldComponentUpdate(){
-    return true;
-  }
-
-  componentWillReceiveProps(){
-
-  }
-
-  componentWillUpdate(){
-   
+    this._updateVariables(true)
   }
 
   componentDidUpdate(){
-    console.log("componentDidUpdate")
-    var activePeriodID = this.props.ActiveUploadXML.activeUploadXMLData.id.substring(7);
-    var currentInputXML = this.props.InputXMLs.find(xml => xml.id.substring(6) === activePeriodID);
 
-    console.log("currentInputXML.id",currentInputXML.id)
-    
-   
-    this._updateVariables();
+    this._updateVariables(false);
 
   }
 
 
-  _updateVariables(){
+  _updateVariables(initial){
 
     var activePeriodID = this.props.ActiveUploadXML.activeUploadXMLData.id.substring(7);
     var currentInputXML = this.props.InputXMLs.find(xml => xml.id.substring(6) === activePeriodID);
 
-    console.log("this.state.currentPeriode",this.state.currentPeriode)
-    console.log("currentInputXML.id.substring(6)", currentInputXML.id.substring(6))
-    if(this.state.currentPeriode != currentInputXML.id.substring(6)){
 
-      this.state.currentPeriod = currentInputXML.id.substring(6)
+    if(initial == true || this.state.currentPeriode != activePeriodID){
 
       console.log("First IF")
       
@@ -381,7 +246,7 @@ class Damen extends React.Component {
       }
 
       this.setState({
-        currentPeriode: currentInputXML.id.substring(6)
+        currentPeriode: activePeriodID
       });
 
     }
