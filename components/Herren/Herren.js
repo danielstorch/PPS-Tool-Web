@@ -203,29 +203,49 @@ class Herren extends React.Component {
 
     if(initial == true || this.state.currentPeriode != activePeriodID){
 
+      if(currentInputXML){
 
-      if(currentInputXML && currentInputXML.inputDataObject.auftragsplanungHerren){
-        this.state.VR.P1 = currentInputXML.inputDataObject.auftragsplanungHerren.VR.P1
-        this.state.GL.P1 = currentInputXML.inputDataObject.auftragsplanungHerren.GL.P1
+        if( currentInputXML && currentInputXML.inputDataObject.auftragsplanungHerren ){
 
-        this.state.GL.E26 = currentInputXML.inputDataObject.auftragsplanungHerren.GL.E26
-        this.state.GL.E51 = currentInputXML.inputDataObject.auftragsplanungHerren.GL.E51
-        this.state.GL.E16 = currentInputXML.inputDataObject.auftragsplanungHerren.GL.E16
-        this.state.GL.E17 = currentInputXML.inputDataObject.auftragsplanungHerren.GL.E17
-        this.state.GL.E50 = currentInputXML.inputDataObject.auftragsplanungHerren.GL.E50
-        this.state.GL.E4 = currentInputXML.inputDataObject.auftragsplanungHerren.GL.E4
-        this.state.GL.E10 = currentInputXML.inputDataObject.auftragsplanungHerren.GL.E10
-        this.state.GL.E49 = currentInputXML.inputDataObject.auftragsplanungHerren.GL.E49
-        this.state.GL.E7 = currentInputXML.inputDataObject.auftragsplanungHerren.GL.E7
-        this.state.GL.E13 = currentInputXML.inputDataObject.auftragsplanungHerren.GL.E13
-        this.state.GL.E18 = currentInputXML.inputDataObject.auftragsplanungHerren.GL.E18
+           this.state.VR.P1 = currentInputXML.inputDataObject.auftragsplanungHerren.VR.P1
+          this.state.GL.P1 = currentInputXML.inputDataObject.auftragsplanungHerren.GL.P1
 
+          this.state.GL.E26 = currentInputXML.inputDataObject.auftragsplanungHerren.GL.E26
+          this.state.GL.E51 = currentInputXML.inputDataObject.auftragsplanungHerren.GL.E51
+          this.state.GL.E16 = currentInputXML.inputDataObject.auftragsplanungHerren.GL.E16
+          this.state.GL.E17 = currentInputXML.inputDataObject.auftragsplanungHerren.GL.E17
+          this.state.GL.E50 = currentInputXML.inputDataObject.auftragsplanungHerren.GL.E50
+          this.state.GL.E4 = currentInputXML.inputDataObject.auftragsplanungHerren.GL.E4
+          this.state.GL.E10 = currentInputXML.inputDataObject.auftragsplanungHerren.GL.E10
+          this.state.GL.E49 = currentInputXML.inputDataObject.auftragsplanungHerren.GL.E49
+          this.state.GL.E7 = currentInputXML.inputDataObject.auftragsplanungHerren.GL.E7
+          this.state.GL.E13 = currentInputXML.inputDataObject.auftragsplanungHerren.GL.E13
+          this.state.GL.E18 = currentInputXML.inputDataObject.auftragsplanungHerren.GL.E18
 
-        this.state.resetButtonDisabled = false
+          this.state.resetButtonDisabled = false
 
-      }else{
+        } else if(currentInputXML.inputDataObject.auftragsplanungGesamt){
 
-        this.state.VR.P1 = 0
+          this.state.VR.P1 = currentInputXML.inputDataObject.auftragsplanungGesamt.P1.Prognose
+          this.state.GL.P1 = currentInputXML.inputDataObject.auftragsplanungGesamt.P1.ProduktionLager
+
+          this.state.GL.E26 = currentInputXML.inputDataObject.auftragsplanungGesamt.P1.ProduktionLager
+          this.state.GL.E51 = currentInputXML.inputDataObject.auftragsplanungGesamt.P1.ProduktionLager
+          this.state.GL.E16 = currentInputXML.inputDataObject.auftragsplanungGesamt.P1.ProduktionLager
+          this.state.GL.E17 = currentInputXML.inputDataObject.auftragsplanungGesamt.P1.ProduktionLager
+          this.state.GL.E50 = currentInputXML.inputDataObject.auftragsplanungGesamt.P1.ProduktionLager
+          this.state.GL.E4 = currentInputXML.inputDataObject.auftragsplanungGesamt.P1.ProduktionLager
+          this.state.GL.E10 = currentInputXML.inputDataObject.auftragsplanungGesamt.P1.ProduktionLager
+          this.state.GL.E49 = currentInputXML.inputDataObject.auftragsplanungGesamt.P1.ProduktionLager
+          this.state.GL.E7 = currentInputXML.inputDataObject.auftragsplanungGesamt.P1.ProduktionLager
+          this.state.GL.E13 = currentInputXML.inputDataObject.auftragsplanungGesamt.P1.ProduktionLager
+          this.state.GL.E18 = currentInputXML.inputDataObject.auftragsplanungGesamt.P1.ProduktionLager
+
+          this.state.resetButtonDisabled = true
+
+        } else{
+
+          this.state.VR.P1 = 0
         this.state.GL.P1 = 0
 
         this.state.GL.E26 = 0
@@ -240,14 +260,33 @@ class Herren extends React.Component {
         this.state.GL.E13 = 0
         this.state.GL.E18 = 0
 
+          this.state.resetButtonDisabled = true
 
-        this.state.resetButtonDisabled = true
-        
-      }
+        }
+      }else{
 
+         this.state.VR.P1 = 0
+        this.state.GL.P1 = 0
+
+        this.state.GL.E26 = 0
+        this.state.GL.E51 = 0
+        this.state.GL.E16 = 0
+        this.state.GL.E17 = 0
+        this.state.GL.E50 = 0
+        this.state.GL.E4 = 0
+        this.state.GL.E10 = 0
+        this.state.GL.E49 = 0
+        this.state.GL.E7 = 0
+        this.state.GL.E13 = 0
+        this.state.GL.E18 = 0
+
+          this.state.resetButtonDisabled = true
+        }
+      
       this.setState({
-          currentPeriode: activePeriodID
-        });
+        currentPeriode: activePeriodID
+      });
+
     }
 
     //BW
@@ -414,6 +453,8 @@ class Herren extends React.Component {
       errorText: errorTextList,
       VR: VRList
     });
+
+    this._updateVariables(false);
   }
 
   _updateLocalStorage(){
@@ -450,7 +491,10 @@ class Herren extends React.Component {
       errorTextGL: errorTextList,
       GL: VRList
     });
+
+    this._updateVariables(false);
   }
+
 _handleSaveButtonClick(e){
 
     var errorlol = false;
@@ -482,6 +526,10 @@ _handleSaveButtonClick(e){
         this.props.dispatch(setAuftragsplanungHerrenInputXML(auftragsplanungHerren, this.props.ActiveUploadXML.activeUploadXMLData.id));
         this._updateLocalStorage();
         this.refs.snackbar.show();
+
+        this.setState({
+          resetButtonDisabled: false
+        });
       }else{
               this.setState({
                 openDialogStandardActions: true,
@@ -508,8 +556,32 @@ _handleSaveButtonClick(e){
 
   _handleResetButtonClick(e){
     this.props.dispatch(resetAuftragsplanungHerrenInputXML(this.props.ActiveUploadXML.activeUploadXMLData.id))
-    this.state.VR.P1 = 0
-    this.state.GL.P1 = 0
+
+    let VRList = this.state.VR;
+    let GLList = this.state.GL;
+
+      VRList.P1 = 0
+        GLList.P1 = 0
+
+        GLList.E26 = 0
+        GLList.E51 = 0
+        GLList.E16 = 0
+        GLList.E17 = 0
+        GLList.E50 = 0
+        GLList.E4 = 0
+        GLList.E10 = 0
+        GLList.E49 = 0
+        GLList.E7 = 0
+        GLList.E13 = 0
+        GLList.E18 = 0
+
+    this.setState({
+          resetButtonDisabled: true,
+          VR: VRList,
+          GL: GLList
+        });
+
+    this._updateVariables(false);
 
     this._updateLocalStorage();
   }
@@ -658,8 +730,7 @@ _handleSaveButtonClick(e){
                   errorText={this.state.errorTextGL.E26}
                   errorStyle={{color:'orange'}}
                   onChange={this._handleLagerBestandChange}
-                  value= {this.state.GL.E26}
-                  disabled = {true}/>
+                  value= {this.state.GL.E26}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
@@ -711,8 +782,7 @@ _handleSaveButtonClick(e){
                   errorText={this.state.errorTextGL.E51}
                   errorStyle={{color:'orange'}}
                   onChange={this._handleLagerBestandChange}
-                  value= {this.state.GL.E51}
-                  disabled = {true}/>
+                  value= {this.state.GL.E51}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
@@ -764,8 +834,7 @@ _handleSaveButtonClick(e){
                   errorText={this.state.errorTextGL.E16}
                   errorStyle={{color:'orange'}}
                   onChange={this._handleLagerBestandChange}
-                  value= {this.state.GL.E16}
-                  disabled = {true}/>
+                  value= {this.state.GL.E16}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
@@ -817,8 +886,7 @@ _handleSaveButtonClick(e){
                   errorText={this.state.errorTextGL.E17}
                   errorStyle={{color:'orange'}}
                   onChange={this._handleLagerBestandChange}
-                  value= {this.state.GL.E17}
-                  disabled = {true}/>
+                  value= {this.state.GL.E17}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
@@ -870,8 +938,7 @@ _handleSaveButtonClick(e){
                   errorText={this.state.errorTextGL.E50}
                   errorStyle={{color:'orange'}}
                   onChange={this._handleLagerBestandChange}
-                  value= {this.state.GL.E50}
-                  disabled = {true}/>
+                  value= {this.state.GL.E50}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
@@ -923,8 +990,7 @@ _handleSaveButtonClick(e){
                   errorText={this.state.errorTextGL.E4}
                   errorStyle={{color:'orange'}}
                   onChange={this._handleLagerBestandChange}
-                  value= {this.state.GL.E4}
-                  disabled = {true}/>
+                  value= {this.state.GL.E4}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
@@ -976,8 +1042,7 @@ _handleSaveButtonClick(e){
                   errorText={this.state.errorTextGL.E10}
                   errorStyle={{color:'orange'}}
                   onChange={this._handleLagerBestandChange}
-                  value= {this.state.GL.E10}
-                  disabled = {true}/>
+                  value= {this.state.GL.E10}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
@@ -1029,8 +1094,7 @@ _handleSaveButtonClick(e){
                   errorText={this.state.errorTextGL.E49}
                   errorStyle={{color:'orange'}}
                   onChange={this._handleLagerBestandChange}
-                  value= {this.state.GL.E49}
-                  disabled = {true}/>
+                  value= {this.state.GL.E49}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
@@ -1082,8 +1146,7 @@ _handleSaveButtonClick(e){
                   errorText={this.state.errorTextGL.E7}
                   errorStyle={{color:'orange'}}
                   onChange={this._handleLagerBestandChange}
-                  value= {this.state.GL.E7}
-                  disabled = {true}/>
+                  value= {this.state.GL.E7}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
@@ -1135,8 +1198,7 @@ _handleSaveButtonClick(e){
                   errorText={this.state.errorTextGL.E13}
                   errorStyle={{color:'orange'}}
                   onChange={this._handleLagerBestandChange}
-                  value= {this.state.GL.E13}
-                  disabled = {true}/>
+                  value= {this.state.GL.E13}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
@@ -1188,8 +1250,7 @@ _handleSaveButtonClick(e){
                   errorText={this.state.errorTextGL.E18}
                   errorStyle={{color:'orange'}}
                   onChange={this._handleLagerBestandChange}
-                  value= {this.state.GL.E18}
-                  disabled = {true}/>
+                  value= {this.state.GL.E18}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField

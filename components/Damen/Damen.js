@@ -505,7 +505,7 @@ class Damen extends React.Component {
                                     WS:this.state.WS,
                                     BA:this.state.BA,
                                     AU:this.state.AU}
-            console.log("SAVESAVESAVE", auftragsplanungDamen)
+                                    
         this.props.dispatch(setAuftragsplanungDamenInputXML(auftragsplanungDamen, this.props.ActiveUploadXML.activeUploadXMLData.id));
 
         //UPDATE LOCAL STORAGE

@@ -222,6 +222,8 @@ class Gesamt extends React.Component {
         P3: periode
       });
     }
+
+    this._updateVariables(false);
   }
 
   _handlePrognoseChange(e){
@@ -270,6 +272,8 @@ class Gesamt extends React.Component {
       });
 
     }
+
+    this._updateVariables(false);
     
   }
 
@@ -359,6 +363,8 @@ class Gesamt extends React.Component {
       this.state.P3.Prognose = 0
 
       this._updateLocalStorage()
+
+      this._updateVariables(false);
   }
 
   render() {
