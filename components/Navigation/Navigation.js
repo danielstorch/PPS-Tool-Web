@@ -209,10 +209,7 @@ console.log(menuItemsLanguage)
               <MenuItem index={9} iconClassName="MenuItem-icon-kapazitaetsplanung" iconStyle={{"marginRight":"0px", "top":"10px"}}>
                 <a className="Navigation-link" href="/kapazitaetsplanung" onClick={Link.handleClick}>{this.props.internationalReducer.activeLanguage.strings.Kapazitaetsplanung}</a>
               </MenuItem>
-              <MenuItem index={10} iconClassName="MenuItem-icon-upload" iconStyle={{"marginRight":"0px", "top":"10px"}}>
-                <a className="Navigation-link" href="/upload" onClick={Link.handleClick}>{this.props.internationalReducer.activeLanguage.strings.Upload}</a>
-              </MenuItem>
-              <MenuItem index={11} iconClassName="MenuItem-icon-download" iconStyle={{"marginRight":"0px", "top":"10px"}}>
+              <MenuItem index={10} iconClassName="MenuItem-icon-download" iconStyle={{"marginRight":"0px", "top":"10px"}}>
                 <a className="Navigation-link" href="/download" onClick={Link.handleClick}>{this.props.internationalReducer.activeLanguage.strings.Download}</a>
               </MenuItem>
           </LeftNav>

@@ -15,7 +15,7 @@ const initialState = {
         Kaufteildisposition: 'Kaufteildisposition',
         Upload: 'Upload',
         Kapazitaetsplanung: 'Kapazitätsplanung',
-        Download:'Download',
+        Download:'Export',
         Settings:'Settings',
         TippsundTricks:'Tipps und Tricks',
         Metriken:'Metriken'
@@ -33,7 +33,7 @@ const initialState = {
               Kaufteildisposition: 'Kaufteildisposition',
               Upload: 'Upload',
               Kapazitaetsplanung: 'Kapazitätsplanung',
-              Download:'Download',
+              Download:'Export',
               Settings:'Settings',
               TippsundTricks:'Tipps und Tricks',
               Metriken:'Metriken'
@@ -51,7 +51,7 @@ const initialState = {
               Kaufteildisposition: 'Purchas planning',
               Upload: 'Upload',
               Kapazitaetsplanung: 'Capacity Planning',
-              Download:'Download',
+              Download:'Export',
               Settings:'Settings',
               TippsundTricks:'Tips and Tricks',
               Metriken:'Metrics'

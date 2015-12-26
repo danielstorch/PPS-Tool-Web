@@ -61,5 +61,8 @@
     "build": "babel-node --eval \"require('./tools/build')().catch(err => console.log(err.stack))\"",
     "start": "babel-node --eval \"require('./tools/start')().catch(err => console.log(err.stack))\"",
     "deploy": "babel-node --eval \"require('./tools/deploy')().catch(err => console.log(err.stack))\""
+  },
+  "dependencies": {
+    "react-dnd": "^2.0.2"
   }
 }
