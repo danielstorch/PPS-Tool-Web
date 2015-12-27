@@ -1565,7 +1565,7 @@ class Kapazitaetsplanung extends React.Component {
 
               </TableRowColumn>
               <TableRowColumn>
-                K
+                H
               </TableRowColumn>
               <TableRowColumn>
                 E4
@@ -1657,7 +1657,7 @@ class Kapazitaetsplanung extends React.Component {
 
               </TableRowColumn>
               <TableRowColumn iconClassName="TableRow-bottom-border">
-                H
+                K
               </TableRowColumn>
               <TableRowColumn>
                 E6
@@ -1705,7 +1705,7 @@ class Kapazitaetsplanung extends React.Component {
 
               </TableRowColumn>
               <TableRowColumn>
-                K
+                H
               </TableRowColumn>
               <TableRowColumn>
                 E7
@@ -1797,7 +1797,7 @@ class Kapazitaetsplanung extends React.Component {
 
               </TableRowColumn>
               <TableRowColumn>
-                H
+                K
               </TableRowColumn>
               <TableRowColumn>
                 E9
@@ -1846,7 +1846,7 @@ class Kapazitaetsplanung extends React.Component {
 
               </TableRowColumn>
               <TableRowColumn>
-                K
+                H
               </TableRowColumn>
               <TableRowColumn>
                 E10
@@ -1944,7 +1944,7 @@ class Kapazitaetsplanung extends React.Component {
 
               </TableRowColumn>
               <TableRowColumn>
-                H
+                K
               </TableRowColumn>
               <TableRowColumn>
                 E12
@@ -1995,7 +1995,7 @@ class Kapazitaetsplanung extends React.Component {
 
               </TableRowColumn>
               <TableRowColumn>
-                K
+                H
               </TableRowColumn>
               <TableRowColumn>
                 E13
@@ -2094,7 +2094,7 @@ class Kapazitaetsplanung extends React.Component {
 
               </TableRowColumn>
               <TableRowColumn>
-                H
+                K
               </TableRowColumn>
               <TableRowColumn>
                 E15
@@ -2241,7 +2241,7 @@ class Kapazitaetsplanung extends React.Component {
 
               </TableRowColumn>
               <TableRowColumn>
-                K
+                H
               </TableRowColumn>
               <TableRowColumn>
                 E18
@@ -2337,7 +2337,7 @@ class Kapazitaetsplanung extends React.Component {
 
               </TableRowColumn>
               <TableRowColumn>
-                H
+                K
               </TableRowColumn>
               <TableRowColumn>
                 E20
@@ -2384,7 +2384,7 @@ class Kapazitaetsplanung extends React.Component {
             //Pedale
             <TableRow>
               <TableRowColumn>
-
+                Pedale
               </TableRowColumn>
               <TableRowColumn>
                 KDH
@@ -2435,7 +2435,7 @@ class Kapazitaetsplanung extends React.Component {
 
               </TableRowColumn>
               <TableRowColumn>
-                K
+                H
               </TableRowColumn>
               <TableRowColumn>
                 E49
@@ -2525,7 +2525,7 @@ class Kapazitaetsplanung extends React.Component {
 
               </TableRowColumn>
               <TableRowColumn>
-                H
+                K
               </TableRowColumn>
               <TableRowColumn>
                 E29
@@ -2573,7 +2573,7 @@ class Kapazitaetsplanung extends React.Component {
 
               </TableRowColumn>
               <TableRowColumn>
-                K
+                H
               </TableRowColumn>
               <TableRowColumn>
                 E50
@@ -2663,7 +2663,7 @@ class Kapazitaetsplanung extends React.Component {
 
               </TableRowColumn>
               <TableRowColumn>
-                H
+                K
               </TableRowColumn>
               <TableRowColumn>
                 E30
@@ -2710,7 +2710,7 @@ class Kapazitaetsplanung extends React.Component {
 
               </TableRowColumn>
               <TableRowColumn>
-                K
+                H
               </TableRowColumn>
               <TableRowColumn>
                 E51
@@ -2801,7 +2801,7 @@ class Kapazitaetsplanung extends React.Component {
 
               </TableRowColumn>
               <TableRowColumn>
-                H
+                K
               </TableRowColumn>
               <TableRowColumn>
                 E31
@@ -2849,7 +2849,7 @@ class Kapazitaetsplanung extends React.Component {
 
               </TableRowColumn>
               <TableRowColumn>
-                K
+                H
               </TableRowColumn>
               <TableRowColumn>
                 P1
@@ -2939,7 +2939,7 @@ class Kapazitaetsplanung extends React.Component {
 
               </TableRowColumn>
               <TableRowColumn>
-                H
+                K
               </TableRowColumn>
               <TableRowColumn>
                 P3
