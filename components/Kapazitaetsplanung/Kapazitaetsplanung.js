@@ -30,7 +30,6 @@ class Kapazitaetsplanung extends React.Component {
   constructor() {
     super();
     this._handleDetailModeChange = this._handleDetailModeChange.bind(this);
-    this._handleSaveButtonClick = this._handleSaveButtonClick.bind(this);
     this._handleResetButtonClick = this._handleResetButtonClick.bind(this);
     this._handleSchichtenChange = this._handleSchichtenChange.bind(this);
     this._handleSaveButtonClick = this._handleSaveButtonClick.bind(this);
@@ -45,7 +44,7 @@ class Kapazitaetsplanung extends React.Component {
       displayRowCheckbox: false,
       xmlValid: false,
       snackBarautoHideDuration: 3000,
-      snackBarmessage: 'Upload done!',
+      snackBarmessage: 'Save completed!',
       fixedHeader: true,
       fixedFooter: true,
       stripedRows: true,
@@ -76,18 +75,18 @@ class Kapazitaetsplanung extends React.Component {
         HE16: 250,
         DE16: 250,
         KE16: 250,
-        E16:250,
+        E16: 250,
         HE17: 250,
         DE17: 250,
         KE17: 250,
-        E17:250,
+        E17: 250,
         E18: 0,
         E19: 0,
         E20: 100,
         HE26: 300,
         DE26: 300,
         KE26: 300,
-        E26:250,
+        E26: 250,
         E49: 50,
         E54: 0,
         E29: 150,
@@ -347,29 +346,29 @@ class Kapazitaetsplanung extends React.Component {
 
   }
 
-  componentWillMount(){
+  componentWillMount() {
     this._updateVariables(true)
   }
 
-  componentDidUpdate(){
+  componentDidUpdate() {
 
     this._updateVariables(false);
 
   }
 
 
-  _updateVariables(initial){
+  _updateVariables(initial) {
     console.log('_updateVariables Method');
 
     var activePeriodID = this.props.ActiveUploadXML.activeUploadXMLData.id.substring(7);
     var currentInputXML = this.props.InputXMLs.find(xml => xml.id.substring(6) === activePeriodID);
 
-    if(initial == true || this.state.currentPeriode != activePeriodID){
+    if (initial == true || this.state.currentPeriode != activePeriodID) {
 
-      if(currentInputXML){
+      if (currentInputXML) {
         console.log('XXXXXX');
 
-        if( currentInputXML && currentInputXML.inputDataObject.kaufteildisposition ){
+        if (currentInputXML && currentInputXML.inputDataObject.kaufteildisposition) {
           console.log('AAAAAAA');
 
 
@@ -408,7 +407,7 @@ class Kapazitaetsplanung extends React.Component {
         } else {
           console.log('BBBBBBB');
 
-          if(currentInputXML.inputDataObject.auftragsplanungHerren) {
+          if (currentInputXML.inputDataObject.auftragsplanungHerren) {
             this.state.Auftragsmenge.P1 = currentInputXML.inputDataObject.auftragsplanungHerren.AU.P1;
             this.state.Auftragsmenge.HE26 = currentInputXML.inputDataObject.auftragsplanungHerren.AU.E26;
             this.state.Auftragsmenge.E51 = currentInputXML.inputDataObject.auftragsplanungHerren.AU.E51;
@@ -426,11 +425,11 @@ class Kapazitaetsplanung extends React.Component {
           } else {
             this.state.Auftragsmenge.P1 = 0;
             this.state.Auftragsmenge.HE26 = 0;
-            this.state.Auftragsmenge.E51 =0;
+            this.state.Auftragsmenge.E51 = 0;
             this.state.Auftragsmenge.HE16 = 0;
             this.state.Auftragsmenge.HE17 = 0;
             this.state.Auftragsmenge.E50 = 0;
-            this.state.Auftragsmenge.E4 =0;
+            this.state.Auftragsmenge.E4 = 0;
             this.state.Auftragsmenge.E10 = 0;
             this.state.Auftragsmenge.E49 = 0;
             this.state.Auftragsmenge.E7 = 0;
@@ -439,7 +438,7 @@ class Kapazitaetsplanung extends React.Component {
             console.log('Hat herren nicht');
 
           }
-          if(currentInputXML.inputDataObject.auftragsplanungDamen) {
+          if (currentInputXML.inputDataObject.auftragsplanungDamen) {
             this.state.Auftragsmenge.P2 = currentInputXML.inputDataObject.auftragsplanungDamen.AU.P2;
             this.state.Auftragsmenge.DE26 = currentInputXML.inputDataObject.auftragsplanungDamen.AU.E26;
             this.state.Auftragsmenge.E56 = currentInputXML.inputDataObject.auftragsplanungDamen.AU.E56;
@@ -467,7 +466,7 @@ class Kapazitaetsplanung extends React.Component {
             this.state.Auftragsmenge.E19 = 0;
           }
 
-          if(currentInputXML.inputDataObject.auftragsplanungKinder) {
+          if (currentInputXML.inputDataObject.auftragsplanungKinder) {
             this.state.Auftragsmenge.P3 = currentInputXML.inputDataObject.auftragsplanungKinder.AU.P3;
             this.state.Auftragsmenge.KE26 = currentInputXML.inputDataObject.auftragsplanungKinder.AU.E26;
             this.state.Auftragsmenge.E31 = currentInputXML.inputDataObject.auftragsplanungKinder.AU.E31;
@@ -500,49 +499,49 @@ class Kapazitaetsplanung extends React.Component {
         }
 
 
-      }else{
+      } else {
 
         console.log('CCCCCCC');
 
         //Herren
-      this.state.Auftragsmenge.P1 = 0;
-      this.state.Auftragsmenge.HE26 = 0;
-      this.state.Auftragsmenge.E51 =0;
-      this.state.Auftragsmenge.HE16 = 0;
-      this.state.Auftragsmenge.HE17 = 0;
-      this.state.Auftragsmenge.E50 = 0;
-      this.state.Auftragsmenge.E4 =0;
-      this.state.Auftragsmenge.E10 = 0;
-      this.state.Auftragsmenge.E49 = 0;
-      this.state.Auftragsmenge.E7 = 0;
-      this.state.Auftragsmenge.E13 = 0;
-      this.state.Auftragsmenge.E18 = 0;
-      //Damen
-      this.state.Auftragsmenge.P2 = 0;
-      this.state.Auftragsmenge.DE26 = 0;
-      this.state.Auftragsmenge.E56 = 0;
-      this.state.Auftragsmenge.DE16 = 0;
-      this.state.Auftragsmenge.DE17 = 0;
-      this.state.Auftragsmenge.E55 = 0;
-      this.state.Auftragsmenge.E5 = 0;
-      this.state.Auftragsmenge.E11 = 0;
-      this.state.Auftragsmenge.E54 = 0;
-      this.state.Auftragsmenge.E8 = 0;
-      this.state.Auftragsmenge.E14 = 0;
-      this.state.Auftragsmenge.E19 = 0;
-      //Kinder
-      this.state.Auftragsmenge.P3 = 0;
-      this.state.Auftragsmenge.KE26 = 0;
-      this.state.Auftragsmenge.E31 = 0;
-      this.state.Auftragsmenge.KE16 = 0;
-      this.state.Auftragsmenge.KE17 = 0;
-      this.state.Auftragsmenge.E30 = 0;
-      this.state.Auftragsmenge.E6 = 0;
-      this.state.Auftragsmenge.E12 = 0;
-      this.state.Auftragsmenge.E29 = 0;
-      this.state.Auftragsmenge.E9 = 0;
-      this.state.Auftragsmenge.E15 = 0;
-      this.state.Auftragsmenge.E20 = 0;
+        this.state.Auftragsmenge.P1 = 0;
+        this.state.Auftragsmenge.HE26 = 0;
+        this.state.Auftragsmenge.E51 = 0;
+        this.state.Auftragsmenge.HE16 = 0;
+        this.state.Auftragsmenge.HE17 = 0;
+        this.state.Auftragsmenge.E50 = 0;
+        this.state.Auftragsmenge.E4 = 0;
+        this.state.Auftragsmenge.E10 = 0;
+        this.state.Auftragsmenge.E49 = 0;
+        this.state.Auftragsmenge.E7 = 0;
+        this.state.Auftragsmenge.E13 = 0;
+        this.state.Auftragsmenge.E18 = 0;
+        //Damen
+        this.state.Auftragsmenge.P2 = 0;
+        this.state.Auftragsmenge.DE26 = 0;
+        this.state.Auftragsmenge.E56 = 0;
+        this.state.Auftragsmenge.DE16 = 0;
+        this.state.Auftragsmenge.DE17 = 0;
+        this.state.Auftragsmenge.E55 = 0;
+        this.state.Auftragsmenge.E5 = 0;
+        this.state.Auftragsmenge.E11 = 0;
+        this.state.Auftragsmenge.E54 = 0;
+        this.state.Auftragsmenge.E8 = 0;
+        this.state.Auftragsmenge.E14 = 0;
+        this.state.Auftragsmenge.E19 = 0;
+        //Kinder
+        this.state.Auftragsmenge.P3 = 0;
+        this.state.Auftragsmenge.KE26 = 0;
+        this.state.Auftragsmenge.E31 = 0;
+        this.state.Auftragsmenge.KE16 = 0;
+        this.state.Auftragsmenge.KE17 = 0;
+        this.state.Auftragsmenge.E30 = 0;
+        this.state.Auftragsmenge.E6 = 0;
+        this.state.Auftragsmenge.E12 = 0;
+        this.state.Auftragsmenge.E29 = 0;
+        this.state.Auftragsmenge.E9 = 0;
+        this.state.Auftragsmenge.E15 = 0;
+        this.state.Auftragsmenge.E20 = 0;
 
         this.state.resetButtonDisabled = true
       }
@@ -935,7 +934,7 @@ class Kapazitaetsplanung extends React.Component {
   }
 
 
-  _updateLocalStorage(){
+  _updateLocalStorage() {
     if (window.localStorage) {
       var activePeriodID = this.props.ActiveUploadXML.activeUploadXMLData.id.substring(7);
       var currentInputXML = this.props.InputXMLs.find(xml => xml.id.substring(6) === activePeriodID);
@@ -943,18 +942,20 @@ class Kapazitaetsplanung extends React.Component {
       localStorage.removeItem(currentInputXML.id);
       localStorage.setItem(currentInputXML.id, JSON.stringify(currentInputXML.inputDataObject));
 
-    }else{
+    } else {
       alert('LocalStorage is not supported in your browser');
     }
   }
 
-  _handleSaveButtonClick(e){
+  _handleSaveButtonClick(e) {
+
+    console.log('Speichern')
 
     var errorlol = false;
-    if(this.props.ActiveUploadXML.activeUploadXMLData.id !=='result_P-1'){
+    if (this.props.ActiveUploadXML.activeUploadXMLData.id !== 'result_P-1') {
 
-      Object.keys(this.state.errorTextSchicht).forEach(function(key) {
-        if(this.state.errorTextSchicht[key] !== ''){
+      Object.keys(this.state.errorTextSchicht).forEach(function (key) {
+        if (this.state.errorTextSchicht[key] !== '') {
           errorlol = true;
         }
       }.bind(this));
@@ -966,7 +967,7 @@ class Kapazitaetsplanung extends React.Component {
 //      }.bind(this));
 
 
-      if(!errorlol){
+      if (!errorlol) {
         var kapazitätsplanung = {
           Arbeitsplatz1: this.state.Arbeitsplatz1,
           Arbeitsplatz2: this.state.Arbeitsplatz2,
@@ -991,7 +992,7 @@ class Kapazitaetsplanung extends React.Component {
         this.setState({
           resetButtonDisabled: false
         });
-      }else{
+      } else {
         this.setState({
           openDialogStandardActions: true,
           dialogTitle: "Error",
@@ -999,7 +1000,7 @@ class Kapazitaetsplanung extends React.Component {
         });
       }
 
-    }else{
+    } else {
       this.setState({
         openDialogStandardActions: true,
         dialogTitle: "Error",
@@ -1014,9 +1015,6 @@ class Kapazitaetsplanung extends React.Component {
     });
   }
 
-  _handleSaveButtonClick(e) {
-
-  }
 
   _handleResetButtonClick(e) {
 
@@ -1028,11 +1026,10 @@ class Kapazitaetsplanung extends React.Component {
     let value = e.target.value;
     let ArbeitsPlatzList = this.state[arbeitsplatzId];
 
-    console.log("Liste: "+ ArbeitsPlatzList.Schichten)
+    console.log("Liste: " + ArbeitsPlatzList.Schichten)
 
 
-
-    console.log("Value: "+ value)
+    console.log("Value: " + value)
 
 
     let errorTextList = this.state.errorTextSchicht
@@ -3083,8 +3080,13 @@ class Kapazitaetsplanung extends React.Component {
           </TableBody>
         </Table>
 
+      <Snackbar
+        ref="snackbar"
+        message={this.state.snackBarmessage}
+        autoHideDuration={this.state.snackBarautoHideDuration}
+        style={{"textAlign":"center"}}>
+      </Snackbar>
       </div>
-
     );
   }
 }
