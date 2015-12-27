@@ -1391,9 +1391,15 @@ class Kapazitaetsplanung extends React.Component {
     let isNumeric = !isNaN(parseFloat(value)) && isFinite(value);
 
     if (isNumeric) {
-      errorTextList[arbeitsplatzId] = ''
+      if(value > 3){
+        console.log('bigger than 3 ');
+        errorTextList[arbeitsplatzId] = 'must be less than 3'
+      } else {
+        console.log('isNumeric ');
+        errorTextList[arbeitsplatzId] = ''
+      }
     } else {
-      errorTextList[arbeitsplatzId] = 'This field must be numeric.'
+      errorTextList[arbeitsplatzId] = 'Field must be numeric.'
       value = 0
     }
     arbeitsplatzList.Schichten = parseInt(value)
@@ -1419,9 +1425,9 @@ class Kapazitaetsplanung extends React.Component {
     if (isNumeric) {
       console.log('isNumeric ');
       errorTextList[arbeitsplatzId] = ''
-    } else {
+    }else {
       console.log('is not Numeric ');
-      errorTextList[arbeitsplatzId] = 'This field must be numeric.';
+      errorTextList[arbeitsplatzId] = 'Field must be numeric.';
       value = 0
     }
     arbeitsplatzList.Überstunden = parseInt(value);
