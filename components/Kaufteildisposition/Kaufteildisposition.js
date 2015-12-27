@@ -40,8 +40,6 @@ class Kaufteildisposition extends React.Component {
     this._handleRequestClose = this._handleRequestClose.bind(this);
     this._updateLocalStorage = this._updateLocalStorage.bind(this);
 
-
-
     this.state = {
       currentPeriode:"",
       modal: true,
@@ -827,12 +825,12 @@ class Kaufteildisposition extends React.Component {
 
   _handleBestellungArtChange(e){
     let articleId = e.target.id
-    let value = e.target.value;
 
     let BestellungArtList = this.state.BestellungArt;
+    console.log("davor",BestellungArtList[articleId])
+    BestellungArtList[articleId] = !BestellungArtList[articleId]
 
-    BestellungArtList[articleId] = value
-
+    console.log("danach",BestellungArtList[articleId])
     this.setState({
       BestellungArt: BestellungArtList
     });
@@ -882,18 +880,11 @@ class Kaufteildisposition extends React.Component {
     var errorlol = false;
     if(this.props.ActiveUploadXML.activeUploadXMLData.id !=='result_P-1'){
 
-      Object.keys(this.state.errorText).forEach(function(key) {
-          if(this.state.errorText[key] !== ''){
+      Object.keys(this.state.errorTextBestellungMenge).forEach(function(key) {
+          if(this.state.errorTextBestellungMenge[key] !== ''){
             errorlol = true;
           }
       }.bind(this));
-
-      Object.keys(this.state.errorTextGL).forEach(function(key) {
-          if(this.state.errorTextGL[key] !== ''){
-            errorlol = true;
-          }
-      }.bind(this));
-
 
       if(!errorlol){
         var kaufteildisposition = {

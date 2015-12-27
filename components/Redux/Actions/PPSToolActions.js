@@ -63,16 +63,16 @@ export function resetAuftragsplanungKinderInputXML(id) {
   return { type: RESET_AUFTRAGSPLANUNG_KINDER_INPUT_XML, id}
 }
 
-export function setKapazitaetsplanungInputXML(kapazitaetsplanung) {
-  return { type: SET_KAPAZITAETSPLANUNG_INPUT_XML, kapazitaetsplanung}
+export function setKapazitaetsplanungInputXML(kapazitaetsplanung, id) {
+  return { type: SET_KAPAZITAETSPLANUNG_INPUT_XML, kapazitaetsplanung, id}
 }
 
 export function resetKapazitaetsplanungInputXML(id) {
   return { type: RESET_KAPAZITAETSPLANUNG_INPUT_XML, id}
 }
 
-export function setKaufteildispositionInputXML(kaufteildisposition) {
-  return { type: SET_KAUFTEILDISPOSITION_INPUT_XML, kaufteildisposition}
+export function setKaufteildispositionInputXML(kaufteildisposition, id) {
+  return { type: SET_KAUFTEILDISPOSITION_INPUT_XML, kaufteildisposition, id}
 }
 
 export function resetKaufteildispositionInputXML(id) {
