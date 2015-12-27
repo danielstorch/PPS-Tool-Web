@@ -1,4 +1,5 @@
 import React from 'react';
+import TransitionGroup from 'react/lib/ReactCSSTransitionGroup';
 import './Kaufteildisposition.scss';
 import mui from 'material-ui';
 import _ from 'lodash'
@@ -1021,6 +1022,7 @@ class Kaufteildisposition extends React.Component {
   }
 
   _handleDetailModeChange(e){
+    console.log(!this.state.detailMode)
     this.setState({
       detailMode: !this.state.detailMode
     });
@@ -1119,135 +1121,189 @@ class Kaufteildisposition extends React.Component {
         <DropDownMenu  menuItems={menuItems} onChange={this._handleDropDownChange} > 
         </DropDownMenu>
 
+        { this.state.detailMode ?
+        (
+          
+              <Table
+                height={this.state.height}
+                fixedHeader={this.state.fixedHeader}
+                selectable={this.state.selectable}
+                >
+                <TableHeader adjustForCheckbox={this.state.displayRowCheckbox} displaySelectAll={this.state.displayRowCheckbox} enableSelectAll={this.state.enableSelectAll}>
+                <TableRow>
+                    <TableHeaderColumn >Item No.</TableHeaderColumn>
+                    <TableHeaderColumn >Lieferzeit</TableHeaderColumn>
+                    <TableHeaderColumn >Abweichung</TableHeaderColumn>
+                    <TableHeaderColumn colSpan="3"  style={{textAlign: 'center'}}>
+                      Benötigt für:
+                    </TableHeaderColumn>
+                    <TableHeaderColumn >Diskontmenge</TableHeaderColumn>
+                    <TableHeaderColumn >Anfangsbestand</TableHeaderColumn>
+                    <TableHeaderColumn colSpan="4"  style={{textAlign: 'center'}}>
+                      Bedarf
+                    </TableHeaderColumn>
+                    <TableHeaderColumn colSpan="2"  style={{textAlign: 'center'}}>
+                      Bestellung
+                    </TableHeaderColumn>
+                  </TableRow>
+                  <TableRow>
+                    <TableHeaderColumn colSpan="3"  ></TableHeaderColumn>
+                    <TableHeaderColumn >P1(Herren)</TableHeaderColumn>
+                    <TableHeaderColumn >P2(Frauen)</TableHeaderColumn>
+                    <TableHeaderColumn >P3(Kinder)</TableHeaderColumn>
+                    <TableHeaderColumn colSpan="2"  ></TableHeaderColumn>
+                    <TableHeaderColumn >Bedarf1</TableHeaderColumn>
+                    <TableHeaderColumn >Bedarf2</TableHeaderColumn>
+                    <TableHeaderColumn >Bedarf3</TableHeaderColumn>
+                    <TableHeaderColumn >Bedarf4</TableHeaderColumn>
+                    <TableHeaderColumn >Menge</TableHeaderColumn>
+                    <TableHeaderColumn >Art</TableHeaderColumn>
+                  </TableRow>
+                </TableHeader>
 
-        <Table
-          height={this.state.height}
-          fixedHeader={this.state.fixedHeader}
-          selectable={this.state.selectable}
-          >
-          <TableHeader adjustForCheckbox={this.state.displayRowCheckbox} displaySelectAll={this.state.displayRowCheckbox} enableSelectAll={this.state.enableSelectAll}>
-          <TableRow>
-              <TableHeaderColumn >Item No.</TableHeaderColumn>
-              <TableHeaderColumn >Lieferzeit</TableHeaderColumn>
-              <TableHeaderColumn >Abweichung</TableHeaderColumn>
-              <TableHeaderColumn colSpan="3"  style={{textAlign: 'center'}}>
-                Benötigt für:
-              </TableHeaderColumn>
-              <TableHeaderColumn >Diskontmenge</TableHeaderColumn>
-              <TableHeaderColumn >Anfangsbestand</TableHeaderColumn>
-              <TableHeaderColumn colSpan="4"  style={{textAlign: 'center'}}>
-                Bedarf
-              </TableHeaderColumn>
-              <TableHeaderColumn colSpan="2"  style={{textAlign: 'center'}}>
-                Bestellung
-              </TableHeaderColumn>
-            </TableRow>
-            <TableRow>
-              <TableHeaderColumn colSpan="3"  ></TableHeaderColumn>
-              <TableHeaderColumn >P1(Herren)</TableHeaderColumn>
-              <TableHeaderColumn >P2(Frauen)</TableHeaderColumn>
-              <TableHeaderColumn >P3(Kinder)</TableHeaderColumn>
-              <TableHeaderColumn colSpan="2"  ></TableHeaderColumn>
-              <TableHeaderColumn >Bedarf1</TableHeaderColumn>
-              <TableHeaderColumn >Bedarf2</TableHeaderColumn>
-              <TableHeaderColumn >Bedarf3</TableHeaderColumn>
-              <TableHeaderColumn >Bedarf4</TableHeaderColumn>
-              <TableHeaderColumn >Menge</TableHeaderColumn>
-              <TableHeaderColumn >Art</TableHeaderColumn>
-            </TableRow>
-          </TableHeader>
+                <TableBody displayRowCheckbox={this.state.displayRowCheckbox}>
+                  <TableRow>
+                    <TableRowColumn>
+                      E21
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <TextField
+                        hintText="Lieferzeit"
+                        disabled = {true}
+                        value= {this.state.Lieferzeit.E21}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Abweichung"
+                        disabled = {true}
+                        value= {this.state.Abweichung.E21}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="BenoetigtFuerP1"
+                        disabled = {true}
+                        value= {this.state.BenoetigtFuerP1.E21}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="BenoetigtFuerP2"
+                        disabled = {true}
+                        value= {this.state.BenoetigtFuerP2.E21}/>
+                  </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="BenoetigtFuerP3"
+                        disabled = {true}
+                        value= {this.state.BenoetigtFuerP3.E21}/>
+                  </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Diskontmenge"
+                        disabled = {true}
+                        value= {this.state.Diskontmenge.E21}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Anfangsbestand"
+                        disabled = {true}
+                        value= {this.state.Anfangsbestand.E21}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf1"
+                        disabled = {true}
+                        value= {this.state.Bedarf1.E21}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf2"
+                        disabled = {true}
+                        value= {this.state.Bedarf2.E21}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf3"
+                        disabled = {true}
+                        value= {this.state.Bedarf3.E21}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf4"
+                        disabled = {true}
+                        value= {this.state.Bedarf4.E21}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <TextField
+                        hintText="BestellungMenge"
+                        id="E21"
+                        errorText={this.state.errorTextBestellungMenge.E21}
+                        errorStyle={{color:'orange'}}
+                        onChange={this._handleBestellungMengeChange}
+                        value= {this.state.BestellungMenge.E21}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <Toggle
+                        name="toggleE21"
+                        value="toggleE21"
+                        onToggle={this._handleBestellungArtChange}
+                        defaultToggled={this.state.BestellungArt.E21}/>
+                    </TableRowColumn>
+                  </TableRow>
 
-          <TableBody displayRowCheckbox={this.state.displayRowCheckbox}>
-            <TableRow>
-              <TableRowColumn>
-                E21
-              </TableRowColumn>
-              <TableRowColumn>
-                <TextField
-                  hintText="Lieferzeit"
-                  disabled = {true}
-                  value= {this.state.Lieferzeit.E21}/>
-              </TableRowColumn>
-              <TableRowColumn>
-              <TextField
-                  hintText="Abweichung"
-                  disabled = {true}
-                  value= {this.state.Abweichung.E21}/>
-              </TableRowColumn>
-              <TableRowColumn>
-              <TextField
-                  hintText="BenoetigtFuerP1"
-                  disabled = {true}
-                  value= {this.state.BenoetigtFuerP1.E21}/>
-              </TableRowColumn>
-              <TableRowColumn>
-              <TextField
-                  hintText="BenoetigtFuerP2"
-                  disabled = {true}
-                  value= {this.state.BenoetigtFuerP2.E21}/>
-            </TableRowColumn>
-              <TableRowColumn>
-              <TextField
-                  hintText="BenoetigtFuerP3"
-                  disabled = {true}
-                  value= {this.state.BenoetigtFuerP3.E21}/>
-            </TableRowColumn>
-              <TableRowColumn>
-              <TextField
-                  hintText="Diskontmenge"
-                  disabled = {true}
-                  value= {this.state.Diskontmenge.E21}/>
-              </TableRowColumn>
-              <TableRowColumn>
-              <TextField
-                  hintText="Anfangsbestand"
-                  disabled = {true}
-                  value= {this.state.Anfangsbestand.E21}/>
-              </TableRowColumn>
-              <TableRowColumn>
-              <TextField
-                  hintText="Bedarf1"
-                  disabled = {true}
-                  value= {this.state.Bedarf1.E21}/>
-              </TableRowColumn>
-              <TableRowColumn>
-              <TextField
-                  hintText="Bedarf2"
-                  disabled = {true}
-                  value= {this.state.Bedarf2.E21}/>
-              </TableRowColumn>
-              <TableRowColumn>
-              <TextField
-                  hintText="Bedarf3"
-                  disabled = {true}
-                  value= {this.state.Bedarf3.E21}/>
-              </TableRowColumn>
-              <TableRowColumn>
-              <TextField
-                  hintText="Bedarf4"
-                  disabled = {true}
-                  value= {this.state.Bedarf4.E21}/>
-              </TableRowColumn>
-              <TableRowColumn>
-                <TextField
-                  hintText="BestellungMenge"
-                  id="E21"
-                  errorText={this.state.errorTextBestellungMenge.E21}
-                  errorStyle={{color:'orange'}}
-                  onChange={this._handleBestellungMengeChange}
-                  value= {this.state.BestellungMenge.E21}/>
-              </TableRowColumn>
-              <TableRowColumn>
-                <Toggle
-                  name="toggleE21"
-                  value="toggleE21"
-                  onToggle={this._handleBestellungArtChange}
-                  defaultToggled={this.state.BestellungArt.E21}/>
-              </TableRowColumn>
-            </TableRow>
+                </TableBody>
+              </Table>
 
-          </TableBody>
-        </Table>
+        ) :
+        (
+              <Table
+                height={this.state.height}
+                fixedHeader={this.state.fixedHeader}
+                selectable={this.state.selectable}
+                >
+                <TableHeader adjustForCheckbox={this.state.displayRowCheckbox} displaySelectAll={this.state.displayRowCheckbox} enableSelectAll={this.state.enableSelectAll}>
+                <TableRow>
+                    <TableHeaderColumn >Item No.</TableHeaderColumn>
+                    <TableHeaderColumn style={{textAlign: 'center'}}>
+                      Bestellung
+                    </TableHeaderColumn>
+                    <TableHeaderColumn ></TableHeaderColumn>
+                  </TableRow>
+                  <TableRow>
+                    <TableHeaderColumn ></TableHeaderColumn>
+                    <TableHeaderColumn >Menge</TableHeaderColumn>
+                    <TableHeaderColumn >Art</TableHeaderColumn>
+                  </TableRow>
+                </TableHeader>
+
+                <TableBody displayRowCheckbox={this.state.displayRowCheckbox}>
+                  <TableRow>
+                    <TableRowColumn>
+                      E21
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <TextField
+                        hintText="BestellungMenge"
+                        id="E21"
+                        errorText={this.state.errorTextBestellungMenge.E21}
+                        errorStyle={{color:'orange'}}
+                        onChange={this._handleBestellungMengeChange}
+                        value= {this.state.BestellungMenge.E21}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <Toggle
+                        name="toggleE21"
+                        value="toggleE21"
+                        onToggle={this._handleBestellungArtChange}
+                        defaultToggled={this.state.BestellungArt.E21}/>
+                    </TableRowColumn>
+                  </TableRow>
+
+                </TableBody>
+              </Table>
+          
+
+        )
+      }
 
       </div>
         <Dialog

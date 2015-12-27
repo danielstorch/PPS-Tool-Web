@@ -1,7 +1,8 @@
 import {SAVE_INPUT_XML,SET_AUFTRAGSPLANUNG_DAMEN_INPUT_XML, SET_AUFTRAGSPLANUNG_HERREN_INPUT_XML, 
   SET_AUFTRAGSPLANUNG_KINDER_INPUT_XML, SET_KAPAZITAETSPLANUNG_INPUT_XML, SET_KAUFTEILDISPOSITION_INPUT_XML, 
   INIT_INPUT_XML , SET_INPUT_XML, RESET_AUFTRAGSPLANUNG_HERREN_INPUT_XML, RESET_AUFTRAGSPLANUNG_KINDER_INPUT_XML,
-  RESET_AUFTRAGSPLANUNG_DAMEN_INPUT_XML, SET_AUFTRAGSPLANUNG_GESAMT_INPUT_XML, RESET_AUFTRAGSPLANUNG_GESAMT_INPUT_XML} from '../Actions';
+  RESET_AUFTRAGSPLANUNG_DAMEN_INPUT_XML, SET_AUFTRAGSPLANUNG_GESAMT_INPUT_XML, RESET_AUFTRAGSPLANUNG_GESAMT_INPUT_XML,
+RESET_KAPAZITAETSPLANUNG_INPUT_XML, RESET_KAUFTEILDISPOSITION_INPUT_XML} from '../Actions';
 
 export default function InputXMLReducer(state = [], action) {
   switch (action.type) {
@@ -13,6 +14,14 @@ export default function InputXMLReducer(state = [], action) {
             inputDataObject: action.inputXML
           }
         ]
+    case RESET_KAUFTEILDISPOSITION_INPUT_XML:
+      return state.map(inputXML =>
+          inputXML.id.substring(6) === action.id.substring(7) ?
+            Object.assign({}, inputXML, delete inputXML.inputDataObject.kaufteildisposition) : inputXML)
+    case RESET_KAPAZITAETSPLANUNG_INPUT_XML:
+      return state.map(inputXML =>
+          inputXML.id.substring(6) === action.id.substring(7) ?
+            Object.assign({}, inputXML, delete inputXML.inputDataObject.kapazitaetsplanung) : inputXML)
     case RESET_AUFTRAGSPLANUNG_DAMEN_INPUT_XML:
       return state.map(inputXML =>
           inputXML.id.substring(6) === action.id.substring(7) ?
@@ -75,13 +84,27 @@ export default function InputXMLReducer(state = [], action) {
 
         return state.map(inputXML => inputXML.id.substring(6) === action.id.substring(7) ? Object.assign({}, inputXML, givenObjKinder) : inputXML)
     case SET_KAPAZITAETSPLANUNG_INPUT_XML:
-    return Object.assign({}, state, {
-        kapazitaetsplanungInputXMLData : action.kapazitaetsplanungInputXML
-      });
+
+        let givenObjKapazitaetsplanung = state.filter(inputXML => inputXML.id.substring(6) === action.id.substring(7))[0]
+
+        if(givenObjKapazitaetsplanung.inputDataObject.kapazitaetsplanung){
+          givenObjKapazitaetsplanung.inputDataObject.kapazitaetsplanung = action.kapazitaetsplanung
+        }else{
+          givenObjKapazitaetsplanung.inputDataObject['kapazitaetsplanung'] = action.kapazitaetsplanung
+        }
+
+        return state.map(inputXML => inputXML.id.substring(6) === action.id.substring(7) ? Object.assign({}, inputXML, givenObjKapazitaetsplanung) : inputXML)
     case SET_KAUFTEILDISPOSITION_INPUT_XML:
-    return Object.assign({}, state, {
-        kaufteildispositionInputXMLData : action.kaufteildispositionInputXML
-      });
+
+        let givenObjKaufteildisposition = state.filter(inputXML => inputXML.id.substring(6) === action.id.substring(7))[0]
+
+        if(givenObjKaufteildisposition.inputDataObject.kaufteildisposition){
+          givenObjKaufteildisposition.inputDataObject.kaufteildisposition = action.kaufteildisposition
+        }else{
+          givenObjKaufteildisposition.inputDataObject['kaufteildisposition'] = action.kaufteildisposition
+        }
+
+        return state.map(inputXML => inputXML.id.substring(6) === action.id.substring(7) ? Object.assign({}, inputXML, givenObjKaufteildisposition) : inputXML)
     default:
       return state
   }
