@@ -35,10 +35,17 @@ class Kaufteildisposition extends React.Component {
     this._handleDetailModeChange = this._handleDetailModeChange.bind(this);
     this._handleDropDownChange = this._handleDropDownChange.bind(this);
     this._handleSaveButtonClick = this._handleSaveButtonClick.bind(this);
-    this._handleProgrammPlanChange = this._handleProgrammPlanChange.bind(this);
+
+    this._handleProgrammPlan2Change = this._handleProgrammPlan2Change.bind(this);
+    this._handleProgrammPlan3Change = this._handleProgrammPlan3Change.bind(this);
+    this._handleProgrammPlan4Change = this._handleProgrammPlan4Change.bind(this);
+
     this._handleResetButtonClick = this._handleResetButtonClick.bind(this);
     this._handleRequestClose = this._handleRequestClose.bind(this);
     this._updateLocalStorage = this._updateLocalStorage.bind(this);
+
+    this._getBedarfGesamt = this._getBedarfGesamt.bind(this);
+    this._calculateBedarf = this._calculateBedarf.bind(this);
 
     this.state = {
       currentPeriode:"",
@@ -60,7 +67,7 @@ class Kaufteildisposition extends React.Component {
       enableSelectAll: false,
       deselectOnClickaway: false,
       height: '650px',
-      heightt: '50px',
+      heightt: '250px',
       buttonDisabled: false,
 
       currentPeriode: "",
@@ -93,6 +100,21 @@ class Kaufteildisposition extends React.Component {
         P1:0,
         P2:0,
         P3:0
+      },
+      errorTextProduktionsplan2:{
+        P1: '',
+        P2: '',
+        P3: ''
+      },
+      errorTextProduktionsplan3:{
+        P1: '',
+        P2: '',
+        P3: ''
+      },
+      errorTextProduktionsplan4:{
+        P1: '',
+        P2: '',
+        P3: ''
       },
 
       Lieferzeit:{
@@ -564,10 +586,31 @@ class Kaufteildisposition extends React.Component {
     if(initial == true || this.state.currentPeriode != activePeriodID){
 
       if(currentInputXML){
+        var hajalol = parseInt(activePeriodID.substring(1))
+        this.state.Perioden.periode1 = hajalol + 1
+        this.state.Perioden.periode2 = hajalol + 2
+        this.state.Perioden.periode3 = hajalol + 3
+        this.state.Perioden.periode4 = hajalol + 4
 
         if( currentInputXML && currentInputXML.inputDataObject.kaufteildisposition ){
 
           this.state.dropDownValue = currentInputXML.inputDataObject.kaufteildisposition.DropDownValue
+
+          this.state.Produktionsplan1.P1 = currentInputXML.inputDataObject.kaufteildisposition.Produktionsplan1.P1
+          this.state.Produktionsplan1.P2 = currentInputXML.inputDataObject.kaufteildisposition.Produktionsplan1.P2
+          this.state.Produktionsplan1.P3 = currentInputXML.inputDataObject.kaufteildisposition.Produktionsplan1.P3
+
+          this.state.Produktionsplan2.P1 = currentInputXML.inputDataObject.kaufteildisposition.Produktionsplan2.P1
+          this.state.Produktionsplan2.P2 = currentInputXML.inputDataObject.kaufteildisposition.Produktionsplan2.P2
+          this.state.Produktionsplan2.P3 = currentInputXML.inputDataObject.kaufteildisposition.Produktionsplan2.P3
+
+          this.state.Produktionsplan3.P1 = currentInputXML.inputDataObject.kaufteildisposition.Produktionsplan3.P1
+          this.state.Produktionsplan3.P2 = currentInputXML.inputDataObject.kaufteildisposition.Produktionsplan3.P2
+          this.state.Produktionsplan3.P3 = currentInputXML.inputDataObject.kaufteildisposition.Produktionsplan3.P3
+
+          this.state.Produktionsplan4.P1 = currentInputXML.inputDataObject.kaufteildisposition.Produktionsplan4.P1
+          this.state.Produktionsplan4.P2 = currentInputXML.inputDataObject.kaufteildisposition.Produktionsplan4.P2
+          this.state.Produktionsplan4.P3 = currentInputXML.inputDataObject.kaufteildisposition.Produktionsplan4.P3
 
           this.state.BestellungArt.E21 = currentInputXML.inputDataObject.kaufteildisposition.BestellungArt.E21
           this.state.BestellungArt.E22 = currentInputXML.inputDataObject.kaufteildisposition.BestellungArt.E22
@@ -631,9 +674,24 @@ class Kaufteildisposition extends React.Component {
 
           this.state.resetButtonDisabled = false
 
-        } else{
+        } else {
+          if(currentInputXML.inputDataObject.auftragsplanungHerren){
+            this.state.Produktionsplan1.P1 = currentInputXML.inputDataObject.auftragsplanungHerren.AU.P1
+          } else{
+            this.state.Produktionsplan1.P1 = 0
+          }
 
-          this.state.dropDownValue = 0
+          if(currentInputXML.inputDataObject.auftragsplanungDamen){
+            this.state.Produktionsplan1.P2 = currentInputXML.inputDataObject.auftragsplanungDamen.AU.P2
+          } else{
+            this.state.Produktionsplan1.P2 = 0
+          }
+
+          if(currentInputXML.inputDataObject.auftragsplanungKinder){
+            this.state.Produktionsplan1.P3 = currentInputXML.inputDataObject.auftragsplanungKinder.AU.P3
+          } else{
+            this.state.Produktionsplan1.P3 = 0
+          }
 
           this.state.BestellungArt.E21 = false
           this.state.BestellungArt.E22 = false
@@ -700,9 +758,10 @@ class Kaufteildisposition extends React.Component {
         }
       }else{
 
-          this.state.dropDownValue = 0
+            this.state.Produktionsplan1.P1 = 0
+            this.state.Produktionsplan1.P2 = 0
+            this.state.Produktionsplan1.P3 = 0
 
-          
           this.state.BestellungArt.E21 = false
           this.state.BestellungArt.E22 = false
           this.state.BestellungArt.E23 = false
@@ -765,6 +824,187 @@ class Kaufteildisposition extends React.Component {
 
           this.state.resetButtonDisabled = true
       }
+
+    this.state.Bedarf1.E21 = this._calculateBedarf("E21", 1)
+    this.state.Bedarf1.E22 = this._calculateBedarf("E22", 1)
+    this.state.Bedarf1.E23 = this._calculateBedarf("E23", 1)
+    this.state.Bedarf1.E24 = this._calculateBedarf("E24", 1)
+    this.state.Bedarf1.E25 = this._calculateBedarf("E25", 1)
+    this.state.Bedarf1.E27 = this._calculateBedarf("E27", 1)
+    this.state.Bedarf1.E28 = this._calculateBedarf("E28", 1)
+    this.state.Bedarf1.E32 = this._calculateBedarf("E32", 1)
+    this.state.Bedarf1.E33 = this._calculateBedarf("E33", 1)
+    this.state.Bedarf1.E34 = this._calculateBedarf("E34", 1)
+    this.state.Bedarf1.E35 = this._calculateBedarf("E35", 1)
+    this.state.Bedarf1.E36 = this._calculateBedarf("E36", 1)
+    this.state.Bedarf1.E37 = this._calculateBedarf("E37", 1)
+    this.state.Bedarf1.E38 = this._calculateBedarf("E38", 1)
+    this.state.Bedarf1.E39 = this._calculateBedarf("E39", 1)
+    this.state.Bedarf1.E40 = this._calculateBedarf("E40", 1)
+    this.state.Bedarf1.E41 = this._calculateBedarf("E41", 1)
+    this.state.Bedarf1.E42 = this._calculateBedarf("E42", 1)
+    this.state.Bedarf1.E43 = this._calculateBedarf("E43", 1)
+    this.state.Bedarf1.E44 = this._calculateBedarf("E44", 1)
+    this.state.Bedarf1.E45 = this._calculateBedarf("E45", 1)
+    this.state.Bedarf1.E46 = this._calculateBedarf("E46", 1)
+    this.state.Bedarf1.E47 = this._calculateBedarf("E47", 1)
+    this.state.Bedarf1.E48 = this._calculateBedarf("E48", 1)
+    this.state.Bedarf1.E52 = this._calculateBedarf("E52", 1)
+    this.state.Bedarf1.E53 = this._calculateBedarf("E53", 1)
+    this.state.Bedarf1.E57 = this._calculateBedarf("E57", 1)
+    this.state.Bedarf1.E58 = this._calculateBedarf("E58", 1)
+    this.state.Bedarf1.E59 = this._calculateBedarf("E59", 1)
+
+    this.state.Bedarf2.E21 = this._calculateBedarf("E21", 2)
+    this.state.Bedarf2.E22 = this._calculateBedarf("E22", 2)
+    this.state.Bedarf2.E23 = this._calculateBedarf("E23", 2)
+    this.state.Bedarf2.E24 = this._calculateBedarf("E24", 2)
+    this.state.Bedarf2.E25 = this._calculateBedarf("E25", 2)
+    this.state.Bedarf2.E27 = this._calculateBedarf("E27", 2)
+    this.state.Bedarf2.E28 = this._calculateBedarf("E28", 2)
+    this.state.Bedarf2.E32 = this._calculateBedarf("E32", 2)
+    this.state.Bedarf2.E33 = this._calculateBedarf("E33", 2)
+    this.state.Bedarf2.E34 = this._calculateBedarf("E34", 2)
+    this.state.Bedarf2.E35 = this._calculateBedarf("E35", 2)
+    this.state.Bedarf2.E36 = this._calculateBedarf("E36", 2)
+    this.state.Bedarf2.E37 = this._calculateBedarf("E37", 2)
+    this.state.Bedarf2.E38 = this._calculateBedarf("E38", 2)
+    this.state.Bedarf2.E39 = this._calculateBedarf("E39", 2)
+    this.state.Bedarf2.E40 = this._calculateBedarf("E40", 2)
+    this.state.Bedarf2.E41 = this._calculateBedarf("E41", 2)
+    this.state.Bedarf2.E42 = this._calculateBedarf("E42", 2)
+    this.state.Bedarf2.E43 = this._calculateBedarf("E43", 2)
+    this.state.Bedarf2.E44 = this._calculateBedarf("E44", 2)
+    this.state.Bedarf2.E45 = this._calculateBedarf("E45", 2)
+    this.state.Bedarf2.E46 = this._calculateBedarf("E46", 2)
+    this.state.Bedarf2.E47 = this._calculateBedarf("E47", 2)
+    this.state.Bedarf2.E48 = this._calculateBedarf("E48", 2)
+    this.state.Bedarf2.E52 = this._calculateBedarf("E52", 2)
+    this.state.Bedarf2.E53 = this._calculateBedarf("E53", 2)
+    this.state.Bedarf2.E57 = this._calculateBedarf("E57", 2)
+    this.state.Bedarf2.E58 = this._calculateBedarf("E58", 2)
+    this.state.Bedarf2.E59 = this._calculateBedarf("E59", 2)
+
+    this.state.Bedarf3.E21 = this._calculateBedarf("E21", 3)
+    this.state.Bedarf3.E22 = this._calculateBedarf("E22", 3)
+    this.state.Bedarf3.E23 = this._calculateBedarf("E23", 3)
+    this.state.Bedarf3.E24 = this._calculateBedarf("E24", 3)
+    this.state.Bedarf3.E25 = this._calculateBedarf("E25", 3)
+    this.state.Bedarf3.E27 = this._calculateBedarf("E27", 3)
+    this.state.Bedarf3.E28 = this._calculateBedarf("E28", 3)
+    this.state.Bedarf3.E32 = this._calculateBedarf("E32", 3)
+    this.state.Bedarf3.E33 = this._calculateBedarf("E33", 3)
+    this.state.Bedarf3.E34 = this._calculateBedarf("E34", 3)
+    this.state.Bedarf3.E35 = this._calculateBedarf("E35", 3)
+    this.state.Bedarf3.E36 = this._calculateBedarf("E36", 3)
+    this.state.Bedarf3.E37 = this._calculateBedarf("E37", 3)
+    this.state.Bedarf3.E38 = this._calculateBedarf("E38", 3)
+    this.state.Bedarf3.E39 = this._calculateBedarf("E39", 3)
+    this.state.Bedarf3.E40 = this._calculateBedarf("E40", 3)
+    this.state.Bedarf3.E41 = this._calculateBedarf("E41", 3)
+    this.state.Bedarf3.E42 = this._calculateBedarf("E42", 3)
+    this.state.Bedarf3.E43 = this._calculateBedarf("E43", 3)
+    this.state.Bedarf3.E44 = this._calculateBedarf("E44", 3)
+    this.state.Bedarf3.E45 = this._calculateBedarf("E45", 3)
+    this.state.Bedarf3.E46 = this._calculateBedarf("E46", 3)
+    this.state.Bedarf3.E47 = this._calculateBedarf("E47", 3)
+    this.state.Bedarf3.E48 = this._calculateBedarf("E48", 3)
+    this.state.Bedarf3.E52 = this._calculateBedarf("E52", 3)
+    this.state.Bedarf3.E53 = this._calculateBedarf("E53", 3)
+    this.state.Bedarf3.E57 = this._calculateBedarf("E57", 3)
+    this.state.Bedarf3.E58 = this._calculateBedarf("E58", 3)
+    this.state.Bedarf3.E59 = this._calculateBedarf("E59", 3)
+
+    this.state.Bedarf4.E21 = this._calculateBedarf("E21", 4)
+    this.state.Bedarf4.E22 = this._calculateBedarf("E22", 4)
+    this.state.Bedarf4.E23 = this._calculateBedarf("E23", 4)
+    this.state.Bedarf4.E24 = this._calculateBedarf("E24", 4)
+    this.state.Bedarf4.E25 = this._calculateBedarf("E25", 4)
+    this.state.Bedarf4.E27 = this._calculateBedarf("E27", 4)
+    this.state.Bedarf4.E28 = this._calculateBedarf("E28", 4)
+    this.state.Bedarf4.E32 = this._calculateBedarf("E32", 4)
+    this.state.Bedarf4.E33 = this._calculateBedarf("E33", 4)
+    this.state.Bedarf4.E34 = this._calculateBedarf("E34", 4)
+    this.state.Bedarf4.E35 = this._calculateBedarf("E35", 4)
+    this.state.Bedarf4.E36 = this._calculateBedarf("E36", 4)
+    this.state.Bedarf4.E37 = this._calculateBedarf("E37", 4)
+    this.state.Bedarf4.E38 = this._calculateBedarf("E38", 4)
+    this.state.Bedarf4.E39 = this._calculateBedarf("E39", 4)
+    this.state.Bedarf4.E40 = this._calculateBedarf("E40", 4)
+    this.state.Bedarf4.E41 = this._calculateBedarf("E41", 4)
+    this.state.Bedarf4.E42 = this._calculateBedarf("E42", 4)
+    this.state.Bedarf4.E43 = this._calculateBedarf("E43", 4)
+    this.state.Bedarf4.E44 = this._calculateBedarf("E44", 4)
+    this.state.Bedarf4.E45 = this._calculateBedarf("E45", 4)
+    this.state.Bedarf4.E46 = this._calculateBedarf("E46", 4)
+    this.state.Bedarf4.E47 = this._calculateBedarf("E47", 4)
+    this.state.Bedarf4.E48 = this._calculateBedarf("E48", 4)
+    this.state.Bedarf4.E52 = this._calculateBedarf("E52", 4)
+    this.state.Bedarf4.E53 = this._calculateBedarf("E53", 4)
+    this.state.Bedarf4.E57 = this._calculateBedarf("E57", 4)
+    this.state.Bedarf4.E58 = this._calculateBedarf("E58", 4)
+    this.state.Bedarf4.E59 = this._calculateBedarf("E59", 4)
+
+
+    this.state.Anfangsbestand.E21 = this._getAnfangsbestand("21") + this._getZukunftbestand("21")
+    this.state.Anfangsbestand.E22 = this._getAnfangsbestand("22") + this._getZukunftbestand("22")
+    this.state.Anfangsbestand.E23 = this._getAnfangsbestand("23") + this._getZukunftbestand("23")
+    this.state.Anfangsbestand.E24 = this._getAnfangsbestand("24") + this._getZukunftbestand("24")
+    this.state.Anfangsbestand.E25 = this._getAnfangsbestand("25") + this._getZukunftbestand("25")
+    this.state.Anfangsbestand.E27 = this._getAnfangsbestand("27") + this._getZukunftbestand("27")
+    this.state.Anfangsbestand.E28 = this._getAnfangsbestand("28") + this._getZukunftbestand("28")
+    this.state.Anfangsbestand.E32 = this._getAnfangsbestand("32") + this._getZukunftbestand("32")
+    this.state.Anfangsbestand.E33 = this._getAnfangsbestand("33") + this._getZukunftbestand("33")
+    this.state.Anfangsbestand.E34 = this._getAnfangsbestand("34") + this._getZukunftbestand("34")
+    this.state.Anfangsbestand.E35 = this._getAnfangsbestand("35") + this._getZukunftbestand("35")
+    this.state.Anfangsbestand.E36 = this._getAnfangsbestand("36") + this._getZukunftbestand("36")
+    this.state.Anfangsbestand.E37 = this._getAnfangsbestand("37") + this._getZukunftbestand("37")
+    this.state.Anfangsbestand.E38 = this._getAnfangsbestand("38") + this._getZukunftbestand("38")
+    this.state.Anfangsbestand.E39 = this._getAnfangsbestand("39") + this._getZukunftbestand("39")
+    this.state.Anfangsbestand.E40 = this._getAnfangsbestand("40") + this._getZukunftbestand("40")
+    this.state.Anfangsbestand.E41 = this._getAnfangsbestand("41") + this._getZukunftbestand("41")
+    this.state.Anfangsbestand.E42 = this._getAnfangsbestand("42") + this._getZukunftbestand("42")
+    this.state.Anfangsbestand.E43 = this._getAnfangsbestand("43") + this._getZukunftbestand("43")
+    this.state.Anfangsbestand.E44 = this._getAnfangsbestand("44") + this._getZukunftbestand("44")
+    this.state.Anfangsbestand.E45 = this._getAnfangsbestand("45") + this._getZukunftbestand("45")
+    this.state.Anfangsbestand.E46 = this._getAnfangsbestand("46") + this._getZukunftbestand("46")
+    this.state.Anfangsbestand.E47 = this._getAnfangsbestand("47") + this._getZukunftbestand("47")
+    this.state.Anfangsbestand.E48 = this._getAnfangsbestand("48") + this._getZukunftbestand("48")
+    this.state.Anfangsbestand.E52 = this._getAnfangsbestand("52") + this._getZukunftbestand("52")
+    this.state.Anfangsbestand.E53 = this._getAnfangsbestand("53") + this._getZukunftbestand("53")
+    this.state.Anfangsbestand.E57 = this._getAnfangsbestand("57") + this._getZukunftbestand("57")
+    this.state.Anfangsbestand.E58 = this._getAnfangsbestand("58") + this._getZukunftbestand("58")
+    this.state.Anfangsbestand.E59 = this._getAnfangsbestand("59") + this._getZukunftbestand("59")
+
+    this.state.BestellungMenge.E21 = this._calculateBestellungMenge("E21")
+    this.state.BestellungMenge.E22 = this._calculateBestellungMenge("E22")
+    this.state.BestellungMenge.E23 = this._calculateBestellungMenge("E23")
+    this.state.BestellungMenge.E24 = this._calculateBestellungMenge("E24")
+    this.state.BestellungMenge.E25 = this._calculateBestellungMenge("E25")
+    this.state.BestellungMenge.E27 = this._calculateBestellungMenge("E27")
+    this.state.BestellungMenge.E28 = this._calculateBestellungMenge("E28")
+    this.state.BestellungMenge.E32 = this._calculateBestellungMenge("E32")
+    this.state.BestellungMenge.E33 = this._calculateBestellungMenge("E33")
+    this.state.BestellungMenge.E34 = this._calculateBestellungMenge("E34")
+    this.state.BestellungMenge.E35 = this._calculateBestellungMenge("E35")
+    this.state.BestellungMenge.E36 = this._calculateBestellungMenge("E36")
+    this.state.BestellungMenge.E37 = this._calculateBestellungMenge("E37")
+    this.state.BestellungMenge.E38 = this._calculateBestellungMenge("E38")
+    this.state.BestellungMenge.E39 = this._calculateBestellungMenge("E39")
+    this.state.BestellungMenge.E40 = this._calculateBestellungMenge("E40")
+    this.state.BestellungMenge.E41 = this._calculateBestellungMenge("E41")
+    this.state.BestellungMenge.E42 = this._calculateBestellungMenge("E42")
+    this.state.BestellungMenge.E43 = this._calculateBestellungMenge("E43")
+    this.state.BestellungMenge.E44 = this._calculateBestellungMenge("E44")
+    this.state.BestellungMenge.E45 = this._calculateBestellungMenge("E45")
+    this.state.BestellungMenge.E46 = this._calculateBestellungMenge("E46")
+    this.state.BestellungMenge.E47 = this._calculateBestellungMenge("E47")
+    this.state.BestellungMenge.E48 = this._calculateBestellungMenge("E48")
+    this.state.BestellungMenge.E52 = this._calculateBestellungMenge("E52")
+    this.state.BestellungMenge.E53 = this._calculateBestellungMenge("E53")
+    this.state.BestellungMenge.E57 = this._calculateBestellungMenge("E57")
+    this.state.BestellungMenge.E58 = this._calculateBestellungMenge("E58")
+    this.state.BestellungMenge.E59 = this._calculateBestellungMenge("E59")
       
       this.setState({
         currentPeriode: activePeriodID
@@ -772,7 +1012,86 @@ class Kaufteildisposition extends React.Component {
 
     }
 
+    
 
+  }
+
+  _calculateBedarf(articleId, periode){
+    var amount = 0;
+    if(periode == 1){
+      amount = this.state.Produktionsplan1.P1 * this.state.BenoetigtFuerP1[articleId] + this.state.Produktionsplan1.P2 * this.state.BenoetigtFuerP2[articleId] + this.state.Produktionsplan1.P3 * this.state.BenoetigtFuerP3[articleId]
+    }else if(periode == 2){
+      amount = this.state.Produktionsplan2.P1 * this.state.BenoetigtFuerP1[articleId] + this.state.Produktionsplan2.P2 * this.state.BenoetigtFuerP2[articleId] + this.state.Produktionsplan2.P3 * this.state.BenoetigtFuerP3[articleId]
+    }else if(periode == 3){
+      amount = this.state.Produktionsplan3.P1 * this.state.BenoetigtFuerP1[articleId] + this.state.Produktionsplan3.P2 * this.state.BenoetigtFuerP2[articleId] + this.state.Produktionsplan3.P3 * this.state.BenoetigtFuerP3[articleId]
+    }else if(periode == 4){
+      amount = this.state.Produktionsplan4.P1 * this.state.BenoetigtFuerP1[articleId] + this.state.Produktionsplan4.P2 * this.state.BenoetigtFuerP2[articleId] + this.state.Produktionsplan4.P3 * this.state.BenoetigtFuerP3[articleId]
+    }
+    return amount;
+  }
+
+  _calculateBestellungMenge(articleId){
+    console.log(articleId)
+    var gesamtBedarf = this._getBedarfGesamt(articleId);
+    let bestellMenge = 0;
+
+    console.log("Anfangsbestand: ", this.state.Anfangsbestand[articleId])
+    console.log("BEDARF 1 Periode ", this.state.Bedarf1[articleId])
+
+    if(this.state.Anfangsbestand[articleId] < this.state.Bedarf1[articleId]){
+      console.log("EEEEEIIIIIILLLLLL")
+      // let refname = "toggle" + articleId
+      // this.refs.refname.setToggled(true)
+      // this.state.BestellungArt[articleId] = true
+    }
+
+    if(gesamtBedarf > this.state.Anfangsbestand[articleId]){
+      console.log("gesamtBedarf",gesamtBedarf)
+      let fehlenderBedarf = gesamtBedarf - this.state.Anfangsbestand[articleId]
+      console.log("fehlenderBedarf",fehlenderBedarf)
+
+      let geteiltDurchDiskontmenge = fehlenderBedarf/this.state.Diskontmenge[articleId]
+      console.log("geteiltDurchDiskontmenge",geteiltDurchDiskontmenge)
+      console.log("geteiltDurchDiskontmenge GERUNDET auf ganze zahl: ", Math.ceil(geteiltDurchDiskontmenge))
+
+      bestellMenge = Math.ceil(geteiltDurchDiskontmenge) * this.state.Diskontmenge[articleId]
+      console.log("Was wir bestellen: ", bestellMenge)
+
+    }
+
+    return bestellMenge;
+
+  }
+
+  _getBedarfGesamt(articleId){
+    console.log(this.state.dropDownValue)
+    let liferzeit = 0;
+    if(this.state.dropDownValue == 2){
+      liferzeit = this.state.Lieferzeit[articleId] - this.state.Abweichung[articleId]
+
+    }else if(this.state.dropDownValue == 1){
+      liferzeit = this.state.Lieferzeit[articleId] + this.state.Abweichung[articleId]
+    }else{
+      liferzeit = this.state.Lieferzeit[articleId]
+    }
+
+    console.log("liferzeit getBearf: ", liferzeit)
+    console.log("liferzeit gerundet ganze zahl: ", Math.ceil(liferzeit))
+
+    let bedarfGesamt = 0;
+    if(liferzeit <= 1){
+      bedarfGesamt = this.state.Bedarf1[articleId]
+    }else if(liferzeit <= 2){
+      bedarfGesamt = this.state.Bedarf1[articleId] + this.state.Bedarf2[articleId]
+    }else if(liferzeit <= 3){
+      bedarfGesamt = this.state.Bedarf1[articleId] + this.state.Bedarf2[articleId] + this.state.Bedarf3[articleId]
+    }else if(liferzeit <= 4){
+      bedarfGesamt = this.state.Bedarf1[articleId] + this.state.Bedarf2[articleId] + this.state.Bedarf4[articleId]
+    }
+
+    console.log("bedarf Gesamt", bedarfGesamt)
+
+    return bedarfGesamt
   }
 
   _getAnfangsbestand(articleId){
@@ -789,6 +1108,8 @@ class Kaufteildisposition extends React.Component {
       }.bind(this))
 
     }
+
+    console.log("anfangsbestand", amount)
 
     return Math.round(amount);
   }
@@ -808,32 +1129,114 @@ class Kaufteildisposition extends React.Component {
 
     }
 
+    console.log("zukunfbestand", amount)
+
     return Math.round(amount);
   }
 
   _handleDropDownChange(e, index, value){
+    console.log("_handleDropDownChange", value)
     this.setState({
-      dropDownValue : value
+      dropDownValue : value.payload
     })
 
-    this._updateVariables(false);
+    this._updateVariables(true);
   }
 
-  _handleProgrammPlanChange(e){
+  _handleProgrammPlan2Change(e){
+
+    let articleId = e.target.id
+    let value = e.target.value;
+    let ProgrammPlan2List = this.state.Produktionsplan2;
+    let errorTextProduktionsplan2List = this.state.errorTextProduktionsplan2
+
+    let isNumeric = !isNaN(parseFloat(value)) && isFinite(value);
+
+    if(isNumeric){
+      errorTextProduktionsplan2List[articleId] = ''
+    }else{
+      errorTextProduktionsplan2List[articleId] = 'This field must be numeric.'
+      value = 0
+    }
+    ProgrammPlan2List[articleId] = parseInt(value)
+
+
+    this.setState({
+      Produktionsplan2: ProgrammPlan2List,
+      errorTextProduktionsplan2: errorTextProduktionsplan2List
+    });
+
+    this._updateVariables(false);
+
+  }
+
+ _handleProgrammPlan3Change(e){
+
+    let articleId = e.target.id
+    let value = e.target.value;
+    let ProgrammPlan3List = this.state.Produktionsplan3;
+    let errorTextProduktionsplan3List = this.state.errorTextProduktionsplan3
+
+    let isNumeric = !isNaN(parseFloat(value)) && isFinite(value);
+
+    if(isNumeric){
+      errorTextProduktionsplan3List[articleId] = ''
+    }else{
+      errorTextProduktionsplan3List[articleId] = 'This field must be numeric.'
+      value = 0
+    }
+    ProgrammPlan3List[articleId] = parseInt(value)
+
+
+    this.setState({
+      Produktionsplan3: ProgrammPlan3List,
+      errorTextProduktionsplan3: errorTextProduktionsplan3List
+    });
+
+    this._updateVariables(false);
+
+  }
+
+ _handleProgrammPlan4Change(e){
+
+    let articleId = e.target.id
+    let value = e.target.value;
+    let ProgrammPlan4List = this.state.Produktionsplan4;
+    let errorTextProduktionsplan4List = this.state.errorTextProduktionsplan4
+
+    let isNumeric = !isNaN(parseFloat(value)) && isFinite(value);
+
+    if(isNumeric){
+      errorTextProduktionsplan4List[articleId] = ''
+    }else{
+      errorTextProduktionsplan4List[articleId] = 'This field must be numeric.'
+      value = 0
+    }
+    ProgrammPlan4List[articleId] = parseInt(value)
+
+
+    this.setState({
+      Produktionsplan4: ProgrammPlan4List,
+      errorTextProduktionsplan4: errorTextProduktionsplan4List
+    });
+
+    this._updateVariables(false);
 
   }
 
   _handleBestellungArtChange(e){
+
     let articleId = e.target.id
 
     let BestellungArtList = this.state.BestellungArt;
-    console.log("davor",BestellungArtList[articleId])
+
     BestellungArtList[articleId] = !BestellungArtList[articleId]
 
-    console.log("danach",BestellungArtList[articleId])
+    console.log(!BestellungArtList[articleId])
     this.setState({
       BestellungArt: BestellungArtList
     });
+   // this.state.BestellungArt["articleId"] = !this.state.BestellungArt["articleId"]
   }
 
   _handleBestellungMengeChange(e){
@@ -859,7 +1262,7 @@ class Kaufteildisposition extends React.Component {
       errorTextBestellungMenge: errorTextBestellungMengeList
     });
 
-    this._updateVariables(false);
+    //this._updateVariables(false);
   }
 
   _updateLocalStorage(){
@@ -901,7 +1304,11 @@ class Kaufteildisposition extends React.Component {
                                     Bedarf4: this.state.Bedarf4,
                                     BestellungMenge: this.state.BestellungMenge,
                                     BestellungArt: this.state.BestellungArt,
-                                    DropDownValue: this.state.dropDownValue
+                                    DropDownValue: this.state.dropDownValue,
+                                    Produktionsplan1: this.state.Produktionsplan1,
+                                    Produktionsplan2: this.state.Produktionsplan2,
+                                    Produktionsplan3: this.state.Produktionsplan3,
+                                    Produktionsplan4: this.state.Produktionsplan4
                                   }
         this.props.dispatch(setKaufteildispositionInputXML(kaufteildisposition, this.props.ActiveUploadXML.activeUploadXMLData.id));
         this._updateLocalStorage();
@@ -1064,16 +1471,16 @@ class Kaufteildisposition extends React.Component {
           >
           <TableHeader adjustForCheckbox={this.state.displayRowCheckbox} displaySelectAll={this.state.displayRowCheckbox} enableSelectAll={this.state.enableSelectAll}>
            <TableRow>
-              <TableHeaderColumn colSpan="5" tooltip='Produktionsprogramm' style={{textAlign: 'center'}}>
+              <TableHeaderColumn colSpan="5"  style={{textAlign: 'center'}}>
                 Produktionsprogramm
               </TableHeaderColumn>
             </TableRow>
             <TableRow>
-              <TableHeaderColumn tooltip='Periode'>Periode</TableHeaderColumn>
-              <TableHeaderColumn tooltip='Periode1'>Periode1</TableHeaderColumn>
-              <TableHeaderColumn tooltip='Periode2'>Periode2</TableHeaderColumn>
-              <TableHeaderColumn tooltip='Periode3'>Periode3</TableHeaderColumn>
-              <TableHeaderColumn tooltip='Periode4'>Periode4</TableHeaderColumn>
+              <TableHeaderColumn >Periode</TableHeaderColumn>
+              <TableHeaderColumn >{this.state.Perioden.periode1}</TableHeaderColumn>
+              <TableHeaderColumn >{this.state.Perioden.periode2}</TableHeaderColumn>
+              <TableHeaderColumn >{this.state.Perioden.periode3}</TableHeaderColumn>
+              <TableHeaderColumn >{this.state.Perioden.periode4}</TableHeaderColumn>
             </TableRow>
           </TableHeader>
 
@@ -1082,27 +1489,115 @@ class Kaufteildisposition extends React.Component {
               <TableRowColumn>
                 P1
               </TableRowColumn>
-              <TableRowColumn>
+                <TableRowColumn>
+                  <TextField
+                    hintText="Produktionsplan1"
+                    disabled = {true}
+                    value= {this.state.Produktionsplan1.P1}/>
+                </TableRowColumn>
+                <TableRowColumn>
+                 <TextField
+                    id="P1"
+                    hintText="Produktionsplan1"
+                    errorText={this.state.errorTextProduktionsplan2.P1}
+                    errorStyle={{color:'orange'}}
+                    onChange={this._handleProgrammPlan2Change}
+                    value= {this.state.Produktionsplan2.P1}/>
+                </TableRowColumn>
+                <TableRowColumn>
                 <TextField
-                  hintText="Produktionsplan1"
-                  disabled = {true}
-                  value= {this.state.Produktionsplan1.P1}/>
+                    id="P1"
+                    hintText="Produktionsplan1"
+                    errorText={this.state.errorTextProduktionsplan3.P1}
+                    errorStyle={{color:'orange'}}
+                    onChange={this._handleProgrammPlan3Change}
+                    value= {this.state.Produktionsplan3.P1}/>
+                </TableRowColumn>
+                <TableRowColumn>
+                <TextField
+                    id="P1"
+                    hintText="Produktionsplan1"
+                    errorText={this.state.errorTextProduktionsplan4.P1}
+                    errorStyle={{color:'orange'}}
+                    onChange={this._handleProgrammPlan4Change}
+                    value= {this.state.Produktionsplan4.P1}/>
               </TableRowColumn>
+            </TableRow>
+            <TableRow>
               <TableRowColumn>
-               <TextField
-                  hintText="Produktionsplan1"
-                  value= {this.state.Produktionsplan2.P1}/>
+                  P2
+                </TableRowColumn>
+                <TableRowColumn>
+                  <TextField
+                    hintText="Produktionsplan1"
+                    disabled = {true}
+                    value= {this.state.Produktionsplan1.P2}/>
+                </TableRowColumn>
+                <TableRowColumn>
+                 <TextField
+                    id="P2"
+                    hintText="Produktionsplan1"
+                    errorText={this.state.errorTextProduktionsplan2.P2}
+                    errorStyle={{color:'orange'}}
+                    onChange={this._handleProgrammPlan2Change}
+                    value= {this.state.Produktionsplan2.P2}/>
+                </TableRowColumn>
+                <TableRowColumn>
+                <TextField
+                    id="P2"
+                    hintText="Produktionsplan1"
+                    errorText={this.state.errorTextProduktionsplan3.P2}
+                    errorStyle={{color:'orange'}}
+                    onChange={this._handleProgrammPlan3Change}
+                    value= {this.state.Produktionsplan3.P2}/>
+                </TableRowColumn>
+                <TableRowColumn>
+                <TextField
+                    id="P2"
+                    hintText="Produktionsplan1"
+                    errorText={this.state.errorTextProduktionsplan4.P2}
+                    errorStyle={{color:'orange'}}
+                    onChange={this._handleProgrammPlan4Change}
+                    value= {this.state.Produktionsplan4.P2}/>
               </TableRowColumn>
+            </TableRow>
+            <TableRow>
               <TableRowColumn>
-              <TextField
-                  hintText="Produktionsplan1"
-                  value= {this.state.Produktionsplan3.P1}/>
+                  P3
+                </TableRowColumn>
+                <TableRowColumn>
+                  <TextField
+                    hintText="Produktionsplan1"
+                    disabled = {true}
+                    value= {this.state.Produktionsplan1.P3}/>
+                </TableRowColumn>
+                <TableRowColumn>
+                 <TextField
+                    id="P3"
+                    hintText="Produktionsplan1"
+                    errorText={this.state.errorTextProduktionsplan2.P3}
+                    errorStyle={{color:'orange'}}
+                    onChange={this._handleProgrammPlan2Change}
+                    value= {this.state.Produktionsplan2.P3}/>
+                </TableRowColumn>
+                <TableRowColumn>
+                <TextField
+                    id="P3"
+                    hintText="Produktionsplan1"
+                    errorText={this.state.errorTextProduktionsplan3.P3}
+                    errorStyle={{color:'orange'}}
+                    onChange={this._handleProgrammPlan3Change}
+                    value= {this.state.Produktionsplan3.P3}/>
+                </TableRowColumn>
+                <TableRowColumn>
+                <TextField
+                    id="P3"
+                    hintText="Produktionsplan1"
+                    errorText={this.state.errorTextProduktionsplan4.P3}
+                    errorStyle={{color:'orange'}}
+                    onChange={this._handleProgrammPlan4Change}
+                    value= {this.state.Produktionsplan4.P3}/>
               </TableRowColumn>
-              <TableRowColumn>
-              <TextField
-                  hintText="Produktionsplan1"
-                  value= {this.state.Produktionsplan4.P1}/>
-            </TableRowColumn>
             </TableRow>
 
           </TableBody>
@@ -1139,16 +1634,16 @@ class Kaufteildisposition extends React.Component {
                   </TableRow>
                   <TableRow>
                     <TableHeaderColumn colSpan="3"  ></TableHeaderColumn>
-                    <TableHeaderColumn >P1(Herren)</TableHeaderColumn>
-                    <TableHeaderColumn >P2(Frauen)</TableHeaderColumn>
-                    <TableHeaderColumn >P3(Kinder)</TableHeaderColumn>
+                    <TableHeaderColumn >P1</TableHeaderColumn>
+                    <TableHeaderColumn >P2</TableHeaderColumn>
+                    <TableHeaderColumn >P3</TableHeaderColumn>
                     <TableHeaderColumn colSpan="2"  ></TableHeaderColumn>
-                    <TableHeaderColumn >Bedarf1</TableHeaderColumn>
-                    <TableHeaderColumn >Bedarf2</TableHeaderColumn>
-                    <TableHeaderColumn >Bedarf3</TableHeaderColumn>
-                    <TableHeaderColumn >Bedarf4</TableHeaderColumn>
+                    <TableHeaderColumn >{this.state.Perioden.periode1}</TableHeaderColumn>
+                    <TableHeaderColumn >{this.state.Perioden.periode2}</TableHeaderColumn>
+                    <TableHeaderColumn >{this.state.Perioden.periode3}</TableHeaderColumn>
+                    <TableHeaderColumn >{this.state.Perioden.periode4}</TableHeaderColumn>
                     <TableHeaderColumn >Menge</TableHeaderColumn>
-                    <TableHeaderColumn >Art</TableHeaderColumn>
+                    <TableHeaderColumn >Art (normal/eil)</TableHeaderColumn>
                   </TableRow>
                 </TableHeader>
 
@@ -1236,8 +1731,2507 @@ class Kaufteildisposition extends React.Component {
                       <Toggle
                         name="toggleE21"
                         value="toggleE21"
+                        ref="toggleE21"
                         onToggle={this._handleBestellungArtChange}
                         defaultToggled={this.state.BestellungArt.E21}/>
+                    </TableRowColumn>
+                  </TableRow>
+
+                  <TableRow>
+                    <TableRowColumn>
+                      E22
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <TextField
+                        hintText="Lieferzeit"
+                        disabled = {true}
+                        value= {this.state.Lieferzeit.E22}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Abweichung"
+                        disabled = {true}
+                        value= {this.state.Abweichung.E22}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="BenoetigtFuerP1"
+                        disabled = {true}
+                        value= {this.state.BenoetigtFuerP1.E22}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="BenoetigtFuerP2"
+                        disabled = {true}
+                        value= {this.state.BenoetigtFuerP2.E22}/>
+                  </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="BenoetigtFuerP3"
+                        disabled = {true}
+                        value= {this.state.BenoetigtFuerP3.E22}/>
+                  </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Diskontmenge"
+                        disabled = {true}
+                        value= {this.state.Diskontmenge.E22}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Anfangsbestand"
+                        disabled = {true}
+                        value= {this.state.Anfangsbestand.E22}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf1"
+                        disabled = {true}
+                        value= {this.state.Bedarf1.E22}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf2"
+                        disabled = {true}
+                        value= {this.state.Bedarf2.E22}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf3"
+                        disabled = {true}
+                        value= {this.state.Bedarf3.E22}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf4"
+                        disabled = {true}
+                        value= {this.state.Bedarf4.E22}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <TextField
+                        hintText="BestellungMenge"
+                        id="E22"
+                        errorText={this.state.errorTextBestellungMenge.E22}
+                        errorStyle={{color:'orange'}}
+                        onChange={this._handleBestellungMengeChange}
+                        value= {this.state.BestellungMenge.E22}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <Toggle
+                        name="toggleE22"
+                        value="toggleE22"
+                        ref="toggleE22"
+                        onToggle={this._handleBestellungArtChange}
+                        defaultToggled={this.state.BestellungArt.E22}/>
+                    </TableRowColumn>
+                  </TableRow>
+
+                  <TableRow>
+                    <TableRowColumn>
+                      E23
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <TextField
+                        hintText="Lieferzeit"
+                        disabled = {true}
+                        value= {this.state.Lieferzeit.E23}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Abweichung"
+                        disabled = {true}
+                        value= {this.state.Abweichung.E23}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="BenoetigtFuerP1"
+                        disabled = {true}
+                        value= {this.state.BenoetigtFuerP1.E23}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="BenoetigtFuerP2"
+                        disabled = {true}
+                        value= {this.state.BenoetigtFuerP2.E23}/>
+                  </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="BenoetigtFuerP3"
+                        disabled = {true}
+                        value= {this.state.BenoetigtFuerP3.E23}/>
+                  </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Diskontmenge"
+                        disabled = {true}
+                        value= {this.state.Diskontmenge.E23}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Anfangsbestand"
+                        disabled = {true}
+                        value= {this.state.Anfangsbestand.E23}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf1"
+                        disabled = {true}
+                        value= {this.state.Bedarf1.E23}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf2"
+                        disabled = {true}
+                        value= {this.state.Bedarf2.E23}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf3"
+                        disabled = {true}
+                        value= {this.state.Bedarf3.E23}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf4"
+                        disabled = {true}
+                        value= {this.state.Bedarf4.E23}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <TextField
+                        hintText="BestellungMenge"
+                        id="E23"
+                        errorText={this.state.errorTextBestellungMenge.E23}
+                        errorStyle={{color:'orange'}}
+                        onChange={this._handleBestellungMengeChange}
+                        value= {this.state.BestellungMenge.E22}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <Toggle
+                        name="toggleE23"
+                        value="toggleE23"
+                        ref="toggleE23"
+                        onToggle={this._handleBestellungArtChange}
+                        defaultToggled={this.state.BestellungArt.E23}/>
+                    </TableRowColumn>
+                  </TableRow>
+
+                  <TableRow>
+                    <TableRowColumn>
+                      E24
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <TextField
+                        hintText="Lieferzeit"
+                        disabled = {true}
+                        value= {this.state.Lieferzeit.E24}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Abweichung"
+                        disabled = {true}
+                        value= {this.state.Abweichung.E24}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="BenoetigtFuerP1"
+                        disabled = {true}
+                        value= {this.state.BenoetigtFuerP1.E24}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="BenoetigtFuerP2"
+                        disabled = {true}
+                        value= {this.state.BenoetigtFuerP2.E24}/>
+                  </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="BenoetigtFuerP3"
+                        disabled = {true}
+                        value= {this.state.BenoetigtFuerP3.E24}/>
+                  </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Diskontmenge"
+                        disabled = {true}
+                        value= {this.state.Diskontmenge.E24}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Anfangsbestand"
+                        disabled = {true}
+                        value= {this.state.Anfangsbestand.E24}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf1"
+                        disabled = {true}
+                        value= {this.state.Bedarf1.E24}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf2"
+                        disabled = {true}
+                        value= {this.state.Bedarf2.E24}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf3"
+                        disabled = {true}
+                        value= {this.state.Bedarf3.E24}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf4"
+                        disabled = {true}
+                        value= {this.state.Bedarf4.E24}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <TextField
+                        hintText="BestellungMenge"
+                        id="E24"
+                        errorText={this.state.errorTextBestellungMenge.E24}
+                        errorStyle={{color:'orange'}}
+                        onChange={this._handleBestellungMengeChange}
+                        value= {this.state.BestellungMenge.E24}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <Toggle
+                        name="toggleE24"
+                        value="toggleE24"
+                        ref="toggleE24"
+                        onToggle={this._handleBestellungArtChange}
+                        defaultToggled={this.state.BestellungArt.E24}/>
+                    </TableRowColumn>
+                  </TableRow>
+
+                  <TableRow>
+                    <TableRowColumn>
+                      E25
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <TextField
+                        hintText="Lieferzeit"
+                        disabled = {true}
+                        value= {this.state.Lieferzeit.E25}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Abweichung"
+                        disabled = {true}
+                        value= {this.state.Abweichung.E25}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="BenoetigtFuerP1"
+                        disabled = {true}
+                        value= {this.state.BenoetigtFuerP1.E25}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="BenoetigtFuerP2"
+                        disabled = {true}
+                        value= {this.state.BenoetigtFuerP2.E25}/>
+                  </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="BenoetigtFuerP3"
+                        disabled = {true}
+                        value= {this.state.BenoetigtFuerP3.E25}/>
+                  </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Diskontmenge"
+                        disabled = {true}
+                        value= {this.state.Diskontmenge.E25}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Anfangsbestand"
+                        disabled = {true}
+                        value= {this.state.Anfangsbestand.E25}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf1"
+                        disabled = {true}
+                        value= {this.state.Bedarf1.E25}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf2"
+                        disabled = {true}
+                        value= {this.state.Bedarf2.E25}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf3"
+                        disabled = {true}
+                        value= {this.state.Bedarf3.E25}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf4"
+                        disabled = {true}
+                        value= {this.state.Bedarf4.E25}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <TextField
+                        hintText="BestellungMenge"
+                        id="E25"
+                        errorText={this.state.errorTextBestellungMenge.E25}
+                        errorStyle={{color:'orange'}}
+                        onChange={this._handleBestellungMengeChange}
+                        value= {this.state.BestellungMenge.E25}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <Toggle
+                        name="toggleE25"
+                        value="toggleE25"
+                        ref="toggleE25"
+                        onToggle={this._handleBestellungArtChange}
+                        defaultToggled={this.state.BestellungArt.E25}/>
+                    </TableRowColumn>
+                  </TableRow>
+
+                  <TableRow>
+                    <TableRowColumn>
+                      E27
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <TextField
+                        hintText="Lieferzeit"
+                        disabled = {true}
+                        value= {this.state.Lieferzeit.E27}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Abweichung"
+                        disabled = {true}
+                        value= {this.state.Abweichung.E27}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="BenoetigtFuerP1"
+                        disabled = {true}
+                        value= {this.state.BenoetigtFuerP1.E27}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="BenoetigtFuerP2"
+                        disabled = {true}
+                        value= {this.state.BenoetigtFuerP2.E27}/>
+                  </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="BenoetigtFuerP3"
+                        disabled = {true}
+                        value= {this.state.BenoetigtFuerP3.E27}/>
+                  </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Diskontmenge"
+                        disabled = {true}
+                        value= {this.state.Diskontmenge.E27}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Anfangsbestand"
+                        disabled = {true}
+                        value= {this.state.Anfangsbestand.E27}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf1"
+                        disabled = {true}
+                        value= {this.state.Bedarf1.E27}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf2"
+                        disabled = {true}
+                        value= {this.state.Bedarf2.E27}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf3"
+                        disabled = {true}
+                        value= {this.state.Bedarf3.E27}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf4"
+                        disabled = {true}
+                        value= {this.state.Bedarf4.E27}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <TextField
+                        hintText="BestellungMenge"
+                        id="E27"
+                        errorText={this.state.errorTextBestellungMenge.E27}
+                        errorStyle={{color:'orange'}}
+                        onChange={this._handleBestellungMengeChange}
+                        value= {this.state.BestellungMenge.E27}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <Toggle
+                        name="toggleE27"
+                        value="toggleE27"
+                        ref="toggleE27"
+                        onToggle={this._handleBestellungArtChange}
+                        defaultToggled={this.state.BestellungArt.E27}/>
+                    </TableRowColumn>
+                  </TableRow>
+
+                  <TableRow>
+                    <TableRowColumn>
+                      E28
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <TextField
+                        hintText="Lieferzeit"
+                        disabled = {true}
+                        value= {this.state.Lieferzeit.E28}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Abweichung"
+                        disabled = {true}
+                        value= {this.state.Abweichung.E28}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="BenoetigtFuerP1"
+                        disabled = {true}
+                        value= {this.state.BenoetigtFuerP1.E28}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="BenoetigtFuerP2"
+                        disabled = {true}
+                        value= {this.state.BenoetigtFuerP2.E28}/>
+                  </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="BenoetigtFuerP3"
+                        disabled = {true}
+                        value= {this.state.BenoetigtFuerP3.E28}/>
+                  </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Diskontmenge"
+                        disabled = {true}
+                        value= {this.state.Diskontmenge.E28}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Anfangsbestand"
+                        disabled = {true}
+                        value= {this.state.Anfangsbestand.E28}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf1"
+                        disabled = {true}
+                        value= {this.state.Bedarf1.E28}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf2"
+                        disabled = {true}
+                        value= {this.state.Bedarf2.E28}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf3"
+                        disabled = {true}
+                        value= {this.state.Bedarf3.E28}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf4"
+                        disabled = {true}
+                        value= {this.state.Bedarf4.E28}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <TextField
+                        hintText="BestellungMenge"
+                        id="E28"
+                        errorText={this.state.errorTextBestellungMenge.E28}
+                        errorStyle={{color:'orange'}}
+                        onChange={this._handleBestellungMengeChange}
+                        value= {this.state.BestellungMenge.E28}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <Toggle
+                        name="toggleE28"
+                        value="toggleE28"
+                        ref="toggleE28"
+                        onToggle={this._handleBestellungArtChange}
+                        defaultToggled={this.state.BestellungArt.E28}/>
+                    </TableRowColumn>
+                  </TableRow>
+
+                  <TableRow>
+                    <TableRowColumn>
+                      E32
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <TextField
+                        hintText="Lieferzeit"
+                        disabled = {true}
+                        value= {this.state.Lieferzeit.E32}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Abweichung"
+                        disabled = {true}
+                        value= {this.state.Abweichung.E32}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="BenoetigtFuerP1"
+                        disabled = {true}
+                        value= {this.state.BenoetigtFuerP1.E32}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="BenoetigtFuerP2"
+                        disabled = {true}
+                        value= {this.state.BenoetigtFuerP2.E32}/>
+                  </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="BenoetigtFuerP3"
+                        disabled = {true}
+                        value= {this.state.BenoetigtFuerP3.E32}/>
+                  </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Diskontmenge"
+                        disabled = {true}
+                        value= {this.state.Diskontmenge.E32}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Anfangsbestand"
+                        disabled = {true}
+                        value= {this.state.Anfangsbestand.E32}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf1"
+                        disabled = {true}
+                        value= {this.state.Bedarf1.E32}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf2"
+                        disabled = {true}
+                        value= {this.state.Bedarf2.E32}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf3"
+                        disabled = {true}
+                        value= {this.state.Bedarf3.E32}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf4"
+                        disabled = {true}
+                        value= {this.state.Bedarf4.E32}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <TextField
+                        hintText="BestellungMenge"
+                        id="E32"
+                        errorText={this.state.errorTextBestellungMenge.E32}
+                        errorStyle={{color:'orange'}}
+                        onChange={this._handleBestellungMengeChange}
+                        value= {this.state.BestellungMenge.E32}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <Toggle
+                        name="toggleE32"
+                        value="toggleE32"
+                        ref="toggleE32"
+                        onToggle={this._handleBestellungArtChange}
+                        defaultToggled={this.state.BestellungArt.E32}/>
+                    </TableRowColumn>
+                  </TableRow>
+
+                  <TableRow>
+                    <TableRowColumn>
+                      E33
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <TextField
+                        hintText="Lieferzeit"
+                        disabled = {true}
+                        value= {this.state.Lieferzeit.E33}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Abweichung"
+                        disabled = {true}
+                        value= {this.state.Abweichung.E33}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="BenoetigtFuerP1"
+                        disabled = {true}
+                        value= {this.state.BenoetigtFuerP1.E33}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="BenoetigtFuerP2"
+                        disabled = {true}
+                        value= {this.state.BenoetigtFuerP2.E33}/>
+                  </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="BenoetigtFuerP3"
+                        disabled = {true}
+                        value= {this.state.BenoetigtFuerP3.E33}/>
+                  </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Diskontmenge"
+                        disabled = {true}
+                        value= {this.state.Diskontmenge.E33}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Anfangsbestand"
+                        disabled = {true}
+                        value= {this.state.Anfangsbestand.E33}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf1"
+                        disabled = {true}
+                        value= {this.state.Bedarf1.E33}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf2"
+                        disabled = {true}
+                        value= {this.state.Bedarf2.E33}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf3"
+                        disabled = {true}
+                        value= {this.state.Bedarf3.E33}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf4"
+                        disabled = {true}
+                        value= {this.state.Bedarf4.E33}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <TextField
+                        hintText="BestellungMenge"
+                        id="E33"
+                        errorText={this.state.errorTextBestellungMenge.E33}
+                        errorStyle={{color:'orange'}}
+                        onChange={this._handleBestellungMengeChange}
+                        value= {this.state.BestellungMenge.E33}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <Toggle
+                        name="toggleE33"
+                        value="toggleE33"
+                        ref="toggleE33"
+                        onToggle={this._handleBestellungArtChange}
+                        defaultToggled={this.state.BestellungArt.E33}/>
+                    </TableRowColumn>
+                  </TableRow>
+
+                  <TableRow>
+                    <TableRowColumn>
+                      E34
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <TextField
+                        hintText="Lieferzeit"
+                        disabled = {true}
+                        value= {this.state.Lieferzeit.E34}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Abweichung"
+                        disabled = {true}
+                        value= {this.state.Abweichung.E34}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="BenoetigtFuerP1"
+                        disabled = {true}
+                        value= {this.state.BenoetigtFuerP1.E34}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="BenoetigtFuerP2"
+                        disabled = {true}
+                        value= {this.state.BenoetigtFuerP2.E34}/>
+                  </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="BenoetigtFuerP3"
+                        disabled = {true}
+                        value= {this.state.BenoetigtFuerP3.E34}/>
+                  </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Diskontmenge"
+                        disabled = {true}
+                        value= {this.state.Diskontmenge.E34}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Anfangsbestand"
+                        disabled = {true}
+                        value= {this.state.Anfangsbestand.E34}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf1"
+                        disabled = {true}
+                        value= {this.state.Bedarf1.E34}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf2"
+                        disabled = {true}
+                        value= {this.state.Bedarf2.E34}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf3"
+                        disabled = {true}
+                        value= {this.state.Bedarf3.E34}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf4"
+                        disabled = {true}
+                        value= {this.state.Bedarf4.E34}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <TextField
+                        hintText="BestellungMenge"
+                        id="E34"
+                        errorText={this.state.errorTextBestellungMenge.E34}
+                        errorStyle={{color:'orange'}}
+                        onChange={this._handleBestellungMengeChange}
+                        value= {this.state.BestellungMenge.E34}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <Toggle
+                        name="toggleE34"
+                        value="toggleE34"
+                        ref="toggleE34"
+                        onToggle={this._handleBestellungArtChange}
+                        defaultToggled={this.state.BestellungArt.E34}/>
+                    </TableRowColumn>
+                  </TableRow>
+
+                  <TableRow>
+                    <TableRowColumn>
+                      E35
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <TextField
+                        hintText="Lieferzeit"
+                        disabled = {true}
+                        value= {this.state.Lieferzeit.E35}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Abweichung"
+                        disabled = {true}
+                        value= {this.state.Abweichung.E35}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="BenoetigtFuerP1"
+                        disabled = {true}
+                        value= {this.state.BenoetigtFuerP1.E35}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="BenoetigtFuerP2"
+                        disabled = {true}
+                        value= {this.state.BenoetigtFuerP2.E35}/>
+                  </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="BenoetigtFuerP3"
+                        disabled = {true}
+                        value= {this.state.BenoetigtFuerP3.E35}/>
+                  </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Diskontmenge"
+                        disabled = {true}
+                        value= {this.state.Diskontmenge.E35}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Anfangsbestand"
+                        disabled = {true}
+                        value= {this.state.Anfangsbestand.E35}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf1"
+                        disabled = {true}
+                        value= {this.state.Bedarf1.E35}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf2"
+                        disabled = {true}
+                        value= {this.state.Bedarf2.E35}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf3"
+                        disabled = {true}
+                        value= {this.state.Bedarf3.E35}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf4"
+                        disabled = {true}
+                        value= {this.state.Bedarf4.E35}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <TextField
+                        hintText="BestellungMenge"
+                        id="E35"
+                        errorText={this.state.errorTextBestellungMenge.E35}
+                        errorStyle={{color:'orange'}}
+                        onChange={this._handleBestellungMengeChange}
+                        value= {this.state.BestellungMenge.E35}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <Toggle
+                        name="toggleE35"
+                        value="toggleE35"
+                        ref="toggleE35"
+                        onToggle={this._handleBestellungArtChange}
+                        defaultToggled={this.state.BestellungArt.E35}/>
+                    </TableRowColumn>
+                  </TableRow>
+
+                  <TableRow>
+                    <TableRowColumn>
+                      E36
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <TextField
+                        hintText="Lieferzeit"
+                        disabled = {true}
+                        value= {this.state.Lieferzeit.E36}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Abweichung"
+                        disabled = {true}
+                        value= {this.state.Abweichung.E36}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="BenoetigtFuerP1"
+                        disabled = {true}
+                        value= {this.state.BenoetigtFuerP1.E36}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="BenoetigtFuerP2"
+                        disabled = {true}
+                        value= {this.state.BenoetigtFuerP2.E36}/>
+                  </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="BenoetigtFuerP3"
+                        disabled = {true}
+                        value= {this.state.BenoetigtFuerP3.E36}/>
+                  </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Diskontmenge"
+                        disabled = {true}
+                        value= {this.state.Diskontmenge.E36}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Anfangsbestand"
+                        disabled = {true}
+                        value= {this.state.Anfangsbestand.E36}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf1"
+                        disabled = {true}
+                        value= {this.state.Bedarf1.E36}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf2"
+                        disabled = {true}
+                        value= {this.state.Bedarf2.E36}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf3"
+                        disabled = {true}
+                        value= {this.state.Bedarf3.E36}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf4"
+                        disabled = {true}
+                        value= {this.state.Bedarf4.E36}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <TextField
+                        hintText="BestellungMenge"
+                        id="E36"
+                        errorText={this.state.errorTextBestellungMenge.E36}
+                        errorStyle={{color:'orange'}}
+                        onChange={this._handleBestellungMengeChange}
+                        value= {this.state.BestellungMenge.E36}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <Toggle
+                        name="toggleE36"
+                        value="toggleE36"
+                        ref="toggleE36"
+                        onToggle={this._handleBestellungArtChange}
+                        defaultToggled={this.state.BestellungArt.E36}/>
+                    </TableRowColumn>
+                  </TableRow>
+
+                  <TableRow>
+                    <TableRowColumn>
+                      E37
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <TextField
+                        hintText="Lieferzeit"
+                        disabled = {true}
+                        value= {this.state.Lieferzeit.E37}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Abweichung"
+                        disabled = {true}
+                        value= {this.state.Abweichung.E37}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="BenoetigtFuerP1"
+                        disabled = {true}
+                        value= {this.state.BenoetigtFuerP1.E37}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="BenoetigtFuerP2"
+                        disabled = {true}
+                        value= {this.state.BenoetigtFuerP2.E37}/>
+                  </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="BenoetigtFuerP3"
+                        disabled = {true}
+                        value= {this.state.BenoetigtFuerP3.E37}/>
+                  </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Diskontmenge"
+                        disabled = {true}
+                        value= {this.state.Diskontmenge.E37}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Anfangsbestand"
+                        disabled = {true}
+                        value= {this.state.Anfangsbestand.E37}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf1"
+                        disabled = {true}
+                        value= {this.state.Bedarf1.E37}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf2"
+                        disabled = {true}
+                        value= {this.state.Bedarf2.E37}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf3"
+                        disabled = {true}
+                        value= {this.state.Bedarf3.E37}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf4"
+                        disabled = {true}
+                        value= {this.state.Bedarf4.E37}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <TextField
+                        hintText="BestellungMenge"
+                        id="E37"
+                        errorText={this.state.errorTextBestellungMenge.E37}
+                        errorStyle={{color:'orange'}}
+                        onChange={this._handleBestellungMengeChange}
+                        value= {this.state.BestellungMenge.E37}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <Toggle
+                        name="toggleE37"
+                        value="toggleE37"
+                        ref="toggleE37"
+                        onToggle={this._handleBestellungArtChange}
+                        defaultToggled={this.state.BestellungArt.E37}/>
+                    </TableRowColumn>
+                  </TableRow>
+
+                  <TableRow>
+                    <TableRowColumn>
+                      E38
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <TextField
+                        hintText="Lieferzeit"
+                        disabled = {true}
+                        value= {this.state.Lieferzeit.E38}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Abweichung"
+                        disabled = {true}
+                        value= {this.state.Abweichung.E38}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="BenoetigtFuerP1"
+                        disabled = {true}
+                        value= {this.state.BenoetigtFuerP1.E38}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="BenoetigtFuerP2"
+                        disabled = {true}
+                        value= {this.state.BenoetigtFuerP2.E38}/>
+                  </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="BenoetigtFuerP3"
+                        disabled = {true}
+                        value= {this.state.BenoetigtFuerP3.E38}/>
+                  </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Diskontmenge"
+                        disabled = {true}
+                        value= {this.state.Diskontmenge.E38}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Anfangsbestand"
+                        disabled = {true}
+                        value= {this.state.Anfangsbestand.E38}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf1"
+                        disabled = {true}
+                        value= {this.state.Bedarf1.E38}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf2"
+                        disabled = {true}
+                        value= {this.state.Bedarf2.E38}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf3"
+                        disabled = {true}
+                        value= {this.state.Bedarf3.E38}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf4"
+                        disabled = {true}
+                        value= {this.state.Bedarf4.E38}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <TextField
+                        hintText="BestellungMenge"
+                        id="E38"
+                        errorText={this.state.errorTextBestellungMenge.E38}
+                        errorStyle={{color:'orange'}}
+                        onChange={this._handleBestellungMengeChange}
+                        value= {this.state.BestellungMenge.E38}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <Toggle
+                        name="toggleE38"
+                        value="toggleE38"
+                        ref="toggleE38"
+                        onToggle={this._handleBestellungArtChange}
+                        defaultToggled={this.state.BestellungArt.E38}/>
+                    </TableRowColumn>
+                  </TableRow>
+
+                  <TableRow>
+                    <TableRowColumn>
+                      E39
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <TextField
+                        hintText="Lieferzeit"
+                        disabled = {true}
+                        value= {this.state.Lieferzeit.E39}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Abweichung"
+                        disabled = {true}
+                        value= {this.state.Abweichung.E39}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="BenoetigtFuerP1"
+                        disabled = {true}
+                        value= {this.state.BenoetigtFuerP1.E39}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="BenoetigtFuerP2"
+                        disabled = {true}
+                        value= {this.state.BenoetigtFuerP2.E39}/>
+                  </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="BenoetigtFuerP3"
+                        disabled = {true}
+                        value= {this.state.BenoetigtFuerP3.E39}/>
+                  </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Diskontmenge"
+                        disabled = {true}
+                        value= {this.state.Diskontmenge.E39}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Anfangsbestand"
+                        disabled = {true}
+                        value= {this.state.Anfangsbestand.E39}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf1"
+                        disabled = {true}
+                        value= {this.state.Bedarf1.E39}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf2"
+                        disabled = {true}
+                        value= {this.state.Bedarf2.E39}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf3"
+                        disabled = {true}
+                        value= {this.state.Bedarf3.E39}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf4"
+                        disabled = {true}
+                        value= {this.state.Bedarf4.E39}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <TextField
+                        hintText="BestellungMenge"
+                        id="E39"
+                        errorText={this.state.errorTextBestellungMenge.E39}
+                        errorStyle={{color:'orange'}}
+                        onChange={this._handleBestellungMengeChange}
+                        value= {this.state.BestellungMenge.E39}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <Toggle
+                        name="toggleE39"
+                        value="toggleE39"
+                        ref="toggleE39"
+                        onToggle={this._handleBestellungArtChange}
+                        defaultToggled={this.state.BestellungArt.E39}/>
+                    </TableRowColumn>
+                  </TableRow>
+
+                  <TableRow>
+                    <TableRowColumn>
+                      E40
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <TextField
+                        hintText="Lieferzeit"
+                        disabled = {true}
+                        value= {this.state.Lieferzeit.E40}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Abweichung"
+                        disabled = {true}
+                        value= {this.state.Abweichung.E40}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="BenoetigtFuerP1"
+                        disabled = {true}
+                        value= {this.state.BenoetigtFuerP1.E40}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="BenoetigtFuerP2"
+                        disabled = {true}
+                        value= {this.state.BenoetigtFuerP2.E40}/>
+                  </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="BenoetigtFuerP3"
+                        disabled = {true}
+                        value= {this.state.BenoetigtFuerP3.E40}/>
+                  </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Diskontmenge"
+                        disabled = {true}
+                        value= {this.state.Diskontmenge.E40}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Anfangsbestand"
+                        disabled = {true}
+                        value= {this.state.Anfangsbestand.E40}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf1"
+                        disabled = {true}
+                        value= {this.state.Bedarf1.E40}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf2"
+                        disabled = {true}
+                        value= {this.state.Bedarf2.E40}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf3"
+                        disabled = {true}
+                        value= {this.state.Bedarf3.E40}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf4"
+                        disabled = {true}
+                        value= {this.state.Bedarf4.E40}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <TextField
+                        hintText="BestellungMenge"
+                        id="E40"
+                        errorText={this.state.errorTextBestellungMenge.E40}
+                        errorStyle={{color:'orange'}}
+                        onChange={this._handleBestellungMengeChange}
+                        value= {this.state.BestellungMenge.E40}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <Toggle
+                        name="toggleE40"
+                        value="toggleE40"
+                        ref="toggleE40"
+                        onToggle={this._handleBestellungArtChange}
+                        defaultToggled={this.state.BestellungArt.E40}/>
+                    </TableRowColumn>
+                  </TableRow>
+
+                  <TableRow>
+                    <TableRowColumn>
+                      E41
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <TextField
+                        hintText="Lieferzeit"
+                        disabled = {true}
+                        value= {this.state.Lieferzeit.E41}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Abweichung"
+                        disabled = {true}
+                        value= {this.state.Abweichung.E41}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="BenoetigtFuerP1"
+                        disabled = {true}
+                        value= {this.state.BenoetigtFuerP1.E41}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="BenoetigtFuerP2"
+                        disabled = {true}
+                        value= {this.state.BenoetigtFuerP2.E41}/>
+                  </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="BenoetigtFuerP3"
+                        disabled = {true}
+                        value= {this.state.BenoetigtFuerP3.E41}/>
+                  </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Diskontmenge"
+                        disabled = {true}
+                        value= {this.state.Diskontmenge.E41}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Anfangsbestand"
+                        disabled = {true}
+                        value= {this.state.Anfangsbestand.E41}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf1"
+                        disabled = {true}
+                        value= {this.state.Bedarf1.E41}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf2"
+                        disabled = {true}
+                        value= {this.state.Bedarf2.E41}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf3"
+                        disabled = {true}
+                        value= {this.state.Bedarf3.E41}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf4"
+                        disabled = {true}
+                        value= {this.state.Bedarf4.E41}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <TextField
+                        hintText="BestellungMenge"
+                        id="E41"
+                        errorText={this.state.errorTextBestellungMenge.E41}
+                        errorStyle={{color:'orange'}}
+                        onChange={this._handleBestellungMengeChange}
+                        value= {this.state.BestellungMenge.E41}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <Toggle
+                        name="toggleE41"
+                        value="toggleE41"
+                        ref="toggleE41"
+                        onToggle={this._handleBestellungArtChange}
+                        defaultToggled={this.state.BestellungArt.E41}/>
+                    </TableRowColumn>
+                  </TableRow>
+
+                   <TableRow>
+                    <TableRowColumn>
+                      E42
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <TextField
+                        hintText="Lieferzeit"
+                        disabled = {true}
+                        value= {this.state.Lieferzeit.E42}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Abweichung"
+                        disabled = {true}
+                        value= {this.state.Abweichung.E42}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="BenoetigtFuerP1"
+                        disabled = {true}
+                        value= {this.state.BenoetigtFuerP1.E42}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="BenoetigtFuerP2"
+                        disabled = {true}
+                        value= {this.state.BenoetigtFuerP2.E42}/>
+                  </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="BenoetigtFuerP3"
+                        disabled = {true}
+                        value= {this.state.BenoetigtFuerP3.E42}/>
+                  </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Diskontmenge"
+                        disabled = {true}
+                        value= {this.state.Diskontmenge.E42}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Anfangsbestand"
+                        disabled = {true}
+                        value= {this.state.Anfangsbestand.E42}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf1"
+                        disabled = {true}
+                        value= {this.state.Bedarf1.E42}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf2"
+                        disabled = {true}
+                        value= {this.state.Bedarf2.E42}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf3"
+                        disabled = {true}
+                        value= {this.state.Bedarf3.E42}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf4"
+                        disabled = {true}
+                        value= {this.state.Bedarf4.E42}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <TextField
+                        hintText="BestellungMenge"
+                        id="E42"
+                        errorText={this.state.errorTextBestellungMenge.E42}
+                        errorStyle={{color:'orange'}}
+                        onChange={this._handleBestellungMengeChange}
+                        value= {this.state.BestellungMenge.E42}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <Toggle
+                        name="toggleE42"
+                        value="toggleE42"
+                        ref="toggleE42"
+                        onToggle={this._handleBestellungArtChange}
+                        defaultToggled={this.state.BestellungArt.E42}/>
+                    </TableRowColumn>
+                  </TableRow>
+
+                   <TableRow>
+                    <TableRowColumn>
+                      E43
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <TextField
+                        hintText="Lieferzeit"
+                        disabled = {true}
+                        value= {this.state.Lieferzeit.E43}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Abweichung"
+                        disabled = {true}
+                        value= {this.state.Abweichung.E43}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="BenoetigtFuerP1"
+                        disabled = {true}
+                        value= {this.state.BenoetigtFuerP1.E43}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="BenoetigtFuerP2"
+                        disabled = {true}
+                        value= {this.state.BenoetigtFuerP2.E43}/>
+                  </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="BenoetigtFuerP3"
+                        disabled = {true}
+                        value= {this.state.BenoetigtFuerP3.E43}/>
+                  </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Diskontmenge"
+                        disabled = {true}
+                        value= {this.state.Diskontmenge.E43}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Anfangsbestand"
+                        disabled = {true}
+                        value= {this.state.Anfangsbestand.E43}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf1"
+                        disabled = {true}
+                        value= {this.state.Bedarf1.E43}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf2"
+                        disabled = {true}
+                        value= {this.state.Bedarf2.E43}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf3"
+                        disabled = {true}
+                        value= {this.state.Bedarf3.E43}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf4"
+                        disabled = {true}
+                        value= {this.state.Bedarf4.E43}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <TextField
+                        hintText="BestellungMenge"
+                        id="E43"
+                        errorText={this.state.errorTextBestellungMenge.E43}
+                        errorStyle={{color:'orange'}}
+                        onChange={this._handleBestellungMengeChange}
+                        value= {this.state.BestellungMenge.E43}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <Toggle
+                        name="toggleE43"
+                        value="toggleE43"
+                        ref="toggleE43"
+                        onToggle={this._handleBestellungArtChange}
+                        defaultToggled={this.state.BestellungArt.E43}/>
+                    </TableRowColumn>
+                  </TableRow>
+
+                  <TableRow>
+                    <TableRowColumn>
+                      E44
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <TextField
+                        hintText="Lieferzeit"
+                        disabled = {true}
+                        value= {this.state.Lieferzeit.E44}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Abweichung"
+                        disabled = {true}
+                        value= {this.state.Abweichung.E44}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="BenoetigtFuerP1"
+                        disabled = {true}
+                        value= {this.state.BenoetigtFuerP1.E44}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="BenoetigtFuerP2"
+                        disabled = {true}
+                        value= {this.state.BenoetigtFuerP2.E44}/>
+                  </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="BenoetigtFuerP3"
+                        disabled = {true}
+                        value= {this.state.BenoetigtFuerP3.E44}/>
+                  </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Diskontmenge"
+                        disabled = {true}
+                        value= {this.state.Diskontmenge.E44}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Anfangsbestand"
+                        disabled = {true}
+                        value= {this.state.Anfangsbestand.E44}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf1"
+                        disabled = {true}
+                        value= {this.state.Bedarf1.E44}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf2"
+                        disabled = {true}
+                        value= {this.state.Bedarf2.E44}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf3"
+                        disabled = {true}
+                        value= {this.state.Bedarf3.E44}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf4"
+                        disabled = {true}
+                        value= {this.state.Bedarf4.E44}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <TextField
+                        hintText="BestellungMenge"
+                        id="E44"
+                        errorText={this.state.errorTextBestellungMenge.E44}
+                        errorStyle={{color:'orange'}}
+                        onChange={this._handleBestellungMengeChange}
+                        value= {this.state.BestellungMenge.E44}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <Toggle
+                        name="toggleE44"
+                        value="toggleE44"
+                        ref="toggleE44"
+                        onToggle={this._handleBestellungArtChange}
+                        defaultToggled={this.state.BestellungArt.E44}/>
+                    </TableRowColumn>
+                  </TableRow>
+
+
+                  <TableRow>
+                    <TableRowColumn>
+                      E45
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <TextField
+                        hintText="Lieferzeit"
+                        disabled = {true}
+                        value= {this.state.Lieferzeit.E45}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Abweichung"
+                        disabled = {true}
+                        value= {this.state.Abweichung.E45}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="BenoetigtFuerP1"
+                        disabled = {true}
+                        value= {this.state.BenoetigtFuerP1.E45}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="BenoetigtFuerP2"
+                        disabled = {true}
+                        value= {this.state.BenoetigtFuerP2.E45}/>
+                  </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="BenoetigtFuerP3"
+                        disabled = {true}
+                        value= {this.state.BenoetigtFuerP3.E45}/>
+                  </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Diskontmenge"
+                        disabled = {true}
+                        value= {this.state.Diskontmenge.E45}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Anfangsbestand"
+                        disabled = {true}
+                        value= {this.state.Anfangsbestand.E45}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf1"
+                        disabled = {true}
+                        value= {this.state.Bedarf1.E45}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf2"
+                        disabled = {true}
+                        value= {this.state.Bedarf2.E45}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf3"
+                        disabled = {true}
+                        value= {this.state.Bedarf3.E45}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf4"
+                        disabled = {true}
+                        value= {this.state.Bedarf4.E45}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <TextField
+                        hintText="BestellungMenge"
+                        id="E45"
+                        errorText={this.state.errorTextBestellungMenge.E45}
+                        errorStyle={{color:'orange'}}
+                        onChange={this._handleBestellungMengeChange}
+                        value= {this.state.BestellungMenge.E45}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <Toggle
+                        name="toggleE45"
+                        value="toggleE45"
+                        ref="toggleE45"
+                        onToggle={this._handleBestellungArtChange}
+                        defaultToggled={this.state.BestellungArt.E45}/>
+                    </TableRowColumn>
+                  </TableRow>
+
+
+                  <TableRow>
+                    <TableRowColumn>
+                      E46
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <TextField
+                        hintText="Lieferzeit"
+                        disabled = {true}
+                        value= {this.state.Lieferzeit.E46}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Abweichung"
+                        disabled = {true}
+                        value= {this.state.Abweichung.E46}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="BenoetigtFuerP1"
+                        disabled = {true}
+                        value= {this.state.BenoetigtFuerP1.E46}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="BenoetigtFuerP2"
+                        disabled = {true}
+                        value= {this.state.BenoetigtFuerP2.E46}/>
+                  </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="BenoetigtFuerP3"
+                        disabled = {true}
+                        value= {this.state.BenoetigtFuerP3.E46}/>
+                  </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Diskontmenge"
+                        disabled = {true}
+                        value= {this.state.Diskontmenge.E46}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Anfangsbestand"
+                        disabled = {true}
+                        value= {this.state.Anfangsbestand.E46}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf1"
+                        disabled = {true}
+                        value= {this.state.Bedarf1.E46}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf2"
+                        disabled = {true}
+                        value= {this.state.Bedarf2.E46}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf3"
+                        disabled = {true}
+                        value= {this.state.Bedarf3.E46}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf4"
+                        disabled = {true}
+                        value= {this.state.Bedarf4.E46}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <TextField
+                        hintText="BestellungMenge"
+                        id="E46"
+                        errorText={this.state.errorTextBestellungMenge.E46}
+                        errorStyle={{color:'orange'}}
+                        onChange={this._handleBestellungMengeChange}
+                        value= {this.state.BestellungMenge.E46}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <Toggle
+                        name="toggleE46"
+                        value="toggleE46"
+                        ref="toggleE46"
+                        onToggle={this._handleBestellungArtChange}
+                        defaultToggled={this.state.BestellungArt.E46}/>
+                    </TableRowColumn>
+                  </TableRow>
+
+                  <TableRow>
+                    <TableRowColumn>
+                      E47
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <TextField
+                        hintText="Lieferzeit"
+                        disabled = {true}
+                        value= {this.state.Lieferzeit.E47}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Abweichung"
+                        disabled = {true}
+                        value= {this.state.Abweichung.E47}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="BenoetigtFuerP1"
+                        disabled = {true}
+                        value= {this.state.BenoetigtFuerP1.E47}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="BenoetigtFuerP2"
+                        disabled = {true}
+                        value= {this.state.BenoetigtFuerP2.E47}/>
+                  </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="BenoetigtFuerP3"
+                        disabled = {true}
+                        value= {this.state.BenoetigtFuerP3.E47}/>
+                  </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Diskontmenge"
+                        disabled = {true}
+                        value= {this.state.Diskontmenge.E47}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Anfangsbestand"
+                        disabled = {true}
+                        value= {this.state.Anfangsbestand.E47}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf1"
+                        disabled = {true}
+                        value= {this.state.Bedarf1.E47}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf2"
+                        disabled = {true}
+                        value= {this.state.Bedarf2.E47}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf3"
+                        disabled = {true}
+                        value= {this.state.Bedarf3.E47}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf4"
+                        disabled = {true}
+                        value= {this.state.Bedarf4.E47}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <TextField
+                        hintText="BestellungMenge"
+                        id="E47"
+                        errorText={this.state.errorTextBestellungMenge.E47}
+                        errorStyle={{color:'orange'}}
+                        onChange={this._handleBestellungMengeChange}
+                        value= {this.state.BestellungMenge.E47}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <Toggle
+                        name="toggleE47"
+                        value="toggleE47"
+                        ref="toggleE47"
+                        onToggle={this._handleBestellungArtChange}
+                        defaultToggled={this.state.BestellungArt.E47}/>
+                    </TableRowColumn>
+                  </TableRow>
+
+
+                  <TableRow>
+                    <TableRowColumn>
+                      E48
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <TextField
+                        hintText="Lieferzeit"
+                        disabled = {true}
+                        value= {this.state.Lieferzeit.E48}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Abweichung"
+                        disabled = {true}
+                        value= {this.state.Abweichung.E48}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="BenoetigtFuerP1"
+                        disabled = {true}
+                        value= {this.state.BenoetigtFuerP1.E48}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="BenoetigtFuerP2"
+                        disabled = {true}
+                        value= {this.state.BenoetigtFuerP2.E48}/>
+                  </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="BenoetigtFuerP3"
+                        disabled = {true}
+                        value= {this.state.BenoetigtFuerP3.E48}/>
+                  </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Diskontmenge"
+                        disabled = {true}
+                        value= {this.state.Diskontmenge.E48}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Anfangsbestand"
+                        disabled = {true}
+                        value= {this.state.Anfangsbestand.E48}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf1"
+                        disabled = {true}
+                        value= {this.state.Bedarf1.E48}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf2"
+                        disabled = {true}
+                        value= {this.state.Bedarf2.E48}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf3"
+                        disabled = {true}
+                        value= {this.state.Bedarf3.E48}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf4"
+                        disabled = {true}
+                        value= {this.state.Bedarf4.E48}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <TextField
+                        hintText="BestellungMenge"
+                        id="E48"
+                        errorText={this.state.errorTextBestellungMenge.E48}
+                        errorStyle={{color:'orange'}}
+                        onChange={this._handleBestellungMengeChange}
+                        value= {this.state.BestellungMenge.E48}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <Toggle
+                        name="toggleE48"
+                        value="toggleE48"
+                        ref="toggleE48"
+                        onToggle={this._handleBestellungArtChange}
+                        defaultToggled={this.state.BestellungArt.E48}/>
+                    </TableRowColumn>
+                  </TableRow>
+
+
+                  <TableRow>
+                    <TableRowColumn>
+                      E52
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <TextField
+                        hintText="Lieferzeit"
+                        disabled = {true}
+                        value= {this.state.Lieferzeit.E52}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Abweichung"
+                        disabled = {true}
+                        value= {this.state.Abweichung.E52}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="BenoetigtFuerP1"
+                        disabled = {true}
+                        value= {this.state.BenoetigtFuerP1.E52}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="BenoetigtFuerP2"
+                        disabled = {true}
+                        value= {this.state.BenoetigtFuerP2.E52}/>
+                  </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="BenoetigtFuerP3"
+                        disabled = {true}
+                        value= {this.state.BenoetigtFuerP3.E52}/>
+                  </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Diskontmenge"
+                        disabled = {true}
+                        value= {this.state.Diskontmenge.E52}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Anfangsbestand"
+                        disabled = {true}
+                        value= {this.state.Anfangsbestand.E52}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf1"
+                        disabled = {true}
+                        value= {this.state.Bedarf1.E52}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf2"
+                        disabled = {true}
+                        value= {this.state.Bedarf2.E52}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf3"
+                        disabled = {true}
+                        value= {this.state.Bedarf3.E52}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf4"
+                        disabled = {true}
+                        value= {this.state.Bedarf4.E52}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <TextField
+                        hintText="BestellungMenge"
+                        id="E52"
+                        errorText={this.state.errorTextBestellungMenge.E52}
+                        errorStyle={{color:'orange'}}
+                        onChange={this._handleBestellungMengeChange}
+                        value= {this.state.BestellungMenge.E52}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <Toggle
+                        name="toggleE52"
+                        value="toggleE52"
+                        ref="toggleE52"
+                        onToggle={this._handleBestellungArtChange}
+                        defaultToggled={this.state.BestellungArt.E52}/>
+                    </TableRowColumn>
+                  </TableRow>
+
+
+                  <TableRow>
+                    <TableRowColumn>
+                      E53
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <TextField
+                        hintText="Lieferzeit"
+                        disabled = {true}
+                        value= {this.state.Lieferzeit.E53}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Abweichung"
+                        disabled = {true}
+                        value= {this.state.Abweichung.E53}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="BenoetigtFuerP1"
+                        disabled = {true}
+                        value= {this.state.BenoetigtFuerP1.E53}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="BenoetigtFuerP2"
+                        disabled = {true}
+                        value= {this.state.BenoetigtFuerP2.E53}/>
+                  </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="BenoetigtFuerP3"
+                        disabled = {true}
+                        value= {this.state.BenoetigtFuerP3.E53}/>
+                  </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Diskontmenge"
+                        disabled = {true}
+                        value= {this.state.Diskontmenge.E53}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Anfangsbestand"
+                        disabled = {true}
+                        value= {this.state.Anfangsbestand.E53}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf1"
+                        disabled = {true}
+                        value= {this.state.Bedarf1.E53}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf2"
+                        disabled = {true}
+                        value= {this.state.Bedarf2.E53}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf3"
+                        disabled = {true}
+                        value= {this.state.Bedarf3.E53}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf4"
+                        disabled = {true}
+                        value= {this.state.Bedarf4.E53}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <TextField
+                        hintText="BestellungMenge"
+                        id="E53"
+                        errorText={this.state.errorTextBestellungMenge.E53}
+                        errorStyle={{color:'orange'}}
+                        onChange={this._handleBestellungMengeChange}
+                        value= {this.state.BestellungMenge.E53}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <Toggle
+                        name="toggleE53"
+                        value="toggleE53"
+                        ref="toggleE53"
+                        onToggle={this._handleBestellungArtChange}
+                        defaultToggled={this.state.BestellungArt.E53}/>
+                    </TableRowColumn>
+                  </TableRow>
+
+                    <TableRow>
+                    <TableRowColumn>
+                      E57
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <TextField
+                        hintText="Lieferzeit"
+                        disabled = {true}
+                        value= {this.state.Lieferzeit.E57}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Abweichung"
+                        disabled = {true}
+                        value= {this.state.Abweichung.E57}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="BenoetigtFuerP1"
+                        disabled = {true}
+                        value= {this.state.BenoetigtFuerP1.E57}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="BenoetigtFuerP2"
+                        disabled = {true}
+                        value= {this.state.BenoetigtFuerP2.E57}/>
+                  </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="BenoetigtFuerP3"
+                        disabled = {true}
+                        value= {this.state.BenoetigtFuerP3.E57}/>
+                  </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Diskontmenge"
+                        disabled = {true}
+                        value= {this.state.Diskontmenge.E57}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Anfangsbestand"
+                        disabled = {true}
+                        value= {this.state.Anfangsbestand.E57}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf1"
+                        disabled = {true}
+                        value= {this.state.Bedarf1.E57}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf2"
+                        disabled = {true}
+                        value= {this.state.Bedarf2.E57}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf3"
+                        disabled = {true}
+                        value= {this.state.Bedarf3.E57}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf4"
+                        disabled = {true}
+                        value= {this.state.Bedarf4.E57}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <TextField
+                        hintText="BestellungMenge"
+                        id="E57"
+                        errorText={this.state.errorTextBestellungMenge.E57}
+                        errorStyle={{color:'orange'}}
+                        onChange={this._handleBestellungMengeChange}
+                        value= {this.state.BestellungMenge.E57}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <Toggle
+                        name="toggleE57"
+                        value="toggleE57"
+                        ref="toggleE57"
+                        onToggle={this._handleBestellungArtChange}
+                        defaultToggled={this.state.BestellungArt.E57}/>
+                    </TableRowColumn>
+                  </TableRow>
+
+
+                  <TableRow>
+                    <TableRowColumn>
+                      E58
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <TextField
+                        hintText="Lieferzeit"
+                        disabled = {true}
+                        value= {this.state.Lieferzeit.E58}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Abweichung"
+                        disabled = {true}
+                        value= {this.state.Abweichung.E58}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="BenoetigtFuerP1"
+                        disabled = {true}
+                        value= {this.state.BenoetigtFuerP1.E58}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="BenoetigtFuerP2"
+                        disabled = {true}
+                        value= {this.state.BenoetigtFuerP2.E58}/>
+                  </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="BenoetigtFuerP3"
+                        disabled = {true}
+                        value= {this.state.BenoetigtFuerP3.E58}/>
+                  </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Diskontmenge"
+                        disabled = {true}
+                        value= {this.state.Diskontmenge.E58}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Anfangsbestand"
+                        disabled = {true}
+                        value= {this.state.Anfangsbestand.E58}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf1"
+                        disabled = {true}
+                        value= {this.state.Bedarf1.E58}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf2"
+                        disabled = {true}
+                        value= {this.state.Bedarf2.E58}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf3"
+                        disabled = {true}
+                        value= {this.state.Bedarf3.E58}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf4"
+                        disabled = {true}
+                        value= {this.state.Bedarf4.E58}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <TextField
+                        hintText="BestellungMenge"
+                        id="E58"
+                        errorText={this.state.errorTextBestellungMenge.E58}
+                        errorStyle={{color:'orange'}}
+                        onChange={this._handleBestellungMengeChange}
+                        value= {this.state.BestellungMenge.E58}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <Toggle
+                        name="toggleE58"
+                        value="toggleE58"
+                        ref="toggleE58"
+                        onToggle={this._handleBestellungArtChange}
+                        defaultToggled={this.state.BestellungArt.E58}/>
+                    </TableRowColumn>
+                  </TableRow>
+
+                   <TableRow>
+                    <TableRowColumn>
+                      E59
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <TextField
+                        hintText="Lieferzeit"
+                        disabled = {true}
+                        value= {this.state.Lieferzeit.E59}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Abweichung"
+                        disabled = {true}
+                        value= {this.state.Abweichung.E59}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="BenoetigtFuerP1"
+                        disabled = {true}
+                        value= {this.state.BenoetigtFuerP1.E59}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="BenoetigtFuerP2"
+                        disabled = {true}
+                        value= {this.state.BenoetigtFuerP2.E59}/>
+                  </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="BenoetigtFuerP3"
+                        disabled = {true}
+                        value= {this.state.BenoetigtFuerP3.E59}/>
+                  </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Diskontmenge"
+                        disabled = {true}
+                        value= {this.state.Diskontmenge.E59}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Anfangsbestand"
+                        disabled = {true}
+                        value= {this.state.Anfangsbestand.E59}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf1"
+                        disabled = {true}
+                        value= {this.state.Bedarf1.E59}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf2"
+                        disabled = {true}
+                        value= {this.state.Bedarf2.E59}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf3"
+                        disabled = {true}
+                        value= {this.state.Bedarf3.E59}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Bedarf4"
+                        disabled = {true}
+                        value= {this.state.Bedarf4.E59}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <TextField
+                        hintText="BestellungMenge"
+                        id="E59"
+                        errorText={this.state.errorTextBestellungMenge.E59}
+                        errorStyle={{color:'orange'}}
+                        onChange={this._handleBestellungMengeChange}
+                        value= {this.state.BestellungMenge.E59}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <Toggle
+                        name="toggleE59"
+                        value="toggleE59"
+                        ref="toggleE59"
+                        onToggle={this._handleBestellungArtChange}
+                        defaultToggled={this.state.BestellungArt.E59}/>
                     </TableRowColumn>
                   </TableRow>
 
@@ -1262,7 +4256,7 @@ class Kaufteildisposition extends React.Component {
                   <TableRow>
                     <TableHeaderColumn ></TableHeaderColumn>
                     <TableHeaderColumn >Menge</TableHeaderColumn>
-                    <TableHeaderColumn >Art</TableHeaderColumn>
+                    <TableHeaderColumn >Art (normal/eil)</TableHeaderColumn>
                   </TableRow>
                 </TableHeader>
 
@@ -1326,52 +4320,3 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps, dispatch => ({ dispatch }))(Kaufteildisposition)
-
-
-
- // { detailMode ?
- //                (
- //                  <TableRowColumn>
- //                  <TextField
- //                      hintText="Bedarf2"
- //                      disabled = {true}
- //                      value= {this.state.Bedarf2.E21}/>
- //                  </TableRowColumn>
- //                  <TableRowColumn>
- //                  <TextField
- //                      hintText="Bedarf3"
- //                      disabled = {true}
- //                      value= {this.state.Bedarf3.E21}/>
- //                  </TableRowColumn>
- //                  <TableRowColumn>
- //                  <TextField
- //                      hintText="Bedarf4"
- //                      disabled = {true}
- //                      value= {this.state.Bedarf4.E21}/>
- //                  </TableRowColumn>
- //                  <TableRowColumn>
- //                    <TextField
- //                      hintText="BestellungMenge"
- //                      id="E21"
- //                      errorText={this.state.errorTextBestellungMenge.E21}
- //                      errorStyle={{color:'orange'}}
- //                      onChange={this._handleBestellungMengeChange}
- //                      value= {this.state.BestellungMenge.E21}/>
- //                  </TableRowColumn>
- //                  <TableRowColumn>
- //                    <Toggle
- //                      name="toggleE21"
- //                      value="toggleE21"
- //                      onToggle={this._handleBestellungArtChange}
- //                      defaultToggled={this.state.BestellungArt.E21}/>
- //                  </TableRowColumn>
- //                  ) :
- //                  (
- //                    <TableRowColumn>
- //                    <TextField
- //                        hintText="Bedarf2"
- //                        disabled = {true}
- //                        value= {this.state.Bedarf2.E21}/>
- //                    </TableRowColumn>
- //                  )
- //              }

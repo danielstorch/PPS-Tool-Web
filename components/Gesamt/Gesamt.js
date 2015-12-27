@@ -363,6 +363,7 @@ class Gesamt extends React.Component {
       this.state.P3.Prognose = 0
 
       this._updateLocalStorage()
+      this.state.resetButtonDisabled = true
 
       this._updateVariables(false);
   }
