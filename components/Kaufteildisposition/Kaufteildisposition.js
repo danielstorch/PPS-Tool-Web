@@ -1049,9 +1049,9 @@ class Kaufteildisposition extends React.Component {
           <RaisedButton label="Save" primary={true} onTouchTap={this._handleSaveButtonClick}/>
           <RaisedButton label="Reset" secondary={true} disabled={this.state.resetButtonDisabled} onTouchTap={this._handleResetButtonClick}/>
           <Toggle
+                style={{"display": "inline-block", "width":"10%", "marginLeft":"10px", "paddingTop":"5px"}}
                 name="Detail mode"
                 value="Detail mode"
-                label="Detail mode"
                 onToggle={this._handleDetailModeChange}
                 defaultToggled={this.state.detailMode}/>
 
@@ -1126,21 +1126,34 @@ class Kaufteildisposition extends React.Component {
           selectable={this.state.selectable}
           >
           <TableHeader adjustForCheckbox={this.state.displayRowCheckbox} displaySelectAll={this.state.displayRowCheckbox} enableSelectAll={this.state.enableSelectAll}>
+          <TableRow>
+              <TableHeaderColumn >Item No.</TableHeaderColumn>
+              <TableHeaderColumn >Lieferzeit</TableHeaderColumn>
+              <TableHeaderColumn >Abweichung</TableHeaderColumn>
+              <TableHeaderColumn colSpan="3"  style={{textAlign: 'center'}}>
+                Benötigt für:
+              </TableHeaderColumn>
+              <TableHeaderColumn >Diskontmenge</TableHeaderColumn>
+              <TableHeaderColumn >Anfangsbestand</TableHeaderColumn>
+              <TableHeaderColumn colSpan="4"  style={{textAlign: 'center'}}>
+                Bedarf
+              </TableHeaderColumn>
+              <TableHeaderColumn colSpan="2"  style={{textAlign: 'center'}}>
+                Bestellung
+              </TableHeaderColumn>
+            </TableRow>
             <TableRow>
-              <TableHeaderColumn tooltip='Item No.'>Item No.</TableHeaderColumn>
-              <TableHeaderColumn tooltip='Lieferzeit'>Lieferzeit</TableHeaderColumn>
-              <TableHeaderColumn tooltip='Abweichung'>Abweichung</TableHeaderColumn>
-              <TableHeaderColumn tooltip='P1(Herren)'>P1(Herren)</TableHeaderColumn>
-              <TableHeaderColumn tooltip='P2(Frauen)'>P2(Frauen)</TableHeaderColumn>
-              <TableHeaderColumn tooltip='P3(Kinder)'>P3(Kinder)</TableHeaderColumn>
-              <TableHeaderColumn tooltip='Diskontmenge'>Diskontmenge</TableHeaderColumn>
-              <TableHeaderColumn tooltip='Anfangsbestand'>Anfangsbestand</TableHeaderColumn>
-              <TableHeaderColumn tooltip='Bedarf1'>StaBedarf1tus</TableHeaderColumn>
-              <TableHeaderColumn tooltip='Bedarf2'>Bedarf2</TableHeaderColumn>
-              <TableHeaderColumn tooltip='Bedarf3'>Bedarf3</TableHeaderColumn>
-              <TableHeaderColumn tooltip='Bedarf4'>Bedarf4</TableHeaderColumn>
-              <TableHeaderColumn tooltip='BestellungMenge'>BestellungMenge</TableHeaderColumn>
-              <TableHeaderColumn tooltip='BestellungArt'>BestellungArt</TableHeaderColumn>
+              <TableHeaderColumn colSpan="3"  ></TableHeaderColumn>
+              <TableHeaderColumn >P1(Herren)</TableHeaderColumn>
+              <TableHeaderColumn >P2(Frauen)</TableHeaderColumn>
+              <TableHeaderColumn >P3(Kinder)</TableHeaderColumn>
+              <TableHeaderColumn colSpan="2"  ></TableHeaderColumn>
+              <TableHeaderColumn >Bedarf1</TableHeaderColumn>
+              <TableHeaderColumn >Bedarf2</TableHeaderColumn>
+              <TableHeaderColumn >Bedarf3</TableHeaderColumn>
+              <TableHeaderColumn >Bedarf4</TableHeaderColumn>
+              <TableHeaderColumn >Menge</TableHeaderColumn>
+              <TableHeaderColumn >Art</TableHeaderColumn>
             </TableRow>
           </TableHeader>
 
@@ -1197,46 +1210,40 @@ class Kaufteildisposition extends React.Component {
                   disabled = {true}
                   value= {this.state.Bedarf1.E21}/>
               </TableRowColumn>
-                  <TableRowColumn>
-                  <TextField
-                      hintText="Bedarf2"
-                      disabled = {true}
-                      value= {this.state.Bedarf2.E21}/>
-                  </TableRowColumn>
-                  <TableRowColumn>
-                  <TextField
-                      hintText="Bedarf3"
-                      disabled = {true}
-                      value= {this.state.Bedarf3.E21}/>
-                  </TableRowColumn>
-                  <TableRowColumn>
-                  <TextField
-                      hintText="Bedarf4"
-                      disabled = {true}
-                      value= {this.state.Bedarf4.E21}/>
-                  </TableRowColumn>
-                  <TableRowColumn>
-                    <TextField
-                      hintText="BestellungMenge"
-                      id="E21"
-                      errorText={this.state.errorTextBestellungMenge.E21}
-                      errorStyle={{color:'orange'}}
-                      onChange={this._handleBestellungMengeChange}
-                      value= {this.state.BestellungMenge.E21}/>
-                  </TableRowColumn>
-                  <TableRowColumn>
-                    <Toggle
-                      name="toggleE21"
-                      value="toggleE21"
-                      onToggle={this._handleBestellungArtChange}
-                      defaultToggled={this.state.BestellungArt.E21}/>
-                  </TableRowColumn>
-                    <TableRowColumn>
-                    <TextField
-                        hintText="Bedarf2"
-                        disabled = {true}
-                        value= {this.state.Bedarf2.E21}/>
-                    </TableRowColumn>
+              <TableRowColumn>
+              <TextField
+                  hintText="Bedarf2"
+                  disabled = {true}
+                  value= {this.state.Bedarf2.E21}/>
+              </TableRowColumn>
+              <TableRowColumn>
+              <TextField
+                  hintText="Bedarf3"
+                  disabled = {true}
+                  value= {this.state.Bedarf3.E21}/>
+              </TableRowColumn>
+              <TableRowColumn>
+              <TextField
+                  hintText="Bedarf4"
+                  disabled = {true}
+                  value= {this.state.Bedarf4.E21}/>
+              </TableRowColumn>
+              <TableRowColumn>
+                <TextField
+                  hintText="BestellungMenge"
+                  id="E21"
+                  errorText={this.state.errorTextBestellungMenge.E21}
+                  errorStyle={{color:'orange'}}
+                  onChange={this._handleBestellungMengeChange}
+                  value= {this.state.BestellungMenge.E21}/>
+              </TableRowColumn>
+              <TableRowColumn>
+                <Toggle
+                  name="toggleE21"
+                  value="toggleE21"
+                  onToggle={this._handleBestellungArtChange}
+                  defaultToggled={this.state.BestellungArt.E21}/>
+              </TableRowColumn>
             </TableRow>
 
           </TableBody>
