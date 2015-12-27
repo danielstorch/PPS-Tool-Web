@@ -36,6 +36,7 @@ class Kapazitaetsplanung extends React.Component {
     this._handleStundenChange = this._handleStundenChange.bind(this);
     this._handleSaveButtonClick = this._handleSaveButtonClick.bind(this);
     this._updateLocalStorage = this._updateLocalStorage.bind(this);
+    this._getWaitingslistworkstation = this._getWaitingslistworkstation.bind(this);
 
 
     this.state = {
@@ -374,7 +375,6 @@ class Kapazitaetsplanung extends React.Component {
     this._updateVariables(false);
 
   }
-
 
   _updateVariables(initial) {
     console.log('_updateVariables Method');
@@ -976,6 +976,20 @@ class Kapazitaetsplanung extends React.Component {
     this.state.Arbeitsplatz14.RüstzeitGesamt = this.state.Arbeitsplatz14.RüstzeitVorgang * this.state.Arbeitsplatz14.RüstVorgänge;
     this.state.Arbeitsplatz15.RüstzeitGesamt = this.state.Arbeitsplatz15.RüstzeitVorgang * this.state.Arbeitsplatz15.RüstVorgänge;
 
+    this._getWaitingslistworkstation('Arbeitsplatz1');
+    this._getWaitingslistworkstation('Arbeitsplatz2');
+    this._getWaitingslistworkstation('Arbeitsplatz3');
+    this._getWaitingslistworkstation('Arbeitsplatz4');
+    this._getWaitingslistworkstation('Arbeitsplatz6');
+    this._getWaitingslistworkstation('Arbeitsplatz7');
+    this._getWaitingslistworkstation('Arbeitsplatz8');
+    this._getWaitingslistworkstation('Arbeitsplatz9');
+    this._getWaitingslistworkstation('Arbeitsplatz10');
+    this._getWaitingslistworkstation('Arbeitsplatz11');
+    this._getWaitingslistworkstation('Arbeitsplatz12');
+    this._getWaitingslistworkstation('Arbeitsplatz13');
+    this._getWaitingslistworkstation('Arbeitsplatz14');
+    this._getWaitingslistworkstation('Arbeitsplatz15');
 
     this.state.Arbeitsplatz1.Gesamtkapazitätbedarf = this.state.Arbeitsplatz1.Kapazitätsbedarf + this.state.Arbeitsplatz1.RüstzeitGesamt + this.state.Arbeitsplatz1.Warteschlange;
     this.state.Arbeitsplatz2.Gesamtkapazitätbedarf = this.state.Arbeitsplatz2.Kapazitätsbedarf + this.state.Arbeitsplatz2.RüstzeitGesamt + this.state.Arbeitsplatz2.Warteschlange;
@@ -994,7 +1008,6 @@ class Kapazitaetsplanung extends React.Component {
 
 
   }
-
 
   _updateLocalStorage() {
     if (window.localStorage) {
@@ -1055,6 +1068,7 @@ class Kapazitaetsplanung extends React.Component {
           resetButtonDisabled: false
         });
       } else {
+        console.log('error');
         this.setState({
           openDialogStandardActions: true,
           dialogTitle: "Error",
@@ -1077,6 +1091,28 @@ class Kapazitaetsplanung extends React.Component {
     });
   }
 
+  _getWaitingslistworkstation(workstationId){
+    var workplaceNumber = workstationId.substring(12);
+    console.log('workstationId ' + workstationId)
+    console.log('workplaceNumber ' + workplaceNumber)
+    var activePeriodID = this.props.ActiveUploadXML.activeUploadXMLData.id.substring(7);
+    var currentInputXML = this.props.InputXMLs.find(xml => xml.id.substring(6) === activePeriodID);
+
+    var currentAmount = 0;
+    if(currentInputXML){
+      currentInputXML.inputDataObject.results.waitinglistworkstations[0].workplace.forEach(function (elementStation){
+       if(workplaceNumber == elementStation.$.id) {
+         console.log('elementStation.$.id ' + elementStation.$.id)
+         console.log('timeneed ' + elementStation.$.timeneed);
+         this.state[workstationId].Warteschlange = parseInt(elementStation.$.timeneed);
+       }
+      }.bind(this))
+
+    }
+
+    //console.log("Waitingslistworkstation: "+ articleId, currentAmount)
+    return currentAmount
+  }
 
   _handleResetButtonClick(e){
     this.props.dispatch(resetKapazitaetsplanungInputXML(this.props.ActiveUploadXML.activeUploadXMLData.id))
@@ -1397,7 +1433,18 @@ class Kapazitaetsplanung extends React.Component {
 
   }
 
+  _onDialogOk() {
+    this.setState({
+      openDialogStandardActions: false
+    });
+  }
+
   render() {
+
+    let standardActions = [
+      { text: 'Ok', onTouchTap: this._onDialogOk.bind(this), ref: 'ok' }
+    ];
+
     return (
       <div>
         <div>
@@ -3515,6 +3562,15 @@ class Kapazitaetsplanung extends React.Component {
           </TableBody>
         </Table>
 
+        <Dialog
+        ref="standardDialog"
+        title={this.state.dialogTitle}
+        actions={standardActions}
+        actionFocus="ok"
+        open={this.state.openDialogStandardActions}
+        onRequestClose={this._handleRequestClose}>
+        {this.state.dialogText}
+      </Dialog>
         <Snackbar
           ref="snackbar"
           message={this.state.snackBarmessage}
