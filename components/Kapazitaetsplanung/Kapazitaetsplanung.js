@@ -5,6 +5,7 @@ import _ from 'lodash'
 import Link from '../Link';
 import { connect } from 'react-redux';
 import { setKapazitaetsplanungInputXML } from '../Redux/Actions';
+import { resetKapazitaetsplanungInputXML } from '../Redux/Actions';
 
 const Table = require('material-ui/lib/table/table');
 const TableBody = require('material-ui/lib/table/table-body');
@@ -32,6 +33,7 @@ class Kapazitaetsplanung extends React.Component {
     this._handleDetailModeChange = this._handleDetailModeChange.bind(this);
     this._handleResetButtonClick = this._handleResetButtonClick.bind(this);
     this._handleSchichtenChange = this._handleSchichtenChange.bind(this);
+    this._handleStundenChange = this._handleStundenChange.bind(this);
     this._handleSaveButtonClick = this._handleSaveButtonClick.bind(this);
     this._updateLocalStorage = this._updateLocalStorage.bind(this);
 
@@ -53,7 +55,7 @@ class Kapazitaetsplanung extends React.Component {
       multiSelectable: false,
       enableSelectAll: false,
       deselectOnClickaway: false,
-      height: '1500px',
+      height: '1000px',
       showExpertMode: false,
       detailMode: false,
       currentPeriode: '',
@@ -327,31 +329,48 @@ class Kapazitaetsplanung extends React.Component {
       },
 
       errorTextSchicht: {
-        A1: '',
-        A2: '',
-        A3: '',
-        A4: '',
-        A6: '',
-        A7: '',
-        A8: '',
-        A9: '',
-        A10: '',
-        A11: '',
-        A12: '',
-        A13: '',
-        A14: '',
-        A15: ''
+        Arbeitsplatz1: '',
+        Arbeitsplatz2: '',
+        Arbeitsplatz3: '',
+        Arbeitsplatz4: '',
+        Arbeitsplatz6: '',
+        Arbeitsplatz7: '',
+        Arbeitsplatz8: '',
+        Arbeitsplatz9: '',
+        Arbeitsplatz10: '',
+        Arbeitsplatz11: '',
+        Arbeitsplatz12: '',
+        Arbeitsplatz13: '',
+        Arbeitsplatz14: '',
+        Arbeitsplatz15: ''
+      },
+      errorTextStunden: {
+        Arbeitsplatz1: '',
+        Arbeitsplatz2: '',
+        Arbeitsplatz3: '',
+        Arbeitsplatz4: '',
+        Arbeitsplatz6: '',
+        Arbeitsplatz7: '',
+        Arbeitsplatz8: '',
+        Arbeitsplatz9: '',
+        Arbeitsplatz10: '',
+        Arbeitsplatz11: '',
+        Arbeitsplatz12: '',
+        Arbeitsplatz13: '',
+        Arbeitsplatz14: '',
+        Arbeitsplatz15: ''
       }
     };
 
   }
 
   componentWillMount() {
+    console.log('componentWillMount')
     this._updateVariables(true)
   }
 
   componentDidUpdate() {
-
+    console.log('componentDidUpdate')
     this._updateVariables(false);
 
   }
@@ -366,10 +385,10 @@ class Kapazitaetsplanung extends React.Component {
     if (initial == true || this.state.currentPeriode != activePeriodID) {
 
       if (currentInputXML) {
-        console.log('XXXXXX');
+        console.log('currentInputXML')
 
         if (currentInputXML && currentInputXML.inputDataObject.kaufteildisposition) {
-          console.log('AAAAAAA');
+          console.log('currentInputXML && currentInputXML.inputDataObject.kaufteildisposition')
 
 
           this.state.Arbeitsplatz1.Schichten = currentInputXML.inputDataObject.kaufteildisposition.Arbeitsplatz1.Schichten;
@@ -405,7 +424,8 @@ class Kapazitaetsplanung extends React.Component {
           this.state.resetButtonDisabled = false
 
         } else {
-          console.log('BBBBBBB');
+          console.log('schauen ob Herren Damen Kinder vorhanden')
+          this.state.resetButtonDisabled = true
 
           if (currentInputXML.inputDataObject.auftragsplanungHerren) {
             this.state.Auftragsmenge.P1 = currentInputXML.inputDataObject.auftragsplanungHerren.AU.P1;
@@ -420,8 +440,6 @@ class Kapazitaetsplanung extends React.Component {
             this.state.Auftragsmenge.E7 = currentInputXML.inputDataObject.auftragsplanungHerren.AU.E7;
             this.state.Auftragsmenge.E13 = currentInputXML.inputDataObject.auftragsplanungHerren.AU.E13;
             this.state.Auftragsmenge.E18 = currentInputXML.inputDataObject.auftragsplanungHerren.AU.E18;
-            console.log('Hat herren');
-
           } else {
             this.state.Auftragsmenge.P1 = 0;
             this.state.Auftragsmenge.HE26 = 0;
@@ -435,7 +453,6 @@ class Kapazitaetsplanung extends React.Component {
             this.state.Auftragsmenge.E7 = 0;
             this.state.Auftragsmenge.E13 = 0;
             this.state.Auftragsmenge.E18 = 0;
-            console.log('Hat herren nicht');
 
           }
           if (currentInputXML.inputDataObject.auftragsplanungDamen) {
@@ -451,6 +468,7 @@ class Kapazitaetsplanung extends React.Component {
             this.state.Auftragsmenge.E8 = currentInputXML.inputDataObject.auftragsplanungDamen.AU.E8;
             this.state.Auftragsmenge.E14 = currentInputXML.inputDataObject.auftragsplanungDamen.AU.E14;
             this.state.Auftragsmenge.E19 = currentInputXML.inputDataObject.auftragsplanungDamen.AU.E19;
+
           } else {
             this.state.Auftragsmenge.P2 = 0;
             this.state.Auftragsmenge.DE26 = 0;
@@ -467,6 +485,7 @@ class Kapazitaetsplanung extends React.Component {
           }
 
           if (currentInputXML.inputDataObject.auftragsplanungKinder) {
+
             this.state.Auftragsmenge.P3 = currentInputXML.inputDataObject.auftragsplanungKinder.AU.P3;
             this.state.Auftragsmenge.KE26 = currentInputXML.inputDataObject.auftragsplanungKinder.AU.E26;
             this.state.Auftragsmenge.E31 = currentInputXML.inputDataObject.auftragsplanungKinder.AU.E31;
@@ -479,6 +498,7 @@ class Kapazitaetsplanung extends React.Component {
             this.state.Auftragsmenge.E9 = currentInputXML.inputDataObject.auftragsplanungKinder.AU.E9;
             this.state.Auftragsmenge.E15 = currentInputXML.inputDataObject.auftragsplanungKinder.AU.E15;
             this.state.Auftragsmenge.E20 = currentInputXML.inputDataObject.auftragsplanungKinder.AU.E20;
+
           } else {
             this.state.Auftragsmenge.P3 = 0;
             this.state.Auftragsmenge.KE26 = 0;
@@ -493,15 +513,289 @@ class Kapazitaetsplanung extends React.Component {
             this.state.Auftragsmenge.E15 = 0;
             this.state.Auftragsmenge.E20 = 0;
           }
+          if(currentInputXML.inputDataObject.kapazitaetsplanung){
+            this.state.Arbeitsplatz1.Schichten = currentInputXML.inputDataObject.kapazitaetsplanung.Arbeitsplatz1.Schichten;
+            this.state.Arbeitsplatz2.Schichten = currentInputXML.inputDataObject.kapazitaetsplanung.Arbeitsplatz2.Schichten;
+            this.state.Arbeitsplatz3.Schichten = currentInputXML.inputDataObject.kapazitaetsplanung.Arbeitsplatz3.Schichten;
+            this.state.Arbeitsplatz4.Schichten = currentInputXML.inputDataObject.kapazitaetsplanung.Arbeitsplatz4.Schichten;
+            this.state.Arbeitsplatz6.Schichten = currentInputXML.inputDataObject.kapazitaetsplanung.Arbeitsplatz6.Schichten;
+            this.state.Arbeitsplatz7.Schichten = currentInputXML.inputDataObject.kapazitaetsplanung.Arbeitsplatz7.Schichten;
+            this.state.Arbeitsplatz8.Schichten = currentInputXML.inputDataObject.kapazitaetsplanung.Arbeitsplatz8.Schichten;
+            this.state.Arbeitsplatz9.Schichten = currentInputXML.inputDataObject.kapazitaetsplanung.Arbeitsplatz9.Schichten;
+            this.state.Arbeitsplatz10.Schichten = currentInputXML.inputDataObject.kapazitaetsplanung.Arbeitsplatz10.Schichten;
+            this.state.Arbeitsplatz11.Schichten = currentInputXML.inputDataObject.kapazitaetsplanung.Arbeitsplatz11.Schichten;
+            this.state.Arbeitsplatz12.Schichten = currentInputXML.inputDataObject.kapazitaetsplanung.Arbeitsplatz12.Schichten;
+            this.state.Arbeitsplatz13.Schichten = currentInputXML.inputDataObject.kapazitaetsplanung.Arbeitsplatz13.Schichten;
+            this.state.Arbeitsplatz14.Schichten = currentInputXML.inputDataObject.kapazitaetsplanung.Arbeitsplatz14.Schichten;
+            this.state.Arbeitsplatz15.Schichten = currentInputXML.inputDataObject.kapazitaetsplanung.Arbeitsplatz15.Schichten;
 
-          this.state.resetButtonDisabled = true
+
+            this.state.Arbeitsplatz1.Überstunden = currentInputXML.inputDataObject.kapazitaetsplanung.Arbeitsplatz1.Überstunden;
+            this.state.Arbeitsplatz2.Überstunden = currentInputXML.inputDataObject.kapazitaetsplanung.Arbeitsplatz2.Überstunden;
+            this.state.Arbeitsplatz3.Überstunden = currentInputXML.inputDataObject.kapazitaetsplanung.Arbeitsplatz3.Überstunden;
+            this.state.Arbeitsplatz4.Überstunden = currentInputXML.inputDataObject.kapazitaetsplanung.Arbeitsplatz4.Überstunden;
+            this.state.Arbeitsplatz6.Überstunden = currentInputXML.inputDataObject.kapazitaetsplanung.Arbeitsplatz6.Überstunden;
+            this.state.Arbeitsplatz7.Überstunden = currentInputXML.inputDataObject.kapazitaetsplanung.Arbeitsplatz7.Überstunden;
+            this.state.Arbeitsplatz8.Überstunden = currentInputXML.inputDataObject.kapazitaetsplanung.Arbeitsplatz8.Überstunden;
+            this.state.Arbeitsplatz9.Überstunden = currentInputXML.inputDataObject.kapazitaetsplanung.Arbeitsplatz9.Überstunden;
+            this.state.Arbeitsplatz10.Überstunden = currentInputXML.inputDataObject.kapazitaetsplanung.Arbeitsplatz10.Überstunden;
+            this.state.Arbeitsplatz11.Überstunden = currentInputXML.inputDataObject.kapazitaetsplanung.Arbeitsplatz11.Überstunden;
+            this.state.Arbeitsplatz12.Überstunden = currentInputXML.inputDataObject.kapazitaetsplanung.Arbeitsplatz12.Überstunden;
+            this.state.Arbeitsplatz13.Überstunden = currentInputXML.inputDataObject.kapazitaetsplanung.Arbeitsplatz13.Überstunden;
+            this.state.Arbeitsplatz14.Überstunden = currentInputXML.inputDataObject.kapazitaetsplanung.Arbeitsplatz14.Überstunden;
+            this.state.Arbeitsplatz15.Überstunden = currentInputXML.inputDataObject.kapazitaetsplanung.Arbeitsplatz15.Überstunden;
+            this.state.resetButtonDisabled = true
+
+          } else {
+            console.log('Werte müssen berechnet werden')
+            //1
+            if (this.state.Arbeitsplatz1.Gesamtkapazitätbedarf < 2400) {
+              this.state.Arbeitsplatz1.Schichten = 1
+            } else if (this.state.Arbeitsplatz1.Gesamtkapazitätbedarf > 2401 && this.state.Arbeitsplatz1.Gesamtkapazitätbedarf < 3599) {
+              this.state.Arbeitsplatz1.Schichten = 1
+              this.state.Arbeitsplatz1.Überstunden = (this.state.Arbeitsplatz1.Gesamtkapazitätbedarf - 2400) / 5;
+            } else if (this.state.Arbeitsplatz1.Gesamtkapazitätbedarf > 3600 && this.state.Arbeitsplatz1.Gesamtkapazitätbedarf < 4800) {
+              this.state.Arbeitsplatz1.Schichten = 2
+            } else if (this.state.Arbeitsplatz1.Gesamtkapazitätbedarf > 4801 && this.state.Arbeitsplatz1.Gesamtkapazitätbedarf < 6000) {
+              this.state.Arbeitsplatz1.Schichten = 2
+              this.state.Arbeitsplatz1.Überstunden = (this.state.Arbeitsplatz1.Gesamtkapazitätbedarf - 4800) / 5;
+            } else if (this.state.Arbeitsplatz1.Gesamtkapazitätbedarf > 6001 && this.state.Arbeitsplatz1.Gesamtkapazitätbedarf < 7200) {
+              this.state.Arbeitsplatz1.Schichten = 3
+            } else {
+              //Fehlermeldung
+            }
+
+            //2
+            if (this.state.Arbeitsplatz2.Gesamtkapazitätbedarf < 2400) {
+              this.state.Arbeitsplatz2.Schichten = 1
+            } else if (this.state.Arbeitsplatz2.Gesamtkapazitätbedarf > 2401 && this.state.Arbeitsplatz2.Gesamtkapazitätbedarf < 3599) {
+              this.state.Arbeitsplatz2.Schichten = 1
+              this.state.Arbeitsplatz2.Überstunden = (this.state.Arbeitsplatz2.Gesamtkapazitätbedarf - 2400) / 5;
+            } else if (this.state.Arbeitsplatz2.Gesamtkapazitätbedarf > 3600 && this.state.Arbeitsplatz2.Gesamtkapazitätbedarf < 4800) {
+              this.state.Arbeitsplatz2.Schichten = 2
+            } else if (this.state.Arbeitsplatz2.Gesamtkapazitätbedarf > 4801 && this.state.Arbeitsplatz2.Gesamtkapazitätbedarf < 6000) {
+              this.state.Arbeitsplatz2.Schichten = 2
+              this.state.Arbeitsplatz2.Überstunden = (this.state.Arbeitsplatz2.Gesamtkapazitätbedarf - 4800) / 5;
+            } else if (this.state.Arbeitsplatz2.Gesamtkapazitätbedarf > 6001 && this.state.Arbeitsplatz2.Gesamtkapazitätbedarf < 7200) {
+              this.state.Arbeitsplatz2.Schichten = 3
+            } else {
+              //Fehlermeldung
+            }
+
+            //3
+            if (this.state.Arbeitsplatz3.Gesamtkapazitätbedarf < 2400) {
+              this.state.Arbeitsplatz3.Schichten = 1
+            } else if (this.state.Arbeitsplatz3.Gesamtkapazitätbedarf > 2401 && this.state.Arbeitsplatz3.Gesamtkapazitätbedarf < 3599) {
+              this.state.Arbeitsplatz3.Schichten = 1
+              this.state.Arbeitsplatz3.Überstunden = (this.state.Arbeitsplatz3.Gesamtkapazitätbedarf - 2400) / 5;
+            } else if (this.state.Arbeitsplatz3.Gesamtkapazitätbedarf > 3600 && this.state.Arbeitsplatz3.Gesamtkapazitätbedarf < 4800) {
+              this.state.Arbeitsplatz3.Schichten = 2
+            } else if (this.state.Arbeitsplatz3.Gesamtkapazitätbedarf > 4801 && this.state.Arbeitsplatz3.Gesamtkapazitätbedarf < 6000) {
+              this.state.Arbeitsplatz3.Schichten = 2
+              this.state.Arbeitsplatz3.Überstunden = (this.state.Arbeitsplatz3.Gesamtkapazitätbedarf - 4800) / 5;
+            } else if (this.state.Arbeitsplatz3.Gesamtkapazitätbedarf > 6001 && this.state.Arbeitsplatz3.Gesamtkapazitätbedarf < 7200) {
+              this.state.Arbeitsplatz3.Schichten = 3
+            } else {
+              //Fehlermeldung
+            }
+
+            //4
+            if (this.state.Arbeitsplatz4.Gesamtkapazitätbedarf < 2400) {
+              this.state.Arbeitsplatz4.Schichten = 1
+            } else if (this.state.Arbeitsplatz4.Gesamtkapazitätbedarf > 2401 && this.state.Arbeitsplatz4.Gesamtkapazitätbedarf < 3599) {
+              this.state.Arbeitsplatz4.Schichten = 1
+              this.state.Arbeitsplatz4.Überstunden = (this.state.Arbeitsplatz4.Gesamtkapazitätbedarf - 2400) / 5;
+            } else if (this.state.Arbeitsplatz4.Gesamtkapazitätbedarf > 3600 && this.state.Arbeitsplatz4.Gesamtkapazitätbedarf < 4800) {
+              this.state.Arbeitsplatz4.Schichten = 2
+            } else if (this.state.Arbeitsplatz4.Gesamtkapazitätbedarf > 4801 && this.state.Arbeitsplatz4.Gesamtkapazitätbedarf < 6000) {
+              this.state.Arbeitsplatz4.Schichten = 2
+              this.state.Arbeitsplatz4.Überstunden = (this.state.Arbeitsplatz4.Gesamtkapazitätbedarf - 4800) / 5;
+            } else if (this.state.Arbeitsplatz4.Gesamtkapazitätbedarf > 6001 && this.state.Arbeitsplatz4.Gesamtkapazitätbedarf < 7200) {
+              this.state.Arbeitsplatz4.Schichten = 3
+            } else {
+              //Fehlermeldung
+            }
+
+            //6
+            if (this.state.Arbeitsplatz6.Gesamtkapazitätbedarf < 2400) {
+              this.state.Arbeitsplatz6.Schichten = 1
+            } else if (this.state.Arbeitsplatz6.Gesamtkapazitätbedarf > 2401 && this.state.Arbeitsplatz6.Gesamtkapazitätbedarf < 3599) {
+              this.state.Arbeitsplatz6.Schichten = 1
+              this.state.Arbeitsplatz6.Überstunden = (this.state.Arbeitsplatz6.Gesamtkapazitätbedarf - 2400) / 5;
+            } else if (this.state.Arbeitsplatz6.Gesamtkapazitätbedarf > 3600 && this.state.Arbeitsplatz6.Gesamtkapazitätbedarf < 4800) {
+              this.state.Arbeitsplatz6.Schichten = 2
+            } else if (this.state.Arbeitsplatz6.Gesamtkapazitätbedarf > 4801 && this.state.Arbeitsplatz6.Gesamtkapazitätbedarf < 6000) {
+              this.state.Arbeitsplatz6.Schichten = 2
+              this.state.Arbeitsplatz6.Überstunden = (this.state.Arbeitsplatz6.Gesamtkapazitätbedarf - 4800) / 5;
+            } else if (this.state.Arbeitsplatz6.Gesamtkapazitätbedarf > 6001 && this.state.Arbeitsplatz6.Gesamtkapazitätbedarf < 7200) {
+              this.state.Arbeitsplatz6.Schichten = 3
+            } else {
+              //Fehlermeldung
+            }
+
+            //7
+            if (this.state.Arbeitsplatz7.Gesamtkapazitätbedarf < 2400) {
+              this.state.Arbeitsplatz7.Schichten = 1
+            } else if (this.state.Arbeitsplatz7.Gesamtkapazitätbedarf > 2401 && this.state.Arbeitsplatz7.Gesamtkapazitätbedarf < 3599) {
+              this.state.Arbeitsplatz7.Schichten = 1
+              this.state.Arbeitsplatz7.Überstunden = (this.state.Arbeitsplatz7.Gesamtkapazitätbedarf - 2400) / 5;
+            } else if (this.state.Arbeitsplatz7.Gesamtkapazitätbedarf > 3600 && this.state.Arbeitsplatz7.Gesamtkapazitätbedarf < 4800) {
+              this.state.Arbeitsplatz7.Schichten = 2
+            } else if (this.state.Arbeitsplatz7.Gesamtkapazitätbedarf > 4801 && this.state.Arbeitsplatz7.Gesamtkapazitätbedarf < 6000) {
+              this.state.Arbeitsplatz7.Schichten = 2
+              this.state.Arbeitsplatz7.Überstunden = (this.state.Arbeitsplatz7.Gesamtkapazitätbedarf - 4800) / 5;
+            } else if (this.state.Arbeitsplatz7.Gesamtkapazitätbedarf > 6001 && this.state.Arbeitsplatz7.Gesamtkapazitätbedarf < 7200) {
+              this.state.Arbeitsplatz7.Schichten = 3
+            } else {
+              //Fehlermeldung
+            }
+
+            //8
+            if (this.state.Arbeitsplatz8.Gesamtkapazitätbedarf < 2400) {
+              this.state.Arbeitsplatz8.Schichten = 1
+            } else if (this.state.Arbeitsplatz8.Gesamtkapazitätbedarf > 2401 && this.state.Arbeitsplatz8.Gesamtkapazitätbedarf < 3599) {
+              this.state.Arbeitsplatz8.Schichten = 1
+              this.state.Arbeitsplatz8.Überstunden = (this.state.Arbeitsplatz8.Gesamtkapazitätbedarf - 2400) / 5;
+            } else if (this.state.Arbeitsplatz8.Gesamtkapazitätbedarf > 3600 && this.state.Arbeitsplatz8.Gesamtkapazitätbedarf < 4800) {
+              this.state.Arbeitsplatz8.Schichten = 2
+            } else if (this.state.Arbeitsplatz8.Gesamtkapazitätbedarf > 4801 && this.state.Arbeitsplatz8.Gesamtkapazitätbedarf < 6000) {
+              this.state.Arbeitsplatz8.Schichten = 2
+              this.state.Arbeitsplatz8.Überstunden = (this.state.Arbeitsplatz8.Gesamtkapazitätbedarf - 4800) / 5;
+            } else if (this.state.Arbeitsplatz8.Gesamtkapazitätbedarf > 6001 && this.state.Arbeitsplatz8.Gesamtkapazitätbedarf < 7200) {
+              this.state.Arbeitsplatz8.Schichten = 3
+            } else {
+              //Fehlermeldung
+            }
+
+            //9
+            if (this.state.Arbeitsplatz9.Gesamtkapazitätbedarf < 2400) {
+              this.state.Arbeitsplatz9.Schichten = 1
+            } else if (this.state.Arbeitsplatz9.Gesamtkapazitätbedarf > 2401 && this.state.Arbeitsplatz9.Gesamtkapazitätbedarf < 3599) {
+              this.state.Arbeitsplatz9.Schichten = 1
+              this.state.Arbeitsplatz9.Überstunden = (this.state.Arbeitsplatz9.Gesamtkapazitätbedarf - 2400) / 5;
+            } else if (this.state.Arbeitsplatz9.Gesamtkapazitätbedarf > 3600 && this.state.Arbeitsplatz9.Gesamtkapazitätbedarf < 4800) {
+              this.state.Arbeitsplatz9.Schichten = 2
+            } else if (this.state.Arbeitsplatz9.Gesamtkapazitätbedarf > 4801 && this.state.Arbeitsplatz9.Gesamtkapazitätbedarf < 6000) {
+              this.state.Arbeitsplatz9.Schichten = 2
+              this.state.Arbeitsplatz9.Überstunden = (this.state.Arbeitsplatz9.Gesamtkapazitätbedarf - 4800) / 5;
+            } else if (this.state.Arbeitsplatz9.Gesamtkapazitätbedarf > 6001 && this.state.Arbeitsplatz9.Gesamtkapazitätbedarf < 7200) {
+              this.state.Arbeitsplatz9.Schichten = 3
+            } else {
+              //Fehlermeldung
+            }
+
+            //10
+            if (this.state.Arbeitsplatz10.Gesamtkapazitätbedarf < 2400) {
+              this.state.Arbeitsplatz10.Schichten = 1
+            } else if (this.state.Arbeitsplatz10.Gesamtkapazitätbedarf > 2401 && this.state.Arbeitsplatz10.Gesamtkapazitätbedarf < 3599) {
+              this.state.Arbeitsplatz10.Schichten = 1
+              this.state.Arbeitsplatz10.Überstunden = (this.state.Arbeitsplatz10.Gesamtkapazitätbedarf - 2400) / 5;
+            } else if (this.state.Arbeitsplatz10.Gesamtkapazitätbedarf > 3600 && this.state.Arbeitsplatz10.Gesamtkapazitätbedarf < 4800) {
+              this.state.Arbeitsplatz10.Schichten = 2
+            } else if (this.state.Arbeitsplatz10.Gesamtkapazitätbedarf > 4801 && this.state.Arbeitsplatz10.Gesamtkapazitätbedarf < 6000) {
+              this.state.Arbeitsplatz10.Schichten = 2
+              this.state.Arbeitsplatz10.Überstunden = (this.state.Arbeitsplatz10.Gesamtkapazitätbedarf - 4800) / 5;
+            } else if (this.state.Arbeitsplatz10.Gesamtkapazitätbedarf > 6001 && this.state.Arbeitsplatz10.Gesamtkapazitätbedarf < 7200) {
+              this.state.Arbeitsplatz10.Schichten = 3
+            } else {
+              //Fehlermeldung
+            }
+
+            //11
+            if (this.state.Arbeitsplatz11.Gesamtkapazitätbedarf < 2400) {
+              this.state.Arbeitsplatz11.Schichten = 1
+            } else if (this.state.Arbeitsplatz11.Gesamtkapazitätbedarf > 2401 && this.state.Arbeitsplatz11.Gesamtkapazitätbedarf < 3599) {
+              this.state.Arbeitsplatz11.Schichten = 1
+              this.state.Arbeitsplatz11.Überstunden = (this.state.Arbeitsplatz11.Gesamtkapazitätbedarf - 2400) / 5;
+            } else if (this.state.Arbeitsplatz11.Gesamtkapazitätbedarf > 3600 && this.state.Arbeitsplatz11.Gesamtkapazitätbedarf < 4800) {
+              this.state.Arbeitsplatz11.Schichten = 2
+            } else if (this.state.Arbeitsplatz11.Gesamtkapazitätbedarf > 4801 && this.state.Arbeitsplatz11.Gesamtkapazitätbedarf < 6000) {
+              this.state.Arbeitsplatz11.Schichten = 2
+              this.state.Arbeitsplatz11.Überstunden = (this.state.Arbeitsplatz11.Gesamtkapazitätbedarf - 4800) / 5;
+            } else if (this.state.Arbeitsplatz11.Gesamtkapazitätbedarf > 6001 && this.state.Arbeitsplatz11.Gesamtkapazitätbedarf < 7200) {
+              this.state.Arbeitsplatz11.Schichten = 3
+            } else {
+              //Fehlermeldung
+            }
+
+            //12
+            if (this.state.Arbeitsplatz12.Gesamtkapazitätbedarf < 2400) {
+              this.state.Arbeitsplatz12.Schichten = 1
+            } else if (this.state.Arbeitsplatz12.Gesamtkapazitätbedarf > 2401 && this.state.Arbeitsplatz12.Gesamtkapazitätbedarf < 3599) {
+              this.state.Arbeitsplatz12.Schichten = 1
+              this.state.Arbeitsplatz12.Überstunden = (this.state.Arbeitsplatz12.Gesamtkapazitätbedarf - 2400) / 5;
+            } else if (this.state.Arbeitsplatz12.Gesamtkapazitätbedarf > 3600 && this.state.Arbeitsplatz12.Gesamtkapazitätbedarf < 4800) {
+              this.state.Arbeitsplatz12.Schichten = 2
+            } else if (this.state.Arbeitsplatz12.Gesamtkapazitätbedarf > 4801 && this.state.Arbeitsplatz12.Gesamtkapazitätbedarf < 6000) {
+              this.state.Arbeitsplatz12.Schichten = 2
+              this.state.Arbeitsplatz12.Überstunden = (this.state.Arbeitsplatz12.Gesamtkapazitätbedarf - 4800) / 5;
+            } else if (this.state.Arbeitsplatz12.Gesamtkapazitätbedarf > 6001 && this.state.Arbeitsplatz12.Gesamtkapazitätbedarf < 7200) {
+              this.state.Arbeitsplatz12.Schichten = 3
+            } else {
+              //Fehlermeldung
+            }
+
+            //13
+            if (this.state.Arbeitsplatz13.Gesamtkapazitätbedarf < 2400) {
+              this.state.Arbeitsplatz13.Schichten = 1
+            } else if (this.state.Arbeitsplatz13.Gesamtkapazitätbedarf > 2401 && this.state.Arbeitsplatz13.Gesamtkapazitätbedarf < 3599) {
+              this.state.Arbeitsplatz13.Schichten = 1
+              this.state.Arbeitsplatz13.Überstunden = (this.state.Arbeitsplatz13.Gesamtkapazitätbedarf - 2400) / 5;
+            } else if (this.state.Arbeitsplatz13.Gesamtkapazitätbedarf > 3600 && this.state.Arbeitsplatz13.Gesamtkapazitätbedarf < 4800) {
+              this.state.Arbeitsplatz13.Schichten = 2
+            } else if (this.state.Arbeitsplatz13.Gesamtkapazitätbedarf > 4801 && this.state.Arbeitsplatz13.Gesamtkapazitätbedarf < 6000) {
+              this.state.Arbeitsplatz13.Schichten = 2
+              this.state.Arbeitsplatz13.Überstunden = (this.state.Arbeitsplatz13.Gesamtkapazitätbedarf - 4800) / 5;
+            } else if (this.state.Arbeitsplatz13.Gesamtkapazitätbedarf > 6001 && this.state.Arbeitsplatz13.Gesamtkapazitätbedarf < 7200) {
+              this.state.Arbeitsplatz13.Schichten = 3
+            } else {
+              //Fehlermeldung
+            }
+
+            //14
+            if (this.state.Arbeitsplatz14.Gesamtkapazitätbedarf < 2400) {
+              this.state.Arbeitsplatz14.Schichten = 1
+            } else if (this.state.Arbeitsplatz14.Gesamtkapazitätbedarf > 2401 && this.state.Arbeitsplatz14.Gesamtkapazitätbedarf < 3599) {
+              this.state.Arbeitsplatz14.Schichten = 1
+              this.state.Arbeitsplatz14.Überstunden = (this.state.Arbeitsplatz14.Gesamtkapazitätbedarf - 2400) / 5;
+            } else if (this.state.Arbeitsplatz14.Gesamtkapazitätbedarf > 3600 && this.state.Arbeitsplatz14.Gesamtkapazitätbedarf < 4800) {
+              this.state.Arbeitsplatz14.Schichten = 2
+            } else if (this.state.Arbeitsplatz14.Gesamtkapazitätbedarf > 4801 && this.state.Arbeitsplatz14.Gesamtkapazitätbedarf < 6000) {
+              this.state.Arbeitsplatz14.Schichten = 2
+              this.state.Arbeitsplatz14.Überstunden = (this.state.Arbeitsplatz14.Gesamtkapazitätbedarf - 4800) / 5;
+            } else if (this.state.Arbeitsplatz14.Gesamtkapazitätbedarf > 6001 && this.state.Arbeitsplatz14.Gesamtkapazitätbedarf < 7200) {
+              this.state.Arbeitsplatz14.Schichten = 3
+            } else {
+              //Fehlermeldung
+            }
+
+            //15
+            if (this.state.Arbeitsplatz15.Gesamtkapazitätbedarf < 2400) {
+              this.state.Arbeitsplatz15.Schichten = 1
+            } else if (this.state.Arbeitsplatz15.Gesamtkapazitätbedarf > 2401 && this.state.Arbeitsplatz15.Gesamtkapazitätbedarf < 3599) {
+              this.state.Arbeitsplatz15.Schichten = 1
+              this.state.Arbeitsplatz15.Überstunden = (this.state.Arbeitsplatz15.Gesamtkapazitätbedarf - 2400) / 5;
+            } else if (this.state.Arbeitsplatz15.Gesamtkapazitätbedarf > 3600 && this.state.Arbeitsplatz15.Gesamtkapazitätbedarf < 4800) {
+              this.state.Arbeitsplatz15.Schichten = 2
+            } else if (this.state.Arbeitsplatz15.Gesamtkapazitätbedarf > 4801 && this.state.Arbeitsplatz15.Gesamtkapazitätbedarf < 6000) {
+              this.state.Arbeitsplatz15.Schichten = 2
+              this.state.Arbeitsplatz15.Überstunden = (this.state.Arbeitsplatz15.Gesamtkapazitätbedarf - 4800) / 5;
+            } else if (this.state.Arbeitsplatz15.Gesamtkapazitätbedarf > 6001 && this.state.Arbeitsplatz15.Gesamtkapazitätbedarf < 7200) {
+              this.state.Arbeitsplatz15.Schichten = 3
+            } else {
+              //Fehlermeldung
+            }
+          }
+
+
+
+          this.state.resetButtonDisabled = false
 
         }
 
 
       } else {
-
-        console.log('CCCCCCC');
+        console.log('alles reseten')
 
         //Herren
         this.state.Auftragsmenge.P1 = 0;
@@ -547,12 +841,17 @@ class Kapazitaetsplanung extends React.Component {
       }
 
       this.setState({
+
         currentPeriode: activePeriodID
       });
+      console.log('current Periode setzen')
+
+
 
     }
 
-    console.log('DDDDDDD');
+    console.log('rechnen')
+
 
     this.state.Auftragsmenge.E16 = this.state.Auftragsmenge.KE16 + this.state.Auftragsmenge.HE16 + this.state.Auftragsmenge.HE16;
     this.state.Auftragsmenge.E17 = this.state.Auftragsmenge.KE17 + this.state.Auftragsmenge.HE17 + this.state.Auftragsmenge.HE17;
@@ -664,11 +963,11 @@ class Kapazitaetsplanung extends React.Component {
 
     this.state.Arbeitsplatz1.RüstzeitGesamt = this.state.Arbeitsplatz1.RüstzeitVorgang * this.state.Arbeitsplatz1.RüstVorgänge;
     this.state.Arbeitsplatz2.RüstzeitGesamt = this.state.Arbeitsplatz2.RüstzeitVorgang * this.state.Arbeitsplatz2.RüstVorgänge;
-    this.state.Arbeitsplatz3.RüstzeitGesamt = this.state.Arbeitsplatz3.RüstzeitVorgang * this.state.Arbeitsplatz3.RüstVorgänge;
+    this.state.Arbeitsplatz3.RüstzeitGesamt = Math.ceil(this.state.Arbeitsplatz3.RüstzeitVorgang * this.state.Arbeitsplatz3.RüstVorgänge);
     this.state.Arbeitsplatz4.RüstzeitGesamt = this.state.Arbeitsplatz4.RüstzeitVorgang * this.state.Arbeitsplatz4.RüstVorgänge;
     this.state.Arbeitsplatz6.RüstzeitGesamt = this.state.Arbeitsplatz6.RüstzeitVorgang * this.state.Arbeitsplatz6.RüstVorgänge;
     this.state.Arbeitsplatz7.RüstzeitGesamt = this.state.Arbeitsplatz7.RüstzeitVorgang * this.state.Arbeitsplatz7.RüstVorgänge;
-    this.state.Arbeitsplatz8.RüstzeitGesamt = this.state.Arbeitsplatz8.RüstzeitVorgang * this.state.Arbeitsplatz8.RüstVorgänge;
+    this.state.Arbeitsplatz8.RüstzeitGesamt = Math.ceil(this.state.Arbeitsplatz8.RüstzeitVorgang * this.state.Arbeitsplatz8.RüstVorgänge);
     this.state.Arbeitsplatz9.RüstzeitGesamt = this.state.Arbeitsplatz9.RüstzeitVorgang * this.state.Arbeitsplatz9.RüstVorgänge;
     this.state.Arbeitsplatz10.RüstzeitGesamt = this.state.Arbeitsplatz10.RüstzeitVorgang * this.state.Arbeitsplatz10.RüstVorgänge;
     this.state.Arbeitsplatz11.RüstzeitGesamt = this.state.Arbeitsplatz11.RüstzeitVorgang * this.state.Arbeitsplatz11.RüstVorgänge;
@@ -693,243 +992,6 @@ class Kapazitaetsplanung extends React.Component {
     this.state.Arbeitsplatz14.Gesamtkapazitätbedarf = this.state.Arbeitsplatz14.Kapazitätsbedarf + this.state.Arbeitsplatz14.RüstzeitGesamt + this.state.Arbeitsplatz14.Warteschlange;
     this.state.Arbeitsplatz15.Gesamtkapazitätbedarf = this.state.Arbeitsplatz15.Kapazitätsbedarf + this.state.Arbeitsplatz15.RüstzeitGesamt + this.state.Arbeitsplatz15.Warteschlange;
 
-    //1
-    if (this.state.Arbeitsplatz1.Gesamtkapazitätbedarf < 2400) {
-      this.state.Arbeitsplatz1.Schichten = 1
-    } else if (this.state.Arbeitsplatz1.Gesamtkapazitätbedarf > 2401 && this.state.Arbeitsplatz1.Gesamtkapazitätbedarf < 3599) {
-      this.state.Arbeitsplatz1.Schichten = 1
-      this.state.Arbeitsplatz1.Überstunden = (this.state.Arbeitsplatz1.Gesamtkapazitätbedarf - 2400) / 5;
-    } else if (this.state.Arbeitsplatz1.Gesamtkapazitätbedarf > 3600 && this.state.Arbeitsplatz1.Gesamtkapazitätbedarf < 4800) {
-      this.state.Arbeitsplatz1.Schichten = 2
-    } else if (this.state.Arbeitsplatz1.Gesamtkapazitätbedarf > 4801 && this.state.Arbeitsplatz1.Gesamtkapazitätbedarf < 6000) {
-      this.state.Arbeitsplatz1.Schichten = 2
-      this.state.Arbeitsplatz1.Überstunden = (this.state.Arbeitsplatz1.Gesamtkapazitätbedarf - 4800) / 5;
-    } else if (this.state.Arbeitsplatz1.Gesamtkapazitätbedarf > 6001 && this.state.Arbeitsplatz1.Gesamtkapazitätbedarf < 7200) {
-      this.state.Arbeitsplatz1.Schichten = 3
-    } else {
-      //Fehlermeldung
-    }
-
-    //2
-    if (this.state.Arbeitsplatz2.Gesamtkapazitätbedarf < 2400) {
-      this.state.Arbeitsplatz2.Schichten = 1
-    } else if (this.state.Arbeitsplatz2.Gesamtkapazitätbedarf > 2401 && this.state.Arbeitsplatz2.Gesamtkapazitätbedarf < 3599) {
-      this.state.Arbeitsplatz2.Schichten = 1
-      this.state.Arbeitsplatz2.Überstunden = (this.state.Arbeitsplatz2.Gesamtkapazitätbedarf - 2400) / 5;
-    } else if (this.state.Arbeitsplatz2.Gesamtkapazitätbedarf > 3600 && this.state.Arbeitsplatz2.Gesamtkapazitätbedarf < 4800) {
-      this.state.Arbeitsplatz2.Schichten = 2
-    } else if (this.state.Arbeitsplatz2.Gesamtkapazitätbedarf > 4801 && this.state.Arbeitsplatz2.Gesamtkapazitätbedarf < 6000) {
-      this.state.Arbeitsplatz2.Schichten = 2
-      this.state.Arbeitsplatz2.Überstunden = (this.state.Arbeitsplatz2.Gesamtkapazitätbedarf - 4800) / 5;
-    } else if (this.state.Arbeitsplatz2.Gesamtkapazitätbedarf > 6001 && this.state.Arbeitsplatz2.Gesamtkapazitätbedarf < 7200) {
-      this.state.Arbeitsplatz2.Schichten = 3
-    } else {
-      //Fehlermeldung
-    }
-
-    //3
-    if (this.state.Arbeitsplatz3.Gesamtkapazitätbedarf < 2400) {
-      this.state.Arbeitsplatz3.Schichten = 1
-    } else if (this.state.Arbeitsplatz3.Gesamtkapazitätbedarf > 2401 && this.state.Arbeitsplatz3.Gesamtkapazitätbedarf < 3599) {
-      this.state.Arbeitsplatz3.Schichten = 1
-      this.state.Arbeitsplatz3.Überstunden = (this.state.Arbeitsplatz3.Gesamtkapazitätbedarf - 2400) / 5;
-    } else if (this.state.Arbeitsplatz3.Gesamtkapazitätbedarf > 3600 && this.state.Arbeitsplatz3.Gesamtkapazitätbedarf < 4800) {
-      this.state.Arbeitsplatz3.Schichten = 2
-    } else if (this.state.Arbeitsplatz3.Gesamtkapazitätbedarf > 4801 && this.state.Arbeitsplatz3.Gesamtkapazitätbedarf < 6000) {
-      this.state.Arbeitsplatz3.Schichten = 2
-      this.state.Arbeitsplatz3.Überstunden = (this.state.Arbeitsplatz3.Gesamtkapazitätbedarf - 4800) / 5;
-    } else if (this.state.Arbeitsplatz3.Gesamtkapazitätbedarf > 6001 && this.state.Arbeitsplatz3.Gesamtkapazitätbedarf < 7200) {
-      this.state.Arbeitsplatz3.Schichten = 3
-    } else {
-      //Fehlermeldung
-    }
-
-    //4
-    if (this.state.Arbeitsplatz4.Gesamtkapazitätbedarf < 2400) {
-      this.state.Arbeitsplatz4.Schichten = 1
-    } else if (this.state.Arbeitsplatz4.Gesamtkapazitätbedarf > 2401 && this.state.Arbeitsplatz4.Gesamtkapazitätbedarf < 3599) {
-      this.state.Arbeitsplatz4.Schichten = 1
-      this.state.Arbeitsplatz4.Überstunden = (this.state.Arbeitsplatz4.Gesamtkapazitätbedarf - 2400) / 5;
-    } else if (this.state.Arbeitsplatz4.Gesamtkapazitätbedarf > 3600 && this.state.Arbeitsplatz4.Gesamtkapazitätbedarf < 4800) {
-      this.state.Arbeitsplatz4.Schichten = 2
-    } else if (this.state.Arbeitsplatz4.Gesamtkapazitätbedarf > 4801 && this.state.Arbeitsplatz4.Gesamtkapazitätbedarf < 6000) {
-      this.state.Arbeitsplatz4.Schichten = 2
-      this.state.Arbeitsplatz4.Überstunden = (this.state.Arbeitsplatz4.Gesamtkapazitätbedarf - 4800) / 5;
-    } else if (this.state.Arbeitsplatz4.Gesamtkapazitätbedarf > 6001 && this.state.Arbeitsplatz4.Gesamtkapazitätbedarf < 7200) {
-      this.state.Arbeitsplatz4.Schichten = 3
-    } else {
-      //Fehlermeldung
-    }
-
-    //6
-    if (this.state.Arbeitsplatz6.Gesamtkapazitätbedarf < 2400) {
-      this.state.Arbeitsplatz6.Schichten = 1
-    } else if (this.state.Arbeitsplatz6.Gesamtkapazitätbedarf > 2401 && this.state.Arbeitsplatz6.Gesamtkapazitätbedarf < 3599) {
-      this.state.Arbeitsplatz6.Schichten = 1
-      this.state.Arbeitsplatz6.Überstunden = (this.state.Arbeitsplatz6.Gesamtkapazitätbedarf - 2400) / 5;
-    } else if (this.state.Arbeitsplatz6.Gesamtkapazitätbedarf > 3600 && this.state.Arbeitsplatz6.Gesamtkapazitätbedarf < 4800) {
-      this.state.Arbeitsplatz6.Schichten = 2
-    } else if (this.state.Arbeitsplatz6.Gesamtkapazitätbedarf > 4801 && this.state.Arbeitsplatz6.Gesamtkapazitätbedarf < 6000) {
-      this.state.Arbeitsplatz6.Schichten = 2
-      this.state.Arbeitsplatz6.Überstunden = (this.state.Arbeitsplatz6.Gesamtkapazitätbedarf - 4800) / 5;
-    } else if (this.state.Arbeitsplatz6.Gesamtkapazitätbedarf > 6001 && this.state.Arbeitsplatz6.Gesamtkapazitätbedarf < 7200) {
-      this.state.Arbeitsplatz6.Schichten = 3
-    } else {
-      //Fehlermeldung
-    }
-
-    //7
-    if (this.state.Arbeitsplatz7.Gesamtkapazitätbedarf < 2400) {
-      this.state.Arbeitsplatz7.Schichten = 1
-    } else if (this.state.Arbeitsplatz7.Gesamtkapazitätbedarf > 2401 && this.state.Arbeitsplatz7.Gesamtkapazitätbedarf < 3599) {
-      this.state.Arbeitsplatz7.Schichten = 1
-      this.state.Arbeitsplatz7.Überstunden = (this.state.Arbeitsplatz7.Gesamtkapazitätbedarf - 2400) / 5;
-    } else if (this.state.Arbeitsplatz7.Gesamtkapazitätbedarf > 3600 && this.state.Arbeitsplatz7.Gesamtkapazitätbedarf < 4800) {
-      this.state.Arbeitsplatz7.Schichten = 2
-    } else if (this.state.Arbeitsplatz7.Gesamtkapazitätbedarf > 4801 && this.state.Arbeitsplatz7.Gesamtkapazitätbedarf < 6000) {
-      this.state.Arbeitsplatz7.Schichten = 2
-      this.state.Arbeitsplatz7.Überstunden = (this.state.Arbeitsplatz7.Gesamtkapazitätbedarf - 4800) / 5;
-    } else if (this.state.Arbeitsplatz7.Gesamtkapazitätbedarf > 6001 && this.state.Arbeitsplatz7.Gesamtkapazitätbedarf < 7200) {
-      this.state.Arbeitsplatz7.Schichten = 3
-    } else {
-      //Fehlermeldung
-    }
-
-    //8
-    if (this.state.Arbeitsplatz8.Gesamtkapazitätbedarf < 2400) {
-      this.state.Arbeitsplatz8.Schichten = 1
-    } else if (this.state.Arbeitsplatz8.Gesamtkapazitätbedarf > 2401 && this.state.Arbeitsplatz8.Gesamtkapazitätbedarf < 3599) {
-      this.state.Arbeitsplatz8.Schichten = 1
-      this.state.Arbeitsplatz8.Überstunden = (this.state.Arbeitsplatz8.Gesamtkapazitätbedarf - 2400) / 5;
-    } else if (this.state.Arbeitsplatz8.Gesamtkapazitätbedarf > 3600 && this.state.Arbeitsplatz8.Gesamtkapazitätbedarf < 4800) {
-      this.state.Arbeitsplatz8.Schichten = 2
-    } else if (this.state.Arbeitsplatz8.Gesamtkapazitätbedarf > 4801 && this.state.Arbeitsplatz8.Gesamtkapazitätbedarf < 6000) {
-      this.state.Arbeitsplatz8.Schichten = 2
-      this.state.Arbeitsplatz8.Überstunden = (this.state.Arbeitsplatz8.Gesamtkapazitätbedarf - 4800) / 5;
-    } else if (this.state.Arbeitsplatz8.Gesamtkapazitätbedarf > 6001 && this.state.Arbeitsplatz8.Gesamtkapazitätbedarf < 7200) {
-      this.state.Arbeitsplatz8.Schichten = 3
-    } else {
-      //Fehlermeldung
-    }
-
-    //9
-    if (this.state.Arbeitsplatz9.Gesamtkapazitätbedarf < 2400) {
-      this.state.Arbeitsplatz9.Schichten = 1
-    } else if (this.state.Arbeitsplatz9.Gesamtkapazitätbedarf > 2401 && this.state.Arbeitsplatz9.Gesamtkapazitätbedarf < 3599) {
-      this.state.Arbeitsplatz9.Schichten = 1
-      this.state.Arbeitsplatz9.Überstunden = (this.state.Arbeitsplatz9.Gesamtkapazitätbedarf - 2400) / 5;
-    } else if (this.state.Arbeitsplatz9.Gesamtkapazitätbedarf > 3600 && this.state.Arbeitsplatz9.Gesamtkapazitätbedarf < 4800) {
-      this.state.Arbeitsplatz9.Schichten = 2
-    } else if (this.state.Arbeitsplatz9.Gesamtkapazitätbedarf > 4801 && this.state.Arbeitsplatz9.Gesamtkapazitätbedarf < 6000) {
-      this.state.Arbeitsplatz9.Schichten = 2
-      this.state.Arbeitsplatz9.Überstunden = (this.state.Arbeitsplatz9.Gesamtkapazitätbedarf - 4800) / 5;
-    } else if (this.state.Arbeitsplatz9.Gesamtkapazitätbedarf > 6001 && this.state.Arbeitsplatz9.Gesamtkapazitätbedarf < 7200) {
-      this.state.Arbeitsplatz9.Schichten = 3
-    } else {
-      //Fehlermeldung
-    }
-
-    //10
-    if (this.state.Arbeitsplatz10.Gesamtkapazitätbedarf < 2400) {
-      this.state.Arbeitsplatz10.Schichten = 1
-    } else if (this.state.Arbeitsplatz10.Gesamtkapazitätbedarf > 2401 && this.state.Arbeitsplatz10.Gesamtkapazitätbedarf < 3599) {
-      this.state.Arbeitsplatz10.Schichten = 1
-      this.state.Arbeitsplatz10.Überstunden = (this.state.Arbeitsplatz10.Gesamtkapazitätbedarf - 2400) / 5;
-    } else if (this.state.Arbeitsplatz10.Gesamtkapazitätbedarf > 3600 && this.state.Arbeitsplatz10.Gesamtkapazitätbedarf < 4800) {
-      this.state.Arbeitsplatz10.Schichten = 2
-    } else if (this.state.Arbeitsplatz10.Gesamtkapazitätbedarf > 4801 && this.state.Arbeitsplatz10.Gesamtkapazitätbedarf < 6000) {
-      this.state.Arbeitsplatz10.Schichten = 2
-      this.state.Arbeitsplatz10.Überstunden = (this.state.Arbeitsplatz10.Gesamtkapazitätbedarf - 4800) / 5;
-    } else if (this.state.Arbeitsplatz10.Gesamtkapazitätbedarf > 6001 && this.state.Arbeitsplatz10.Gesamtkapazitätbedarf < 7200) {
-      this.state.Arbeitsplatz10.Schichten = 3
-    } else {
-      //Fehlermeldung
-    }
-
-    //11
-    if (this.state.Arbeitsplatz11.Gesamtkapazitätbedarf < 2400) {
-      this.state.Arbeitsplatz11.Schichten = 1
-    } else if (this.state.Arbeitsplatz11.Gesamtkapazitätbedarf > 2401 && this.state.Arbeitsplatz11.Gesamtkapazitätbedarf < 3599) {
-      this.state.Arbeitsplatz11.Schichten = 1
-      this.state.Arbeitsplatz11.Überstunden = (this.state.Arbeitsplatz11.Gesamtkapazitätbedarf - 2400) / 5;
-    } else if (this.state.Arbeitsplatz11.Gesamtkapazitätbedarf > 3600 && this.state.Arbeitsplatz11.Gesamtkapazitätbedarf < 4800) {
-      this.state.Arbeitsplatz11.Schichten = 2
-    } else if (this.state.Arbeitsplatz11.Gesamtkapazitätbedarf > 4801 && this.state.Arbeitsplatz11.Gesamtkapazitätbedarf < 6000) {
-      this.state.Arbeitsplatz11.Schichten = 2
-      this.state.Arbeitsplatz11.Überstunden = (this.state.Arbeitsplatz11.Gesamtkapazitätbedarf - 4800) / 5;
-    } else if (this.state.Arbeitsplatz11.Gesamtkapazitätbedarf > 6001 && this.state.Arbeitsplatz11.Gesamtkapazitätbedarf < 7200) {
-      this.state.Arbeitsplatz11.Schichten = 3
-    } else {
-      //Fehlermeldung
-    }
-
-    //12
-    if (this.state.Arbeitsplatz12.Gesamtkapazitätbedarf < 2400) {
-      this.state.Arbeitsplatz12.Schichten = 1
-    } else if (this.state.Arbeitsplatz12.Gesamtkapazitätbedarf > 2401 && this.state.Arbeitsplatz12.Gesamtkapazitätbedarf < 3599) {
-      this.state.Arbeitsplatz12.Schichten = 1
-      this.state.Arbeitsplatz12.Überstunden = (this.state.Arbeitsplatz12.Gesamtkapazitätbedarf - 2400) / 5;
-    } else if (this.state.Arbeitsplatz12.Gesamtkapazitätbedarf > 3600 && this.state.Arbeitsplatz12.Gesamtkapazitätbedarf < 4800) {
-      this.state.Arbeitsplatz12.Schichten = 2
-    } else if (this.state.Arbeitsplatz12.Gesamtkapazitätbedarf > 4801 && this.state.Arbeitsplatz12.Gesamtkapazitätbedarf < 6000) {
-      this.state.Arbeitsplatz12.Schichten = 2
-      this.state.Arbeitsplatz12.Überstunden = (this.state.Arbeitsplatz12.Gesamtkapazitätbedarf - 4800) / 5;
-    } else if (this.state.Arbeitsplatz12.Gesamtkapazitätbedarf > 6001 && this.state.Arbeitsplatz12.Gesamtkapazitätbedarf < 7200) {
-      this.state.Arbeitsplatz12.Schichten = 3
-    } else {
-      //Fehlermeldung
-    }
-
-    //13
-    if (this.state.Arbeitsplatz13.Gesamtkapazitätbedarf < 2400) {
-      this.state.Arbeitsplatz13.Schichten = 1
-    } else if (this.state.Arbeitsplatz13.Gesamtkapazitätbedarf > 2401 && this.state.Arbeitsplatz13.Gesamtkapazitätbedarf < 3599) {
-      this.state.Arbeitsplatz13.Schichten = 1
-      this.state.Arbeitsplatz13.Überstunden = (this.state.Arbeitsplatz13.Gesamtkapazitätbedarf - 2400) / 5;
-    } else if (this.state.Arbeitsplatz13.Gesamtkapazitätbedarf > 3600 && this.state.Arbeitsplatz13.Gesamtkapazitätbedarf < 4800) {
-      this.state.Arbeitsplatz13.Schichten = 2
-    } else if (this.state.Arbeitsplatz13.Gesamtkapazitätbedarf > 4801 && this.state.Arbeitsplatz13.Gesamtkapazitätbedarf < 6000) {
-      this.state.Arbeitsplatz13.Schichten = 2
-      this.state.Arbeitsplatz13.Überstunden = (this.state.Arbeitsplatz13.Gesamtkapazitätbedarf - 4800) / 5;
-    } else if (this.state.Arbeitsplatz13.Gesamtkapazitätbedarf > 6001 && this.state.Arbeitsplatz13.Gesamtkapazitätbedarf < 7200) {
-      this.state.Arbeitsplatz13.Schichten = 3
-    } else {
-      //Fehlermeldung
-    }
-
-    //14
-    if (this.state.Arbeitsplatz14.Gesamtkapazitätbedarf < 2400) {
-      this.state.Arbeitsplatz14.Schichten = 1
-    } else if (this.state.Arbeitsplatz14.Gesamtkapazitätbedarf > 2401 && this.state.Arbeitsplatz14.Gesamtkapazitätbedarf < 3599) {
-      this.state.Arbeitsplatz14.Schichten = 1
-      this.state.Arbeitsplatz14.Überstunden = (this.state.Arbeitsplatz14.Gesamtkapazitätbedarf - 2400) / 5;
-    } else if (this.state.Arbeitsplatz14.Gesamtkapazitätbedarf > 3600 && this.state.Arbeitsplatz14.Gesamtkapazitätbedarf < 4800) {
-      this.state.Arbeitsplatz14.Schichten = 2
-    } else if (this.state.Arbeitsplatz14.Gesamtkapazitätbedarf > 4801 && this.state.Arbeitsplatz14.Gesamtkapazitätbedarf < 6000) {
-      this.state.Arbeitsplatz14.Schichten = 2
-      this.state.Arbeitsplatz14.Überstunden = (this.state.Arbeitsplatz14.Gesamtkapazitätbedarf - 4800) / 5;
-    } else if (this.state.Arbeitsplatz14.Gesamtkapazitätbedarf > 6001 && this.state.Arbeitsplatz14.Gesamtkapazitätbedarf < 7200) {
-      this.state.Arbeitsplatz14.Schichten = 3
-    } else {
-      //Fehlermeldung
-    }
-
-    //15
-    if (this.state.Arbeitsplatz15.Gesamtkapazitätbedarf < 2400) {
-      this.state.Arbeitsplatz15.Schichten = 1
-    } else if (this.state.Arbeitsplatz15.Gesamtkapazitätbedarf > 2401 && this.state.Arbeitsplatz15.Gesamtkapazitätbedarf < 3599) {
-      this.state.Arbeitsplatz15.Schichten = 1
-      this.state.Arbeitsplatz15.Überstunden = (this.state.Arbeitsplatz15.Gesamtkapazitätbedarf - 2400) / 5;
-    } else if (this.state.Arbeitsplatz15.Gesamtkapazitätbedarf > 3600 && this.state.Arbeitsplatz15.Gesamtkapazitätbedarf < 4800) {
-      this.state.Arbeitsplatz15.Schichten = 2
-    } else if (this.state.Arbeitsplatz15.Gesamtkapazitätbedarf > 4801 && this.state.Arbeitsplatz15.Gesamtkapazitätbedarf < 6000) {
-      this.state.Arbeitsplatz15.Schichten = 2
-      this.state.Arbeitsplatz15.Überstunden = (this.state.Arbeitsplatz15.Gesamtkapazitätbedarf - 4800) / 5;
-    } else if (this.state.Arbeitsplatz15.Gesamtkapazitätbedarf > 6001 && this.state.Arbeitsplatz15.Gesamtkapazitätbedarf < 7200) {
-      this.state.Arbeitsplatz15.Schichten = 3
-    } else {
-      //Fehlermeldung
-    }
 
   }
 
@@ -982,7 +1044,7 @@ class Kapazitaetsplanung extends React.Component {
           Arbeitsplatz12: this.state.Arbeitsplatz12,
           Arbeitsplatz13: this.state.Arbeitsplatz13,
           Arbeitsplatz14: this.state.Arbeitsplatz14,
-          Arbeitsplatz15: this.state.Arbeitsplatz15,
+          Arbeitsplatz15: this.state.Arbeitsplatz15
 
         }
         this.props.dispatch(setKapazitaetsplanungInputXML(kapazitätsplanung, this.props.ActiveUploadXML.activeUploadXMLData.id));
@@ -1016,23 +1078,279 @@ class Kapazitaetsplanung extends React.Component {
   }
 
 
-  _handleResetButtonClick(e) {
+  _handleResetButtonClick(e){
+    this.props.dispatch(resetKapazitaetsplanungInputXML(this.props.ActiveUploadXML.activeUploadXMLData.id))
+
+    console.log('MINUTE DAVOR' + this.state.Arbeitsplatz1.Überstunden);
+
+    console.log('Minuten' + this.state.Arbeitsplatz1.Überstunden);
+    this._updateLocalStorage();
+
+
+    //1
+    if (this.state.Arbeitsplatz1.Gesamtkapazitätbedarf < 2400) {
+      this.state.Arbeitsplatz1.Schichten = 1
+      this.state.Arbeitsplatz1.Überstunden = 0;
+    } else if (this.state.Arbeitsplatz1.Gesamtkapazitätbedarf > 2401 && this.state.Arbeitsplatz1.Gesamtkapazitätbedarf < 3599) {
+      this.state.Arbeitsplatz1.Schichten = 1
+      this.state.Arbeitsplatz1.Überstunden = (this.state.Arbeitsplatz1.Gesamtkapazitätbedarf - 2400) / 5;
+    } else if (this.state.Arbeitsplatz1.Gesamtkapazitätbedarf > 3600 && this.state.Arbeitsplatz1.Gesamtkapazitätbedarf < 4800) {
+      this.state.Arbeitsplatz1.Schichten = 2
+    } else if (this.state.Arbeitsplatz1.Gesamtkapazitätbedarf > 4801 && this.state.Arbeitsplatz1.Gesamtkapazitätbedarf < 6000) {
+      this.state.Arbeitsplatz1.Schichten = 2
+      this.state.Arbeitsplatz1.Überstunden = (this.state.Arbeitsplatz1.Gesamtkapazitätbedarf - 4800) / 5;
+    } else if (this.state.Arbeitsplatz1.Gesamtkapazitätbedarf > 6001 && this.state.Arbeitsplatz1.Gesamtkapazitätbedarf < 7200) {
+      this.state.Arbeitsplatz1.Schichten = 3
+    } else {
+      //Fehlermeldung
+    }
+
+    //2
+    if (this.state.Arbeitsplatz2.Gesamtkapazitätbedarf < 2400) {
+      this.state.Arbeitsplatz2.Schichten = 1
+      this.state.Arbeitsplatz2.Überstunden = 0;
+    } else if (this.state.Arbeitsplatz2.Gesamtkapazitätbedarf > 2401 && this.state.Arbeitsplatz2.Gesamtkapazitätbedarf < 3599) {
+      this.state.Arbeitsplatz2.Schichten = 1
+      this.state.Arbeitsplatz2.Überstunden = (this.state.Arbeitsplatz2.Gesamtkapazitätbedarf - 2400) / 5;
+    } else if (this.state.Arbeitsplatz2.Gesamtkapazitätbedarf > 3600 && this.state.Arbeitsplatz2.Gesamtkapazitätbedarf < 4800) {
+      this.state.Arbeitsplatz2.Schichten = 2
+    } else if (this.state.Arbeitsplatz2.Gesamtkapazitätbedarf > 4801 && this.state.Arbeitsplatz2.Gesamtkapazitätbedarf < 6000) {
+      this.state.Arbeitsplatz2.Schichten = 2
+      this.state.Arbeitsplatz2.Überstunden = (this.state.Arbeitsplatz2.Gesamtkapazitätbedarf - 4800) / 5;
+    } else if (this.state.Arbeitsplatz2.Gesamtkapazitätbedarf > 6001 && this.state.Arbeitsplatz2.Gesamtkapazitätbedarf < 7200) {
+      this.state.Arbeitsplatz2.Schichten = 3
+    } else {
+      //Fehlermeldung
+    }
+
+    //3
+    if (this.state.Arbeitsplatz3.Gesamtkapazitätbedarf < 2400) {
+      this.state.Arbeitsplatz3.Schichten = 1
+      this.state.Arbeitsplatz3.Überstunden = 0;
+    } else if (this.state.Arbeitsplatz3.Gesamtkapazitätbedarf > 2401 && this.state.Arbeitsplatz3.Gesamtkapazitätbedarf < 3599) {
+      this.state.Arbeitsplatz3.Schichten = 1
+      this.state.Arbeitsplatz3.Überstunden = (this.state.Arbeitsplatz3.Gesamtkapazitätbedarf - 2400) / 5;
+    } else if (this.state.Arbeitsplatz3.Gesamtkapazitätbedarf > 3600 && this.state.Arbeitsplatz3.Gesamtkapazitätbedarf < 4800) {
+      this.state.Arbeitsplatz3.Schichten = 2
+    } else if (this.state.Arbeitsplatz3.Gesamtkapazitätbedarf > 4801 && this.state.Arbeitsplatz3.Gesamtkapazitätbedarf < 6000) {
+      this.state.Arbeitsplatz3.Schichten = 2
+      this.state.Arbeitsplatz3.Überstunden = (this.state.Arbeitsplatz3.Gesamtkapazitätbedarf - 4800) / 5;
+    } else if (this.state.Arbeitsplatz3.Gesamtkapazitätbedarf > 6001 && this.state.Arbeitsplatz3.Gesamtkapazitätbedarf < 7200) {
+      this.state.Arbeitsplatz3.Schichten = 3
+    } else {
+      //Fehlermeldung
+    }
+
+    //4
+    if (this.state.Arbeitsplatz4.Gesamtkapazitätbedarf < 2400) {
+      this.state.Arbeitsplatz4.Schichten = 1
+      this.state.Arbeitsplatz4.Überstunden = 0;
+    } else if (this.state.Arbeitsplatz4.Gesamtkapazitätbedarf > 2401 && this.state.Arbeitsplatz4.Gesamtkapazitätbedarf < 3599) {
+      this.state.Arbeitsplatz4.Schichten = 1
+      this.state.Arbeitsplatz4.Überstunden = (this.state.Arbeitsplatz4.Gesamtkapazitätbedarf - 2400) / 5;
+    } else if (this.state.Arbeitsplatz4.Gesamtkapazitätbedarf > 3600 && this.state.Arbeitsplatz4.Gesamtkapazitätbedarf < 4800) {
+      this.state.Arbeitsplatz4.Schichten = 2
+    } else if (this.state.Arbeitsplatz4.Gesamtkapazitätbedarf > 4801 && this.state.Arbeitsplatz4.Gesamtkapazitätbedarf < 6000) {
+      this.state.Arbeitsplatz4.Schichten = 2
+      this.state.Arbeitsplatz4.Überstunden = (this.state.Arbeitsplatz4.Gesamtkapazitätbedarf - 4800) / 5;
+    } else if (this.state.Arbeitsplatz4.Gesamtkapazitätbedarf > 6001 && this.state.Arbeitsplatz4.Gesamtkapazitätbedarf < 7200) {
+      this.state.Arbeitsplatz4.Schichten = 3
+    } else {
+      //Fehlermeldung
+    }
+
+    //6
+    if (this.state.Arbeitsplatz6.Gesamtkapazitätbedarf < 2400) {
+      this.state.Arbeitsplatz6.Schichten = 1
+      this.state.Arbeitsplatz6.Überstunden = 0;
+    } else if (this.state.Arbeitsplatz6.Gesamtkapazitätbedarf > 2401 && this.state.Arbeitsplatz6.Gesamtkapazitätbedarf < 3599) {
+      this.state.Arbeitsplatz6.Schichten = 1
+      this.state.Arbeitsplatz6.Überstunden = (this.state.Arbeitsplatz6.Gesamtkapazitätbedarf - 2400) / 5;
+    } else if (this.state.Arbeitsplatz6.Gesamtkapazitätbedarf > 3600 && this.state.Arbeitsplatz6.Gesamtkapazitätbedarf < 4800) {
+      this.state.Arbeitsplatz6.Schichten = 2
+    } else if (this.state.Arbeitsplatz6.Gesamtkapazitätbedarf > 4801 && this.state.Arbeitsplatz6.Gesamtkapazitätbedarf < 6000) {
+      this.state.Arbeitsplatz6.Schichten = 2
+      this.state.Arbeitsplatz6.Überstunden = (this.state.Arbeitsplatz6.Gesamtkapazitätbedarf - 4800) / 5;
+    } else if (this.state.Arbeitsplatz6.Gesamtkapazitätbedarf > 6001 && this.state.Arbeitsplatz6.Gesamtkapazitätbedarf < 7200) {
+      this.state.Arbeitsplatz6.Schichten = 3
+    } else {
+      //Fehlermeldung
+    }
+
+    //7
+    if (this.state.Arbeitsplatz7.Gesamtkapazitätbedarf < 2400) {
+      this.state.Arbeitsplatz7.Schichten = 1
+      this.state.Arbeitsplatz7.Überstunden = 0;
+    } else if (this.state.Arbeitsplatz7.Gesamtkapazitätbedarf > 2401 && this.state.Arbeitsplatz7.Gesamtkapazitätbedarf < 3599) {
+      this.state.Arbeitsplatz7.Schichten = 1
+      this.state.Arbeitsplatz7.Überstunden = (this.state.Arbeitsplatz7.Gesamtkapazitätbedarf - 2400) / 5;
+    } else if (this.state.Arbeitsplatz7.Gesamtkapazitätbedarf > 3600 && this.state.Arbeitsplatz7.Gesamtkapazitätbedarf < 4800) {
+      this.state.Arbeitsplatz7.Schichten = 2
+    } else if (this.state.Arbeitsplatz7.Gesamtkapazitätbedarf > 4801 && this.state.Arbeitsplatz7.Gesamtkapazitätbedarf < 6000) {
+      this.state.Arbeitsplatz7.Schichten = 2
+      this.state.Arbeitsplatz7.Überstunden = (this.state.Arbeitsplatz7.Gesamtkapazitätbedarf - 4800) / 5;
+    } else if (this.state.Arbeitsplatz7.Gesamtkapazitätbedarf > 6001 && this.state.Arbeitsplatz7.Gesamtkapazitätbedarf < 7200) {
+      this.state.Arbeitsplatz7.Schichten = 3
+    } else {
+      //Fehlermeldung
+    }
+
+    //8
+    if (this.state.Arbeitsplatz8.Gesamtkapazitätbedarf < 2400) {
+      this.state.Arbeitsplatz8.Schichten = 1
+      this.state.Arbeitsplatz8.Überstunden = 0;
+    } else if (this.state.Arbeitsplatz8.Gesamtkapazitätbedarf > 2401 && this.state.Arbeitsplatz8.Gesamtkapazitätbedarf < 3599) {
+      this.state.Arbeitsplatz8.Schichten = 1
+      this.state.Arbeitsplatz8.Überstunden = (this.state.Arbeitsplatz8.Gesamtkapazitätbedarf - 2400) / 5;
+    } else if (this.state.Arbeitsplatz8.Gesamtkapazitätbedarf > 3600 && this.state.Arbeitsplatz8.Gesamtkapazitätbedarf < 4800) {
+      this.state.Arbeitsplatz8.Schichten = 2
+    } else if (this.state.Arbeitsplatz8.Gesamtkapazitätbedarf > 4801 && this.state.Arbeitsplatz8.Gesamtkapazitätbedarf < 6000) {
+      this.state.Arbeitsplatz8.Schichten = 2
+      this.state.Arbeitsplatz8.Überstunden = (this.state.Arbeitsplatz8.Gesamtkapazitätbedarf - 4800) / 5;
+    } else if (this.state.Arbeitsplatz8.Gesamtkapazitätbedarf > 6001 && this.state.Arbeitsplatz8.Gesamtkapazitätbedarf < 7200) {
+      this.state.Arbeitsplatz8.Schichten = 3
+    } else {
+      //Fehlermeldung
+    }
+
+    //9
+    if (this.state.Arbeitsplatz9.Gesamtkapazitätbedarf < 2400) {
+      this.state.Arbeitsplatz9.Schichten = 1
+      this.state.Arbeitsplatz9.Überstunden = 0;
+    } else if (this.state.Arbeitsplatz9.Gesamtkapazitätbedarf > 2401 && this.state.Arbeitsplatz9.Gesamtkapazitätbedarf < 3599) {
+      this.state.Arbeitsplatz9.Schichten = 1
+      this.state.Arbeitsplatz9.Überstunden = (this.state.Arbeitsplatz9.Gesamtkapazitätbedarf - 2400) / 5;
+    } else if (this.state.Arbeitsplatz9.Gesamtkapazitätbedarf > 3600 && this.state.Arbeitsplatz9.Gesamtkapazitätbedarf < 4800) {
+      this.state.Arbeitsplatz9.Schichten = 2
+    } else if (this.state.Arbeitsplatz9.Gesamtkapazitätbedarf > 4801 && this.state.Arbeitsplatz9.Gesamtkapazitätbedarf < 6000) {
+      this.state.Arbeitsplatz9.Schichten = 2
+      this.state.Arbeitsplatz9.Überstunden = (this.state.Arbeitsplatz9.Gesamtkapazitätbedarf - 4800) / 5;
+    } else if (this.state.Arbeitsplatz9.Gesamtkapazitätbedarf > 6001 && this.state.Arbeitsplatz9.Gesamtkapazitätbedarf < 7200) {
+      this.state.Arbeitsplatz9.Schichten = 3
+    } else {
+      //Fehlermeldung
+    }
+
+    //10
+    if (this.state.Arbeitsplatz10.Gesamtkapazitätbedarf < 2400) {
+      this.state.Arbeitsplatz10.Schichten = 1
+      this.state.Arbeitsplatz10.Überstunden = 0;
+    } else if (this.state.Arbeitsplatz10.Gesamtkapazitätbedarf > 2401 && this.state.Arbeitsplatz10.Gesamtkapazitätbedarf < 3599) {
+      this.state.Arbeitsplatz10.Schichten = 1
+      this.state.Arbeitsplatz10.Überstunden = (this.state.Arbeitsplatz10.Gesamtkapazitätbedarf - 2400) / 5;
+    } else if (this.state.Arbeitsplatz10.Gesamtkapazitätbedarf > 3600 && this.state.Arbeitsplatz10.Gesamtkapazitätbedarf < 4800) {
+      this.state.Arbeitsplatz10.Schichten = 2
+    } else if (this.state.Arbeitsplatz10.Gesamtkapazitätbedarf > 4801 && this.state.Arbeitsplatz10.Gesamtkapazitätbedarf < 6000) {
+      this.state.Arbeitsplatz10.Schichten = 2
+      this.state.Arbeitsplatz10.Überstunden = (this.state.Arbeitsplatz10.Gesamtkapazitätbedarf - 4800) / 5;
+    } else if (this.state.Arbeitsplatz10.Gesamtkapazitätbedarf > 6001 && this.state.Arbeitsplatz10.Gesamtkapazitätbedarf < 7200) {
+      this.state.Arbeitsplatz10.Schichten = 3
+    } else {
+      //Fehlermeldung
+    }
+
+    //11
+    if (this.state.Arbeitsplatz11.Gesamtkapazitätbedarf < 2400) {
+      this.state.Arbeitsplatz11.Schichten = 1
+      this.state.Arbeitsplatz11.Überstunden = 0;
+    } else if (this.state.Arbeitsplatz11.Gesamtkapazitätbedarf > 2401 && this.state.Arbeitsplatz11.Gesamtkapazitätbedarf < 3599) {
+      this.state.Arbeitsplatz11.Schichten = 1
+      this.state.Arbeitsplatz11.Überstunden = (this.state.Arbeitsplatz11.Gesamtkapazitätbedarf - 2400) / 5;
+    } else if (this.state.Arbeitsplatz11.Gesamtkapazitätbedarf > 3600 && this.state.Arbeitsplatz11.Gesamtkapazitätbedarf < 4800) {
+      this.state.Arbeitsplatz11.Schichten = 2
+    } else if (this.state.Arbeitsplatz11.Gesamtkapazitätbedarf > 4801 && this.state.Arbeitsplatz11.Gesamtkapazitätbedarf < 6000) {
+      this.state.Arbeitsplatz11.Schichten = 2
+      this.state.Arbeitsplatz11.Überstunden = (this.state.Arbeitsplatz11.Gesamtkapazitätbedarf - 4800) / 5;
+    } else if (this.state.Arbeitsplatz11.Gesamtkapazitätbedarf > 6001 && this.state.Arbeitsplatz11.Gesamtkapazitätbedarf < 7200) {
+      this.state.Arbeitsplatz11.Schichten = 3
+    } else {
+      //Fehlermeldung
+    }
+
+    //12
+    if (this.state.Arbeitsplatz12.Gesamtkapazitätbedarf < 2400) {
+      this.state.Arbeitsplatz12.Schichten = 1
+      this.state.Arbeitsplatz12.Überstunden = 0;
+    } else if (this.state.Arbeitsplatz12.Gesamtkapazitätbedarf > 2401 && this.state.Arbeitsplatz12.Gesamtkapazitätbedarf < 3599) {
+      this.state.Arbeitsplatz12.Schichten = 1
+      this.state.Arbeitsplatz12.Überstunden = (this.state.Arbeitsplatz12.Gesamtkapazitätbedarf - 2400) / 5;
+    } else if (this.state.Arbeitsplatz12.Gesamtkapazitätbedarf > 3600 && this.state.Arbeitsplatz12.Gesamtkapazitätbedarf < 4800) {
+      this.state.Arbeitsplatz12.Schichten = 2
+    } else if (this.state.Arbeitsplatz12.Gesamtkapazitätbedarf > 4801 && this.state.Arbeitsplatz12.Gesamtkapazitätbedarf < 6000) {
+      this.state.Arbeitsplatz12.Schichten = 2
+      this.state.Arbeitsplatz12.Überstunden = (this.state.Arbeitsplatz12.Gesamtkapazitätbedarf - 4800) / 5;
+    } else if (this.state.Arbeitsplatz12.Gesamtkapazitätbedarf > 6001 && this.state.Arbeitsplatz12.Gesamtkapazitätbedarf < 7200) {
+      this.state.Arbeitsplatz12.Schichten = 3
+    } else {
+      //Fehlermeldung
+    }
+
+    //13
+    if (this.state.Arbeitsplatz13.Gesamtkapazitätbedarf < 2400) {
+      this.state.Arbeitsplatz13.Schichten = 1
+      this.state.Arbeitsplatz13.Überstunden = 0;
+    } else if (this.state.Arbeitsplatz13.Gesamtkapazitätbedarf > 2401 && this.state.Arbeitsplatz13.Gesamtkapazitätbedarf < 3599) {
+      this.state.Arbeitsplatz13.Schichten = 1
+      this.state.Arbeitsplatz13.Überstunden = (this.state.Arbeitsplatz13.Gesamtkapazitätbedarf - 2400) / 5;
+    } else if (this.state.Arbeitsplatz13.Gesamtkapazitätbedarf > 3600 && this.state.Arbeitsplatz13.Gesamtkapazitätbedarf < 4800) {
+      this.state.Arbeitsplatz13.Schichten = 2
+    } else if (this.state.Arbeitsplatz13.Gesamtkapazitätbedarf > 4801 && this.state.Arbeitsplatz13.Gesamtkapazitätbedarf < 6000) {
+      this.state.Arbeitsplatz13.Schichten = 2
+      this.state.Arbeitsplatz13.Überstunden = (this.state.Arbeitsplatz13.Gesamtkapazitätbedarf - 4800) / 5;
+    } else if (this.state.Arbeitsplatz13.Gesamtkapazitätbedarf > 6001 && this.state.Arbeitsplatz13.Gesamtkapazitätbedarf < 7200) {
+      this.state.Arbeitsplatz13.Schichten = 3
+    } else {
+      //Fehlermeldung
+    }
+
+    //14
+    if (this.state.Arbeitsplatz14.Gesamtkapazitätbedarf < 2400) {
+      this.state.Arbeitsplatz14.Schichten = 1
+      this.state.Arbeitsplatz14.Überstunden = 0;
+    } else if (this.state.Arbeitsplatz14.Gesamtkapazitätbedarf > 2401 && this.state.Arbeitsplatz14.Gesamtkapazitätbedarf < 3599) {
+      this.state.Arbeitsplatz14.Schichten = 1
+      this.state.Arbeitsplatz14.Überstunden = (this.state.Arbeitsplatz14.Gesamtkapazitätbedarf - 2400) / 5;
+    } else if (this.state.Arbeitsplatz14.Gesamtkapazitätbedarf > 3600 && this.state.Arbeitsplatz14.Gesamtkapazitätbedarf < 4800) {
+      this.state.Arbeitsplatz14.Schichten = 2
+    } else if (this.state.Arbeitsplatz14.Gesamtkapazitätbedarf > 4801 && this.state.Arbeitsplatz14.Gesamtkapazitätbedarf < 6000) {
+      this.state.Arbeitsplatz14.Schichten = 2
+      this.state.Arbeitsplatz14.Überstunden = (this.state.Arbeitsplatz14.Gesamtkapazitätbedarf - 4800) / 5;
+    } else if (this.state.Arbeitsplatz14.Gesamtkapazitätbedarf > 6001 && this.state.Arbeitsplatz14.Gesamtkapazitätbedarf < 7200) {
+      this.state.Arbeitsplatz14.Schichten = 3
+    } else {
+      //Fehlermeldung
+    }
+
+    //15
+    if (this.state.Arbeitsplatz15.Gesamtkapazitätbedarf < 2400) {
+      this.state.Arbeitsplatz15.Schichten = 1
+      this.state.Arbeitsplatz15.Überstunden = 0;
+    } else if (this.state.Arbeitsplatz15.Gesamtkapazitätbedarf > 2401 && this.state.Arbeitsplatz15.Gesamtkapazitätbedarf < 3599) {
+      this.state.Arbeitsplatz15.Schichten = 1
+      this.state.Arbeitsplatz15.Überstunden = (this.state.Arbeitsplatz15.Gesamtkapazitätbedarf - 2400) / 5;
+    } else if (this.state.Arbeitsplatz15.Gesamtkapazitätbedarf > 3600 && this.state.Arbeitsplatz15.Gesamtkapazitätbedarf < 4800) {
+      this.state.Arbeitsplatz15.Schichten = 2
+    } else if (this.state.Arbeitsplatz15.Gesamtkapazitätbedarf > 4801 && this.state.Arbeitsplatz15.Gesamtkapazitätbedarf < 6000) {
+      this.state.Arbeitsplatz15.Schichten = 2
+      this.state.Arbeitsplatz15.Überstunden = (this.state.Arbeitsplatz15.Gesamtkapazitätbedarf - 4800) / 5;
+    } else if (this.state.Arbeitsplatz15.Gesamtkapazitätbedarf > 6001 && this.state.Arbeitsplatz15.Gesamtkapazitätbedarf < 7200) {
+      this.state.Arbeitsplatz15.Schichten = 3
+    } else {
+      //Fehlermeldung
+    }
+
 
   }
 
   _handleSchichtenChange(e) {
 
+    console.log('Schichten Change');
+
     let arbeitsplatzId = e.target.id
     let value = e.target.value;
-    let ArbeitsPlatzList = this.state[arbeitsplatzId];
-
-    console.log("Liste: " + ArbeitsPlatzList.Schichten)
-
-
-    console.log("Value: " + value)
-
-
+    let arbeitsplatzList = this.state[arbeitsplatzId];
     let errorTextList = this.state.errorTextSchicht
+
 
     let isNumeric = !isNaN(parseFloat(value)) && isFinite(value);
 
@@ -1042,7 +1360,40 @@ class Kapazitaetsplanung extends React.Component {
       errorTextList[arbeitsplatzId] = 'This field must be numeric.'
       value = 0
     }
-    ArbeitsPlatzList.Schichten = parseInt(value)
+    arbeitsplatzList.Schichten = parseInt(value)
+
+    this.setState({
+      errorTextSchicht: errorTextList,
+      [arbeitsplatzId]: arbeitsplatzList
+    });
+  }
+
+  _handleStundenChange(e) {
+    console.log('Stunden Change');
+
+    let arbeitsplatzId = e.target.id;
+    let value = e.target.value;
+    let arbeitsplatzList = this.state[arbeitsplatzId];
+    let errorTextList = this.state.errorTextStunden;
+
+    console.log('value ' + value);
+
+    let isNumeric = !isNaN(parseFloat(value)) && isFinite(value);
+
+    if (isNumeric) {
+      console.log('isNumeric ');
+      errorTextList[arbeitsplatzId] = ''
+    } else {
+      console.log('is not Numeric ');
+      errorTextList[arbeitsplatzId] = 'This field must be numeric.';
+      value = 0
+    }
+    arbeitsplatzList.Überstunden = parseInt(value);
+
+    this.setState({
+      errorTextStunden: errorTextList,
+      [arbeitsplatzId]: arbeitsplatzList
+    });
 
   }
 
@@ -2900,7 +3251,7 @@ class Kapazitaetsplanung extends React.Component {
                 <TextField
                   hintText="Schichten"
                   id="Arbeitsplatz1"
-                  errorText={this.state.errorTextSchicht.A1}
+                  errorText={this.state.errorTextSchicht.Arbeitsplatz1}
                   errorStyle={{color:'orange'}}
                   onChange={this._handleSchichtenChange}
                   value={this.state.Arbeitsplatz1.Schichten}/>
@@ -2909,7 +3260,7 @@ class Kapazitaetsplanung extends React.Component {
                 <TextField
                   hintText="Schichten"
                   id="Arbeitsplatz2"
-                  errorText={this.state.errorTextSchicht.A2}
+                  errorText={this.state.errorTextSchicht.Arbeitsplatz2}
                   errorStyle={{color:'orange'}}
                   onChange={this._handleSchichtenChange}
                   value={this.state.Arbeitsplatz2.Schichten}/>
@@ -2918,7 +3269,7 @@ class Kapazitaetsplanung extends React.Component {
                 <TextField
                   hintText="Schichten"
                   id="Arbeitsplatz3"
-                  errorText={this.state.errorTextSchicht.A3}
+                  errorText={this.state.errorTextSchicht.Arbeitsplatz3}
                   errorStyle={{color:'orange'}}
                   onChange={this._handleSchichtenChange}
                   value={this.state.Arbeitsplatz3.Schichten}/>
@@ -2927,7 +3278,7 @@ class Kapazitaetsplanung extends React.Component {
                 <TextField
                   hintText="Schichten"
                   id="Arbeitsplatz4"
-                  errorText={this.state.errorTextSchicht.A4}
+                  errorText={this.state.errorTextSchicht.Arbeitsplatz4}
                   errorStyle={{color:'orange'}}
                   onChange={this._handleSchichtenChange}
                   value={this.state.Arbeitsplatz4.Schichten}/>
@@ -2938,16 +3289,16 @@ class Kapazitaetsplanung extends React.Component {
                 <TextField
                   hintText="Schichten"
                   id="Arbeitsplatz6"
-                  errorText={this.state.errorTextSchicht.A6}
+                  errorText={this.state.errorTextSchicht.Arbeitsplatz6}
                   errorStyle={{color:'orange'}}
-                  onChange={this._handleChange}
+                  onChange={this._handleSchichtenChange}
                   value={this.state.Arbeitsplatz6.Schichten}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
                   hintText="Schichten"
                   id="Arbeitsplatz7"
-                  errorText={this.state.errorTextSchicht.A7}
+                  errorText={this.state.errorTextSchicht.Arbeitsplatz7}
                   errorStyle={{color:'orange'}}
                   onChange={this._handleSchichtenChange}
                   value={this.state.Arbeitsplatz7.Schichten}/>
@@ -2956,7 +3307,7 @@ class Kapazitaetsplanung extends React.Component {
                 <TextField
                   hintText="Schichten"
                   id="Arbeitsplatz8"
-                  errorText={this.state.errorTextSchicht.A8}
+                  errorText={this.state.errorTextSchicht.Arbeitsplatz8}
                   errorStyle={{color:'orange'}}
                   onChange={this._handleSchichtenChange}
                   value={this.state.Arbeitsplatz8.Schichten}/>
@@ -2965,7 +3316,7 @@ class Kapazitaetsplanung extends React.Component {
                 <TextField
                   hintText="Schichten"
                   id="Arbeitsplatz9"
-                  errorText={this.state.errorTextSchicht.A9}
+                  errorText={this.state.errorTextSchicht.Arbeitsplatz9}
                   errorStyle={{color:'orange'}}
                   onChange={this._handleSchichtenChange}
                   value={this.state.Arbeitsplatz9.Schichten}/>
@@ -2974,7 +3325,7 @@ class Kapazitaetsplanung extends React.Component {
                 <TextField
                   hintText="Schichten"
                   id="Arbeitsplatz10"
-                  errorText={this.state.errorTextSchicht.A10}
+                  errorText={this.state.errorTextSchicht.Arbeitsplatz10}
                   errorStyle={{color:'orange'}}
                   onChange={this._handleSchichtenChange}
                   value={this.state.Arbeitsplatz10.Schichten}/>
@@ -2983,7 +3334,7 @@ class Kapazitaetsplanung extends React.Component {
                 <TextField
                   hintText="Schichten"
                   id="Arbeitsplatz11"
-                  errorText={this.state.errorTextSchicht.A11}
+                  errorText={this.state.errorTextSchicht.Arbeitsplatz11}
                   errorStyle={{color:'orange'}}
                   onChange={this._handleSchichtenChange}
                   value={this.state.Arbeitsplatz11.Schichten}/>
@@ -2992,7 +3343,7 @@ class Kapazitaetsplanung extends React.Component {
                 <TextField
                   hintText="Schichten"
                   id="Arbeitsplatz12"
-                  errorText={this.state.errorTextSchicht.A12}
+                  errorText={this.state.errorTextSchicht.Arbeitsplatz12}
                   errorStyle={{color:'orange'}}
                   onChange={this._handleSchichtenChange}
                   value={this.state.Arbeitsplatz12.Schichten}/>
@@ -3001,7 +3352,7 @@ class Kapazitaetsplanung extends React.Component {
                 <TextField
                   hintText="Schichten"
                   id="Arbeitsplatz13"
-                  errorText={this.state.errorTextSchicht.A13}
+                  errorText={this.state.errorTextSchicht.Arbeitsplatz13}
                   errorStyle={{color:'orange'}}
                   onChange={this._handleSchichtenChange}
                   value={this.state.Arbeitsplatz13.Schichten}/>
@@ -3019,7 +3370,7 @@ class Kapazitaetsplanung extends React.Component {
                 <TextField
                   hintText="Schichten"
                   id="Arbeitsplatz15"
-                  errorText={this.state.errorTextSchicht.A15}
+                  errorText={this.state.errorTextSchicht.Arbeitsplatz15}
                   errorStyle={{color:'orange'}}
                   onChange={this._handleSchichtenChange}
                   value={this.state.Arbeitsplatz15.Schichten}/>
@@ -3032,60 +3383,144 @@ class Kapazitaetsplanung extends React.Component {
                 Überstunden
               </TableRowColumn>
               <TableRowColumn>
-                {this.state.Arbeitsplatz1.Überstunden}
+                <TextField
+                  hintText="Überstunden"
+                  id="Arbeitsplatz1"
+                  errorText={this.state.errorTextStunden.Arbeitsplatz1}
+                  errorStyle={{color:'orange'}}
+                  onChange={this._handleStundenChange}
+                  value={this.state.Arbeitsplatz1.Überstunden}/>
               </TableRowColumn>
               <TableRowColumn>
-                {this.state.Arbeitsplatz2.Überstunden}
+                <TextField
+                  hintText="Überstunden"
+                  id="Arbeitsplatz2"
+                  errorText={this.state.errorTextStunden.Arbeitsplatz2}
+                  errorStyle={{color:'orange'}}
+                  onChange={this._handleStundenChange}
+                  value={this.state.Arbeitsplatz2.Überstunden}/>
               </TableRowColumn>
               <TableRowColumn>
-                {this.state.Arbeitsplatz3.Überstunden}
+                <TextField
+                  hintText="Überstunden"
+                  id="Arbeitsplatz3"
+                  errorText={this.state.errorTextStunden.Arbeitsplatz3}
+                  errorStyle={{color:'orange'}}
+                  onChange={this._handleStundenChange}
+                  value={this.state.Arbeitsplatz3.Überstunden}/>
               </TableRowColumn>
               <TableRowColumn>
-                {this.state.Arbeitsplatz4.Überstunden}
+                <TextField
+                  hintText="Überstunden"
+                  id="Arbeitsplatz4"
+                  errorText={this.state.errorTextStunden.Arbeitsplatz4}
+                  errorStyle={{color:'orange'}}
+                  onChange={this._handleStundenChange}
+                  value={this.state.Arbeitsplatz4.Überstunden}/>
               </TableRowColumn>
               <TableRowColumn>
               </TableRowColumn>
               <TableRowColumn>
-                {this.state.Arbeitsplatz6.Überstunden}
+                <TextField
+                  hintText="Überstunden"
+                  id="Arbeitsplatz6"
+                  errorText={this.state.errorTextStunden.Arbeitsplatz6}
+                  errorStyle={{color:'orange'}}
+                  onChange={this._handleStundenChange}
+                  value={this.state.Arbeitsplatz6.Überstunden}/>
               </TableRowColumn>
               <TableRowColumn>
-                {this.state.Arbeitsplatz7.Überstunden}
+                <TextField
+                  hintText="Überstunden"
+                  id="Arbeitsplatz7"
+                  errorText={this.state.errorTextStunden.Arbeitsplatz7}
+                  errorStyle={{color:'orange'}}
+                  onChange={this._handleStundenChange}
+                  value={this.state.Arbeitsplatz7.Überstunden}/>
               </TableRowColumn>
               <TableRowColumn>
-                {this.state.Arbeitsplatz8.Überstunden}
+                <TextField
+                  hintText="Überstunden"
+                  id="Arbeitsplatz8"
+                  errorText={this.state.errorTextStunden.Arbeitsplatz8}
+                  errorStyle={{color:'orange'}}
+                  onChange={this._handleStundenChange}
+                  value={this.state.Arbeitsplatz8.Überstunden}/>
               </TableRowColumn>
               <TableRowColumn>
-                {this.state.Arbeitsplatz9.Überstunden}
+                <TextField
+                  hintText="Überstunden"
+                  id="Arbeitsplatz9"
+                  errorText={this.state.errorTextStunden.Arbeitsplatz9}
+                  errorStyle={{color:'orange'}}
+                  onChange={this._handleStundenChange}
+                  value={this.state.Arbeitsplatz9.Überstunden}/>
               </TableRowColumn>
               <TableRowColumn>
-                {this.state.Arbeitsplatz10.Überstunden}
+                <TextField
+                  hintText="Überstunden"
+                  id="Arbeitsplatz10"
+                  errorText={this.state.errorTextStunden.Arbeitsplatz10}
+                  errorStyle={{color:'orange'}}
+                  onChange={this._handleStundenChange}
+                  value={this.state.Arbeitsplatz10.Überstunden}/>
               </TableRowColumn>
               <TableRowColumn>
-                {this.state.Arbeitsplatz11.Überstunden}
+                <TextField
+                  hintText="Überstunden"
+                  id="Arbeitsplatz11"
+                  errorText={this.state.errorTextStunden.Arbeitsplatz11}
+                  errorStyle={{color:'orange'}}
+                  onChange={this._handleStundenChange}
+                  value={this.state.Arbeitsplatz11.Überstunden}/>
               </TableRowColumn>
               <TableRowColumn>
-                {this.state.Arbeitsplatz12.Überstunden}
+                <TextField
+                  hintText="Überstunden"
+                  id="Arbeitsplatz12"
+                  errorText={this.state.errorTextStunden.Arbeitsplatz12}
+                  errorStyle={{color:'orange'}}
+                  onChange={this._handleStundenChange}
+                  value={this.state.Arbeitsplatz12.Überstunden}/>
               </TableRowColumn>
               <TableRowColumn>
-                {this.state.Arbeitsplatz13.Überstunden}
+                <TextField
+                  hintText="Überstunden"
+                  id="Arbeitsplatz13"
+                  errorText={this.state.errorTextStunden.Arbeitsplatz13}
+                  errorStyle={{color:'orange'}}
+                  onChange={this._handleStundenChange}
+                  value={this.state.Arbeitsplatz13.Überstunden}/>
               </TableRowColumn>
               <TableRowColumn>
-                {this.state.Arbeitsplatz14.Überstunden}
+                <TextField
+                  hintText="Überstunden"
+                  id="Arbeitsplatz14"
+                  errorText={this.state.errorTextStunden.Arbeitsplatz14}
+                  errorStyle={{color:'orange'}}
+                  onChange={this._handleStundenChange}
+                  value={this.state.Arbeitsplatz14.Überstunden}/>
               </TableRowColumn>
               <TableRowColumn>
-                {this.state.Arbeitsplatz15.Überstunden}
+                <TextField
+                  hintText="Überstunden"
+                  id="Arbeitsplatz15"
+                  errorText={this.state.errorTextStunden.Arbeitsplatz15}
+                  errorStyle={{color:'orange'}}
+                  onChange={this._handleStundenChange}
+                  value={this.state.Arbeitsplatz15.Überstunden}/>
               </TableRowColumn>
             </TableRow>
 
           </TableBody>
         </Table>
 
-      <Snackbar
-        ref="snackbar"
-        message={this.state.snackBarmessage}
-        autoHideDuration={this.state.snackBarautoHideDuration}
-        style={{"textAlign":"center"}}>
-      </Snackbar>
+        <Snackbar
+          ref="snackbar"
+          message={this.state.snackBarmessage}
+          autoHideDuration={this.state.snackBarautoHideDuration}
+          style={{"textAlign":"center"}}>
+        </Snackbar>
       </div>
     );
   }
