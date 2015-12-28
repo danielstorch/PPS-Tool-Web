@@ -21,7 +21,6 @@ const Snackbar = require('material-ui/lib/snackbar');
 const TextField = require('material-ui/lib/text-field');
 
 
-
 class Damen extends React.Component {
   //this._handleClick = this._handleClick.bind(this);
   constructor() {
@@ -44,7 +43,7 @@ class Damen extends React.Component {
     //AU = Aufträge
 
     this.state = {
-      currentPeriode:"",
+      currentPeriode: "",
 
       modal: true,
       openDialogStandardActions: false,
@@ -66,149 +65,166 @@ class Damen extends React.Component {
       deselectOnClickaway: false,
       height: '650px',
 
-      VR:{P2: 0,
-          E26: 0,
-          E56: 0,
-          E16: 0,
-          E17: 0,
-          E55: 0,
-          E5: 0,
-          E11: 0,
-          E54: 0,
-          E8: 0,
-          E14: 0,
-          E19: 0},
+      VR: {
+        P2: 0,
+        E26: 0,
+        E56: 0,
+        E16: 0,
+        E17: 0,
+        E55: 0,
+        E5: 0,
+        E11: 0,
+        E54: 0,
+        E8: 0,
+        E14: 0,
+        E19: 0
+      },
 
-      BW:{P2: 0,
-          E26: 0,
-          E56: 0,
-          E16: 0,
-          E17: 0,
-          E55: 0,
-          E5: 0,
-          E11: 0,
-          E54: 0,
-          E8: 0,
-          E14: 0,
-          E19: 0},
+      BW: {
+        P2: 0,
+        E26: 0,
+        E56: 0,
+        E16: 0,
+        E17: 0,
+        E55: 0,
+        E5: 0,
+        E11: 0,
+        E54: 0,
+        E8: 0,
+        E14: 0,
+        E19: 0
+      },
 
 
-      GL:{P2: 0,
-          E26: 0,
-          E56: 0,
-          E16: 0,
-          E17: 0,
-          E55: 0,
-          E5: 0,
-          E11: 0,
-          E54: 0,
-          E8: 0,
-          E14: 0,
-          E19: 0},
+      GL: {
+        P2: 0,
+        E26: 0,
+        E56: 0,
+        E16: 0,
+        E17: 0,
+        E55: 0,
+        E5: 0,
+        E11: 0,
+        E54: 0,
+        E8: 0,
+        E14: 0,
+        E19: 0
+      },
 
-      AL:{P2: 0,
-          E26: 0,
-          E56: 0,
-          E16: 0,
-          E17: 0,
-          E55: 0,
-          E5: 0,
-          E11: 0,
-          E54: 0,
-          E8: 0,
-          E14: 0,
-          E19: 0},
+      AL: {
+        P2: 0,
+        E26: 0,
+        E56: 0,
+        E16: 0,
+        E17: 0,
+        E55: 0,
+        E5: 0,
+        E11: 0,
+        E54: 0,
+        E8: 0,
+        E14: 0,
+        E19: 0
+      },
 
-      WS:{P2: 0,
-          E26: 0,
-          E56: 0,
-          E16: 0,
-          E17: 0,
-          E55: 0,
-          E5: 0,
-          E11: 0,
-          E54: 0,
-          E8: 0,
-          E14: 0,
-          E19: 0},
+      WS: {
+        P2: 0,
+        E26: 0,
+        E56: 0,
+        E16: 0,
+        E17: 0,
+        E55: 0,
+        E5: 0,
+        E11: 0,
+        E54: 0,
+        E8: 0,
+        E14: 0,
+        E19: 0
+      },
 
-      BA:{P2: 0,
-          E26: 0,
-          E56: 0,
-          E16: 0,
-          E17: 0,
-          E55: 0,
-          E5: 0,
-          E11: 0,
-          E54: 0,
-          E8: 0,
-          E14: 0,
-          E19: 0},
+      BA: {
+        P2: 0,
+        E26: 0,
+        E56: 0,
+        E16: 0,
+        E17: 0,
+        E55: 0,
+        E5: 0,
+        E11: 0,
+        E54: 0,
+        E8: 0,
+        E14: 0,
+        E19: 0
+      },
 
-      AU: {P2: 0,
-          E26: 0,
-          E56: 0,
-          E16: 0,
-          E17: 0,
-          E55: 0,
-          E5: 0,
-          E11: 0,
-          E54: 0,
-          E8: 0,
-          E14: 0,
-          E19: 0},
+      AU: {
+        P2: 0,
+        E26: 0,
+        E56: 0,
+        E16: 0,
+        E17: 0,
+        E55: 0,
+        E5: 0,
+        E11: 0,
+        E54: 0,
+        E8: 0,
+        E14: 0,
+        E19: 0
+      },
 
-      errorTextVR:{P2: '',
-          E26: '',
-          E56: '',
-          E16: '',
-          E17: '',
-          E55: '',
-          E5: '',
-          E11: '',
-          E54: '',
-          E8: '',
-          E14: '',
-          E19: ''
-        },
-        errorTextGL:{P2: '',
-          E26: '',
-          E56: '',
-          E16: '',
-          E17: '',
-          E55: '',
-          E5: '',
-          E11: '',
-          E54: '',
-          E8: '',
-          E14: '',
-          E19: ''
-        }
+      errorTextVR: {
+        P2: '',
+        E26: '',
+        E56: '',
+        E16: '',
+        E17: '',
+        E55: '',
+        E5: '',
+        E11: '',
+        E54: '',
+        E8: '',
+        E14: '',
+        E19: ''
+      },
+      errorTextGL: {
+        P2: '',
+        E26: '',
+        E56: '',
+        E16: '',
+        E17: '',
+        E55: '',
+        E5: '',
+        E11: '',
+        E54: '',
+        E8: '',
+        E14: '',
+        E19: ''
+      }
     };
 
   }
-  componentWillMount(){
+
+  componentWillMount() {
     this._updateVariables(true)
   }
 
-  componentDidUpdate(){
+  componentDidUpdate() {
 
     this._updateVariables(false);
 
   }
 
 
-  _updateVariables(initial){
+  _updateVariables(initial) {
 
     var activePeriodID = this.props.ActiveUploadXML.activeUploadXMLData.id.substring(7);
     var currentInputXML = this.props.InputXMLs.find(xml => xml.id.substring(6) === activePeriodID);
 
 
-    if(initial == true || this.state.currentPeriode != activePeriodID){
+    if (initial == true || this.state.currentPeriode != activePeriodID) {
 
-      if(currentInputXML){
+      if (currentInputXML) {
 
-        if( currentInputXML && currentInputXML.inputDataObject.auftragsplanungDamen ){
+        if (currentInputXML && currentInputXML.inputDataObject.auftragsplanungDamen) {
 
           this.state.VR.P2 = currentInputXML.inputDataObject.auftragsplanungDamen.VR.P2
           this.state.GL.P2 = currentInputXML.inputDataObject.auftragsplanungDamen.GL.P2
@@ -227,7 +243,7 @@ class Damen extends React.Component {
 
           this.state.resetButtonDisabled = false
 
-        } else if(currentInputXML.inputDataObject.auftragsplanungGesamt){
+        } else if (currentInputXML.inputDataObject.auftragsplanungGesamt) {
 
           this.state.VR.P2 = currentInputXML.inputDataObject.auftragsplanungGesamt.P2.Prognose
           this.state.GL.P2 = currentInputXML.inputDataObject.auftragsplanungGesamt.P2.ProduktionLager
@@ -246,7 +262,7 @@ class Damen extends React.Component {
 
           this.state.resetButtonDisabled = true
 
-        } else{
+        } else {
 
           this.state.VR.P2 = 0
           this.state.GL.P2 = 0
@@ -265,25 +281,25 @@ class Damen extends React.Component {
           this.state.resetButtonDisabled = true
 
         }
-      }else{
+      } else {
 
-          this.state.VR.P2 = 0
-          this.state.GL.P2 = 0
-          this.state.GL.E26 = 0
-          this.state.GL.E56 = 0
-          this.state.GL.E16 = 0
-          this.state.GL.E17 = 0
-          this.state.GL.E55 = 0
-          this.state.GL.E5 = 0
-          this.state.GL.E11 = 0
-          this.state.GL.E54 = 0
-          this.state.GL.E8 = 0
-          this.state.GL.E14 = 0
-          this.state.GL.E19 = 0
+        this.state.VR.P2 = 0
+        this.state.GL.P2 = 0
+        this.state.GL.E26 = 0
+        this.state.GL.E56 = 0
+        this.state.GL.E16 = 0
+        this.state.GL.E17 = 0
+        this.state.GL.E55 = 0
+        this.state.GL.E5 = 0
+        this.state.GL.E11 = 0
+        this.state.GL.E54 = 0
+        this.state.GL.E8 = 0
+        this.state.GL.E14 = 0
+        this.state.GL.E19 = 0
 
-          this.state.resetButtonDisabled = true
-        }
-      
+        this.state.resetButtonDisabled = true
+      }
+
       this.setState({
         currentPeriode: activePeriodID
       });
@@ -291,7 +307,6 @@ class Damen extends React.Component {
     }
 
 
-   
     this.state.BW.E26 = this._getWaitingslistworkstation("2")
     this.state.BW.E56 = this._getWaitingslistworkstation("2")
     this.state.BW.E16 = this._getWaitingslistworkstation("56")
@@ -305,10 +320,10 @@ class Damen extends React.Component {
     this.state.BW.E19 = this._getWaitingslistworkstation("54")
 
     this.state.AL.P2 = this._getWarehousestock("2")
-    this.state.AL.E26 = Math.ceil(this._getWarehousestock("26")/3)
+    this.state.AL.E26 = Math.ceil(this._getWarehousestock("26") / 3)
     this.state.AL.E56 = this._getWarehousestock("56")
-    this.state.AL.E16 = Math.ceil(this._getWarehousestock("16")/3)
-    this.state.AL.E17 = Math.ceil(this._getWarehousestock("17")/3)
+    this.state.AL.E16 = Math.ceil(this._getWarehousestock("16") / 3)
+    this.state.AL.E17 = Math.ceil(this._getWarehousestock("17") / 3)
     this.state.AL.E55 = this._getWarehousestock("55")
     this.state.AL.E5 = this._getWarehousestock("5")
     this.state.AL.E11 = this._getWarehousestock("11")
@@ -343,42 +358,42 @@ class Damen extends React.Component {
     this.state.BA.E14 = this._getOrdersinwork("14")
     this.state.BA.E19 = this._getOrdersinwork("19")
 
-    this.state.AU.P2 = Math.max(0,(this.state.VR.P2 + this.state.GL.P2 - this.state.AL.P2 - this.state.WS.P2 - this.state.BA.P2))
+    this.state.AU.P2 = Math.max(0, (this.state.VR.P2 + this.state.GL.P2 - this.state.AL.P2 - this.state.WS.P2 - this.state.BA.P2))
 
     this.state.VR.E26 = this.state.AU.P2
-    this.state.AU.E26 =  Math.max(0,(this.state.VR.E26 + this.state.BW.E26 + this.state.GL.E26 - this.state.AL.E26 - this.state.WS.E26 - this.state.BA.E26))
+    this.state.AU.E26 = Math.max(0, (this.state.VR.E26 + this.state.BW.E26 + this.state.GL.E26 - this.state.AL.E26 - this.state.WS.E26 - this.state.BA.E26))
     this.state.VR.E56 = this.state.AU.E26
-    this.state.AU.E56 = Math.max(0,(this.state.VR.E56 + this.state.BW.E56 + this.state.GL.E56 - this.state.AL.E56 - this.state.WS.E56 - this.state.BA.E56))
+    this.state.AU.E56 = Math.max(0, (this.state.VR.E56 + this.state.BW.E56 + this.state.GL.E56 - this.state.AL.E56 - this.state.WS.E56 - this.state.BA.E56))
     this.state.VR.E16 = this.state.AU.E56
-    this.state.AU.E16 = Math.max(0,(this.state.VR.E16 + this.state.BW.E16 + this.state.GL.E16 - this.state.AL.E16 - this.state.WS.E16 - this.state.BA.E16))
+    this.state.AU.E16 = Math.max(0, (this.state.VR.E16 + this.state.BW.E16 + this.state.GL.E16 - this.state.AL.E16 - this.state.WS.E16 - this.state.BA.E16))
     this.state.VR.E17 = this.state.AU.E16
-    this.state.AU.E17 = Math.max(0,(this.state.VR.E17 + this.state.BW.E17 + this.state.GL.E17 - this.state.AL.E17 - this.state.WS.E17 - this.state.BA.E17))
+    this.state.AU.E17 = Math.max(0, (this.state.VR.E17 + this.state.BW.E17 + this.state.GL.E17 - this.state.AL.E17 - this.state.WS.E17 - this.state.BA.E17))
     this.state.VR.E55 = this.state.AU.E17
-    this.state.AU.E55 = Math.max(0,(this.state.VR.E55 + this.state.BW.E55 + this.state.GL.E55 - this.state.AL.E55 - this.state.WS.E55 - this.state.BA.E55))
+    this.state.AU.E55 = Math.max(0, (this.state.VR.E55 + this.state.BW.E55 + this.state.GL.E55 - this.state.AL.E55 - this.state.WS.E55 - this.state.BA.E55))
     this.state.VR.E5 = this.state.AU.E55
-    this.state.AU.E5 = Math.max(0,(this.state.VR.E5 + this.state.BW.E5 + this.state.GL.E5 - this.state.AL.E5 - this.state.WS.E5 - this.state.BA.E5))
+    this.state.AU.E5 = Math.max(0, (this.state.VR.E5 + this.state.BW.E5 + this.state.GL.E5 - this.state.AL.E5 - this.state.WS.E5 - this.state.BA.E5))
     this.state.VR.E11 = this.state.AU.E5
-    this.state.AU.E11 = Math.max(0,(this.state.VR.E11 + this.state.BW.E11 + this.state.GL.E11 - this.state.AL.E11 - this.state.WS.E11 - this.state.BA.E11))
+    this.state.AU.E11 = Math.max(0, (this.state.VR.E11 + this.state.BW.E11 + this.state.GL.E11 - this.state.AL.E11 - this.state.WS.E11 - this.state.BA.E11))
     this.state.VR.E54 = this.state.AU.E11
-    this.state.AU.E54 = Math.max(0,(this.state.VR.E54 + this.state.BW.E54 + this.state.GL.E54 - this.state.AL.E54 - this.state.WS.E54 - this.state.BA.E54))
+    this.state.AU.E54 = Math.max(0, (this.state.VR.E54 + this.state.BW.E54 + this.state.GL.E54 - this.state.AL.E54 - this.state.WS.E54 - this.state.BA.E54))
     this.state.VR.E8 = this.state.AU.E54
-    this.state.AU.E8 = Math.max(0,(this.state.VR.E8 + this.state.BW.E8 + this.state.GL.E8 - this.state.AL.E8 - this.state.WS.E8 - this.state.BA.E8))
+    this.state.AU.E8 = Math.max(0, (this.state.VR.E8 + this.state.BW.E8 + this.state.GL.E8 - this.state.AL.E8 - this.state.WS.E8 - this.state.BA.E8))
     this.state.VR.E14 = this.state.AU.E8
-    this.state.AU.E14 = Math.max(0,(this.state.VR.E14 + this.state.BW.E14 + this.state.GL.E14 - this.state.AL.E14 - this.state.WS.E14 - this.state.BA.E14))
+    this.state.AU.E14 = Math.max(0, (this.state.VR.E14 + this.state.BW.E14 + this.state.GL.E14 - this.state.AL.E14 - this.state.WS.E14 - this.state.BA.E14))
     this.state.VR.E19 = this.state.AU.E14
-    this.state.AU.E19 = Math.max(0,(this.state.VR.E19 + this.state.BW.E19 + this.state.GL.E19 - this.state.AL.E19 - this.state.WS.E19 - this.state.BA.E19))
+    this.state.AU.E19 = Math.max(0, (this.state.VR.E19 + this.state.BW.E19 + this.state.GL.E19 - this.state.AL.E19 - this.state.WS.E19 - this.state.BA.E19))
 
   }
 
-  _getWarehousestock(articleId){
+  _getWarehousestock(articleId) {
 
     var activePeriodID = this.props.ActiveUploadXML.activeUploadXMLData.id.substring(7);
     var currentInputXML = this.props.InputXMLs.find(xml => xml.id.substring(6) === activePeriodID);
 
     var amount = 0;
-    if(currentInputXML){
-      currentInputXML.inputDataObject.results.warehousestock[0].article.forEach(function (element){
-        if(element.$.id === articleId){
+    if (currentInputXML) {
+      currentInputXML.inputDataObject.results.warehousestock[0].article.forEach(function (element) {
+        if (element.$.id === articleId) {
           amount = parseInt(element.$.amount) + amount
         }
       }.bind(this))
@@ -390,20 +405,20 @@ class Damen extends React.Component {
     return amount
   }
 
-  _getWaitingslistworkstation(articleId){
+  _getWaitingslistworkstation(articleId) {
     var activePeriodID = this.props.ActiveUploadXML.activeUploadXMLData.id.substring(7);
     var currentInputXML = this.props.InputXMLs.find(xml => xml.id.substring(6) === activePeriodID);
 
     var currentAmount = 0;
-    if(currentInputXML){
-      currentInputXML.inputDataObject.results.waitinglistworkstations[0].workplace.forEach(function (elementStation){
-        if(elementStation.waitinglist){
-            elementStation.waitinglist.forEach(function (elementWaitinglist){
-              if(elementWaitinglist.$.item === articleId){
-                currentAmount = parseInt(elementWaitinglist.$.amount) + currentAmount
-              }
-            }.bind(this))
-          }
+    if (currentInputXML) {
+      currentInputXML.inputDataObject.results.waitinglistworkstations[0].workplace.forEach(function (elementStation) {
+        if (elementStation.waitinglist) {
+          elementStation.waitinglist.forEach(function (elementWaitinglist) {
+            if (elementWaitinglist.$.item === articleId) {
+              currentAmount = parseInt(elementWaitinglist.$.amount) + currentAmount
+            }
+          }.bind(this))
+        }
       }.bind(this))
 
     }
@@ -412,14 +427,14 @@ class Damen extends React.Component {
     return currentAmount
   }
 
-  _getOrdersinwork(articleId){
+  _getOrdersinwork(articleId) {
     var activePeriodID = this.props.ActiveUploadXML.activeUploadXMLData.id.substring(7);
     var currentInputXML = this.props.InputXMLs.find(xml => xml.id.substring(6) === activePeriodID);
 
     var currentAmount = 0;
-    if(currentInputXML){
-      currentInputXML.inputDataObject.results.ordersinwork[0].workplace.forEach(function (elementWorkplace){
-        if(elementWorkplace.$.item === articleId){
+    if (currentInputXML) {
+      currentInputXML.inputDataObject.results.ordersinwork[0].workplace.forEach(function (elementWorkplace) {
+        if (elementWorkplace.$.item === articleId) {
           currentAmount = parseInt(elementWorkplace.$.amount) + currentAmount
         }
       }.bind(this))
@@ -430,7 +445,7 @@ class Damen extends React.Component {
     return currentAmount
   }
 
-  _handleGeplanterLagerbestandChange(e){
+  _handleGeplanterLagerbestandChange(e) {
 
     let articleId = e.target.id
     let value = e.target.value;
@@ -439,10 +454,10 @@ class Damen extends React.Component {
 
     let isNumeric = !isNaN(parseFloat(value)) && isFinite(value);
     let buttonDis;
-    if(isNumeric){
+    if (isNumeric) {
       errorTextGLList[articleId] = ''
-    }else{
-      errorTextGLList[articleId] = 'This field must be numeric.'
+    } else {
+      errorTextGLList[articleId] = this.props.internationalReducer.activeLanguage.strings.NumericError;
       value = 0
     }
     GLList[articleId] = parseInt(value)
@@ -455,7 +470,7 @@ class Damen extends React.Component {
     this._updateVariables(false)
   }
 
-  _handleVetriebswunschChange(e){
+  _handleVetriebswunschChange(e) {
     console.log("_handleVetriebswunschChange")
     let articleId = e.target.id
     let value = e.target.value;
@@ -464,10 +479,10 @@ class Damen extends React.Component {
 
     let isNumeric = !isNaN(parseFloat(value)) && isFinite(value);
 
-    if(isNumeric){
+    if (isNumeric) {
       errorTextVRList[articleId] = ''
-    }else{
-      errorTextVRList[articleId] = 'This field must be numeric.'
+    } else {
+      errorTextVRList[articleId] = this.props.internationalReducer.activeLanguage.strings.NumericError;
       value = 0
     }
     VRList[articleId] = parseInt(value)
@@ -480,71 +495,73 @@ class Damen extends React.Component {
     this._updateVariables(false)
   }
 
-  _handleButtonClick(e){
+  _handleButtonClick(e) {
 
     var errorlol = false;
-    if(this.props.ActiveUploadXML.activeUploadXMLData.id !=='result_P-1'){
+    if (this.props.ActiveUploadXML.activeUploadXMLData.id !== 'result_P-1') {
 
-      Object.keys(this.state.errorTextVR).forEach(function(key) {
-          if(this.state.errorTextVR[key] !== ''){
-            errorlol = true;
-          }
+      Object.keys(this.state.errorTextVR).forEach(function (key) {
+        if (this.state.errorTextVR[key] !== '') {
+          errorlol = true;
+        }
       }.bind(this));
 
-      Object.keys(this.state.errorTextGL).forEach(function(key) {
-          if(this.state.errorTextGL[key] !== ''){
-            errorlol = true;
-          }
+      Object.keys(this.state.errorTextGL).forEach(function (key) {
+        if (this.state.errorTextGL[key] !== '') {
+          errorlol = true;
+        }
       }.bind(this));
-      if(!errorlol){
+      if (!errorlol) {
 
-        var auftragsplanungDamen = {VR:this.state.VR,
-                                    BW:this.state.BW,
-                                    GL:this.state.GL,
-                                    AL:this.state.AL,
-                                    WS:this.state.WS,
-                                    BA:this.state.BA,
-                                    AU:this.state.AU}
-                                    
+        var auftragsplanungDamen = {
+          VR: this.state.VR,
+          BW: this.state.BW,
+          GL: this.state.GL,
+          AL: this.state.AL,
+          WS: this.state.WS,
+          BA: this.state.BA,
+          AU: this.state.AU
+        }
+
         this.props.dispatch(setAuftragsplanungDamenInputXML(auftragsplanungDamen, this.props.ActiveUploadXML.activeUploadXMLData.id));
 
         //UPDATE LOCAL STORAGE
         this._updateLocalStorage();
-        
+
         this.refs.snackbar.show();
 
         this.setState({
           resetButtonDisabled: false
         });
 
-      }else{
-              this.setState({
-                openDialogStandardActions: true,
-                dialogTitle: "Error",
-                dialogText: "Please be sure that every field is a numeric"
-              });
+      } else {
+        this.setState({
+          openDialogStandardActions: true,
+          dialogTitle: "Error",
+          dialogText: this.props.internationalReducer.activeLanguage.strings.ErrorSaveNumeric
+        });
       }
 
-    }else{
-              this.setState({
-                openDialogStandardActions: true,
-                dialogTitle: "Error",
-                dialogText: "Please choose a vaild periode"
-              });
+    } else {
+      this.setState({
+        openDialogStandardActions: true,
+        dialogTitle: "Error",
+        dialogText: this.props.internationalReducer.activeLanguage.strings.ErrorSavePeriod
+      });
     }
   }
 
-  _updateLocalStorage(){
+  _updateLocalStorage() {
     if (window.localStorage) {
-          var activePeriodID = this.props.ActiveUploadXML.activeUploadXMLData.id.substring(7);
-          var currentInputXML = this.props.InputXMLs.find(xml => xml.id.substring(6) === activePeriodID);
-          console.log("currentInputXML", currentInputXML)
-          localStorage.removeItem(currentInputXML.id);
-          localStorage.setItem(currentInputXML.id, JSON.stringify(currentInputXML.inputDataObject));
-          
-        }else{
-          alert('LocalStorage is not supported in your browser');
-        }
+      var activePeriodID = this.props.ActiveUploadXML.activeUploadXMLData.id.substring(7);
+      var currentInputXML = this.props.InputXMLs.find(xml => xml.id.substring(6) === activePeriodID);
+      console.log("currentInputXML", currentInputXML)
+      localStorage.removeItem(currentInputXML.id);
+      localStorage.setItem(currentInputXML.id, JSON.stringify(currentInputXML.inputDataObject));
+
+    } else {
+      alert('LocalStorage is not supported in your browser');
+    }
   }
 
   _handleRequestClose(buttonClicked) {
@@ -554,7 +571,7 @@ class Damen extends React.Component {
     });
   }
 
-_handleResetButtonClick(e){
+  _handleResetButtonClick(e) {
     this.props.dispatch(resetAuftragsplanungDamenInputXML(this.props.ActiveUploadXML.activeUploadXMLData.id))
     let VRList = this.state.VR;
     let GLList = this.state.GL;
@@ -574,10 +591,10 @@ _handleResetButtonClick(e){
     GLList.E19 = 0
 
     this.setState({
-          resetButtonDisabled: true,
-          VR: VRList,
-          GL: GLList
-        });
+      resetButtonDisabled: true,
+      VR: VRList,
+      GL: GLList
+    });
 
     this._updateVariables(false);
 
@@ -592,79 +609,85 @@ _handleResetButtonClick(e){
   }
 
   render() {
-      // if(this.state.currentPeriode !== this.props.ActiveUploadXML.activeUploadXMLData.id){
-      //   this._updateVariables()
-      //   console.log("ALLES WIRD GEUPDATED")
-      // }
-      //this._updateVariables()
+    // if(this.state.currentPeriode !== this.props.ActiveUploadXML.activeUploadXMLData.id){
+    //   this._updateVariables()
+    //   console.log("ALLES WIRD GEUPDATED")
+    // }
+    //this._updateVariables()
 
-      let standardActions = [
-      { text: 'Ok', onTouchTap: this._onDialogOk.bind(this), ref: 'ok' }
+    let standardActions = [
+      {text: 'Ok', onTouchTap: this._onDialogOk.bind(this), ref: 'ok'}
     ];
 
     return (
       <div>
         <div>
-          <h1>Auftragsplanung Damen-Fahrrad</h1>
+          <h1>{this.props.internationalReducer.activeLanguage.strings.TitelDamen}</h1>
 
-          <RaisedButton label="Save" primary={true} onTouchTap={this._handleButtonClick} />
-          <RaisedButton label="Reset" secondary={true} disabled={this.state.resetButtonDisabled} onTouchTap={this._handleResetButtonClick}/>
-          <div className="navigationButtons"> 
-          <div className="beforeButtonWrapper" >
-            <a className="beforeButton" href="/auftragsplanung/herren" onClick={Link.handleClick}>previous</a>
+          <RaisedButton label={this.props.internationalReducer.activeLanguage.strings.Speichern} primary={true}
+                        onTouchTap={this._handleButtonClick}/>
+          <RaisedButton label={this.props.internationalReducer.activeLanguage.strings.Reset} secondary={true}
+                        disabled={this.state.resetButtonDisabled} onTouchTap={this._handleResetButtonClick}/>
+
+          <div className="navigationButtons">
+            <div className="beforeButtonWrapper">
+              <a className="beforeButton" href="/auftragsplanung/herren"
+                 onClick={Link.handleClick}>{this.props.internationalReducer.activeLanguage.strings.Back}</a>
+            </div>
+            <div className="nextButtonWrapper">
+              <a className="nextButton" href="/auftragsplanung/kinder"
+                 onClick={Link.handleClick}>{this.props.internationalReducer.activeLanguage.strings.Next}</a>
+            </div>
           </div>
-          <div className="nextButtonWrapper">
-            <a className="nextButton" href="/auftragsplanung/kinder" onClick={Link.handleClick}>next!</a>
-          </div>
-        </div>
           <Table
             height={this.state.height}
             fixedHeader={this.state.fixedHeader}
             selectable={this.state.selectable}
             >
-            <TableBody>
-            <TableHeader >
+            <TableHeader adjustForCheckbox={this.state.displayRowCheckbox}
+                         displaySelectAll={this.state.displayRowCheckbox}
+                         enableSelectAll={this.state.enableSelectAll}>
               <TableRow selectable={this.state.selectable}>
-                <TableHeaderColumn colSpan="7" tooltip='Damen Fahrrad' style={{textAlign: 'center'}}>
-                  Damen Fahrrad
+                <TableHeaderColumn colSpan="8" style={{textAlign: 'center'}}>
+                  {this.props.internationalReducer.activeLanguage.strings.DamenFahrrad}
                 </TableHeaderColumn>
               </TableRow>
+
+              <TableRow>
+                <TableHeaderColumn>
+                  {this.props.internationalReducer.activeLanguage.strings.Artikel}
+                </TableHeaderColumn>
+                <TableHeaderColumn>
+                  {this.props.internationalReducer.activeLanguage.strings.Vertriebswunsch}
+                </TableHeaderColumn>
+                <TableHeaderColumn>
+                  {this.props.internationalReducer.activeLanguage.strings.BedarfWS}
+                </TableHeaderColumn>
+                <TableHeaderColumn>
+                  {this.props.internationalReducer.activeLanguage.strings.GeplanterLagerbestand}
+                </TableHeaderColumn>
+                <TableHeaderColumn>
+                  {this.props.internationalReducer.activeLanguage.strings.AktuellerLagerbestand}
+                </TableHeaderColumn>
+                <TableHeaderColumn>
+                  {this.props.internationalReducer.activeLanguage.strings.Warteschlange}
+                </TableHeaderColumn>
+                <TableHeaderColumn>
+                  {this.props.internationalReducer.activeLanguage.strings.Bearbeitung}
+                </TableHeaderColumn>
+                <TableHeaderColumn>
+                  {this.props.internationalReducer.activeLanguage.strings.Aufträge}
+                </TableHeaderColumn>
+              </TableRow>
+
             </TableHeader>
-            </TableBody>
 
             <TableBody displayRowCheckbox={this.state.displayRowCheckbox}>
-            <TableRow>
-                <TableRowColumn>
-                  Artikel
-                </TableRowColumn>
-                <TableRowColumn>
-                  Vertriebswunsch
-                </TableRowColumn>
-                <TableRowColumn>
-                  Bedarf für WS
-                </TableRowColumn>
-                <TableRowColumn>
-                  Geplanter Lagerbestand
-                </TableRowColumn>
-                <TableRowColumn>
-                Aktueller Lagerbestand
-              </TableRowColumn>
-                <TableRowColumn>
-                Warteschlange
-              </TableRowColumn>
-                <TableRowColumn>
-                  Bearbeitung
-                </TableRowColumn>
-                <TableRowColumn>
-                  Aufträge
-                </TableRowColumn>
-              </TableRow>
               <TableRow>
                 <TableRowColumn>P2</TableRowColumn>
                 <TableRowColumn>
                   <TextField
                     id="P2"
-                    hintText="Vertriebswunsch"
                     value={this.state.VR.P2}
                     errorText={this.state.errorTextVR.P2}
                     errorStyle={{color:'orange'}}
@@ -674,7 +697,6 @@ _handleResetButtonClick(e){
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Geplanter Lagerbestand"
                     value={this.state.GL.P2}
                     id="P2"
                     errorText={this.state.errorTextGL.P2}
@@ -682,27 +704,23 @@ _handleResetButtonClick(e){
                     onChange={this._handleGeplanterLagerbestandChange}/>
                 </TableRowColumn>
                 <TableRowColumn>
-                <TextField
-                    hintText="Aktueller Lagerbestand"
-                    value={this.state.AL.P2}
-                    disabled={true}/>
-              </TableRowColumn>
-                <TableRowColumn>
-                <TextField
-                    hintText="Warteschlange"
-                    value={this.state.WS.P2}
-                    disabled={true}/>
-              </TableRowColumn>
-                <TableRowColumn>
                   <TextField
-                    hintText="Bearbeitung"
-                    value = {this.state.BA.P2}
+                    value={this.state.AL.P2}
                     disabled={true}/>
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Aufträge"
-                    value = {this.state.AU.P2}
+                    value={this.state.WS.P2}
+                    disabled={true}/>
+                </TableRowColumn>
+                <TableRowColumn>
+                  <TextField
+                    value={this.state.BA.P2}
+                    disabled={true}/>
+                </TableRowColumn>
+                <TableRowColumn>
+                  <TextField
+                    value={this.state.AU.P2}
                     disabled={true}/>
                 </TableRowColumn>
               </TableRow>
@@ -710,8 +728,7 @@ _handleResetButtonClick(e){
                 <TableRowColumn><b><font color="red">E26</font></b></TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Vertriebswunsch"
-                    value = {this.state.VR.E26}
+                    value={this.state.VR.E26}
                     id="E26"
                     errorText={this.state.errorTextVR.E26}
                     errorStyle={{color:'orange'}}
@@ -720,13 +737,11 @@ _handleResetButtonClick(e){
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Bedarf für WS"
                     disabled={true}
                     value={this.state.BW.P2}/>
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Geplanter Lagerbestand"
                     value={this.state.GL.E26}
                     id="E26"
                     errorText={this.state.errorTextGL.E26}
@@ -735,34 +750,29 @@ _handleResetButtonClick(e){
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Aktueller Lagerbestand"
                     value={this.state.AL.E26}
                     disabled={true}/>
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Warteschlange"
                     value={this.state.WS.E26}
                     disabled={true}/>
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Bearbeitung"
-                    value = {this.state.BA.E26}
+                    value={this.state.BA.E26}
                     disabled={true}/>
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Aufträge"
-                    value = {this.state.AU.E26}
+                    value={this.state.AU.E26}
                     disabled={true}/>
                 </TableRowColumn>
               </TableRow>
               <TableRow>
-                <TableRowColumn displayBorder = {true}>E56</TableRowColumn>
+                <TableRowColumn displayBorder={true}>E56</TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Vertriebswunsch"
                     value={this.state.VR.E56}
                     id="E56"
                     errorText={this.state.errorTextVR.E56}
@@ -772,13 +782,11 @@ _handleResetButtonClick(e){
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Bedarf für WS"
                     value={this.state.BW.P2}
                     disabled={true}/>
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Geplanter Lagerbestand"
                     value={this.state.GL.E56}
                     id="E56"
                     errorText={this.state.errorTextGL.E56}
@@ -787,26 +795,22 @@ _handleResetButtonClick(e){
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Aktueller Lagerbestand"
                     value={this.state.AL.E56}
                     disabled={true}/>
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Warteschlange"
                     value={this.state.WS.E56}
                     disabled={true}/>
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Bearbeitung"
-                    value = {this.state.BA.E56}
+                    value={this.state.BA.E56}
                     disabled={true}/>
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Aufträge"
-                    value = {this.state.AU.E56}
+                    value={this.state.AU.E56}
                     disabled={true}/>
                 </TableRowColumn>
               </TableRow>
@@ -815,7 +819,6 @@ _handleResetButtonClick(e){
                 <TableRowColumn>
                   <TextField
                     id="E16"
-                    hintText="Vertriebswunsch"
                     value={this.state.VR.E16}
                     errorText={this.state.errorTextVR.E16}
                     errorStyle={{color:'orange'}}
@@ -824,13 +827,11 @@ _handleResetButtonClick(e){
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Bedarf für WS"
                     disabled={true}
                     value={this.state.BW.E16}/>
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Geplanter Lagerbestand"
                     value={this.state.GL.E16}
                     id="E16"
                     errorText={this.state.errorTextGL.E16}
@@ -839,26 +840,22 @@ _handleResetButtonClick(e){
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Aktueller Lagerbestand"
                     value={this.state.AL.E16}
                     disabled={true}/>
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Warteschlange"
                     value={this.state.WS.E16}
                     disabled={true}/>
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Bearbeitung"
-                    value = {this.state.BA.E16}
+                    value={this.state.BA.E16}
                     disabled={true}/>
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Aufträge"
-                    value = {this.state.AU.E16}
+                    value={this.state.AU.E16}
                     disabled={true}/>
                 </TableRowColumn>
               </TableRow>
@@ -867,7 +864,6 @@ _handleResetButtonClick(e){
                 <TableRowColumn>
                   <TextField
                     id="E17"
-                    hintText="Vertriebswunsch"
                     value={this.state.VR.E17}
                     errorText={this.state.errorTextVR.E17}
                     errorStyle={{color:'orange'}}
@@ -876,13 +872,11 @@ _handleResetButtonClick(e){
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Bedarf für WS"
                     disabled={true}
                     value={this.state.BW.E56}/>
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Geplanter Lagerbestand"
                     value={this.state.GL.E17}
                     id="E17"
                     errorText={this.state.errorTextGL.E17}
@@ -891,26 +885,22 @@ _handleResetButtonClick(e){
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Aktueller Lagerbestand"
                     value={this.state.AL.E17}
                     disabled={true}/>
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Warteschlange"
                     value={this.state.WS.E17}
                     disabled={true}/>
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Bearbeitung"
-                    value = {this.state.BA.E17}
+                    value={this.state.BA.E17}
                     disabled={true}/>
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Aufträge"
-                    value = {this.state.AU.E17}
+                    value={this.state.AU.E17}
                     disabled={true}/>
                 </TableRowColumn>
               </TableRow>
@@ -919,7 +909,6 @@ _handleResetButtonClick(e){
                 <TableRowColumn>
                   <TextField
                     id="E55"
-                    hintText="Vertriebswunsch"
                     value={this.state.VR.E55}
                     errorText={this.state.errorTextVR.E55}
                     errorStyle={{color:'orange'}}
@@ -928,13 +917,11 @@ _handleResetButtonClick(e){
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Bedarf für WS"
                     disabled={true}
                     value={this.state.BW.E55}/>
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Geplanter Lagerbestand"
                     value={this.state.GL.E55}
                     id="E55"
                     errorText={this.state.errorTextGL.E55}
@@ -943,26 +930,22 @@ _handleResetButtonClick(e){
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Aktueller Lagerbestand"
                     value={this.state.AL.E55}
                     disabled={true}/>
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Warteschlange"
                     value={this.state.WS.E55}
                     disabled={true}/>
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Bearbeitung"
-                    value = {this.state.BA.E55}
+                    value={this.state.BA.E55}
                     disabled={true}/>
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Aufträge"
-                    value = {this.state.AU.E55}
+                    value={this.state.AU.E55}
                     disabled={true}/>
                 </TableRowColumn>
               </TableRow>
@@ -971,7 +954,6 @@ _handleResetButtonClick(e){
                 <TableRowColumn>
                   <TextField
                     id="E5"
-                    hintText="Vertriebswunsch"
                     value={this.state.VR.E5}
                     errorText={this.state.errorTextVR.E5}
                     errorStyle={{color:'orange'}}
@@ -980,13 +962,11 @@ _handleResetButtonClick(e){
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Bedarf für WS"
                     disabled={true}
                     value={this.state.BW.E5}/>
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Geplanter Lagerbestand"
                     value={this.state.GL.E5}
                     id="E5"
                     errorText={this.state.errorTextGL.E5}
@@ -995,26 +975,22 @@ _handleResetButtonClick(e){
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Aktueller Lagerbestand"
                     value={this.state.AL.E5}
                     disabled={true}/>
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Warteschlange"
                     value={this.state.WS.E5}
                     disabled={true}/>
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Bearbeitung"
-                    value = {this.state.BA.E5}
+                    value={this.state.BA.E5}
                     disabled={true}/>
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Aufträge"
-                    value = {this.state.AU.E5}
+                    value={this.state.AU.E5}
                     disabled={true}/>
                 </TableRowColumn>
               </TableRow>
@@ -1023,22 +999,19 @@ _handleResetButtonClick(e){
                 <TableRowColumn>
                   <TextField
                     id="E11"
-                    hintText="Vertriebswunsch"
-                  value={this.state.VR.E11}
-                  errorText={this.state.errorTextVR.E11}
+                    value={this.state.VR.E11}
+                    errorText={this.state.errorTextVR.E11}
                     errorStyle={{color:'orange'}}
                     onChange={this._handleVetriebswunschChange}
                     disabled={true}/>
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Bedarf für WS"
                     disabled={true}
                     value={this.state.BW.E11}/>
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Geplanter Lagerbestand"
                     value={this.state.GL.E11}
                     id="E11"
                     errorText={this.state.errorTextGL.E11}
@@ -1047,50 +1020,43 @@ _handleResetButtonClick(e){
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Aktueller Lagerbestand"
                     value={this.state.AL.E11}
                     disabled={true}/>
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Warteschlange"
                     value={this.state.WS.E11}
                     disabled={true}/>
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Bearbeitung"
-                    value = {this.state.BA.E11}
+                    value={this.state.BA.E11}
                     disabled={true}/>
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Aufträge"
-                    value = {this.state.AU.E11}
+                    value={this.state.AU.E11}
                     disabled={true}/>
                 </TableRowColumn>
               </TableRow>
               <TableRow>
-              <TableRowColumn>E54</TableRowColumn>
-              <TableRowColumn>
-                <TextField
-                  id="E54"
-                  hintText="Vertriebswunsch"
-                  value={this.state.VR.E54}
-                  errorText={this.state.errorTextVR.E54}
+                <TableRowColumn>E54</TableRowColumn>
+                <TableRowColumn>
+                  <TextField
+                    id="E54"
+                    value={this.state.VR.E54}
+                    errorText={this.state.errorTextVR.E54}
                     errorStyle={{color:'orange'}}
                     onChange={this._handleVetriebswunschChange}
                     disabled={true}/>
-              </TableRowColumn>
+                </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Bedarf für WS"
                     disabled={true}
                     value={this.state.BW.E54}/>
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Geplanter Lagerbestand"
                     value={this.state.GL.E54}
                     id="E54"
                     errorText={this.state.errorTextGL.E54}
@@ -1099,35 +1065,30 @@ _handleResetButtonClick(e){
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Aktueller Lagerbestand"
                     value={this.state.AL.E54}
                     disabled={true}/>
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Warteschlange"
                     value={this.state.WS.E54}
                     disabled={true}/>
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Bearbeitung"
-                    value = {this.state.BA.E54}
+                    value={this.state.BA.E54}
                     disabled={true}/>
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Aufträge"
-                    value = {this.state.AU.E54}
+                    value={this.state.AU.E54}
                     disabled={true}/>
                 </TableRowColumn>
-            </TableRow>
+              </TableRow>
               <TableRow>
                 <TableRowColumn>E8</TableRowColumn>
                 <TableRowColumn>
                   <TextField
                     id="E8"
-                    hintText="Vertriebswunsch"
                     value={this.state.VR.E8}
                     errorText={this.state.errorTextVR.E8}
                     errorStyle={{color:'orange'}}
@@ -1136,13 +1097,11 @@ _handleResetButtonClick(e){
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Bedarf für WS"
                     disabled={true}
                     value={this.state.BW.E8}/>
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Geplanter Lagerbestand"
                     value={this.state.GL.E8}
                     id="E8"
                     errorText={this.state.errorTextGL.E8}
@@ -1151,26 +1110,22 @@ _handleResetButtonClick(e){
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Aktueller Lagerbestand"
                     value={this.state.AL.E8}
                     disabled={true}/>
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Warteschlange"
                     value={this.state.WS.E8}
                     disabled={true}/>
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Bearbeitung"
-                    value = {this.state.BA.E8}
+                    value={this.state.BA.E8}
                     disabled={true}/>
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Aufträge"
-                    value = {this.state.AU.E8}
+                    value={this.state.AU.E8}
                     disabled={true}/>
                 </TableRowColumn>
               </TableRow>
@@ -1179,7 +1134,6 @@ _handleResetButtonClick(e){
                 <TableRowColumn>
                   <TextField
                     id="E14"
-                    hintText="Vertriebswunsch"
                     value={this.state.VR.E14}
                     errorText={this.state.errorTextVR.E14}
                     errorStyle={{color:'orange'}}
@@ -1188,13 +1142,11 @@ _handleResetButtonClick(e){
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Bedarf für WS"
                     disabled={true}
                     value={this.state.BW.E14}/>
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Geplanter Lagerbestand"
                     value={this.state.GL.E14}
                     id="E14"
                     errorText={this.state.errorTextGL.E14}
@@ -1203,26 +1155,22 @@ _handleResetButtonClick(e){
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Aktueller Lagerbestand"
                     value={this.state.AL.E14}
                     disabled={true}/>
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Warteschlange"
                     value={this.state.WS.E14}
                     disabled={true}/>
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Bearbeitung"
-                    value = {this.state.BA.E14}
+                    value={this.state.BA.E14}
                     disabled={true}/>
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Aufträge"
-                    value = {this.state.AU.E14}
+                    value={this.state.AU.E14}
                     disabled={true}/>
                 </TableRowColumn>
               </TableRow>
@@ -1231,7 +1179,6 @@ _handleResetButtonClick(e){
                 <TableRowColumn>
                   <TextField
                     id="E19"
-                    hintText="Vertriebswunsch"
                     value={this.state.VR.E19}
                     errorText={this.state.errorTextVR.E19}
                     errorStyle={{color:'orange'}}
@@ -1240,13 +1187,11 @@ _handleResetButtonClick(e){
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Bedarf für WS"
                     disabled={true}
                     value={this.state.BW.E19}/>
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Geplanter Lagerbestand"
                     value={this.state.GL.E19}
                     id="E19"
                     errorText={this.state.errorTextGL.E19}
@@ -1255,26 +1200,22 @@ _handleResetButtonClick(e){
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Aktueller Lagerbestand"
                     value={this.state.AL.E19}
                     disabled={true}/>
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Warteschlange"
                     value={this.state.AL.E19}
                     disabled={true}/>
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Bearbeitung"
-                    value = {this.state.AL.E19}
+                    value={this.state.AL.E19}
                     disabled={true}/>
                 </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Aufträge"
-                    value = {this.state.AU.E19}
+                    value={this.state.AU.E19}
                     disabled={true}/>
                 </TableRowColumn>
 
@@ -1284,20 +1225,20 @@ _handleResetButtonClick(e){
           </Table>
         </div>
         <Dialog
-              ref="standardDialog"
-              title={this.state.dialogTitle}
-              actions={standardActions}
-              actionFocus="ok"
-              open={this.state.openDialogStandardActions}
-              onRequestClose={this._handleRequestClose}>
-              {this.state.dialogText}
+          ref="standardDialog"
+          title={this.state.dialogTitle}
+          actions={standardActions}
+          actionFocus="ok"
+          open={this.state.openDialogStandardActions}
+          onRequestClose={this._handleRequestClose}>
+          {this.state.dialogText}
         </Dialog>
         <Snackbar
-              ref="snackbar"
-              message={this.state.snackBarmessage}
-              autoHideDuration={this.state.snackBarautoHideDuration}
-              style={{"textAlign":"center"}}>
-            </Snackbar>
+          ref="snackbar"
+          message={this.state.snackBarmessage}
+          autoHideDuration={this.state.snackBarautoHideDuration}
+          style={{"textAlign":"center"}}>
+        </Snackbar>
       </div>
     );
   }
@@ -1307,8 +1248,10 @@ _handleResetButtonClick(e){
 function mapStateToProps(state) {
   return {
     ActiveUploadXML: state.ActiveUploadXMLReducer,
-    InputXMLs: state.InputXMLReducer
+    InputXMLs: state.InputXMLReducer,
+    internationalReducer: state.internationalReducer
+
   }
 }
 
-export default connect(mapStateToProps, dispatch => ({ dispatch }))(Damen)
+export default connect(mapStateToProps, dispatch => ({dispatch}))(Damen)
