@@ -82,7 +82,7 @@ const style = {
             }
 
       } else {
-        
+
       }
       this.setState({
         currentPeriode: activePeriodID
@@ -100,7 +100,7 @@ const style = {
       sellwish: {item: []},
       selldirect: {},
       orderlist: {order: []},
-      productionlist: {production: {$: {nr: "1", amount: "2"}}},
+      productionlist: {production: []},
       workingtimelist: {workingtime: []}
     };
 
@@ -147,6 +147,11 @@ const style = {
       }.bind(this));
     }
 
+    //Aufträge
+    this.state.auftraege.forEach(function (elementStation){
+      obj.productionlist.production.push({$: {article: elementStation.article, quantity: elementStation.quantity}})
+
+    }.bind(this))
 
     console.log(obj);
 
@@ -196,7 +201,7 @@ const style = {
           })}
 
         </div>
-       
+
         <a ref="link" href='' download="input.xml" type="button" onClick={this._downloadXML}>
           Download
         </a>
