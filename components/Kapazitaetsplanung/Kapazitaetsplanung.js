@@ -1072,7 +1072,7 @@ class Kapazitaetsplanung extends React.Component {
         this.setState({
           openDialogStandardActions: true,
           dialogTitle: "Error",
-          dialogText: "Please be sure that every field is a numeric"
+          dialogText: this.props.internationalReducer.activeLanguage.strings.ErrorSaveNumeric
         });
       }
 
@@ -1080,7 +1080,7 @@ class Kapazitaetsplanung extends React.Component {
       this.setState({
         openDialogStandardActions: true,
         dialogTitle: "Error",
-        dialogText: "Please choose a vaild periode"
+        dialogText: this.props.internationalReducer.activeLanguage.strings.ErrorSavePeriod
       });
     }
   }
@@ -1393,13 +1393,13 @@ class Kapazitaetsplanung extends React.Component {
     if (isNumeric) {
       if(value > 3){
         console.log('bigger than 3 ');
-        errorTextList[arbeitsplatzId] = 'must be less than 3'
+        errorTextList[arbeitsplatzId] = this.props.internationalReducer.activeLanguage.strings.ErrorKleinerDrei
       } else {
         console.log('isNumeric ');
         errorTextList[arbeitsplatzId] = ''
       }
     } else {
-      errorTextList[arbeitsplatzId] = 'Field must be numeric.'
+      errorTextList[arbeitsplatzId] = this.props.internationalReducer.activeLanguage.strings.NumericError
       value = 0
     }
     arbeitsplatzList.Schichten = parseInt(value)
@@ -1427,7 +1427,7 @@ class Kapazitaetsplanung extends React.Component {
       errorTextList[arbeitsplatzId] = ''
     }else {
       console.log('is not Numeric ');
-      errorTextList[arbeitsplatzId] = 'Field must be numeric.';
+      errorTextList[arbeitsplatzId] = this.props.internationalReducer.activeLanguage.strings.NumericError
       value = 0
     }
     arbeitsplatzList.Überstunden = parseInt(value);
@@ -1454,10 +1454,10 @@ class Kapazitaetsplanung extends React.Component {
     return (
       <div>
         <div>
-          <h1>Auftragsplanung Kapazitaetsplanung-Fahrrad</h1>
+          <h1>{this.props.internationalReducer.activeLanguage.strings.Kapazitaetsplanung}</h1>
 
-          <RaisedButton label="Save" primary={true} onTouchTap={this._handleSaveButtonClick}/>
-          <RaisedButton label="Reset" secondary={true} disabled={this.state.resetButtonDisabled}
+          <RaisedButton label={this.props.internationalReducer.activeLanguage.strings.Speichern} primary={true} onTouchTap={this._handleSaveButtonClick}/>
+          <RaisedButton label={this.props.internationalReducer.activeLanguage.strings.Reset} secondary={true} disabled={this.state.resetButtonDisabled}
                         onTouchTap={this._handleResetButtonClick}/>
           <Toggle
             style={{"display": "inline-block", "width":"10%", "marginLeft":"10px", "paddingTop":"5px"}}
@@ -1468,10 +1468,10 @@ class Kapazitaetsplanung extends React.Component {
 
           <div className="navigationButtons">
             <div className="beforeButtonWrapper">
-              <a className="beforeButton" href="/auftragsplanung/kinder" onClick={Link.handleClick}>previous</a>
+              <a className="beforeButton" href="/auftragsplanung/kinder" onClick={Link.handleClick}>{this.props.internationalReducer.activeLanguage.strings.Back}</a>
             </div>
             <div className="nextButtonWrapper">
-              <a className="nextButton" href="/kaufteildisposition" onClick={Link.handleClick}>next!</a>
+              <a className="nextButton" href="/kaufteildisposition" onClick={Link.handleClick}>{this.props.internationalReducer.activeLanguage.strings.Next}</a>
             </div>
           </div>
         </div>
@@ -1488,23 +1488,23 @@ class Kapazitaetsplanung extends React.Component {
                            displaySelectAll={this.state.displayRowCheckbox}
                            enableSelectAll={this.state.enableSelectAll}>
                 <TableRow selectable={this.state.selectable}>
-                  <TableHeaderColumn colSpan="19" tooltip='Kapazitaetsplanung Fahrrad' style={{textAlign: 'center'}}>
-                    Kapazitaetsplanung Fahrrad
+                  <TableHeaderColumn colSpan="19" style={{textAlign: 'center'}}>
+                    {this.props.internationalReducer.activeLanguage.strings.Kapazitaetsplanung}
                   </TableHeaderColumn>
                 </TableRow>
 
                 <TableRow selectable={this.state.selectable}>
                   <TableHeaderColumn>
-                    Bezeichnung
+                    {this.props.internationalReducer.activeLanguage.strings.Bezeichnung}
                   </TableHeaderColumn>
                   <TableHeaderColumn>
-                    Teile-Art
+                    {this.props.internationalReducer.activeLanguage.strings.TeileArt}
                   </TableHeaderColumn>
                   <TableHeaderColumn>
-                    Sach-Nr
+                    {this.props.internationalReducer.activeLanguage.strings.SachNR}
                   </TableHeaderColumn>
                   <TableHeaderColumn>
-                    Auftragsmenge
+                    {this.props.internationalReducer.activeLanguage.strings.Auftragsmenge}
                   </TableHeaderColumn>
                   <TableHeaderColumn>
                     1
@@ -1610,7 +1610,7 @@ class Kapazitaetsplanung extends React.Component {
                 </TableRow>
                 <TableRow>
                   <TableRowColumn>
-                    Hinterrad
+                    {this.props.internationalReducer.activeLanguage.strings.Hinterrad}
                   </TableRowColumn>
                   <TableRowColumn>
                     D
@@ -1750,7 +1750,7 @@ class Kapazitaetsplanung extends React.Component {
                 </TableRow>
                 <TableRow>
                   <TableRowColumn>
-                    Vorderrad
+                    {this.props.internationalReducer.activeLanguage.strings.Vorderrad}
                   </TableRowColumn>
                   <TableRowColumn>
                     D
@@ -1894,7 +1894,7 @@ class Kapazitaetsplanung extends React.Component {
                 </TableRow>
                 <TableRow>
                   <TableRowColumn>
-                    Schutzblech hinten
+                    {this.props.internationalReducer.activeLanguage.strings.SchutzblechHinten}
                   </TableRowColumn>
                   <TableRowColumn>
                     D
@@ -2043,7 +2043,7 @@ class Kapazitaetsplanung extends React.Component {
                 </TableRow>
                 <TableRow>
                   <TableRowColumn>
-                    Schutzblech vorne
+                    {this.props.internationalReducer.activeLanguage.strings.SchutzblechVorne}
                   </TableRowColumn>
                   <TableRowColumn>
                     D
@@ -2145,7 +2145,7 @@ class Kapazitaetsplanung extends React.Component {
                 //Lenker
                 <TableRow>
                   <TableRowColumn>
-                    Lenker
+                    {this.props.internationalReducer.activeLanguage.strings.Lenker}
                   </TableRowColumn>
                   <TableRowColumn>
                     KDH
@@ -2193,7 +2193,7 @@ class Kapazitaetsplanung extends React.Component {
                 //Sattel
                 <TableRow>
                   <TableRowColumn>
-                    Sattel
+                    {this.props.internationalReducer.activeLanguage.strings.Sattel}
                   </TableRowColumn>
                   <TableRowColumn>
                     KDH
@@ -2288,7 +2288,7 @@ class Kapazitaetsplanung extends React.Component {
                 </TableRow>
                 <TableRow>
                   <TableRowColumn>
-                    Rahmen
+                    {this.props.internationalReducer.activeLanguage.strings.Rahmen}
                   </TableRowColumn>
                   <TableRowColumn>
                     D
@@ -2386,7 +2386,7 @@ class Kapazitaetsplanung extends React.Component {
                 //Pedale
                 <TableRow>
                   <TableRowColumn>
-                    Pedale
+                    {this.props.internationalReducer.activeLanguage.strings.Pedale}
                   </TableRowColumn>
                   <TableRowColumn>
                     KDH
@@ -2479,7 +2479,7 @@ class Kapazitaetsplanung extends React.Component {
                 </TableRow>
                 <TableRow>
                   <TableRowColumn>
-                    Rahmen
+                    {this.props.internationalReducer.activeLanguage.strings.Rahmen}
                   </TableRowColumn>
                   <TableRowColumn>
                     D
@@ -2617,7 +2617,7 @@ class Kapazitaetsplanung extends React.Component {
                 </TableRow>
                 <TableRow>
                   <TableRowColumn>
-                    Rahmen und Räder
+                    {this.props.internationalReducer.activeLanguage.strings.RahmenUndRäder}
                   </TableRowColumn>
                   <TableRowColumn>
                     D
@@ -2754,7 +2754,7 @@ class Kapazitaetsplanung extends React.Component {
                 </TableRow>
                 <TableRow>
                   <TableRowColumn>
-                    Fahrrad ohne Pedal
+                    {this.props.internationalReducer.activeLanguage.strings.FahrradOhnePedale}
                   </TableRowColumn>
                   <TableRowColumn>
                     D
@@ -2893,7 +2893,7 @@ class Kapazitaetsplanung extends React.Component {
                 </TableRow>
                 <TableRow>
                   <TableRowColumn>
-                    Fahrrad komplett
+                    {this.props.internationalReducer.activeLanguage.strings.FahrradKomplett}
                   </TableRowColumn>
                   <TableRowColumn>
                     D
@@ -2992,7 +2992,7 @@ class Kapazitaetsplanung extends React.Component {
                 //Kapazitätsplanung (neu)
                 <TableRow>
                   <TableRowColumn colSpan="4" style={{textAlign: 'center'}}>
-                    Kapazitätsplanung (neu)
+                    {this.props.internationalReducer.activeLanguage.strings.KapazitätsbedarfNeu}
                   </TableRowColumn>
                   <TableRowColumn>
                     {this.state.Arbeitsplatz1.Kapazitätsbedarf}
@@ -3045,7 +3045,7 @@ class Kapazitaetsplanung extends React.Component {
                 //Rüstzeit pro Vorgang
                 <TableRow>
                   <TableRowColumn colSpan="4" style={{textAlign: 'center'}}>
-                    Rüstzeit pro Vorgang
+                    {this.props.internationalReducer.activeLanguage.strings.RüstzeitProVorgang}
                   </TableRowColumn>
                   <TableRowColumn>
                     {this.state.Arbeitsplatz1.RüstzeitVorgang}
@@ -3096,7 +3096,7 @@ class Kapazitaetsplanung extends React.Component {
                 //Rüstungsvorgänge
                 <TableRow>
                   <TableRowColumn colSpan="4" style={{textAlign: 'center'}}>
-                    Rüstungsvorgänge
+                      {this.props.internationalReducer.activeLanguage.strings.RüstVorgänge}
                   </TableRowColumn>
                   <TableRowColumn>
                     {this.state.Arbeitsplatz1.RüstVorgänge}
@@ -3147,7 +3147,7 @@ class Kapazitaetsplanung extends React.Component {
                 //Rüstzeit Gesamt
                 <TableRow>
                   <TableRowColumn colSpan="4" style={{textAlign: 'center'}}>
-                    Rüstzeit Gesamt
+                      {this.props.internationalReducer.activeLanguage.strings.RüstzeitGesamt}
                   </TableRowColumn>
                   <TableRowColumn>
                     {this.state.Arbeitsplatz1.RüstzeitGesamt}
@@ -3198,7 +3198,7 @@ class Kapazitaetsplanung extends React.Component {
                 //Warteschlange
                 <TableRow>
                   <TableRowColumn colSpan="4" style={{textAlign: 'center'}}>
-                    Warteschlange
+                      {this.props.internationalReducer.activeLanguage.strings.Warteschlange}
                   </TableRowColumn>
                   <TableRowColumn>
                     {this.state.Arbeitsplatz1.Warteschlange}
@@ -3249,7 +3249,7 @@ class Kapazitaetsplanung extends React.Component {
                 //Gesamtkapazitätsbedarf
                 <TableRow>
                   <TableRowColumn colSpan="4" style={{textAlign: 'center'}}>
-                    Gesamtkapazitätsbedarf
+                      {this.props.internationalReducer.activeLanguage.strings.Gesamtkapazitätsbedarf}
                   </TableRowColumn>
                   <TableRowColumn>
                     {this.state.Arbeitsplatz1.Gesamtkapazitätbedarf}
@@ -3300,7 +3300,7 @@ class Kapazitaetsplanung extends React.Component {
                 //Schichten
                 <TableRow>
                   <TableRowColumn colSpan="4" style={{textAlign: 'center'}}>
-                    Schichten
+                      {this.props.internationalReducer.activeLanguage.strings.Schichten}
                   </TableRowColumn>
                   <TableRowColumn>
                     <TextField
@@ -3435,7 +3435,7 @@ class Kapazitaetsplanung extends React.Component {
                 //Überstunden
                 <TableRow>
                   <TableRowColumn colSpan="4" style={{textAlign: 'center'}}>
-                    Überstunden
+                      {this.props.internationalReducer.activeLanguage.strings.Überstunden}
                   </TableRowColumn>
                   <TableRowColumn>
                     <TextField
