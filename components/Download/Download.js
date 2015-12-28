@@ -15,7 +15,6 @@ import xml2js from 'xml2js';
 var RaisedButton = mui.RaisedButton;
 
 const style = {
-  width: 400,
   textAlign: "center"
 };
 
@@ -25,38 +24,76 @@ const style = {
     super(props);
     this.moveCard = this.moveCard.bind(this);
     this._downloadXML = this._downloadXML.bind(this);
+    this._updateVariables = this._updateVariables.bind(this);
     this.state = {
-      cards: [{
-        id: 1,
-        text: 'Write a cool JS library'
-      }, {
-        id: 2,
-        text: 'Make it generic enough'
-      }, {
-        id: 3,
-        text: 'Write README'
-      }, {
-        id: 4,
-        text: 'Create some examples'
-      }, {
-        id: 5,
-        text: 'Spam in Twitter and IRC to promote it (note that this element is taller than the others)'
-      }, {
-        id: 6,
-        text: '???'
-      }, {
-        id: 7,
-        text: 'PROFIT'
-      }]
+          auftraege:[]
     };
   }
 
+  componentWillMount() {
+    this._updateVariables(true)
+  }
+
+  componentDidUpdate() {
+    this._updateVariables(false);
+
+  }
+
+  _updateVariables(initial) {
+    console.log('_updateVariables Method');
+
+    var activePeriodID = this.props.ActiveUploadXML.activeUploadXMLData.id.substring(7);
+    var currentInputXML = this.props.InputXMLs.find(xml => xml.id.substring(6) === activePeriodID);
+
+
+    if (initial == true || this.state.currentPeriode != activePeriodID) {
+      this.state.auftraege = []
+
+      if (currentInputXML) {
+
+          if(currentInputXML.inputDataObject.auftragsplanungHerren){
+              let objHerren = currentInputXML.inputDataObject.auftragsplanungHerren.AU
+              Object.keys(objHerren).forEach(function(key){
+                  console.log(key, objHerren[key]);
+                  if(objHerren[key] > 0){
+                    this.state.auftraege.push({id:"Herren"+key, article:key.substring(1), quantity: objHerren[key]})
+                  }
+              }.bind(this));
+            }
+
+            if(currentInputXML.inputDataObject.auftragsplanungDamen){
+              let objDamen = currentInputXML.inputDataObject.auftragsplanungDamen.AU
+              Object.keys(objDamen).forEach(function(key){
+                  console.log(key, objDamen[key]);
+                  if(objDamen[key] > 0){
+                    this.state.auftraege.push({id:"Damen"+key, article:key.substring(1), quantity: objDamen[key]})
+                  }
+              }.bind(this));
+            }
+
+            if(currentInputXML.inputDataObject.auftragsplanungKinder){
+              let objKinder = currentInputXML.inputDataObject.auftragsplanungKinder.AU
+              Object.keys(objKinder).forEach(function(key){
+                  console.log(key, objKinder[key]);
+                  if(objKinder[key] > 0){
+                    this.state.auftraege.push({id:"Kinder"+key, article:key.substring(1), quantity: objKinder[key]})
+                  }
+              }.bind(this));
+            }
+
+      } else {
+        
+      }
+      this.setState({
+        currentPeriode: activePeriodID
+      });
+    }
+
+  }
+
+
 
   _downloadXML() {
-    // var prof = {};
-
-    // var builder = new xml2js.Builder();
-    // var inputxml = builder.buildObject(prof);
 
     var obj = {
       qualitycontrol: {$: {type: "no", losequantity: "0", delay: "0"}},
@@ -126,11 +163,11 @@ const style = {
   }
 
   moveCard(dragIndex, hoverIndex) {
-    const { cards } = this.state;
-    const dragCard = cards[dragIndex];
+    const dragCard = this.state.auftraege[dragIndex];
+
 
     this.setState(update(this.state, {
-      cards: {
+      auftraege: {
         $splice: [
           [dragIndex, 1],
           [hoverIndex, 0, dragCard]
@@ -140,9 +177,7 @@ const style = {
   }
 
   render() {
-    const { cards } = this.state;
 
-    console.log(cards)
 
     return (
       <div className="wrapperdownload">
@@ -150,18 +185,18 @@ const style = {
         <h1>Export Xml</h1>
 
         <div style={style}>
-          {cards.map((card, i) => {
+          {this.state.auftraege.map((auftrag, i) => {
             return (
-              <Card key={card.id}
+              <Card key={auftrag.id}
                     index={i}
-                    id={card.id}
-                    text={card.text}
+                    articleId={auftrag.article}
+                    menge={auftrag.quantity}
                     moveCard={this.moveCard}/>
             );
           })}
 
         </div>
-        <RaisedButton label="Secondary" secondary={true} label="Download" onTouchTap={this._downloadXML}/>
+       
         <a ref="link" href='' download="input.xml" type="button" onClick={this._downloadXML}>
           Download
         </a>

@@ -83,22 +83,19 @@ export default class Card extends Component {
     connectDropTarget: PropTypes.func.isRequired,
     index: PropTypes.number.isRequired,
     isDragging: PropTypes.bool.isRequired,
-    id: PropTypes.any.isRequired,
-    text: PropTypes.string.isRequired,
     moveCard: PropTypes.func.isRequired
   };
 
   render() {
-    const { index, text, isDragging, connectDragSource, connectDropTarget } = this.props;
+    const { index, articleId, menge, isDragging, connectDragSource, connectDropTarget } = this.props;
     const opacity = isDragging ? 0 : 1;
     let lol ="dsa"
     return connectDragSource(connectDropTarget(
       <div style={{ ...style, opacity }}>
-      <div> {index + 1} </div>
-      <TextField
-                  hintText="Vertriebswunsch"
-                  value= {text}/>
-        
+        <div style={{"display": "inline-block", "marginRight":"10px"}} > Index: {index + 1} </div>
+        <div style={{"display": "inline-block", "marginRight":"10px"}} > ArticleId: {articleId} </div>
+        <div style={{"display": "inline-block"}} > Menge: {menge} </div>
+
       </div>
     ));
   }
