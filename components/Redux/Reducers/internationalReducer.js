@@ -46,7 +46,11 @@ const initialState = {
         ProduktionFürAufträge: 'Produktion für Aufträge',
         ProduktionFürLager: 'Produktion für Lager',
         ProduktionGesamt: 'Produktion Gesamt',
-        Summe: 'Summe'
+        Summe: 'Summe',
+        Willkommen: 'Willkommen zu dem PSS-Tool der Gruppe ZweiRad!',
+        Starten: 'Hier Starten!',
+        DropFile: 'Ziehe eine Datei hierher, oder klicke hier, um zu starten',
+
 
       }},
       languages:[{
@@ -93,7 +97,11 @@ const initialState = {
               ProduktionFürAufträge: 'Produktion für Aufträge',
               ProduktionFürLager: 'Produktion für Lager',
               ProduktionGesamt: 'Produktion Gesamt',
-              Summe: 'Summe'
+              Summe: 'Summe',
+              Willkommen: 'Willkommen zu dem PSS-Tool der Gruppe ZweiRad!',
+              Starten: 'Hier Starten!',
+              DropFile: 'Ziehe eine Datei hierher, um zu starten',
+
 
             }},
             {
@@ -140,8 +148,10 @@ const initialState = {
               ProduktionFürAufträge: 'production for assignments',
               ProduktionFürLager: 'production for stock',
               ProduktionGesamt: 'production overall',
-              Summe: 'Sum'
-
+              Summe: 'Sum',
+              Willkommen: 'Welcome to the PSS-Tool from ZweiRad!',
+              Starten: 'Start here!',
+              DropFile: 'Try dropping some files here, or click to select files to upload.',
             }}]}
 
 
