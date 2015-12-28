@@ -1,5 +1,5 @@
 // components/App.js
- 
+
 import React, { PropTypes } from 'react';
 import mui from 'material-ui';
 import { connect } from 'react-redux';
@@ -18,9 +18,8 @@ const style = {
   width: 400,
   textAlign: "center"
 };
- 
-@DragDropContext(HTML5Backend)
-class Downlaod extends React.Component {
+
+@DragDropContext(HTML5Backend) class Downlaod extends React.Component {
 
   constructor(props) {
     super(props);
@@ -53,16 +52,68 @@ class Downlaod extends React.Component {
   }
 
 
- 
-  _downloadXML(){
+  _downloadXML() {
     // var prof = {};
 
     // var builder = new xml2js.Builder();
     // var inputxml = builder.buildObject(prof);
 
-    var obj = {lol:"dsa",lollol:{lolLOLOLO:"dsa"}};
+    var obj = {
+      qualitycontrol: {$: {type: "no", losequantity: "0", delay: "0"}},
+      sellwish: {item: []},
+      selldirect: {},
+      orderlist: {order: []},
+      productionlist: {production: {$: {nr: "1", amount: "2"}}},
+      workingtimelist: {workingtime: []}
+    };
 
-    var builder = new xml2js.Builder({rootName:'input'});
+    var activePeriodID = this.props.ActiveUploadXML.activeUploadXMLData.id.substring(7);
+    var currentInputXML = this.props.InputXMLs.find(xml => xml.id.substring(6) === activePeriodID);
+
+    //sellwish
+    if (currentInputXML && currentInputXML.inputDataObject.auftragsplanungHerren) {
+      obj.sellwish.item.push({$: {article: "1", quantity: currentInputXML.inputDataObject.auftragsplanungHerren.VR.P1}})
+    }
+    if (currentInputXML && currentInputXML.inputDataObject.auftragsplanungDamen) {
+      obj.sellwish.item.push({$: {article: "2", quantity: currentInputXML.inputDataObject.auftragsplanungDamen.VR.P2}})
+    }
+    if (currentInputXML && currentInputXML.inputDataObject.auftragsplanungKinder) {
+      obj.sellwish.item.push({$: {article: "3", quantity: currentInputXML.inputDataObject.auftragsplanungKinder.VR.P3}})
+    }
+
+    //bestellungen
+    if (currentInputXML && currentInputXML.inputDataObject.kaufteildisposition) {
+      let objectKaufteildispositionMenge = currentInputXML.inputDataObject.kaufteildisposition.BestellungMenge;
+      let objectKaufteildispositionArt = currentInputXML.inputDataObject.kaufteildisposition.BestellungArt;
+
+      Object.keys(objectKaufteildispositionMenge).forEach(function(key){
+        console.log(key, objectKaufteildispositionMenge[key]);
+        if(objectKaufteildispositionMenge[key] > 0){
+          let ordermodusBool = objectKaufteildispositionArt[key]
+          let ordermodus = 5;
+          if(ordermodusBool == true){
+            ordermodus = 4
+          }
+
+          obj.orderlist.order.push({$: {article:key, quantity:objectKaufteildispositionMenge[key], modus: ordermodus}});
+        }
+      }.bind(this));
+    }
+
+    //bestellungen
+    if (currentInputXML && currentInputXML.inputDataObject.kapazitaetsplanung) {
+      let kapazitaetsplanung = currentInputXML.inputDataObject.kapazitaetsplanung;
+
+      Object.keys(kapazitaetsplanung).forEach(function(key){
+        console.log(key, kapazitaetsplanung[key]);
+          obj.workingtimelist.workingtime.push({$: {station:key.substring(12), shift:kapazitaetsplanung[key].Schichten, overtime:kapazitaetsplanung[key].Überstunden}});
+      }.bind(this));
+    }
+
+
+    console.log(obj);
+
+    var builder = new xml2js.Builder({rootName: 'input'});
     var xml = builder.buildObject(obj);
 
 
@@ -96,28 +147,28 @@ class Downlaod extends React.Component {
     return (
       <div className="wrapperdownload">
 
-      <h1>Export Xml</h1>
-          
-          <div style={style}>
-            {cards.map((card, i) => {
-              return (
-                <Card key={card.id}
-                      index={i}
-                      id={card.id}
-                      text={card.text}
-                      moveCard={this.moveCard} />
-              );
-            })}
-          
-          </div>
+        <h1>Export Xml</h1>
+
+        <div style={style}>
+          {cards.map((card, i) => {
+            return (
+              <Card key={card.id}
+                    index={i}
+                    id={card.id}
+                    text={card.text}
+                    moveCard={this.moveCard}/>
+            );
+          })}
+
+        </div>
         <RaisedButton label="Secondary" secondary={true} label="Download" onTouchTap={this._downloadXML}/>
-        <a ref="link" href='' download="input.xml" type="button"  onClick={this._downloadXML}>
+        <a ref="link" href='' download="input.xml" type="button" onClick={this._downloadXML}>
           Download
         </a>
       </div>
     );
   }
- 
+
 }
 
 function mapStateToProps(state) {
@@ -128,7 +179,7 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps, dispatch => ({ dispatch }))(Downlaod)
+export default connect(mapStateToProps, dispatch => ({dispatch}))(Downlaod)
 
 
-          //<RaisedButton style={{"margin": "10px"}} label="Secondary" secondary={true} label="Add Order" />
+//<RaisedButton style={{"margin": "10px"}} label="Secondary" secondary={true} label="Add Order" />
