@@ -46,6 +46,7 @@ class Kaufteildisposition extends React.Component {
 
     this._getBedarfGesamt = this._getBedarfGesamt.bind(this);
     this._calculateBedarf = this._calculateBedarf.bind(this);
+    this._calcEverything = this._calcEverything.bind(this);
 
     this.state = {
       currentPeriode:"",
@@ -60,8 +61,8 @@ class Kaufteildisposition extends React.Component {
       displayRowCheckbox: false,
       fixedHeader: true,
       fixedFooter: true,
-      stripedRows: false,
-      showRowHover: false,
+      stripedRows: true,
+      showRowHover: true,
       selectable: false,
       multiSelectable: false,
       enableSelectAll: false,
@@ -617,15 +618,98 @@ class Kaufteildisposition extends React.Component {
 
     if(initial == true || this.state.currentPeriode != activePeriodID){
 
-      // wenn periode -1 ausgewählt wurde
-      if(currentInputXML){
-        var hajalol = parseInt(activePeriodID.substring(1))
-        this.state.Perioden.periode1 = hajalol + 1
-        this.state.Perioden.periode2 = hajalol + 2
-        this.state.Perioden.periode3 = hajalol + 3
-        this.state.Perioden.periode4 = hajalol + 4
 
-        if( currentInputXML && currentInputXML.inputDataObject.kaufteildisposition ){
+
+      // check wenn periode -1 ausgewählt wurde, weil es dann keine currentInputXml gibt
+      if(currentInputXML){
+
+          var hajalol = parseInt(activePeriodID.substring(1))
+          this.state.Perioden.periode1 = hajalol + 1
+          this.state.Perioden.periode2 = hajalol + 2
+          this.state.Perioden.periode3 = hajalol + 3
+          this.state.Perioden.periode4 = hajalol + 4
+
+        //Wenn es eine richtige periode und unterschiedliche periode ist. Müssen paar werte zurücksetzen
+        //es braucht auch nicht gemacht werden wenn es schon eine Kaufteildispositon eintrag gibt
+        if(!currentInputXML.inputDataObject.kaufteildisposition && this.state.currentPeriode != activePeriodID){
+
+          this.state.Produktionsplan1.P1 = 0
+          this.state.Produktionsplan1.P2 = 0
+          this.state.Produktionsplan1.P3 = 0
+          this.state.Produktionsplan2.P1 = 0
+          this.state.Produktionsplan2.P2 = 0
+          this.state.Produktionsplan2.P3 = 0
+          this.state.Produktionsplan3.P1 = 0
+          this.state.Produktionsplan3.P2 = 0
+          this.state.Produktionsplan3.P3 = 0
+          this.state.Produktionsplan4.P1 = 0
+          this.state.Produktionsplan4.P2 = 0
+          this.state.Produktionsplan4.P3 = 0
+          
+          this.state.BestellungArt.E21 = false
+          this.state.BestellungArt.E22 = false
+          this.state.BestellungArt.E23 = false
+          this.state.BestellungArt.E24 = false
+          this.state.BestellungArt.E25 = false
+          this.state.BestellungArt.E27 = false
+          this.state.BestellungArt.E28 = false
+          this.state.BestellungArt.E32 = false
+          this.state.BestellungArt.E33 = false
+          this.state.BestellungArt.E34 = false
+          this.state.BestellungArt.E35 = false
+          this.state.BestellungArt.E36 = false
+          this.state.BestellungArt.E37 = false
+          this.state.BestellungArt.E38 = false
+          this.state.BestellungArt.E39 = false
+          this.state.BestellungArt.E40 = false
+          this.state.BestellungArt.E41 = false
+          this.state.BestellungArt.E42 = false
+          this.state.BestellungArt.E43 = false
+          this.state.BestellungArt.E44 = false
+          this.state.BestellungArt.E45 = false
+          this.state.BestellungArt.E46 = false
+          this.state.BestellungArt.E47 = false
+          this.state.BestellungArt.E48 = false
+          this.state.BestellungArt.E52 = false
+          this.state.BestellungArt.E53 = false
+          this.state.BestellungArt.E57 = false
+          this.state.BestellungArt.E58 = false
+          this.state.BestellungArt.E59 = false
+
+          this.state.BestellungMenge.E21 = 0
+          this.state.BestellungMenge.E22 = 0
+          this.state.BestellungMenge.E23 = 0
+          this.state.BestellungMenge.E24 = 0
+          this.state.BestellungMenge.E25 = 0
+          this.state.BestellungMenge.E27 = 0
+          this.state.BestellungMenge.E28 = 0
+          this.state.BestellungMenge.E32 = 0
+          this.state.BestellungMenge.E33 = 0
+          this.state.BestellungMenge.E34 = 0
+          this.state.BestellungMenge.E35 = 0
+          this.state.BestellungMenge.E36 = 0
+          this.state.BestellungMenge.E37 = 0
+          this.state.BestellungMenge.E38 = 0
+          this.state.BestellungMenge.E39 = 0
+          this.state.BestellungMenge.E40 = 0
+          this.state.BestellungMenge.E41 = 0
+          this.state.BestellungMenge.E42 = 0
+          this.state.BestellungMenge.E43 = 0
+          this.state.BestellungMenge.E44 = 0
+          this.state.BestellungMenge.E45 = 0
+          this.state.BestellungMenge.E46 = 0
+          this.state.BestellungMenge.E47 = 0
+          this.state.BestellungMenge.E48 = 0
+          this.state.BestellungMenge.E52 = 0
+          this.state.BestellungMenge.E53 = 0
+          this.state.BestellungMenge.E57 = 0
+          this.state.BestellungMenge.E58 = 0
+          this.state.BestellungMenge.E59 = 0
+
+          this._calcEverything()
+        }
+        
+        if( currentInputXML.inputDataObject.kaufteildisposition ){
 
           this.state.dropDownValue = currentInputXML.inputDataObject.kaufteildisposition.DropDownValue
 
@@ -644,6 +728,8 @@ class Kaufteildisposition extends React.Component {
           this.state.Produktionsplan4.P1 = currentInputXML.inputDataObject.kaufteildisposition.Produktionsplan4.P1
           this.state.Produktionsplan4.P2 = currentInputXML.inputDataObject.kaufteildisposition.Produktionsplan4.P2
           this.state.Produktionsplan4.P3 = currentInputXML.inputDataObject.kaufteildisposition.Produktionsplan4.P3
+
+          this._calcEverything()
 
           this.state.BestellungArt.E21 = currentInputXML.inputDataObject.kaufteildisposition.BestellungArt.E21
           this.state.BestellungArt.E22 = currentInputXML.inputDataObject.kaufteildisposition.BestellungArt.E22
@@ -708,6 +794,7 @@ class Kaufteildisposition extends React.Component {
           this.state.resetButtonDisabled = false
 
         } else {
+
           if(currentInputXML.inputDataObject.auftragsplanungHerren){
             this.state.Produktionsplan1.P1 = currentInputXML.inputDataObject.auftragsplanungHerren.AU.P1
           } else{
@@ -726,74 +813,26 @@ class Kaufteildisposition extends React.Component {
             this.state.Produktionsplan1.P3 = 0
           }
 
-          // this.state.BestellungArt.E21 = false
-          // this.state.BestellungArt.E22 = false
-          // this.state.BestellungArt.E23 = false
-          // this.state.BestellungArt.E24 = false
-          // this.state.BestellungArt.E25 = false
-          // this.state.BestellungArt.E27 = false
-          // this.state.BestellungArt.E28 = false
-          // this.state.BestellungArt.E32 = false
-          // this.state.BestellungArt.E33 = false
-          // this.state.BestellungArt.E34 = false
-          // this.state.BestellungArt.E35 = false
-          // this.state.BestellungArt.E36 = false
-          // this.state.BestellungArt.E37 = false
-          // this.state.BestellungArt.E38 = false
-          // this.state.BestellungArt.E39 = false
-          // this.state.BestellungArt.E40 = false
-          // this.state.BestellungArt.E41 = false
-          // this.state.BestellungArt.E42 = false
-          // this.state.BestellungArt.E43 = false
-          // this.state.BestellungArt.E44 = false
-          // this.state.BestellungArt.E45 = false
-          // this.state.BestellungArt.E46 = false
-          // this.state.BestellungArt.E47 = false
-          // this.state.BestellungArt.E48 = false
-          // this.state.BestellungArt.E52 = false
-          // this.state.BestellungArt.E53 = false
-          // this.state.BestellungArt.E57 = false
-          // this.state.BestellungArt.E58 = false
-          // this.state.BestellungArt.E59 = false
-
-          // this.state.BestellungMenge.E21 = 0
-          // this.state.BestellungMenge.E22 = 0
-          // this.state.BestellungMenge.E23 = 0
-          // this.state.BestellungMenge.E24 = 0
-          // this.state.BestellungMenge.E25 = 0
-          // this.state.BestellungMenge.E27 = 0
-          // this.state.BestellungMenge.E28 = 0
-          // this.state.BestellungMenge.E32 = 0
-          // this.state.BestellungMenge.E33 = 0
-          // this.state.BestellungMenge.E34 = 0
-          // this.state.BestellungMenge.E35 = 0
-          // this.state.BestellungMenge.E36 = 0
-          // this.state.BestellungMenge.E37 = 0
-          // this.state.BestellungMenge.E38 = 0
-          // this.state.BestellungMenge.E39 = 0
-          // this.state.BestellungMenge.E40 = 0
-          // this.state.BestellungMenge.E41 = 0
-          // this.state.BestellungMenge.E42 = 0
-          // this.state.BestellungMenge.E43 = 0
-          // this.state.BestellungMenge.E44 = 0
-          // this.state.BestellungMenge.E45 = 0
-          // this.state.BestellungMenge.E46 = 0
-          // this.state.BestellungMenge.E47 = 0
-          // this.state.BestellungMenge.E48 = 0
-          // this.state.BestellungMenge.E52 = 0
-          // this.state.BestellungMenge.E53 = 0
-          // this.state.BestellungMenge.E57 = 0
-          // this.state.BestellungMenge.E58 = 0
-          // this.state.BestellungMenge.E59 = 0
+          this._calcEverything()
 
           this.state.resetButtonDisabled = true
 
         }
       }else{
+          // Wenn periode -1 ausgewählt wurde, dann gibt es keine currentInputXML
 
           this.state.Produktionsplan1.P1 = 0
           this.state.Produktionsplan1.P2 = 0
           this.state.Produktionsplan1.P3 = 0
+          this.state.Produktionsplan2.P1 = 0
+          this.state.Produktionsplan2.P2 = 0
+          this.state.Produktionsplan2.P3 = 0
+          this.state.Produktionsplan3.P1 = 0
+          this.state.Produktionsplan3.P2 = 0
+          this.state.Produktionsplan3.P3 = 0
+          this.state.Produktionsplan4.P1 = 0
+          this.state.Produktionsplan4.P2 = 0
+          this.state.Produktionsplan4.P3 = 0
 
           this.state.BestellungArt.E21 = false
           this.state.BestellungArt.E22 = false
@@ -855,226 +894,234 @@ class Kaufteildisposition extends React.Component {
           this.state.BestellungMenge.E58 = 0
           this.state.BestellungMenge.E59 = 0
 
+          this._calcEverything()
+
           this.state.resetButtonDisabled = true
       }
-
-    this.state.Bedarf1.E21 = this._calculateBedarf("E21", 1)
-    this.state.Bedarf1.E22 = this._calculateBedarf("E22", 1)
-    this.state.Bedarf1.E23 = this._calculateBedarf("E23", 1)
-    this.state.Bedarf1.E24 = this._calculateBedarf("E24", 1)
-    this.state.Bedarf1.E25 = this._calculateBedarf("E25", 1)
-    this.state.Bedarf1.E27 = this._calculateBedarf("E27", 1)
-    this.state.Bedarf1.E28 = this._calculateBedarf("E28", 1)
-    this.state.Bedarf1.E32 = this._calculateBedarf("E32", 1)
-    this.state.Bedarf1.E33 = this._calculateBedarf("E33", 1)
-    this.state.Bedarf1.E34 = this._calculateBedarf("E34", 1)
-    this.state.Bedarf1.E35 = this._calculateBedarf("E35", 1)
-    this.state.Bedarf1.E36 = this._calculateBedarf("E36", 1)
-    this.state.Bedarf1.E37 = this._calculateBedarf("E37", 1)
-    this.state.Bedarf1.E38 = this._calculateBedarf("E38", 1)
-    this.state.Bedarf1.E39 = this._calculateBedarf("E39", 1)
-    this.state.Bedarf1.E40 = this._calculateBedarf("E40", 1)
-    this.state.Bedarf1.E41 = this._calculateBedarf("E41", 1)
-    this.state.Bedarf1.E42 = this._calculateBedarf("E42", 1)
-    this.state.Bedarf1.E43 = this._calculateBedarf("E43", 1)
-    this.state.Bedarf1.E44 = this._calculateBedarf("E44", 1)
-    this.state.Bedarf1.E45 = this._calculateBedarf("E45", 1)
-    this.state.Bedarf1.E46 = this._calculateBedarf("E46", 1)
-    this.state.Bedarf1.E47 = this._calculateBedarf("E47", 1)
-    this.state.Bedarf1.E48 = this._calculateBedarf("E48", 1)
-    this.state.Bedarf1.E52 = this._calculateBedarf("E52", 1)
-    this.state.Bedarf1.E53 = this._calculateBedarf("E53", 1)
-    this.state.Bedarf1.E57 = this._calculateBedarf("E57", 1)
-    this.state.Bedarf1.E58 = this._calculateBedarf("E58", 1)
-    this.state.Bedarf1.E59 = this._calculateBedarf("E59", 1)
-
-    this.state.Bedarf2.E21 = this._calculateBedarf("E21", 2)
-    this.state.Bedarf2.E22 = this._calculateBedarf("E22", 2)
-    this.state.Bedarf2.E23 = this._calculateBedarf("E23", 2)
-    this.state.Bedarf2.E24 = this._calculateBedarf("E24", 2)
-    this.state.Bedarf2.E25 = this._calculateBedarf("E25", 2)
-    this.state.Bedarf2.E27 = this._calculateBedarf("E27", 2)
-    this.state.Bedarf2.E28 = this._calculateBedarf("E28", 2)
-    this.state.Bedarf2.E32 = this._calculateBedarf("E32", 2)
-    this.state.Bedarf2.E33 = this._calculateBedarf("E33", 2)
-    this.state.Bedarf2.E34 = this._calculateBedarf("E34", 2)
-    this.state.Bedarf2.E35 = this._calculateBedarf("E35", 2)
-    this.state.Bedarf2.E36 = this._calculateBedarf("E36", 2)
-    this.state.Bedarf2.E37 = this._calculateBedarf("E37", 2)
-    this.state.Bedarf2.E38 = this._calculateBedarf("E38", 2)
-    this.state.Bedarf2.E39 = this._calculateBedarf("E39", 2)
-    this.state.Bedarf2.E40 = this._calculateBedarf("E40", 2)
-    this.state.Bedarf2.E41 = this._calculateBedarf("E41", 2)
-    this.state.Bedarf2.E42 = this._calculateBedarf("E42", 2)
-    this.state.Bedarf2.E43 = this._calculateBedarf("E43", 2)
-    this.state.Bedarf2.E44 = this._calculateBedarf("E44", 2)
-    this.state.Bedarf2.E45 = this._calculateBedarf("E45", 2)
-    this.state.Bedarf2.E46 = this._calculateBedarf("E46", 2)
-    this.state.Bedarf2.E47 = this._calculateBedarf("E47", 2)
-    this.state.Bedarf2.E48 = this._calculateBedarf("E48", 2)
-    this.state.Bedarf2.E52 = this._calculateBedarf("E52", 2)
-    this.state.Bedarf2.E53 = this._calculateBedarf("E53", 2)
-    this.state.Bedarf2.E57 = this._calculateBedarf("E57", 2)
-    this.state.Bedarf2.E58 = this._calculateBedarf("E58", 2)
-    this.state.Bedarf2.E59 = this._calculateBedarf("E59", 2)
-
-    this.state.Bedarf3.E21 = this._calculateBedarf("E21", 3)
-    this.state.Bedarf3.E22 = this._calculateBedarf("E22", 3)
-    this.state.Bedarf3.E23 = this._calculateBedarf("E23", 3)
-    this.state.Bedarf3.E24 = this._calculateBedarf("E24", 3)
-    this.state.Bedarf3.E25 = this._calculateBedarf("E25", 3)
-    this.state.Bedarf3.E27 = this._calculateBedarf("E27", 3)
-    this.state.Bedarf3.E28 = this._calculateBedarf("E28", 3)
-    this.state.Bedarf3.E32 = this._calculateBedarf("E32", 3)
-    this.state.Bedarf3.E33 = this._calculateBedarf("E33", 3)
-    this.state.Bedarf3.E34 = this._calculateBedarf("E34", 3)
-    this.state.Bedarf3.E35 = this._calculateBedarf("E35", 3)
-    this.state.Bedarf3.E36 = this._calculateBedarf("E36", 3)
-    this.state.Bedarf3.E37 = this._calculateBedarf("E37", 3)
-    this.state.Bedarf3.E38 = this._calculateBedarf("E38", 3)
-    this.state.Bedarf3.E39 = this._calculateBedarf("E39", 3)
-    this.state.Bedarf3.E40 = this._calculateBedarf("E40", 3)
-    this.state.Bedarf3.E41 = this._calculateBedarf("E41", 3)
-    this.state.Bedarf3.E42 = this._calculateBedarf("E42", 3)
-    this.state.Bedarf3.E43 = this._calculateBedarf("E43", 3)
-    this.state.Bedarf3.E44 = this._calculateBedarf("E44", 3)
-    this.state.Bedarf3.E45 = this._calculateBedarf("E45", 3)
-    this.state.Bedarf3.E46 = this._calculateBedarf("E46", 3)
-    this.state.Bedarf3.E47 = this._calculateBedarf("E47", 3)
-    this.state.Bedarf3.E48 = this._calculateBedarf("E48", 3)
-    this.state.Bedarf3.E52 = this._calculateBedarf("E52", 3)
-    this.state.Bedarf3.E53 = this._calculateBedarf("E53", 3)
-    this.state.Bedarf3.E57 = this._calculateBedarf("E57", 3)
-    this.state.Bedarf3.E58 = this._calculateBedarf("E58", 3)
-    this.state.Bedarf3.E59 = this._calculateBedarf("E59", 3)
-
-    this.state.Bedarf4.E21 = this._calculateBedarf("E21", 4)
-    this.state.Bedarf4.E22 = this._calculateBedarf("E22", 4)
-    this.state.Bedarf4.E23 = this._calculateBedarf("E23", 4)
-    this.state.Bedarf4.E24 = this._calculateBedarf("E24", 4)
-    this.state.Bedarf4.E25 = this._calculateBedarf("E25", 4)
-    this.state.Bedarf4.E27 = this._calculateBedarf("E27", 4)
-    this.state.Bedarf4.E28 = this._calculateBedarf("E28", 4)
-    this.state.Bedarf4.E32 = this._calculateBedarf("E32", 4)
-    this.state.Bedarf4.E33 = this._calculateBedarf("E33", 4)
-    this.state.Bedarf4.E34 = this._calculateBedarf("E34", 4)
-    this.state.Bedarf4.E35 = this._calculateBedarf("E35", 4)
-    this.state.Bedarf4.E36 = this._calculateBedarf("E36", 4)
-    this.state.Bedarf4.E37 = this._calculateBedarf("E37", 4)
-    this.state.Bedarf4.E38 = this._calculateBedarf("E38", 4)
-    this.state.Bedarf4.E39 = this._calculateBedarf("E39", 4)
-    this.state.Bedarf4.E40 = this._calculateBedarf("E40", 4)
-    this.state.Bedarf4.E41 = this._calculateBedarf("E41", 4)
-    this.state.Bedarf4.E42 = this._calculateBedarf("E42", 4)
-    this.state.Bedarf4.E43 = this._calculateBedarf("E43", 4)
-    this.state.Bedarf4.E44 = this._calculateBedarf("E44", 4)
-    this.state.Bedarf4.E45 = this._calculateBedarf("E45", 4)
-    this.state.Bedarf4.E46 = this._calculateBedarf("E46", 4)
-    this.state.Bedarf4.E47 = this._calculateBedarf("E47", 4)
-    this.state.Bedarf4.E48 = this._calculateBedarf("E48", 4)
-    this.state.Bedarf4.E52 = this._calculateBedarf("E52", 4)
-    this.state.Bedarf4.E53 = this._calculateBedarf("E53", 4)
-    this.state.Bedarf4.E57 = this._calculateBedarf("E57", 4)
-    this.state.Bedarf4.E58 = this._calculateBedarf("E58", 4)
-    this.state.Bedarf4.E59 = this._calculateBedarf("E59", 4)
-
-    this.state.BedarfGesamt.E21 = this._getBedarfGesamt("E21")
-    this.state.BedarfGesamt.E22 = this._getBedarfGesamt("E22")
-    this.state.BedarfGesamt.E23 = this._getBedarfGesamt("E23")
-    this.state.BedarfGesamt.E24 = this._getBedarfGesamt("E24")
-    this.state.BedarfGesamt.E25 = this._getBedarfGesamt("E25")
-    this.state.BedarfGesamt.E27 = this._getBedarfGesamt("E27")
-    this.state.BedarfGesamt.E28 = this._getBedarfGesamt("E28")
-    this.state.BedarfGesamt.E32 = this._getBedarfGesamt("E32")
-    this.state.BedarfGesamt.E33 = this._getBedarfGesamt("E33")
-    this.state.BedarfGesamt.E34 = this._getBedarfGesamt("E34")
-    this.state.BedarfGesamt.E35 = this._getBedarfGesamt("E35")
-    this.state.BedarfGesamt.E36 = this._getBedarfGesamt("E36")
-    this.state.BedarfGesamt.E37 = this._getBedarfGesamt("E37")
-    this.state.BedarfGesamt.E38 = this._getBedarfGesamt("E38")
-    this.state.BedarfGesamt.E39 = this._getBedarfGesamt("E39")
-    this.state.BedarfGesamt.E40 = this._getBedarfGesamt("E40")
-    this.state.BedarfGesamt.E41 = this._getBedarfGesamt("E41")
-    this.state.BedarfGesamt.E42 = this._getBedarfGesamt("E42")
-    this.state.BedarfGesamt.E43 = this._getBedarfGesamt("E43")
-    this.state.BedarfGesamt.E44 = this._getBedarfGesamt("E44")
-    this.state.BedarfGesamt.E45 = this._getBedarfGesamt("E45")
-    this.state.BedarfGesamt.E46 = this._getBedarfGesamt("E46")
-    this.state.BedarfGesamt.E47 = this._getBedarfGesamt("E47")
-    this.state.BedarfGesamt.E48 = this._getBedarfGesamt("E48")
-    this.state.BedarfGesamt.E52 = this._getBedarfGesamt("E52")
-    this.state.BedarfGesamt.E53 = this._getBedarfGesamt("E53")
-    this.state.BedarfGesamt.E57 = this._getBedarfGesamt("E57")
-    this.state.BedarfGesamt.E58 = this._getBedarfGesamt("E58")
-    this.state.BedarfGesamt.E59 = this._getBedarfGesamt("E59")
-
-
-    this.state.Anfangsbestand.E21 = this._getAnfangsbestand("21") + this._getZukunftbestand("21")
-    this.state.Anfangsbestand.E22 = this._getAnfangsbestand("22") + this._getZukunftbestand("22")
-    this.state.Anfangsbestand.E23 = this._getAnfangsbestand("23") + this._getZukunftbestand("23")
-    this.state.Anfangsbestand.E24 = this._getAnfangsbestand("24") + this._getZukunftbestand("24")
-    this.state.Anfangsbestand.E25 = this._getAnfangsbestand("25") + this._getZukunftbestand("25")
-    this.state.Anfangsbestand.E27 = this._getAnfangsbestand("27") + this._getZukunftbestand("27")
-    this.state.Anfangsbestand.E28 = this._getAnfangsbestand("28") + this._getZukunftbestand("28")
-    this.state.Anfangsbestand.E32 = this._getAnfangsbestand("32") + this._getZukunftbestand("32")
-    this.state.Anfangsbestand.E33 = this._getAnfangsbestand("33") + this._getZukunftbestand("33")
-    this.state.Anfangsbestand.E34 = this._getAnfangsbestand("34") + this._getZukunftbestand("34")
-    this.state.Anfangsbestand.E35 = this._getAnfangsbestand("35") + this._getZukunftbestand("35")
-    this.state.Anfangsbestand.E36 = this._getAnfangsbestand("36") + this._getZukunftbestand("36")
-    this.state.Anfangsbestand.E37 = this._getAnfangsbestand("37") + this._getZukunftbestand("37")
-    this.state.Anfangsbestand.E38 = this._getAnfangsbestand("38") + this._getZukunftbestand("38")
-    this.state.Anfangsbestand.E39 = this._getAnfangsbestand("39") + this._getZukunftbestand("39")
-    this.state.Anfangsbestand.E40 = this._getAnfangsbestand("40") + this._getZukunftbestand("40")
-    this.state.Anfangsbestand.E41 = this._getAnfangsbestand("41") + this._getZukunftbestand("41")
-    this.state.Anfangsbestand.E42 = this._getAnfangsbestand("42") + this._getZukunftbestand("42")
-    this.state.Anfangsbestand.E43 = this._getAnfangsbestand("43") + this._getZukunftbestand("43")
-    this.state.Anfangsbestand.E44 = this._getAnfangsbestand("44") + this._getZukunftbestand("44")
-    this.state.Anfangsbestand.E45 = this._getAnfangsbestand("45") + this._getZukunftbestand("45")
-    this.state.Anfangsbestand.E46 = this._getAnfangsbestand("46") + this._getZukunftbestand("46")
-    this.state.Anfangsbestand.E47 = this._getAnfangsbestand("47") + this._getZukunftbestand("47")
-    this.state.Anfangsbestand.E48 = this._getAnfangsbestand("48") + this._getZukunftbestand("48")
-    this.state.Anfangsbestand.E52 = this._getAnfangsbestand("52") + this._getZukunftbestand("52")
-    this.state.Anfangsbestand.E53 = this._getAnfangsbestand("53") + this._getZukunftbestand("53")
-    this.state.Anfangsbestand.E57 = this._getAnfangsbestand("57") + this._getZukunftbestand("57")
-    this.state.Anfangsbestand.E58 = this._getAnfangsbestand("58") + this._getZukunftbestand("58")
-    this.state.Anfangsbestand.E59 = this._getAnfangsbestand("59") + this._getZukunftbestand("59")
-
-    this.state.BestellungMenge.E21 = this._calculateBestellungMenge("E21")
-    this.state.BestellungMenge.E22 = this._calculateBestellungMenge("E22")
-    this.state.BestellungMenge.E23 = this._calculateBestellungMenge("E23")
-    this.state.BestellungMenge.E24 = this._calculateBestellungMenge("E24")
-    this.state.BestellungMenge.E25 = this._calculateBestellungMenge("E25")
-    this.state.BestellungMenge.E27 = this._calculateBestellungMenge("E27")
-    this.state.BestellungMenge.E28 = this._calculateBestellungMenge("E28")
-    this.state.BestellungMenge.E32 = this._calculateBestellungMenge("E32")
-    this.state.BestellungMenge.E33 = this._calculateBestellungMenge("E33")
-    this.state.BestellungMenge.E34 = this._calculateBestellungMenge("E34")
-    this.state.BestellungMenge.E35 = this._calculateBestellungMenge("E35")
-    this.state.BestellungMenge.E36 = this._calculateBestellungMenge("E36")
-    this.state.BestellungMenge.E37 = this._calculateBestellungMenge("E37")
-    this.state.BestellungMenge.E38 = this._calculateBestellungMenge("E38")
-    this.state.BestellungMenge.E39 = this._calculateBestellungMenge("E39")
-    this.state.BestellungMenge.E40 = this._calculateBestellungMenge("E40")
-    this.state.BestellungMenge.E41 = this._calculateBestellungMenge("E41")
-    this.state.BestellungMenge.E42 = this._calculateBestellungMenge("E42")
-    this.state.BestellungMenge.E43 = this._calculateBestellungMenge("E43")
-    this.state.BestellungMenge.E44 = this._calculateBestellungMenge("E44")
-    this.state.BestellungMenge.E45 = this._calculateBestellungMenge("E45")
-    this.state.BestellungMenge.E46 = this._calculateBestellungMenge("E46")
-    this.state.BestellungMenge.E47 = this._calculateBestellungMenge("E47")
-    this.state.BestellungMenge.E48 = this._calculateBestellungMenge("E48")
-    this.state.BestellungMenge.E52 = this._calculateBestellungMenge("E52")
-    this.state.BestellungMenge.E53 = this._calculateBestellungMenge("E53")
-    this.state.BestellungMenge.E57 = this._calculateBestellungMenge("E57")
-    this.state.BestellungMenge.E58 = this._calculateBestellungMenge("E58")
-    this.state.BestellungMenge.E59 = this._calculateBestellungMenge("E59")
-      
+  
       this.setState({
         currentPeriode: activePeriodID
       });
 
     }
 
+  }
+
+  _calcEverything(){
+
+    this.state.Bedarf1.E21 = this._calculateBedarf("E21", 1)
+      this.state.Bedarf1.E22 = this._calculateBedarf("E22", 1)
+      this.state.Bedarf1.E23 = this._calculateBedarf("E23", 1)
+      this.state.Bedarf1.E24 = this._calculateBedarf("E24", 1)
+      this.state.Bedarf1.E25 = this._calculateBedarf("E25", 1)
+      this.state.Bedarf1.E27 = this._calculateBedarf("E27", 1)
+      this.state.Bedarf1.E28 = this._calculateBedarf("E28", 1)
+      this.state.Bedarf1.E32 = this._calculateBedarf("E32", 1)
+      this.state.Bedarf1.E33 = this._calculateBedarf("E33", 1)
+      this.state.Bedarf1.E34 = this._calculateBedarf("E34", 1)
+      this.state.Bedarf1.E35 = this._calculateBedarf("E35", 1)
+      this.state.Bedarf1.E36 = this._calculateBedarf("E36", 1)
+      this.state.Bedarf1.E37 = this._calculateBedarf("E37", 1)
+      this.state.Bedarf1.E38 = this._calculateBedarf("E38", 1)
+      this.state.Bedarf1.E39 = this._calculateBedarf("E39", 1)
+      this.state.Bedarf1.E40 = this._calculateBedarf("E40", 1)
+      this.state.Bedarf1.E41 = this._calculateBedarf("E41", 1)
+      this.state.Bedarf1.E42 = this._calculateBedarf("E42", 1)
+      this.state.Bedarf1.E43 = this._calculateBedarf("E43", 1)
+      this.state.Bedarf1.E44 = this._calculateBedarf("E44", 1)
+      this.state.Bedarf1.E45 = this._calculateBedarf("E45", 1)
+      this.state.Bedarf1.E46 = this._calculateBedarf("E46", 1)
+      this.state.Bedarf1.E47 = this._calculateBedarf("E47", 1)
+      this.state.Bedarf1.E48 = this._calculateBedarf("E48", 1)
+      this.state.Bedarf1.E52 = this._calculateBedarf("E52", 1)
+      this.state.Bedarf1.E53 = this._calculateBedarf("E53", 1)
+      this.state.Bedarf1.E57 = this._calculateBedarf("E57", 1)
+      this.state.Bedarf1.E58 = this._calculateBedarf("E58", 1)
+      this.state.Bedarf1.E59 = this._calculateBedarf("E59", 1)
+
+      this.state.Bedarf2.E21 = this._calculateBedarf("E21", 2)
+      this.state.Bedarf2.E22 = this._calculateBedarf("E22", 2)
+      this.state.Bedarf2.E23 = this._calculateBedarf("E23", 2)
+      this.state.Bedarf2.E24 = this._calculateBedarf("E24", 2)
+      this.state.Bedarf2.E25 = this._calculateBedarf("E25", 2)
+      this.state.Bedarf2.E27 = this._calculateBedarf("E27", 2)
+      this.state.Bedarf2.E28 = this._calculateBedarf("E28", 2)
+      this.state.Bedarf2.E32 = this._calculateBedarf("E32", 2)
+      this.state.Bedarf2.E33 = this._calculateBedarf("E33", 2)
+      this.state.Bedarf2.E34 = this._calculateBedarf("E34", 2)
+      this.state.Bedarf2.E35 = this._calculateBedarf("E35", 2)
+      this.state.Bedarf2.E36 = this._calculateBedarf("E36", 2)
+      this.state.Bedarf2.E37 = this._calculateBedarf("E37", 2)
+      this.state.Bedarf2.E38 = this._calculateBedarf("E38", 2)
+      this.state.Bedarf2.E39 = this._calculateBedarf("E39", 2)
+      this.state.Bedarf2.E40 = this._calculateBedarf("E40", 2)
+      this.state.Bedarf2.E41 = this._calculateBedarf("E41", 2)
+      this.state.Bedarf2.E42 = this._calculateBedarf("E42", 2)
+      this.state.Bedarf2.E43 = this._calculateBedarf("E43", 2)
+      this.state.Bedarf2.E44 = this._calculateBedarf("E44", 2)
+      this.state.Bedarf2.E45 = this._calculateBedarf("E45", 2)
+      this.state.Bedarf2.E46 = this._calculateBedarf("E46", 2)
+      this.state.Bedarf2.E47 = this._calculateBedarf("E47", 2)
+      this.state.Bedarf2.E48 = this._calculateBedarf("E48", 2)
+      this.state.Bedarf2.E52 = this._calculateBedarf("E52", 2)
+      this.state.Bedarf2.E53 = this._calculateBedarf("E53", 2)
+      this.state.Bedarf2.E57 = this._calculateBedarf("E57", 2)
+      this.state.Bedarf2.E58 = this._calculateBedarf("E58", 2)
+      this.state.Bedarf2.E59 = this._calculateBedarf("E59", 2)
+
+      this.state.Bedarf3.E21 = this._calculateBedarf("E21", 3)
+      this.state.Bedarf3.E22 = this._calculateBedarf("E22", 3)
+      this.state.Bedarf3.E23 = this._calculateBedarf("E23", 3)
+      this.state.Bedarf3.E24 = this._calculateBedarf("E24", 3)
+      this.state.Bedarf3.E25 = this._calculateBedarf("E25", 3)
+      this.state.Bedarf3.E27 = this._calculateBedarf("E27", 3)
+      this.state.Bedarf3.E28 = this._calculateBedarf("E28", 3)
+      this.state.Bedarf3.E32 = this._calculateBedarf("E32", 3)
+      this.state.Bedarf3.E33 = this._calculateBedarf("E33", 3)
+      this.state.Bedarf3.E34 = this._calculateBedarf("E34", 3)
+      this.state.Bedarf3.E35 = this._calculateBedarf("E35", 3)
+      this.state.Bedarf3.E36 = this._calculateBedarf("E36", 3)
+      this.state.Bedarf3.E37 = this._calculateBedarf("E37", 3)
+      this.state.Bedarf3.E38 = this._calculateBedarf("E38", 3)
+      this.state.Bedarf3.E39 = this._calculateBedarf("E39", 3)
+      this.state.Bedarf3.E40 = this._calculateBedarf("E40", 3)
+      this.state.Bedarf3.E41 = this._calculateBedarf("E41", 3)
+      this.state.Bedarf3.E42 = this._calculateBedarf("E42", 3)
+      this.state.Bedarf3.E43 = this._calculateBedarf("E43", 3)
+      this.state.Bedarf3.E44 = this._calculateBedarf("E44", 3)
+      this.state.Bedarf3.E45 = this._calculateBedarf("E45", 3)
+      this.state.Bedarf3.E46 = this._calculateBedarf("E46", 3)
+      this.state.Bedarf3.E47 = this._calculateBedarf("E47", 3)
+      this.state.Bedarf3.E48 = this._calculateBedarf("E48", 3)
+      this.state.Bedarf3.E52 = this._calculateBedarf("E52", 3)
+      this.state.Bedarf3.E53 = this._calculateBedarf("E53", 3)
+      this.state.Bedarf3.E57 = this._calculateBedarf("E57", 3)
+      this.state.Bedarf3.E58 = this._calculateBedarf("E58", 3)
+      this.state.Bedarf3.E59 = this._calculateBedarf("E59", 3)
+
+      this.state.Bedarf4.E21 = this._calculateBedarf("E21", 4)
+      this.state.Bedarf4.E22 = this._calculateBedarf("E22", 4)
+      this.state.Bedarf4.E23 = this._calculateBedarf("E23", 4)
+      this.state.Bedarf4.E24 = this._calculateBedarf("E24", 4)
+      this.state.Bedarf4.E25 = this._calculateBedarf("E25", 4)
+      this.state.Bedarf4.E27 = this._calculateBedarf("E27", 4)
+      this.state.Bedarf4.E28 = this._calculateBedarf("E28", 4)
+      this.state.Bedarf4.E32 = this._calculateBedarf("E32", 4)
+      this.state.Bedarf4.E33 = this._calculateBedarf("E33", 4)
+      this.state.Bedarf4.E34 = this._calculateBedarf("E34", 4)
+      this.state.Bedarf4.E35 = this._calculateBedarf("E35", 4)
+      this.state.Bedarf4.E36 = this._calculateBedarf("E36", 4)
+      this.state.Bedarf4.E37 = this._calculateBedarf("E37", 4)
+      this.state.Bedarf4.E38 = this._calculateBedarf("E38", 4)
+      this.state.Bedarf4.E39 = this._calculateBedarf("E39", 4)
+      this.state.Bedarf4.E40 = this._calculateBedarf("E40", 4)
+      this.state.Bedarf4.E41 = this._calculateBedarf("E41", 4)
+      this.state.Bedarf4.E42 = this._calculateBedarf("E42", 4)
+      this.state.Bedarf4.E43 = this._calculateBedarf("E43", 4)
+      this.state.Bedarf4.E44 = this._calculateBedarf("E44", 4)
+      this.state.Bedarf4.E45 = this._calculateBedarf("E45", 4)
+      this.state.Bedarf4.E46 = this._calculateBedarf("E46", 4)
+      this.state.Bedarf4.E47 = this._calculateBedarf("E47", 4)
+      this.state.Bedarf4.E48 = this._calculateBedarf("E48", 4)
+      this.state.Bedarf4.E52 = this._calculateBedarf("E52", 4)
+      this.state.Bedarf4.E53 = this._calculateBedarf("E53", 4)
+      this.state.Bedarf4.E57 = this._calculateBedarf("E57", 4)
+      this.state.Bedarf4.E58 = this._calculateBedarf("E58", 4)
+      this.state.Bedarf4.E59 = this._calculateBedarf("E59", 4)
+
+      this.state.BedarfGesamt.E21 = this._getBedarfGesamt("E21")
+      this.state.BedarfGesamt.E22 = this._getBedarfGesamt("E22")
+      this.state.BedarfGesamt.E23 = this._getBedarfGesamt("E23")
+      this.state.BedarfGesamt.E24 = this._getBedarfGesamt("E24")
+      this.state.BedarfGesamt.E25 = this._getBedarfGesamt("E25")
+      this.state.BedarfGesamt.E27 = this._getBedarfGesamt("E27")
+      this.state.BedarfGesamt.E28 = this._getBedarfGesamt("E28")
+      this.state.BedarfGesamt.E32 = this._getBedarfGesamt("E32")
+      this.state.BedarfGesamt.E33 = this._getBedarfGesamt("E33")
+      this.state.BedarfGesamt.E34 = this._getBedarfGesamt("E34")
+      this.state.BedarfGesamt.E35 = this._getBedarfGesamt("E35")
+      this.state.BedarfGesamt.E36 = this._getBedarfGesamt("E36")
+      this.state.BedarfGesamt.E37 = this._getBedarfGesamt("E37")
+      this.state.BedarfGesamt.E38 = this._getBedarfGesamt("E38")
+      this.state.BedarfGesamt.E39 = this._getBedarfGesamt("E39")
+      this.state.BedarfGesamt.E40 = this._getBedarfGesamt("E40")
+      this.state.BedarfGesamt.E41 = this._getBedarfGesamt("E41")
+      this.state.BedarfGesamt.E42 = this._getBedarfGesamt("E42")
+      this.state.BedarfGesamt.E43 = this._getBedarfGesamt("E43")
+      this.state.BedarfGesamt.E44 = this._getBedarfGesamt("E44")
+      this.state.BedarfGesamt.E45 = this._getBedarfGesamt("E45")
+      this.state.BedarfGesamt.E46 = this._getBedarfGesamt("E46")
+      this.state.BedarfGesamt.E47 = this._getBedarfGesamt("E47")
+      this.state.BedarfGesamt.E48 = this._getBedarfGesamt("E48")
+      this.state.BedarfGesamt.E52 = this._getBedarfGesamt("E52")
+      this.state.BedarfGesamt.E53 = this._getBedarfGesamt("E53")
+      this.state.BedarfGesamt.E57 = this._getBedarfGesamt("E57")
+      this.state.BedarfGesamt.E58 = this._getBedarfGesamt("E58")
+      this.state.BedarfGesamt.E59 = this._getBedarfGesamt("E59")
+
+
+      this.state.Anfangsbestand.E21 = this._getAnfangsbestand("21") + this._getZukunftbestand("21")
+      this.state.Anfangsbestand.E22 = this._getAnfangsbestand("22") + this._getZukunftbestand("22")
+      this.state.Anfangsbestand.E23 = this._getAnfangsbestand("23") + this._getZukunftbestand("23")
+      this.state.Anfangsbestand.E24 = this._getAnfangsbestand("24") + this._getZukunftbestand("24")
+      this.state.Anfangsbestand.E25 = this._getAnfangsbestand("25") + this._getZukunftbestand("25")
+      this.state.Anfangsbestand.E27 = this._getAnfangsbestand("27") + this._getZukunftbestand("27")
+      this.state.Anfangsbestand.E28 = this._getAnfangsbestand("28") + this._getZukunftbestand("28")
+      this.state.Anfangsbestand.E32 = this._getAnfangsbestand("32") + this._getZukunftbestand("32")
+      this.state.Anfangsbestand.E33 = this._getAnfangsbestand("33") + this._getZukunftbestand("33")
+      this.state.Anfangsbestand.E34 = this._getAnfangsbestand("34") + this._getZukunftbestand("34")
+      this.state.Anfangsbestand.E35 = this._getAnfangsbestand("35") + this._getZukunftbestand("35")
+      this.state.Anfangsbestand.E36 = this._getAnfangsbestand("36") + this._getZukunftbestand("36")
+      this.state.Anfangsbestand.E37 = this._getAnfangsbestand("37") + this._getZukunftbestand("37")
+      this.state.Anfangsbestand.E38 = this._getAnfangsbestand("38") + this._getZukunftbestand("38")
+      this.state.Anfangsbestand.E39 = this._getAnfangsbestand("39") + this._getZukunftbestand("39")
+      this.state.Anfangsbestand.E40 = this._getAnfangsbestand("40") + this._getZukunftbestand("40")
+      this.state.Anfangsbestand.E41 = this._getAnfangsbestand("41") + this._getZukunftbestand("41")
+      this.state.Anfangsbestand.E42 = this._getAnfangsbestand("42") + this._getZukunftbestand("42")
+      this.state.Anfangsbestand.E43 = this._getAnfangsbestand("43") + this._getZukunftbestand("43")
+      this.state.Anfangsbestand.E44 = this._getAnfangsbestand("44") + this._getZukunftbestand("44")
+      this.state.Anfangsbestand.E45 = this._getAnfangsbestand("45") + this._getZukunftbestand("45")
+      this.state.Anfangsbestand.E46 = this._getAnfangsbestand("46") + this._getZukunftbestand("46")
+      this.state.Anfangsbestand.E47 = this._getAnfangsbestand("47") + this._getZukunftbestand("47")
+      this.state.Anfangsbestand.E48 = this._getAnfangsbestand("48") + this._getZukunftbestand("48")
+      this.state.Anfangsbestand.E52 = this._getAnfangsbestand("52") + this._getZukunftbestand("52")
+      this.state.Anfangsbestand.E53 = this._getAnfangsbestand("53") + this._getZukunftbestand("53")
+      this.state.Anfangsbestand.E57 = this._getAnfangsbestand("57") + this._getZukunftbestand("57")
+      this.state.Anfangsbestand.E58 = this._getAnfangsbestand("58") + this._getZukunftbestand("58")
+      this.state.Anfangsbestand.E59 = this._getAnfangsbestand("59") + this._getZukunftbestand("59")
+
+
+      this.state.BestellungMenge.E21 = this._calculateBestellungMenge("E21")
+      this.state.BestellungMenge.E22 = this._calculateBestellungMenge("E22")
+      this.state.BestellungMenge.E23 = this._calculateBestellungMenge("E23")
+      this.state.BestellungMenge.E24 = this._calculateBestellungMenge("E24")
+      this.state.BestellungMenge.E25 = this._calculateBestellungMenge("E25")
+      this.state.BestellungMenge.E27 = this._calculateBestellungMenge("E27")
+      this.state.BestellungMenge.E28 = this._calculateBestellungMenge("E28")
+      this.state.BestellungMenge.E32 = this._calculateBestellungMenge("E32")
+      this.state.BestellungMenge.E33 = this._calculateBestellungMenge("E33")
+      this.state.BestellungMenge.E34 = this._calculateBestellungMenge("E34")
+      this.state.BestellungMenge.E35 = this._calculateBestellungMenge("E35")
+      this.state.BestellungMenge.E36 = this._calculateBestellungMenge("E36")
+      this.state.BestellungMenge.E37 = this._calculateBestellungMenge("E37")
+      this.state.BestellungMenge.E38 = this._calculateBestellungMenge("E38")
+      this.state.BestellungMenge.E39 = this._calculateBestellungMenge("E39")
+      this.state.BestellungMenge.E40 = this._calculateBestellungMenge("E40")
+      this.state.BestellungMenge.E41 = this._calculateBestellungMenge("E41")
+      this.state.BestellungMenge.E42 = this._calculateBestellungMenge("E42")
+      this.state.BestellungMenge.E43 = this._calculateBestellungMenge("E43")
+      this.state.BestellungMenge.E44 = this._calculateBestellungMenge("E44")
+      this.state.BestellungMenge.E45 = this._calculateBestellungMenge("E45")
+      this.state.BestellungMenge.E46 = this._calculateBestellungMenge("E46")
+      this.state.BestellungMenge.E47 = this._calculateBestellungMenge("E47")
+      this.state.BestellungMenge.E48 = this._calculateBestellungMenge("E48")
+      this.state.BestellungMenge.E52 = this._calculateBestellungMenge("E52")
+      this.state.BestellungMenge.E53 = this._calculateBestellungMenge("E53")
+      this.state.BestellungMenge.E57 = this._calculateBestellungMenge("E57")
+      this.state.BestellungMenge.E58 = this._calculateBestellungMenge("E58")
+      this.state.BestellungMenge.E59 = this._calculateBestellungMenge("E59")
+
+      console.log("EVERYTHING CALCULATED")
   }
 
   _calculateBedarf(articleId, periode){
@@ -1099,12 +1146,12 @@ class Kaufteildisposition extends React.Component {
     console.log("Anfangsbestand: ", this.state.Anfangsbestand[articleId])
     console.log("BEDARF 1 Periode ", this.state.Bedarf1[articleId])
     
-    if(gesamtBedarf > this.state.Anfangsbestand[articleId]){
+    if(this.state.Anfangsbestand[articleId] < this.state.Bedarf1[articleId]){
       console.log("EEEEEIIIIIILLLLLL")
       console.log("!this.state.BestellungArt[articleId]", !this.state.BestellungArt[articleId])
       let refname = "toggle" + articleId
       this.state.BestellungArt[articleId] = true
-      // this.state.Anfangsbestand[articleId] < this.state.Bedarf1[articleId]
+
     }else{
       this.state.BestellungArt[articleId] = false
     }
@@ -1555,7 +1602,7 @@ class Kaufteildisposition extends React.Component {
             </TableRow>
           </TableHeader>
 
-          <TableBody displayRowCheckbox={this.state.displayRowCheckbox}>
+          <TableBody showRowHover={this.state.showRowHover} stripedRows={this.state.stripedRows} displayRowCheckbox={this.state.displayRowCheckbox}>
             <TableRow>
               <TableRowColumn>
                 P1
@@ -1719,7 +1766,7 @@ class Kaufteildisposition extends React.Component {
                   </TableRow>
                 </TableHeader>
 
-                <TableBody displayRowCheckbox={this.state.displayRowCheckbox}>
+                <TableBody showRowHover={this.state.showRowHover} stripedRows={this.state.stripedRows} displayRowCheckbox={this.state.displayRowCheckbox}>
                   <TableRow>
                     <TableRowColumn>
                       E21
@@ -4539,7 +4586,7 @@ class Kaufteildisposition extends React.Component {
                 </TableHeader>
 
                 
-                <TableBody displayRowCheckbox={this.state.displayRowCheckbox}>
+                <TableBody stripedRows={this.state.stripedRows} showRowHover={this.state.showRowHover} displayRowCheckbox={this.state.displayRowCheckbox}>
                   <TableRow>
                     <TableRowColumn>
                       E21

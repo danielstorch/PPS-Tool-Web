@@ -707,14 +707,12 @@ class Kinder extends React.Component {
                   hintText="Warteschlange"
                   value = {this.state.WS.P3}
                   disabled = {true}/>
-                />
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
                   hintText="Bearbeitung"
                   value = {this.state.BA.P3}
                   disabled = {true}/>
-                />
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
