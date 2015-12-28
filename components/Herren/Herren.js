@@ -26,7 +26,7 @@ const TextField = require('material-ui/lib/text-field');
 
 
 class Herren extends React.Component {
-  //this._handleClick = this._handleClick.bind(this);
+  
   constructor() {
     super();
     this._getWarehousestock = this._getWarehousestock.bind(this);

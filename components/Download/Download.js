@@ -220,6 +220,3 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps, dispatch => ({dispatch}))(Downlaod)
-
-
-//<RaisedButton style={{"margin": "10px"}} label="Secondary" secondary={true} label="Add Order" />
