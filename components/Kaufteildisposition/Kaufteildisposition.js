@@ -645,7 +645,7 @@ class Kaufteildisposition extends React.Component {
           this.state.Produktionsplan4.P1 = 0
           this.state.Produktionsplan4.P2 = 0
           this.state.Produktionsplan4.P3 = 0
-          
+
           this.state.BestellungArt.E21 = false
           this.state.BestellungArt.E22 = false
           this.state.BestellungArt.E23 = false
@@ -708,7 +708,7 @@ class Kaufteildisposition extends React.Component {
 
           this._calcEverything()
         }
-        
+
         if( currentInputXML.inputDataObject.kaufteildisposition ){
 
           this.state.dropDownValue = currentInputXML.inputDataObject.kaufteildisposition.DropDownValue
@@ -898,7 +898,7 @@ class Kaufteildisposition extends React.Component {
 
           this.state.resetButtonDisabled = true
       }
-  
+
       this.setState({
         currentPeriode: activePeriodID
       });
@@ -1145,7 +1145,7 @@ class Kaufteildisposition extends React.Component {
 
     console.log("Anfangsbestand: ", this.state.Anfangsbestand[articleId])
     console.log("BEDARF 1 Periode ", this.state.Bedarf1[articleId])
-    
+
     if(this.state.Anfangsbestand[articleId] < this.state.Bedarf1[articleId]){
       console.log("EEEEEIIIIIILLLLLL")
       console.log("!this.state.BestellungArt[articleId]", !this.state.BestellungArt[articleId])
@@ -1266,7 +1266,7 @@ class Kaufteildisposition extends React.Component {
     if(isNumeric){
       errorTextProduktionsplan2List[articleId] = ''
     }else{
-      errorTextProduktionsplan2List[articleId] = 'This field must be numeric.'
+      errorTextProduktionsplan2List[articleId] = this.props.internationalReducer.activeLanguage.strings.NumericError
       value = 0
     }
     ProgrammPlan2List[articleId] = parseInt(value)
@@ -1293,7 +1293,7 @@ class Kaufteildisposition extends React.Component {
     if(isNumeric){
       errorTextProduktionsplan3List[articleId] = ''
     }else{
-      errorTextProduktionsplan3List[articleId] = 'This field must be numeric.'
+      errorTextProduktionsplan3List[articleId] = this.props.internationalReducer.activeLanguage.strings.NumericError
       value = 0
     }
     ProgrammPlan3List[articleId] = parseInt(value)
@@ -1320,7 +1320,7 @@ class Kaufteildisposition extends React.Component {
     if(isNumeric){
       errorTextProduktionsplan4List[articleId] = ''
     }else{
-      errorTextProduktionsplan4List[articleId] = 'This field must be numeric.'
+      errorTextProduktionsplan4List[articleId] = this.props.internationalReducer.activeLanguage.strings.NumericError
       value = 0
     }
     ProgrammPlan4List[articleId] = parseInt(value)
@@ -1354,7 +1354,7 @@ class Kaufteildisposition extends React.Component {
     this.setState({
       BestellungArt: BestellungArtList
     });
-    
+
   }
 
   _handleBestellungMengeChange(e){
@@ -1369,7 +1369,7 @@ class Kaufteildisposition extends React.Component {
     if(isNumeric){
       errorTextBestellungMengeList[articleId] = ''
     }else{
-      errorTextBestellungMengeList[articleId] = 'This field must be numeric.'
+      errorTextBestellungMengeList[articleId] = this.props.internationalReducer.activeLanguage.strings.NumericError
       value = 0
     }
     BestellungMengeList[articleId] = parseInt(value)
@@ -1390,7 +1390,7 @@ class Kaufteildisposition extends React.Component {
           console.log(currentInputXML)
           localStorage.removeItem(currentInputXML.id);
           localStorage.setItem(currentInputXML.id, JSON.stringify(currentInputXML.inputDataObject));
-          
+
         }else{
           alert('LocalStorage is not supported in your browser');
         }
@@ -1439,7 +1439,7 @@ class Kaufteildisposition extends React.Component {
               this.setState({
                 openDialogStandardActions: true,
                 dialogTitle: "Error",
-                dialogText: "Please be sure that every field is a numeric"
+                dialogText: this.props.internationalReducer.activeLanguage.strings.NumericError
               });
       }
 
@@ -1447,7 +1447,7 @@ class Kaufteildisposition extends React.Component {
               this.setState({
                 openDialogStandardActions: true,
                 dialogTitle: "Error",
-                dialogText: "Please choose a vaild periode"
+                dialogText: this.props.internationalReducer.activeLanguage.strings.ErrorSavePeriod
               });
     }
   }
@@ -1563,9 +1563,9 @@ class Kaufteildisposition extends React.Component {
     return (
       <div>
         <div>
-          <h1>Kaufteildisposition</h1>
-          <RaisedButton label="Save" primary={true} onTouchTap={this._handleSaveButtonClick}/>
-          <RaisedButton label="Reset" secondary={true} disabled={this.state.resetButtonDisabled} onTouchTap={this._handleResetButtonClick}/>
+          <h1>{this.props.internationalReducer.activeLanguage.strings.TitelKaufteilDisposition}</h1>
+          <RaisedButton label={this.props.internationalReducer.activeLanguage.strings.Speichern} primary={true} onTouchTap={this._handleSaveButtonClick}/>
+          <RaisedButton label={this.props.internationalReducer.activeLanguage.strings.Reset} secondary={true} disabled={this.state.resetButtonDisabled} onTouchTap={this._handleResetButtonClick}/>
           <Toggle
                 style={{"display": "inline-block", "width":"10%", "marginLeft":"10px", "paddingTop":"5px"}}
                 name="Detail mode"
@@ -1573,12 +1573,12 @@ class Kaufteildisposition extends React.Component {
                 onToggle={this._handleDetailModeChange}
                 defaultToggled={this.state.detailMode}/>
 
-         <div className="navigationButtons"> 
+         <div className="navigationButtons">
           <div className="beforeButtonWrapper" >
-            <a className="beforeButton" href="/kapazitaetsplanung" onClick={Link.handleClick}>previous</a>
+            <a className="beforeButton" href="/kapazitaetsplanung" onClick={Link.handleClick}>{this.props.internationalReducer.activeLanguage.strings.Back}</a>
           </div>
           <div className="nextButtonWrapper">
-            <a className="nextButton" href="/download" onClick={Link.handleClick}>next!</a>
+            <a className="nextButton" href="/download" onClick={Link.handleClick}>{this.props.internationalReducer.activeLanguage.strings.Next}</a>
           </div>
         </div>
 
@@ -1590,11 +1590,13 @@ class Kaufteildisposition extends React.Component {
           <TableHeader adjustForCheckbox={this.state.displayRowCheckbox} displaySelectAll={this.state.displayRowCheckbox} enableSelectAll={this.state.enableSelectAll}>
            <TableRow>
               <TableHeaderColumn colSpan="5"  style={{textAlign: 'center'}}>
-                Produktionsprogramm
+                {this.props.internationalReducer.activeLanguage.strings.ProduktionsProgramm}
               </TableHeaderColumn>
             </TableRow>
             <TableRow>
-              <TableHeaderColumn >Periode</TableHeaderColumn>
+              <TableHeaderColumn >
+                {this.props.internationalReducer.activeLanguage.strings.Periode}
+              </TableHeaderColumn>
               <TableHeaderColumn >{this.state.Perioden.periode1}</TableHeaderColumn>
               <TableHeaderColumn >{this.state.Perioden.periode2}</TableHeaderColumn>
               <TableHeaderColumn >{this.state.Perioden.periode3}</TableHeaderColumn>
@@ -1609,7 +1611,6 @@ class Kaufteildisposition extends React.Component {
               </TableRowColumn>
                 <TableRowColumn>
                   <TextField
-                    hintText="Produktionsplan1"
                     disabled = {true}
                     value= {this.state.Produktionsplan1.P1}/>
                 </TableRowColumn>
@@ -1721,13 +1722,13 @@ class Kaufteildisposition extends React.Component {
           </TableBody>
         </Table>
 
-        
-        <DropDownMenu  menuItems={menuItems} onChange={this._handleDropDownChange} > 
+
+        <DropDownMenu  menuItems={menuItems} onChange={this._handleDropDownChange} >
         </DropDownMenu>
 
         { this.state.detailMode ?
         (
-          
+
               <Table
                 height={this.state.height}
                 fixedHeader={this.state.fixedHeader}
@@ -1735,19 +1736,30 @@ class Kaufteildisposition extends React.Component {
                 >
                 <TableHeader adjustForCheckbox={this.state.displayRowCheckbox} displaySelectAll={this.state.displayRowCheckbox} enableSelectAll={this.state.enableSelectAll}>
                 <TableRow>
-                    <TableHeaderColumn >Item No.</TableHeaderColumn>
-                    <TableHeaderColumn >Lieferzeit</TableHeaderColumn>
-                    <TableHeaderColumn >Abweichung</TableHeaderColumn>
-                    <TableHeaderColumn colSpan="3"  style={{textAlign: 'center'}}>
-                      Benötigt für:
+                    <TableHeaderColumn >
+                      {this.props.internationalReducer.activeLanguage.strings.SachNR}
                     </TableHeaderColumn>
-                    <TableHeaderColumn >Diskontmenge</TableHeaderColumn>
-                    <TableHeaderColumn >Anfangsbestand</TableHeaderColumn>
+                    <TableHeaderColumn >
+                      {this.props.internationalReducer.activeLanguage.strings.Lieferzeit}
+                    </TableHeaderColumn>
+                    <TableHeaderColumn >
+                      {this.props.internationalReducer.activeLanguage.strings.Abweichung}
+                    </TableHeaderColumn>
+                    <TableHeaderColumn colSpan="3"  style={{textAlign: 'center'}}>
+                      {this.props.internationalReducer.activeLanguage.strings.BenötigtFür}
+                    </TableHeaderColumn>
+                    <TableHeaderColumn >
+                      {this.props.internationalReducer.activeLanguage.strings.Diskontmenge}
+                    </TableHeaderColumn>
+                    <TableHeaderColumn >
+                      {this.props.internationalReducer.activeLanguage.strings.AnfangsBestand}
+                    </TableHeaderColumn>
                     <TableHeaderColumn colSpan="5"  style={{textAlign: 'center'}}>
-                      Bedarf
+                      {this.props.internationalReducer.activeLanguage.strings.Bedarf}
                     </TableHeaderColumn>
                     <TableHeaderColumn colSpan="2"  style={{textAlign: 'center'}}>
-                      Bestellung
+                      {this.props.internationalReducer.activeLanguage.strings.Bestellung}
+
                     </TableHeaderColumn>
                   </TableRow>
                   <TableRow>
@@ -1760,9 +1772,15 @@ class Kaufteildisposition extends React.Component {
                     <TableHeaderColumn >{this.state.Perioden.periode2}</TableHeaderColumn>
                     <TableHeaderColumn >{this.state.Perioden.periode3}</TableHeaderColumn>
                     <TableHeaderColumn >{this.state.Perioden.periode4}</TableHeaderColumn>
-                    <TableHeaderColumn >Gesamt</TableHeaderColumn>
-                    <TableHeaderColumn >Menge</TableHeaderColumn>
-                    <TableHeaderColumn >Art (normal/eil)</TableHeaderColumn>
+                    <TableHeaderColumn >
+                      {this.props.internationalReducer.activeLanguage.strings.Gesamt}
+                    </TableHeaderColumn>
+                    <TableHeaderColumn >
+                      {this.props.internationalReducer.activeLanguage.strings.Menge}
+                    </TableHeaderColumn>
+                    <TableHeaderColumn >
+                      {this.props.internationalReducer.activeLanguage.strings.Art}
+                    </TableHeaderColumn>
                   </TableRow>
                 </TableHeader>
 
@@ -2717,7 +2735,7 @@ class Kaufteildisposition extends React.Component {
                         value= {this.state.BestellungMenge.E34}/>
                     </TableRowColumn>
                     <TableRowColumn>
-                      <Toggle 
+                      <Toggle
                         id="E34"
                         name="toggleE34"
                         value="toggleE34"
@@ -2995,7 +3013,7 @@ class Kaufteildisposition extends React.Component {
                         disabled = {true}
                         value= {this.state.BedarfGesamt.E37}/>
                     </TableRowColumn>
-                    
+
                     <TableRowColumn>
                       <TextField
                         hintText="BestellungMenge"
@@ -3183,7 +3201,7 @@ class Kaufteildisposition extends React.Component {
                         value= {this.state.Bedarf4.E39}/>
                     </TableRowColumn>
 
-                   
+
                     <TableRowColumn>
                     <TextField
                         hintText="Gesamt"
@@ -4572,20 +4590,26 @@ class Kaufteildisposition extends React.Component {
                 >
                 <TableHeader adjustForCheckbox={this.state.displayRowCheckbox} displaySelectAll={this.state.displayRowCheckbox} enableSelectAll={this.state.enableSelectAll}>
                 <TableRow>
-                    <TableHeaderColumn >Item No.</TableHeaderColumn>
+                    <TableHeaderColumn >
+                      {this.props.internationalReducer.activeLanguage.strings.SachNR}
+                    </TableHeaderColumn>
                     <TableHeaderColumn style={{textAlign: 'center'}}>
-                      Bestellung
+                      {this.props.internationalReducer.activeLanguage.strings.Bestellung}
                     </TableHeaderColumn>
                     <TableHeaderColumn ></TableHeaderColumn>
                   </TableRow>
                   <TableRow>
                     <TableHeaderColumn ></TableHeaderColumn>
-                    <TableHeaderColumn >Menge</TableHeaderColumn>
-                    <TableHeaderColumn >Art (normal/eil)</TableHeaderColumn>
+                    <TableHeaderColumn >
+                      {this.props.internationalReducer.activeLanguage.strings.Menge}
+                    </TableHeaderColumn>
+                    <TableHeaderColumn >
+                      {this.props.internationalReducer.activeLanguage.strings.Art}
+                    </TableHeaderColumn>
                   </TableRow>
                 </TableHeader>
 
-                
+
                 <TableBody stripedRows={this.state.stripedRows} showRowHover={this.state.showRowHover} displayRowCheckbox={this.state.displayRowCheckbox}>
                   <TableRow>
                     <TableRowColumn>
@@ -4615,7 +4639,7 @@ class Kaufteildisposition extends React.Component {
                     <TableRowColumn>
                       E22
                     </TableRowColumn>
-                    
+
                     <TableRowColumn>
                       <TextField
                         hintText="BestellungMenge"
@@ -4640,7 +4664,7 @@ class Kaufteildisposition extends React.Component {
                     <TableRowColumn>
                       E23
                     </TableRowColumn>
-                    
+
                     <TableRowColumn>
                       <TextField
                         hintText="BestellungMenge"
@@ -4665,7 +4689,7 @@ class Kaufteildisposition extends React.Component {
                     <TableRowColumn>
                       E24
                     </TableRowColumn>
-                   
+
                     <TableRowColumn>
                       <TextField
                         hintText="BestellungMenge"
@@ -4690,7 +4714,7 @@ class Kaufteildisposition extends React.Component {
                     <TableRowColumn>
                       E25
                     </TableRowColumn>
-                    
+
                     <TableRowColumn>
                       <TextField
                         hintText="BestellungMenge"
@@ -4715,7 +4739,7 @@ class Kaufteildisposition extends React.Component {
                     <TableRowColumn>
                       E27
                     </TableRowColumn>
-                    
+
                     <TableRowColumn>
                       <TextField
                         hintText="BestellungMenge"
@@ -4740,7 +4764,7 @@ class Kaufteildisposition extends React.Component {
                     <TableRowColumn>
                       E28
                     </TableRowColumn>
-                    
+
                     <TableRowColumn>
                       <TextField
                         hintText="BestellungMenge"
@@ -4765,7 +4789,7 @@ class Kaufteildisposition extends React.Component {
                     <TableRowColumn>
                       E32
                     </TableRowColumn>
-                    
+
                     <TableRowColumn>
                       <TextField
                         hintText="BestellungMenge"
@@ -4790,7 +4814,7 @@ class Kaufteildisposition extends React.Component {
                     <TableRowColumn>
                       E33
                     </TableRowColumn>
-                    
+
                     <TableRowColumn>
                       <TextField
                         hintText="BestellungMenge"
@@ -4815,7 +4839,7 @@ class Kaufteildisposition extends React.Component {
                     <TableRowColumn>
                       E34
                     </TableRowColumn>
-                    
+
                     <TableRowColumn>
                       <TextField
                         hintText="BestellungMenge"
@@ -4840,7 +4864,7 @@ class Kaufteildisposition extends React.Component {
                     <TableRowColumn>
                       E35
                     </TableRowColumn>
-                    
+
                     <TableRowColumn>
                       <TextField
                         hintText="BestellungMenge"
@@ -4865,8 +4889,8 @@ class Kaufteildisposition extends React.Component {
                     <TableRowColumn>
                       E36
                     </TableRowColumn>
-                    
-                  
+
+
                     <TableRowColumn>
                       <TextField
                         hintText="BestellungMenge"
@@ -4891,7 +4915,7 @@ class Kaufteildisposition extends React.Component {
                     <TableRowColumn>
                       E37
                     </TableRowColumn>
-                    
+
                     <TableRowColumn>
                       <TextField
                         hintText="BestellungMenge"
@@ -4916,7 +4940,7 @@ class Kaufteildisposition extends React.Component {
                     <TableRowColumn>
                       E38
                     </TableRowColumn>
-                    
+
                     <TableRowColumn>
                       <TextField
                         hintText="BestellungMenge"
@@ -4941,7 +4965,7 @@ class Kaufteildisposition extends React.Component {
                     <TableRowColumn>
                       E39
                     </TableRowColumn>
-                    
+
                     <TableRowColumn>
                       <TextField
                         hintText="BestellungMenge"
@@ -4966,7 +4990,7 @@ class Kaufteildisposition extends React.Component {
                     <TableRowColumn>
                       E40
                     </TableRowColumn>
-                    
+
                     <TableRowColumn>
                       <TextField
                         hintText="BestellungMenge"
@@ -4991,7 +5015,7 @@ class Kaufteildisposition extends React.Component {
                     <TableRowColumn>
                       E41
                     </TableRowColumn>
-                    
+
                     <TableRowColumn>
                       <TextField
                         hintText="BestellungMenge"
@@ -5016,7 +5040,7 @@ class Kaufteildisposition extends React.Component {
                     <TableRowColumn>
                       E42
                     </TableRowColumn>
-                    
+
                     <TableRowColumn>
                       <TextField
                         hintText="BestellungMenge"
@@ -5041,7 +5065,7 @@ class Kaufteildisposition extends React.Component {
                     <TableRowColumn>
                       E43
                     </TableRowColumn>
-                    
+
                     <TableRowColumn>
                       <TextField
                         hintText="BestellungMenge"
@@ -5066,7 +5090,7 @@ class Kaufteildisposition extends React.Component {
                     <TableRowColumn>
                       E44
                     </TableRowColumn>
-                    
+
                     <TableRowColumn>
                       <TextField
                         hintText="BestellungMenge"
@@ -5092,7 +5116,7 @@ class Kaufteildisposition extends React.Component {
                     <TableRowColumn>
                       E45
                     </TableRowColumn>
-                    
+
                     <TableRowColumn>
                       <TextField
                         hintText="BestellungMenge"
@@ -5118,7 +5142,7 @@ class Kaufteildisposition extends React.Component {
                     <TableRowColumn>
                       E46
                     </TableRowColumn>
-                    
+
                     <TableRowColumn>
                       <TextField
                         hintText="BestellungMenge"
@@ -5143,7 +5167,7 @@ class Kaufteildisposition extends React.Component {
                     <TableRowColumn>
                       E47
                     </TableRowColumn>
-                    
+
                     <TableRowColumn>
                       <TextField
                         hintText="BestellungMenge"
@@ -5169,7 +5193,7 @@ class Kaufteildisposition extends React.Component {
                     <TableRowColumn>
                       E48
                     </TableRowColumn>
-                    
+
                     <TableRowColumn>
                       <TextField
                         hintText="BestellungMenge"
@@ -5195,7 +5219,7 @@ class Kaufteildisposition extends React.Component {
                     <TableRowColumn>
                       E52
                     </TableRowColumn>
-                    
+
                     <TableRowColumn>
                       <TextField
                         hintText="BestellungMenge"
@@ -5221,7 +5245,7 @@ class Kaufteildisposition extends React.Component {
                     <TableRowColumn>
                       E53
                     </TableRowColumn>
-                    
+
                     <TableRowColumn>
                       <TextField
                         hintText="BestellungMenge"
@@ -5246,7 +5270,7 @@ class Kaufteildisposition extends React.Component {
                     <TableRowColumn>
                       E57
                     </TableRowColumn>
-                    
+
                     <TableRowColumn>
                       <TextField
                         hintText="BestellungMenge"
@@ -5272,7 +5296,7 @@ class Kaufteildisposition extends React.Component {
                     <TableRowColumn>
                       E58
                     </TableRowColumn>
-                    
+
                     <TableRowColumn>
                       <TextField
                         hintText="BestellungMenge"
@@ -5297,7 +5321,7 @@ class Kaufteildisposition extends React.Component {
                     <TableRowColumn>
                       E59
                     </TableRowColumn>
-                    
+
                     <TableRowColumn>
                       <TextField
                         hintText="BestellungMenge"
@@ -5319,9 +5343,9 @@ class Kaufteildisposition extends React.Component {
                   </TableRow>
 
                 </TableBody>
-            
+
               </Table>
-          
+
 
         )
       }
@@ -5351,7 +5375,8 @@ class Kaufteildisposition extends React.Component {
 function mapStateToProps(state) {
   return {
     ActiveUploadXML: state.ActiveUploadXMLReducer,
-    InputXMLs: state.InputXMLReducer
+    InputXMLs: state.InputXMLReducer,
+    internationalReducer: state.internationalReducer
   }
 }
 

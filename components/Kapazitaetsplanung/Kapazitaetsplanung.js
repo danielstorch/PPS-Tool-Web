@@ -3583,13 +3583,13 @@ class Kapazitaetsplanung extends React.Component {
                            enableSelectAll={this.state.enableSelectAll}>
                 <TableRow selectable={this.state.selectable}>
                   <TableHeaderColumn colSpan="19" tooltip='Kapazitaetsplanung Fahrrad' style={{textAlign: 'center'}}>
-                    Kapazitaetsplanung Fahrrad
+                    {this.props.internationalReducer.activeLanguage.strings.Kapazitaetsplanung}
                   </TableHeaderColumn>
                 </TableRow>
 
                 <TableRow selectable={this.state.selectable}>
                   <TableHeaderColumn colSpan="4" style={{textAlign: 'center'}}>
-                    Bezeichnung
+                    {this.props.internationalReducer.activeLanguage.strings.Bezeichnung}
                   </TableHeaderColumn>
                   <TableHeaderColumn>
                     1
@@ -3648,7 +3648,7 @@ class Kapazitaetsplanung extends React.Component {
                 //Kapazitätsplanung (neu)
                 <TableRow>
                   <TableRowColumn colSpan="4" style={{textAlign: 'center'}}>
-                    Kapazitätsplanung (neu)
+                    {this.props.internationalReducer.activeLanguage.strings.KapazitätsbedarfNeu}
                   </TableRowColumn>
                   <TableRowColumn>
                     {this.state.Arbeitsplatz1.Kapazitätsbedarf}
@@ -3701,7 +3701,7 @@ class Kapazitaetsplanung extends React.Component {
                 //Rüstzeit pro Vorgang
                 <TableRow>
                   <TableRowColumn colSpan="4" style={{textAlign: 'center'}}>
-                    Rüstzeit pro Vorgang
+                    {this.props.internationalReducer.activeLanguage.strings.RüstzeitProVorgang}
                   </TableRowColumn>
                   <TableRowColumn>
                     {this.state.Arbeitsplatz1.RüstzeitVorgang}
@@ -3752,7 +3752,7 @@ class Kapazitaetsplanung extends React.Component {
                 //Rüstungsvorgänge
                 <TableRow>
                   <TableRowColumn colSpan="4" style={{textAlign: 'center'}}>
-                    Rüstungsvorgänge
+                    {this.props.internationalReducer.activeLanguage.strings.RüstVorgänge}
                   </TableRowColumn>
                   <TableRowColumn>
                     {this.state.Arbeitsplatz1.RüstVorgänge}
@@ -3803,7 +3803,7 @@ class Kapazitaetsplanung extends React.Component {
                 //Rüstzeit Gesamt
                 <TableRow>
                   <TableRowColumn colSpan="4" style={{textAlign: 'center'}}>
-                    Rüstzeit Gesamt
+                    {this.props.internationalReducer.activeLanguage.strings.RüstzeitGesamt}
                   </TableRowColumn>
                   <TableRowColumn>
                     {this.state.Arbeitsplatz1.RüstzeitGesamt}
@@ -3854,7 +3854,7 @@ class Kapazitaetsplanung extends React.Component {
                 //Warteschlange
                 <TableRow>
                   <TableRowColumn colSpan="4" style={{textAlign: 'center'}}>
-                    Warteschlange
+                    {this.props.internationalReducer.activeLanguage.strings.Warteschlange}
                   </TableRowColumn>
                   <TableRowColumn>
                     {this.state.Arbeitsplatz1.Warteschlange}
@@ -3905,7 +3905,7 @@ class Kapazitaetsplanung extends React.Component {
                 //Gesamtkapazitätsbedarf
                 <TableRow>
                   <TableRowColumn colSpan="4" style={{textAlign: 'center'}}>
-                    Gesamtkapazitätsbedarf
+                    {this.props.internationalReducer.activeLanguage.strings.Gesamtkapazitätsbedarf}
                   </TableRowColumn>
                   <TableRowColumn>
                     {this.state.Arbeitsplatz1.Gesamtkapazitätbedarf}
@@ -3956,7 +3956,7 @@ class Kapazitaetsplanung extends React.Component {
                 //Schichten
                 <TableRow>
                   <TableRowColumn colSpan="4" style={{textAlign: 'center'}}>
-                    Schichten
+                    {this.props.internationalReducer.activeLanguage.strings.Schichten}
                   </TableRowColumn>
                   <TableRowColumn>
                     <TextField
@@ -4091,7 +4091,7 @@ class Kapazitaetsplanung extends React.Component {
                 //Überstunden
                 <TableRow>
                   <TableRowColumn colSpan="4" style={{textAlign: 'center'}}>
-                    Überstunden
+                    {this.props.internationalReducer.activeLanguage.strings.Überstunden}
                   </TableRowColumn>
                   <TableRowColumn>
                     <TextField
