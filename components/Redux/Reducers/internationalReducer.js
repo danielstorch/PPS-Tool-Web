@@ -30,6 +30,7 @@ const initialState = {
         DamenFahrrad:'Damen Fahrrad',
         HerrenFahrrad:'Herren Fahrrad',
         KinderFahrrad:'Kinder Fahrrad',
+        TitelGesamt: 'Auftragsplanung gesamt',
         Artikel:'Artikel',
         Vertriebswunsch:'Vertriebswunsch',
         BedarfWS: 'Bedarf für WS',
@@ -39,7 +40,14 @@ const initialState = {
         Bearbeitung: 'Bearbeitung',
         Aufträge: 'Aufträge',
         ErrorSaveNumeric: 'bitte stelle sicher das alle Eingaben Zahlen sind',
-        ErrorSavePeriod: 'Bitte wähle eine Periode'
+        ErrorSavePeriod: 'Bitte wähle eine Periode',
+        Lagerbestand: 'Lagerbestand',
+        Prognose: 'Prognose',
+        ProduktionFürAufträge: 'Produktion für Aufträge',
+        ProduktionFürLager: 'Produktion für Lager',
+        ProduktionGesamt: 'Produktion Gesamt',
+        Summe: 'Summe'
+
       }},
       languages:[{
             id: 'DE',
@@ -64,6 +72,7 @@ const initialState = {
               TitelDamen: 'Auftragsplanung Damen-Fahrrad',
               TitelHerren: 'Auftragsplanung Herren-Fahrrad',
               TitelKinder: 'Auftragsplanung Kinder-Fahrrad',
+              TitelGesamt: 'Auftragsplanung gesamt',
               Next: 'Weiter',
               Back: 'Zurück',
               DamenFahrrad:'Damen Fahrrad',
@@ -78,9 +87,13 @@ const initialState = {
               Bearbeitung: 'Bearbeitung',
               Aufträge: 'Aufträge',
               ErrorSaveNumeric: 'bitte stelle sicher das alle Eingaben Zahlen sind',
-              ErrorSavePeriod: 'Bitte wähle eine Periode'
-
-
+              ErrorSavePeriod: 'Bitte wähle eine Periode',
+              Lagerbestand: 'Lagerbestand',
+              Prognose: 'Prognose',
+              ProduktionFürAufträge: 'Produktion für Aufträge',
+              ProduktionFürLager: 'Produktion für Lager',
+              ProduktionGesamt: 'Produktion Gesamt',
+              Summe: 'Summe'
 
             }},
             {
@@ -106,6 +119,7 @@ const initialState = {
               TitelDamen: 'OrderPlaning women bike',
               TitelHerren: 'OrderPlaning men bike',
               TitelKinder: 'OrderPlaning children bike',
+              TitelGesamt: 'forecast planing',
               Next: 'next',
               Back: 'previous',
               DamenFahrrad:'women bike',
@@ -120,8 +134,13 @@ const initialState = {
               Bearbeitung: 'in progress',
               Aufträge: 'assigments',
               ErrorSaveNumeric: 'Please be sure that every field is a numeric',
-              ErrorSavePeriod: 'Please choose a vaild periode'
-
+              ErrorSavePeriod: 'Please choose a vaild periode',
+              Lagerbestand: 'stock',
+              Prognose: 'forecast',
+              ProduktionFürAufträge: 'production for assignments',
+              ProduktionFürLager: 'production for stock',
+              ProduktionGesamt: 'production overall',
+              Summe: 'Sum'
 
             }}]}
 
@@ -136,7 +155,7 @@ export default function internationalReducer(state = initialState, action) {
     // var statelol = state
     // statelol.activeLanguage = action.languagee
     console.log("Language Danach: ", Object.assign({}, state, { activeLanguage: newLanguage }))
-        return Object.assign({}, state, { activeLanguage: newLanguage }); 
+        return Object.assign({}, state, { activeLanguage: newLanguage });
     default:
       return state
   }
