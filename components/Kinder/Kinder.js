@@ -277,7 +277,7 @@ class Kinder extends React.Component {
 
           this.state.resetButtonDisabled = true
         }
-      
+
       this.setState({
         currentPeriode: activePeriodID
       });
@@ -458,7 +458,7 @@ class Kinder extends React.Component {
           console.log(currentInputXML)
           localStorage.removeItem(currentInputXML.id);
           localStorage.setItem(currentInputXML.id, JSON.stringify(currentInputXML.inputDataObject));
-          
+
         }else{
           alert('LocalStorage is not supported in your browser');
         }
@@ -476,7 +476,7 @@ class Kinder extends React.Component {
     if(isNumeric){
       errorTextList[articleId] = ''
     }else{
-      errorTextList[articleId] = 'This field must be numeric.'
+      errorTextList[articleId] = this.props.internationalReducer.activeLanguage.strings.NumericError
       value = 0
     }
     VRList[articleId] = parseInt(value)
@@ -501,7 +501,7 @@ class Kinder extends React.Component {
     if(isNumeric){
       errorTextList[articleId] = ''
     }else{
-      errorTextList[articleId] = 'This field must be numeric.'
+      errorTextList[articleId] = this.props.internationalReducer.activeLanguage.strings.NumericError
       value = 0
     }
     VRList[articleId] = parseInt(value)
@@ -551,7 +551,7 @@ class Kinder extends React.Component {
         this.setState({
           openDialogStandardActions: true,
           dialogTitle: "Error",
-          dialogText: "Please be sure that every field is a numeric"
+          dialogText: this.props.internationalReducer.activeLanguage.strings.ErrorSaveNumeric
         });
       }
 
@@ -559,7 +559,7 @@ class Kinder extends React.Component {
       this.setState({
         openDialogStandardActions: true,
         dialogTitle: "Error",
-        dialogText: "Please choose a vaild periode"
+        dialogText: this.props.internationalReducer.activeLanguage.strings.ErrorSavePeriod
       });
     }
   }
@@ -619,16 +619,16 @@ class Kinder extends React.Component {
 
     return (
       <div>
-        <h1>Auftragsplanung Kinder-Fahrrad</h1>
+        <h1>{this.props.internationalReducer.activeLanguage.strings.TitelKinder}</h1>
 
-        <RaisedButton label="Save" primary={true} onTouchTap={this._handleButtonClick} />
-        <RaisedButton label="Reset" secondary={true} disabled={this.state.resetButtonDisabled} onTouchTap={this._handleResetButtonClick}/>
-        <div className="navigationButtons"> 
+        <RaisedButton label={this.props.internationalReducer.activeLanguage.strings.Speichern} primary={true} onTouchTap={this._handleButtonClick} />
+        <RaisedButton label={this.props.internationalReducer.activeLanguage.strings.Reset} secondary={true} disabled={this.state.resetButtonDisabled} onTouchTap={this._handleResetButtonClick}/>
+        <div className="navigationButtons">
           <div className="beforeButtonWrapper" >
-            <a className="beforeButton" href="/auftragsplanung/damen" onClick={Link.handleClick}>previous</a>
+            <a className="beforeButton" href="/auftragsplanung/damen" onClick={Link.handleClick}>{this.props.internationalReducer.activeLanguage.strings.Back}</a>
           </div>
           <div className="nextButtonWrapper">
-            <a className="nextButton" href="/kapazitaetsplanung" onClick={Link.handleClick}>next!</a>
+            <a className="nextButton" href="/kapazitaetsplanung" onClick={Link.handleClick}>{this.props.internationalReducer.activeLanguage.strings.Next}</a>
           </div>
         </div>
         <Table
@@ -636,43 +636,44 @@ class Kinder extends React.Component {
           fixedHeader={this.state.fixedHeader}
           selectable={this.state.selectable}
           >
-          <TableBody>
-          <TableHeader >
+          <TableHeader adjustForCheckbox={this.state.displayRowCheckbox}
+                       displaySelectAll={this.state.displayRowCheckbox}
+                       enableSelectAll={this.state.enableSelectAll}>
             <TableRow selectable={this.state.selectable}>
-              <TableHeaderColumn colSpan="7" tooltip='Kinder Fahrrad' style={{textAlign: 'center'}}>
-                Kinder Fahrrad
+              <TableHeaderColumn colSpan="8" style={{textAlign: 'center'}}>
+                {this.props.internationalReducer.activeLanguage.strings.KinderFahrrad}
               </TableHeaderColumn>
             </TableRow>
-          </TableHeader>
-          </TableBody>
 
-          <TableBody displayRowCheckbox={this.state.displayRowCheckbox}>
-          <TableRow>
-              <TableRowColumn>
-                Artikel
-              </TableRowColumn>
-              <TableRowColumn>
-                Vertriebswunsch
-              </TableRowColumn>
-              <TableRowColumn>
-                Bedarf für WS
-              </TableRowColumn>
-              <TableRowColumn>
-                Geplanter Lagerbestand
-              </TableRowColumn>
-              <TableRowColumn>
-              Aktueller Lagerbestand
-            </TableRowColumn>
-              <TableRowColumn>
-              Warteschlange
-            </TableRowColumn>
-              <TableRowColumn>
-                Bearbeitung
-              </TableRowColumn>
-              <TableRowColumn>
-                Aufträge
-              </TableRowColumn>
+            <TableRow>
+              <TableHeaderColumn>
+                {this.props.internationalReducer.activeLanguage.strings.Artikel}
+              </TableHeaderColumn>
+              <TableHeaderColumn>
+                {this.props.internationalReducer.activeLanguage.strings.Vertriebswunsch}
+              </TableHeaderColumn>
+              <TableHeaderColumn>
+                {this.props.internationalReducer.activeLanguage.strings.BedarfWS}
+              </TableHeaderColumn>
+              <TableHeaderColumn>
+                {this.props.internationalReducer.activeLanguage.strings.GeplanterLagerbestand}
+              </TableHeaderColumn>
+              <TableHeaderColumn>
+                {this.props.internationalReducer.activeLanguage.strings.AktuellerLagerbestand}
+              </TableHeaderColumn>
+              <TableHeaderColumn>
+                {this.props.internationalReducer.activeLanguage.strings.Warteschlange}
+              </TableHeaderColumn>
+              <TableHeaderColumn>
+                {this.props.internationalReducer.activeLanguage.strings.Bearbeitung}
+              </TableHeaderColumn>
+              <TableHeaderColumn>
+                {this.props.internationalReducer.activeLanguage.strings.Aufträge}
+              </TableHeaderColumn>
             </TableRow>
+
+          </TableHeader>
+          <TableBody displayRowCheckbox={this.state.displayRowCheckbox}>
             <TableRow>
               <TableRowColumn>P3</TableRowColumn>
               <TableRowColumn>
@@ -1348,7 +1349,9 @@ class Kinder extends React.Component {
 function mapStateToProps(state) {
   return {
     ActiveUploadXML: state.ActiveUploadXMLReducer,
-    InputXMLs: state.InputXMLReducer
+    InputXMLs: state.InputXMLReducer,
+    internationalReducer: state.internationalReducer
+
   }
 }
 
