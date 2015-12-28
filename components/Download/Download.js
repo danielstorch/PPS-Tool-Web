@@ -52,16 +52,25 @@ class Downlaod extends React.Component {
     };
   }
 
+
  
   _downloadXML(){
-    var prof = {};
+    // var prof = {};
 
-    var builder = new xml2js.Builder({rootName:'profiles'});
-    var profiles = builder.buildObject(prof);
+    // var builder = new xml2js.Builder();
+    // var inputxml = builder.buildObject(prof);
 
-    console.log(profiles); // <-- show me the XML
-    // var url='../documenten/Master-File.xls';    
-    window.open(profiles,'Download');  
+    var obj = {lol:"dsa",lollol:{lolLOLOLO:"dsa"}};
+
+    var builder = new xml2js.Builder({rootName:'input'});
+    var xml = builder.buildObject(obj);
+
+
+    console.log(xml); // <-- show me the XML
+
+    var url = 'data:text/plain;charset=utf-8,' + encodeURIComponent(xml);
+    var link = this.refs.link;
+    link.href = url;
 
   }
 
@@ -89,7 +98,6 @@ class Downlaod extends React.Component {
 
       <h1>Export Xml</h1>
           
-          <RaisedButton style={{"margin": "10px"}} label="Secondary" secondary={true} label="Add Order" />
           <div style={style}>
             {cards.map((card, i) => {
               return (
@@ -103,7 +111,9 @@ class Downlaod extends React.Component {
           
           </div>
         <RaisedButton label="Secondary" secondary={true} label="Download" onTouchTap={this._downloadXML}/>
-        
+        <a ref="link" href='' download="input.xml" type="button"  onClick={this._downloadXML}>
+          Download
+        </a>
       </div>
     );
   }
@@ -119,3 +129,6 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps, dispatch => ({ dispatch }))(Downlaod)
+
+
+          //<RaisedButton style={{"margin": "10px"}} label="Secondary" secondary={true} label="Add Order" />
