@@ -98,14 +98,8 @@ class Navigation extends React.Component {
   }
 
   _onDropDownLanguageChange(e){
-    for(let languages of this.props.internationalReducer.languages) {
-      if(languages.id === e.target.value){
-        this.props.dispatch(setLanguage(languages));
-        this.forceUpdate()
-      }
-    }
 
-    
+    this.props.dispatch(setLanguage(e.target.value));
   }
 
   getStyles() {

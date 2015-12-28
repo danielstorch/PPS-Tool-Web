@@ -123,18 +123,22 @@ const initialState = {
               ErrorSavePeriod: 'Please choose a vaild periode'
 
 
-            }}
-]}
+            }}]}
 
 
 export default function internationalReducer(state = initialState, action) {
   switch (action.type) {
     case SET_LANGUAGE:
-    console.log('dssdsds')
-  var statelol = state
-    statelol.activeLanguage = action.languagee
-        return statelol//
+    console.log(action.languagee)
+    console.log("Language Davor: ", state)
+    let newLanguage = state.languages.filter(item => item.id === action.languagee)[0]
+
+    // var statelol = state
+    // statelol.activeLanguage = action.languagee
+    console.log("Language Danach: ", Object.assign({}, state, { activeLanguage: newLanguage }))
+        return Object.assign({}, state, { activeLanguage: newLanguage }); 
     default:
       return state
   }
 }
+

@@ -4252,7 +4252,8 @@ class Kapazitaetsplanung extends React.Component {
 function mapStateToProps(state) {
   return {
     ActiveUploadXML: state.ActiveUploadXMLReducer,
-    InputXMLs: state.InputXMLReducer
+    InputXMLs: state.InputXMLReducer,
+    internationalReducer: state.internationalReducer
   }
 }
 

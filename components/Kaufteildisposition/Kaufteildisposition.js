@@ -66,7 +66,7 @@ class Kaufteildisposition extends React.Component {
       multiSelectable: false,
       enableSelectAll: false,
       deselectOnClickaway: false,
-      height: '650px',
+      height: '1500px',
       heightt: '250px',
       buttonDisabled: false,
 
@@ -469,6 +469,38 @@ class Kaufteildisposition extends React.Component {
         E59: 0,
       },
 
+      BedarfGesamt:{
+        E21: 0,
+        E22: 0,
+        E23: 0,
+        E24: 0,
+        E25: 0,
+        E27: 0,
+        E28: 0,
+        E32: 0,
+        E33: 0,
+        E34: 0,
+        E35: 0,
+        E36: 0,
+        E37: 0,
+        E38: 0,
+        E39: 0,
+        E40: 0,
+        E41: 0,
+        E42: 0,
+        E43: 0,
+        E44: 0,
+        E45: 0,
+        E46: 0,
+        E47: 0,
+        E48: 0,
+        E52: 0,
+        E53: 0,
+        E57: 0,
+        E58: 0,
+        E59: 0,
+      },
+
       BestellungMenge:{
         E21: 0,
         E22: 0,
@@ -585,6 +617,7 @@ class Kaufteildisposition extends React.Component {
 
     if(initial == true || this.state.currentPeriode != activePeriodID){
 
+      // wenn periode -1 ausgewählt wurde
       if(currentInputXML){
         var hajalol = parseInt(activePeriodID.substring(1))
         this.state.Perioden.periode1 = hajalol + 1
@@ -693,74 +726,74 @@ class Kaufteildisposition extends React.Component {
             this.state.Produktionsplan1.P3 = 0
           }
 
-          this.state.BestellungArt.E21 = false
-          this.state.BestellungArt.E22 = false
-          this.state.BestellungArt.E23 = false
-          this.state.BestellungArt.E24 = false
-          this.state.BestellungArt.E25 = false
-          this.state.BestellungArt.E27 = false
-          this.state.BestellungArt.E28 = false
-          this.state.BestellungArt.E32 = false
-          this.state.BestellungArt.E33 = false
-          this.state.BestellungArt.E34 = false
-          this.state.BestellungArt.E35 = false
-          this.state.BestellungArt.E36 = false
-          this.state.BestellungArt.E37 = false
-          this.state.BestellungArt.E38 = false
-          this.state.BestellungArt.E39 = false
-          this.state.BestellungArt.E40 = false
-          this.state.BestellungArt.E41 = false
-          this.state.BestellungArt.E42 = false
-          this.state.BestellungArt.E43 = false
-          this.state.BestellungArt.E44 = false
-          this.state.BestellungArt.E45 = false
-          this.state.BestellungArt.E46 = false
-          this.state.BestellungArt.E47 = false
-          this.state.BestellungArt.E48 = false
-          this.state.BestellungArt.E52 = false
-          this.state.BestellungArt.E53 = false
-          this.state.BestellungArt.E57 = false
-          this.state.BestellungArt.E58 = false
-          this.state.BestellungArt.E59 = false
+          // this.state.BestellungArt.E21 = false
+          // this.state.BestellungArt.E22 = false
+          // this.state.BestellungArt.E23 = false
+          // this.state.BestellungArt.E24 = false
+          // this.state.BestellungArt.E25 = false
+          // this.state.BestellungArt.E27 = false
+          // this.state.BestellungArt.E28 = false
+          // this.state.BestellungArt.E32 = false
+          // this.state.BestellungArt.E33 = false
+          // this.state.BestellungArt.E34 = false
+          // this.state.BestellungArt.E35 = false
+          // this.state.BestellungArt.E36 = false
+          // this.state.BestellungArt.E37 = false
+          // this.state.BestellungArt.E38 = false
+          // this.state.BestellungArt.E39 = false
+          // this.state.BestellungArt.E40 = false
+          // this.state.BestellungArt.E41 = false
+          // this.state.BestellungArt.E42 = false
+          // this.state.BestellungArt.E43 = false
+          // this.state.BestellungArt.E44 = false
+          // this.state.BestellungArt.E45 = false
+          // this.state.BestellungArt.E46 = false
+          // this.state.BestellungArt.E47 = false
+          // this.state.BestellungArt.E48 = false
+          // this.state.BestellungArt.E52 = false
+          // this.state.BestellungArt.E53 = false
+          // this.state.BestellungArt.E57 = false
+          // this.state.BestellungArt.E58 = false
+          // this.state.BestellungArt.E59 = false
 
-          this.state.BestellungMenge.E21 = 0
-          this.state.BestellungMenge.E22 = 0
-          this.state.BestellungMenge.E23 = 0
-          this.state.BestellungMenge.E24 = 0
-          this.state.BestellungMenge.E25 = 0
-          this.state.BestellungMenge.E27 = 0
-          this.state.BestellungMenge.E28 = 0
-          this.state.BestellungMenge.E32 = 0
-          this.state.BestellungMenge.E33 = 0
-          this.state.BestellungMenge.E34 = 0
-          this.state.BestellungMenge.E35 = 0
-          this.state.BestellungMenge.E36 = 0
-          this.state.BestellungMenge.E37 = 0
-          this.state.BestellungMenge.E38 = 0
-          this.state.BestellungMenge.E39 = 0
-          this.state.BestellungMenge.E40 = 0
-          this.state.BestellungMenge.E41 = 0
-          this.state.BestellungMenge.E42 = 0
-          this.state.BestellungMenge.E43 = 0
-          this.state.BestellungMenge.E44 = 0
-          this.state.BestellungMenge.E45 = 0
-          this.state.BestellungMenge.E46 = 0
-          this.state.BestellungMenge.E47 = 0
-          this.state.BestellungMenge.E48 = 0
-          this.state.BestellungMenge.E52 = 0
-          this.state.BestellungMenge.E53 = 0
-          this.state.BestellungMenge.E57 = 0
-          this.state.BestellungMenge.E58 = 0
-          this.state.BestellungMenge.E59 = 0
+          // this.state.BestellungMenge.E21 = 0
+          // this.state.BestellungMenge.E22 = 0
+          // this.state.BestellungMenge.E23 = 0
+          // this.state.BestellungMenge.E24 = 0
+          // this.state.BestellungMenge.E25 = 0
+          // this.state.BestellungMenge.E27 = 0
+          // this.state.BestellungMenge.E28 = 0
+          // this.state.BestellungMenge.E32 = 0
+          // this.state.BestellungMenge.E33 = 0
+          // this.state.BestellungMenge.E34 = 0
+          // this.state.BestellungMenge.E35 = 0
+          // this.state.BestellungMenge.E36 = 0
+          // this.state.BestellungMenge.E37 = 0
+          // this.state.BestellungMenge.E38 = 0
+          // this.state.BestellungMenge.E39 = 0
+          // this.state.BestellungMenge.E40 = 0
+          // this.state.BestellungMenge.E41 = 0
+          // this.state.BestellungMenge.E42 = 0
+          // this.state.BestellungMenge.E43 = 0
+          // this.state.BestellungMenge.E44 = 0
+          // this.state.BestellungMenge.E45 = 0
+          // this.state.BestellungMenge.E46 = 0
+          // this.state.BestellungMenge.E47 = 0
+          // this.state.BestellungMenge.E48 = 0
+          // this.state.BestellungMenge.E52 = 0
+          // this.state.BestellungMenge.E53 = 0
+          // this.state.BestellungMenge.E57 = 0
+          // this.state.BestellungMenge.E58 = 0
+          // this.state.BestellungMenge.E59 = 0
 
           this.state.resetButtonDisabled = true
 
         }
       }else{
 
-            this.state.Produktionsplan1.P1 = 0
-            this.state.Produktionsplan1.P2 = 0
-            this.state.Produktionsplan1.P3 = 0
+          this.state.Produktionsplan1.P1 = 0
+          this.state.Produktionsplan1.P2 = 0
+          this.state.Produktionsplan1.P3 = 0
 
           this.state.BestellungArt.E21 = false
           this.state.BestellungArt.E22 = false
@@ -945,6 +978,36 @@ class Kaufteildisposition extends React.Component {
     this.state.Bedarf4.E58 = this._calculateBedarf("E58", 4)
     this.state.Bedarf4.E59 = this._calculateBedarf("E59", 4)
 
+    this.state.BedarfGesamt.E21 = this._getBedarfGesamt("E21")
+    this.state.BedarfGesamt.E22 = this._getBedarfGesamt("E22")
+    this.state.BedarfGesamt.E23 = this._getBedarfGesamt("E23")
+    this.state.BedarfGesamt.E24 = this._getBedarfGesamt("E24")
+    this.state.BedarfGesamt.E25 = this._getBedarfGesamt("E25")
+    this.state.BedarfGesamt.E27 = this._getBedarfGesamt("E27")
+    this.state.BedarfGesamt.E28 = this._getBedarfGesamt("E28")
+    this.state.BedarfGesamt.E32 = this._getBedarfGesamt("E32")
+    this.state.BedarfGesamt.E33 = this._getBedarfGesamt("E33")
+    this.state.BedarfGesamt.E34 = this._getBedarfGesamt("E34")
+    this.state.BedarfGesamt.E35 = this._getBedarfGesamt("E35")
+    this.state.BedarfGesamt.E36 = this._getBedarfGesamt("E36")
+    this.state.BedarfGesamt.E37 = this._getBedarfGesamt("E37")
+    this.state.BedarfGesamt.E38 = this._getBedarfGesamt("E38")
+    this.state.BedarfGesamt.E39 = this._getBedarfGesamt("E39")
+    this.state.BedarfGesamt.E40 = this._getBedarfGesamt("E40")
+    this.state.BedarfGesamt.E41 = this._getBedarfGesamt("E41")
+    this.state.BedarfGesamt.E42 = this._getBedarfGesamt("E42")
+    this.state.BedarfGesamt.E43 = this._getBedarfGesamt("E43")
+    this.state.BedarfGesamt.E44 = this._getBedarfGesamt("E44")
+    this.state.BedarfGesamt.E45 = this._getBedarfGesamt("E45")
+    this.state.BedarfGesamt.E46 = this._getBedarfGesamt("E46")
+    this.state.BedarfGesamt.E47 = this._getBedarfGesamt("E47")
+    this.state.BedarfGesamt.E48 = this._getBedarfGesamt("E48")
+    this.state.BedarfGesamt.E52 = this._getBedarfGesamt("E52")
+    this.state.BedarfGesamt.E53 = this._getBedarfGesamt("E53")
+    this.state.BedarfGesamt.E57 = this._getBedarfGesamt("E57")
+    this.state.BedarfGesamt.E58 = this._getBedarfGesamt("E58")
+    this.state.BedarfGesamt.E59 = this._getBedarfGesamt("E59")
+
 
     this.state.Anfangsbestand.E21 = this._getAnfangsbestand("21") + this._getZukunftbestand("21")
     this.state.Anfangsbestand.E22 = this._getAnfangsbestand("22") + this._getZukunftbestand("22")
@@ -1012,8 +1075,6 @@ class Kaufteildisposition extends React.Component {
 
     }
 
-    
-
   }
 
   _calculateBedarf(articleId, periode){
@@ -1037,12 +1098,15 @@ class Kaufteildisposition extends React.Component {
 
     console.log("Anfangsbestand: ", this.state.Anfangsbestand[articleId])
     console.log("BEDARF 1 Periode ", this.state.Bedarf1[articleId])
-
-    if(this.state.Anfangsbestand[articleId] < this.state.Bedarf1[articleId]){
+    
+    if(gesamtBedarf > this.state.Anfangsbestand[articleId]){
       console.log("EEEEEIIIIIILLLLLL")
-      // let refname = "toggle" + articleId
-      // this.refs.refname.setToggled(true)
-      // this.state.BestellungArt[articleId] = true
+      console.log("!this.state.BestellungArt[articleId]", !this.state.BestellungArt[articleId])
+      let refname = "toggle" + articleId
+      this.state.BestellungArt[articleId] = true
+      // this.state.Anfangsbestand[articleId] < this.state.Bedarf1[articleId]
+    }else{
+      this.state.BestellungArt[articleId] = false
     }
 
     if(gesamtBedarf > this.state.Anfangsbestand[articleId]){
@@ -1166,7 +1230,7 @@ class Kaufteildisposition extends React.Component {
       errorTextProduktionsplan2: errorTextProduktionsplan2List
     });
 
-    this._updateVariables(false);
+    this._updateVariables(true);
 
   }
 
@@ -1193,7 +1257,7 @@ class Kaufteildisposition extends React.Component {
       errorTextProduktionsplan3: errorTextProduktionsplan3List
     });
 
-    this._updateVariables(false);
+    this._updateVariables(true);
 
   }
 
@@ -1220,7 +1284,7 @@ class Kaufteildisposition extends React.Component {
       errorTextProduktionsplan4: errorTextProduktionsplan4List
     });
 
-    this._updateVariables(false);
+    this._updateVariables(true);
 
   }
 
@@ -1229,14 +1293,21 @@ class Kaufteildisposition extends React.Component {
     let articleId = e.target.id
 
     let BestellungArtList = this.state.BestellungArt;
+    console.log(e.target.id)
+    console.log("Davor BestellungArtList[articleId]: ",BestellungArtList[articleId])
 
-    BestellungArtList[articleId] = !BestellungArtList[articleId]
+    if(BestellungArtList[articleId] == true){
+       BestellungArtList[articleId] = false;
+    }else{
+       BestellungArtList[articleId] = true
+    }
 
-    console.log(!BestellungArtList[articleId])
+    console.log("Danach BestellungArtList[articleId]: ",BestellungArtList[articleId])
+
     this.setState({
       BestellungArt: BestellungArtList
     });
-   // this.state.BestellungArt["articleId"] = !this.state.BestellungArt["articleId"]
+    
   }
 
   _handleBestellungMengeChange(e){
@@ -1625,7 +1696,7 @@ class Kaufteildisposition extends React.Component {
                     </TableHeaderColumn>
                     <TableHeaderColumn >Diskontmenge</TableHeaderColumn>
                     <TableHeaderColumn >Anfangsbestand</TableHeaderColumn>
-                    <TableHeaderColumn colSpan="4"  style={{textAlign: 'center'}}>
+                    <TableHeaderColumn colSpan="5"  style={{textAlign: 'center'}}>
                       Bedarf
                     </TableHeaderColumn>
                     <TableHeaderColumn colSpan="2"  style={{textAlign: 'center'}}>
@@ -1642,6 +1713,7 @@ class Kaufteildisposition extends React.Component {
                     <TableHeaderColumn >{this.state.Perioden.periode2}</TableHeaderColumn>
                     <TableHeaderColumn >{this.state.Perioden.periode3}</TableHeaderColumn>
                     <TableHeaderColumn >{this.state.Perioden.periode4}</TableHeaderColumn>
+                    <TableHeaderColumn >Gesamt</TableHeaderColumn>
                     <TableHeaderColumn >Menge</TableHeaderColumn>
                     <TableHeaderColumn >Art (normal/eil)</TableHeaderColumn>
                   </TableRow>
@@ -1719,6 +1791,12 @@ class Kaufteildisposition extends React.Component {
                         value= {this.state.Bedarf4.E21}/>
                     </TableRowColumn>
                     <TableRowColumn>
+                    <TextField
+                        hintText="Gesamt"
+                        disabled = {true}
+                        value= {this.state.BedarfGesamt.E21}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
                       <TextField
                         hintText="BestellungMenge"
                         id="E21"
@@ -1729,6 +1807,7 @@ class Kaufteildisposition extends React.Component {
                     </TableRowColumn>
                     <TableRowColumn>
                       <Toggle
+                        id="E21"
                         name="toggleE21"
                         value="toggleE21"
                         ref="toggleE21"
@@ -1808,6 +1887,12 @@ class Kaufteildisposition extends React.Component {
                         value= {this.state.Bedarf4.E22}/>
                     </TableRowColumn>
                     <TableRowColumn>
+                    <TextField
+                        hintText="Gesamt"
+                        disabled = {true}
+                        value= {this.state.BedarfGesamt.E22}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
                       <TextField
                         hintText="BestellungMenge"
                         id="E22"
@@ -1818,6 +1903,7 @@ class Kaufteildisposition extends React.Component {
                     </TableRowColumn>
                     <TableRowColumn>
                       <Toggle
+                        id="E22"
                         name="toggleE22"
                         value="toggleE22"
                         ref="toggleE22"
@@ -1897,6 +1983,12 @@ class Kaufteildisposition extends React.Component {
                         value= {this.state.Bedarf4.E23}/>
                     </TableRowColumn>
                     <TableRowColumn>
+                    <TextField
+                        hintText="Gesamt"
+                        disabled = {true}
+                        value= {this.state.BedarfGesamt.E23}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
                       <TextField
                         hintText="BestellungMenge"
                         id="E23"
@@ -1907,6 +1999,7 @@ class Kaufteildisposition extends React.Component {
                     </TableRowColumn>
                     <TableRowColumn>
                       <Toggle
+                        id="E23"
                         name="toggleE23"
                         value="toggleE23"
                         ref="toggleE23"
@@ -1986,6 +2079,12 @@ class Kaufteildisposition extends React.Component {
                         value= {this.state.Bedarf4.E24}/>
                     </TableRowColumn>
                     <TableRowColumn>
+                    <TextField
+                        hintText="Gesamt"
+                        disabled = {true}
+                        value= {this.state.BedarfGesamt.E24}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
                       <TextField
                         hintText="BestellungMenge"
                         id="E24"
@@ -1996,6 +2095,7 @@ class Kaufteildisposition extends React.Component {
                     </TableRowColumn>
                     <TableRowColumn>
                       <Toggle
+                        id="E24"
                         name="toggleE24"
                         value="toggleE24"
                         ref="toggleE24"
@@ -2075,6 +2175,12 @@ class Kaufteildisposition extends React.Component {
                         value= {this.state.Bedarf4.E25}/>
                     </TableRowColumn>
                     <TableRowColumn>
+                    <TextField
+                        hintText="Gesamt"
+                        disabled = {true}
+                        value= {this.state.BedarfGesamt.E25}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
                       <TextField
                         hintText="BestellungMenge"
                         id="E25"
@@ -2085,6 +2191,7 @@ class Kaufteildisposition extends React.Component {
                     </TableRowColumn>
                     <TableRowColumn>
                       <Toggle
+                        id="E25"
                         name="toggleE25"
                         value="toggleE25"
                         ref="toggleE25"
@@ -2164,6 +2271,12 @@ class Kaufteildisposition extends React.Component {
                         value= {this.state.Bedarf4.E27}/>
                     </TableRowColumn>
                     <TableRowColumn>
+                    <TextField
+                        hintText="Gesamt"
+                        disabled = {true}
+                        value= {this.state.BedarfGesamt.E27}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
                       <TextField
                         hintText="BestellungMenge"
                         id="E27"
@@ -2174,6 +2287,7 @@ class Kaufteildisposition extends React.Component {
                     </TableRowColumn>
                     <TableRowColumn>
                       <Toggle
+                        id="E27"
                         name="toggleE27"
                         value="toggleE27"
                         ref="toggleE27"
@@ -2253,6 +2367,12 @@ class Kaufteildisposition extends React.Component {
                         value= {this.state.Bedarf4.E28}/>
                     </TableRowColumn>
                     <TableRowColumn>
+                    <TextField
+                        hintText="Gesamt"
+                        disabled = {true}
+                        value= {this.state.BedarfGesamt.E28}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
                       <TextField
                         hintText="BestellungMenge"
                         id="E28"
@@ -2263,6 +2383,7 @@ class Kaufteildisposition extends React.Component {
                     </TableRowColumn>
                     <TableRowColumn>
                       <Toggle
+                        id="E28"
                         name="toggleE28"
                         value="toggleE28"
                         ref="toggleE28"
@@ -2342,6 +2463,12 @@ class Kaufteildisposition extends React.Component {
                         value= {this.state.Bedarf4.E32}/>
                     </TableRowColumn>
                     <TableRowColumn>
+                    <TextField
+                        hintText="Gesamt"
+                        disabled = {true}
+                        value= {this.state.BedarfGesamt.E32}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
                       <TextField
                         hintText="BestellungMenge"
                         id="E32"
@@ -2352,6 +2479,7 @@ class Kaufteildisposition extends React.Component {
                     </TableRowColumn>
                     <TableRowColumn>
                       <Toggle
+                        id="E32"
                         name="toggleE32"
                         value="toggleE32"
                         ref="toggleE32"
@@ -2431,6 +2559,12 @@ class Kaufteildisposition extends React.Component {
                         value= {this.state.Bedarf4.E33}/>
                     </TableRowColumn>
                     <TableRowColumn>
+                    <TextField
+                        hintText="Gesamt"
+                        disabled = {true}
+                        value= {this.state.BedarfGesamt.E33}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
                       <TextField
                         hintText="BestellungMenge"
                         id="E33"
@@ -2441,6 +2575,7 @@ class Kaufteildisposition extends React.Component {
                     </TableRowColumn>
                     <TableRowColumn>
                       <Toggle
+                        id="E33"
                         name="toggleE33"
                         value="toggleE33"
                         ref="toggleE33"
@@ -2520,6 +2655,12 @@ class Kaufteildisposition extends React.Component {
                         value= {this.state.Bedarf4.E34}/>
                     </TableRowColumn>
                     <TableRowColumn>
+                    <TextField
+                        hintText="Gesamt"
+                        disabled = {true}
+                        value= {this.state.BedarfGesamt.E34}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
                       <TextField
                         hintText="BestellungMenge"
                         id="E34"
@@ -2529,7 +2670,8 @@ class Kaufteildisposition extends React.Component {
                         value= {this.state.BestellungMenge.E34}/>
                     </TableRowColumn>
                     <TableRowColumn>
-                      <Toggle
+                      <Toggle 
+                        id="E34"
                         name="toggleE34"
                         value="toggleE34"
                         ref="toggleE34"
@@ -2609,6 +2751,12 @@ class Kaufteildisposition extends React.Component {
                         value= {this.state.Bedarf4.E35}/>
                     </TableRowColumn>
                     <TableRowColumn>
+                    <TextField
+                        hintText="Gesamt"
+                        disabled = {true}
+                        value= {this.state.BedarfGesamt.E35}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
                       <TextField
                         hintText="BestellungMenge"
                         id="E35"
@@ -2619,6 +2767,7 @@ class Kaufteildisposition extends React.Component {
                     </TableRowColumn>
                     <TableRowColumn>
                       <Toggle
+                        id="E35"
                         name="toggleE35"
                         value="toggleE35"
                         ref="toggleE35"
@@ -2698,6 +2847,12 @@ class Kaufteildisposition extends React.Component {
                         value= {this.state.Bedarf4.E36}/>
                     </TableRowColumn>
                     <TableRowColumn>
+                    <TextField
+                        hintText="Gesamt"
+                        disabled = {true}
+                        value= {this.state.BedarfGesamt.E36}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
                       <TextField
                         hintText="BestellungMenge"
                         id="E36"
@@ -2708,6 +2863,7 @@ class Kaufteildisposition extends React.Component {
                     </TableRowColumn>
                     <TableRowColumn>
                       <Toggle
+                        id="E36"
                         name="toggleE36"
                         value="toggleE36"
                         ref="toggleE36"
@@ -2787,6 +2943,13 @@ class Kaufteildisposition extends React.Component {
                         value= {this.state.Bedarf4.E37}/>
                     </TableRowColumn>
                     <TableRowColumn>
+                    <TextField
+                        hintText="Gesamt"
+                        disabled = {true}
+                        value= {this.state.BedarfGesamt.E37}/>
+                    </TableRowColumn>
+                    
+                    <TableRowColumn>
                       <TextField
                         hintText="BestellungMenge"
                         id="E37"
@@ -2797,6 +2960,7 @@ class Kaufteildisposition extends React.Component {
                     </TableRowColumn>
                     <TableRowColumn>
                       <Toggle
+                        id="E37"
                         name="toggleE37"
                         value="toggleE37"
                         ref="toggleE37"
@@ -2876,6 +3040,12 @@ class Kaufteildisposition extends React.Component {
                         value= {this.state.Bedarf4.E38}/>
                     </TableRowColumn>
                     <TableRowColumn>
+                    <TextField
+                        hintText="Gesamt"
+                        disabled = {true}
+                        value= {this.state.BedarfGesamt.E38}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
                       <TextField
                         hintText="BestellungMenge"
                         id="E38"
@@ -2886,6 +3056,7 @@ class Kaufteildisposition extends React.Component {
                     </TableRowColumn>
                     <TableRowColumn>
                       <Toggle
+                        id="E38"
                         name="toggleE38"
                         value="toggleE38"
                         ref="toggleE38"
@@ -2964,6 +3135,14 @@ class Kaufteildisposition extends React.Component {
                         disabled = {true}
                         value= {this.state.Bedarf4.E39}/>
                     </TableRowColumn>
+
+                   
+                    <TableRowColumn>
+                    <TextField
+                        hintText="Gesamt"
+                        disabled = {true}
+                        value= {this.state.BedarfGesamt.E39}/>
+                    </TableRowColumn>
                     <TableRowColumn>
                       <TextField
                         hintText="BestellungMenge"
@@ -2975,6 +3154,7 @@ class Kaufteildisposition extends React.Component {
                     </TableRowColumn>
                     <TableRowColumn>
                       <Toggle
+                        id="E39"
                         name="toggleE39"
                         value="toggleE39"
                         ref="toggleE39"
@@ -3054,6 +3234,12 @@ class Kaufteildisposition extends React.Component {
                         value= {this.state.Bedarf4.E40}/>
                     </TableRowColumn>
                     <TableRowColumn>
+                    <TextField
+                        hintText="Gesamt"
+                        disabled = {true}
+                        value= {this.state.BedarfGesamt.E40}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
                       <TextField
                         hintText="BestellungMenge"
                         id="E40"
@@ -3064,6 +3250,7 @@ class Kaufteildisposition extends React.Component {
                     </TableRowColumn>
                     <TableRowColumn>
                       <Toggle
+                        id="E40"
                         name="toggleE40"
                         value="toggleE40"
                         ref="toggleE40"
@@ -3143,6 +3330,12 @@ class Kaufteildisposition extends React.Component {
                         value= {this.state.Bedarf4.E41}/>
                     </TableRowColumn>
                     <TableRowColumn>
+                    <TextField
+                        hintText="Gesamt"
+                        disabled = {true}
+                        value= {this.state.BedarfGesamt.E41}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
                       <TextField
                         hintText="BestellungMenge"
                         id="E41"
@@ -3153,6 +3346,7 @@ class Kaufteildisposition extends React.Component {
                     </TableRowColumn>
                     <TableRowColumn>
                       <Toggle
+                        id="E41"
                         name="toggleE41"
                         value="toggleE41"
                         ref="toggleE41"
@@ -3232,6 +3426,12 @@ class Kaufteildisposition extends React.Component {
                         value= {this.state.Bedarf4.E42}/>
                     </TableRowColumn>
                     <TableRowColumn>
+                    <TextField
+                        hintText="Gesamt"
+                        disabled = {true}
+                        value= {this.state.BedarfGesamt.E42}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
                       <TextField
                         hintText="BestellungMenge"
                         id="E42"
@@ -3242,6 +3442,7 @@ class Kaufteildisposition extends React.Component {
                     </TableRowColumn>
                     <TableRowColumn>
                       <Toggle
+                        id="E42"
                         name="toggleE42"
                         value="toggleE42"
                         ref="toggleE42"
@@ -3321,6 +3522,12 @@ class Kaufteildisposition extends React.Component {
                         value= {this.state.Bedarf4.E43}/>
                     </TableRowColumn>
                     <TableRowColumn>
+                    <TextField
+                        hintText="Gesamt"
+                        disabled = {true}
+                        value= {this.state.BedarfGesamt.E43}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
                       <TextField
                         hintText="BestellungMenge"
                         id="E43"
@@ -3331,6 +3538,7 @@ class Kaufteildisposition extends React.Component {
                     </TableRowColumn>
                     <TableRowColumn>
                       <Toggle
+                        id="E43"
                         name="toggleE43"
                         value="toggleE43"
                         ref="toggleE43"
@@ -3410,6 +3618,12 @@ class Kaufteildisposition extends React.Component {
                         value= {this.state.Bedarf4.E44}/>
                     </TableRowColumn>
                     <TableRowColumn>
+                    <TextField
+                        hintText="Gesamt"
+                        disabled = {true}
+                        value= {this.state.BedarfGesamt.E44}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
                       <TextField
                         hintText="BestellungMenge"
                         id="E44"
@@ -3420,6 +3634,7 @@ class Kaufteildisposition extends React.Component {
                     </TableRowColumn>
                     <TableRowColumn>
                       <Toggle
+                        id="E44"
                         name="toggleE44"
                         value="toggleE44"
                         ref="toggleE44"
@@ -3500,6 +3715,12 @@ class Kaufteildisposition extends React.Component {
                         value= {this.state.Bedarf4.E45}/>
                     </TableRowColumn>
                     <TableRowColumn>
+                    <TextField
+                        hintText="Gesamt"
+                        disabled = {true}
+                        value= {this.state.BedarfGesamt.E45}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
                       <TextField
                         hintText="BestellungMenge"
                         id="E45"
@@ -3510,6 +3731,7 @@ class Kaufteildisposition extends React.Component {
                     </TableRowColumn>
                     <TableRowColumn>
                       <Toggle
+                        id="E45"
                         name="toggleE45"
                         value="toggleE45"
                         ref="toggleE45"
@@ -3590,6 +3812,12 @@ class Kaufteildisposition extends React.Component {
                         value= {this.state.Bedarf4.E46}/>
                     </TableRowColumn>
                     <TableRowColumn>
+                    <TextField
+                        hintText="Gesamt"
+                        disabled = {true}
+                        value= {this.state.BedarfGesamt.E46}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
                       <TextField
                         hintText="BestellungMenge"
                         id="E46"
@@ -3600,6 +3828,7 @@ class Kaufteildisposition extends React.Component {
                     </TableRowColumn>
                     <TableRowColumn>
                       <Toggle
+                        id="E46"
                         name="toggleE46"
                         value="toggleE46"
                         ref="toggleE46"
@@ -3679,6 +3908,12 @@ class Kaufteildisposition extends React.Component {
                         value= {this.state.Bedarf4.E47}/>
                     </TableRowColumn>
                     <TableRowColumn>
+                    <TextField
+                        hintText="Gesamt"
+                        disabled = {true}
+                        value= {this.state.BedarfGesamt.E47}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
                       <TextField
                         hintText="BestellungMenge"
                         id="E47"
@@ -3689,6 +3924,7 @@ class Kaufteildisposition extends React.Component {
                     </TableRowColumn>
                     <TableRowColumn>
                       <Toggle
+                        id="E47"
                         name="toggleE47"
                         value="toggleE47"
                         ref="toggleE47"
@@ -3769,6 +4005,12 @@ class Kaufteildisposition extends React.Component {
                         value= {this.state.Bedarf4.E48}/>
                     </TableRowColumn>
                     <TableRowColumn>
+                    <TextField
+                        hintText="Gesamt"
+                        disabled = {true}
+                        value= {this.state.BedarfGesamt.E48}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
                       <TextField
                         hintText="BestellungMenge"
                         id="E48"
@@ -3779,6 +4021,7 @@ class Kaufteildisposition extends React.Component {
                     </TableRowColumn>
                     <TableRowColumn>
                       <Toggle
+                        id="E48"
                         name="toggleE48"
                         value="toggleE48"
                         ref="toggleE48"
@@ -3859,6 +4102,12 @@ class Kaufteildisposition extends React.Component {
                         value= {this.state.Bedarf4.E52}/>
                     </TableRowColumn>
                     <TableRowColumn>
+                    <TextField
+                        hintText="Gesamt"
+                        disabled = {true}
+                        value= {this.state.BedarfGesamt.E52}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
                       <TextField
                         hintText="BestellungMenge"
                         id="E52"
@@ -3869,6 +4118,7 @@ class Kaufteildisposition extends React.Component {
                     </TableRowColumn>
                     <TableRowColumn>
                       <Toggle
+                        id="E52"
                         name="toggleE52"
                         value="toggleE52"
                         ref="toggleE52"
@@ -3949,6 +4199,12 @@ class Kaufteildisposition extends React.Component {
                         value= {this.state.Bedarf4.E53}/>
                     </TableRowColumn>
                     <TableRowColumn>
+                    <TextField
+                        hintText="Gesamt"
+                        disabled = {true}
+                        value= {this.state.BedarfGesamt.E53}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
                       <TextField
                         hintText="BestellungMenge"
                         id="E53"
@@ -3959,6 +4215,7 @@ class Kaufteildisposition extends React.Component {
                     </TableRowColumn>
                     <TableRowColumn>
                       <Toggle
+                        id="E53"
                         name="toggleE53"
                         value="toggleE53"
                         ref="toggleE53"
@@ -4038,6 +4295,12 @@ class Kaufteildisposition extends React.Component {
                         value= {this.state.Bedarf4.E57}/>
                     </TableRowColumn>
                     <TableRowColumn>
+                    <TextField
+                        hintText="Gesamt"
+                        disabled = {true}
+                        value= {this.state.BedarfGesamt.E57}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
                       <TextField
                         hintText="BestellungMenge"
                         id="E57"
@@ -4048,6 +4311,7 @@ class Kaufteildisposition extends React.Component {
                     </TableRowColumn>
                     <TableRowColumn>
                       <Toggle
+                        id="E57"
                         name="toggleE57"
                         value="toggleE57"
                         ref="toggleE57"
@@ -4128,6 +4392,12 @@ class Kaufteildisposition extends React.Component {
                         value= {this.state.Bedarf4.E58}/>
                     </TableRowColumn>
                     <TableRowColumn>
+                    <TextField
+                        hintText="Gesamt"
+                        disabled = {true}
+                        value= {this.state.BedarfGesamt.E58}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
                       <TextField
                         hintText="BestellungMenge"
                         id="E58"
@@ -4138,6 +4408,7 @@ class Kaufteildisposition extends React.Component {
                     </TableRowColumn>
                     <TableRowColumn>
                       <Toggle
+                        id="E58"
                         name="toggleE58"
                         value="toggleE58"
                         ref="toggleE58"
@@ -4217,6 +4488,12 @@ class Kaufteildisposition extends React.Component {
                         value= {this.state.Bedarf4.E59}/>
                     </TableRowColumn>
                     <TableRowColumn>
+                    <TextField
+                        hintText="Gesamt"
+                        disabled = {true}
+                        value= {this.state.BedarfGesamt.E59}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
                       <TextField
                         hintText="BestellungMenge"
                         id="E59"
@@ -4227,6 +4504,7 @@ class Kaufteildisposition extends React.Component {
                     </TableRowColumn>
                     <TableRowColumn>
                       <Toggle
+                        id="E59"
                         name="toggleE59"
                         value="toggleE59"
                         ref="toggleE59"
@@ -4260,6 +4538,7 @@ class Kaufteildisposition extends React.Component {
                   </TableRow>
                 </TableHeader>
 
+                
                 <TableBody displayRowCheckbox={this.state.displayRowCheckbox}>
                   <TableRow>
                     <TableRowColumn>
@@ -4276,14 +4555,724 @@ class Kaufteildisposition extends React.Component {
                     </TableRowColumn>
                     <TableRowColumn>
                       <Toggle
+                        id="E21"
                         name="toggleE21"
                         value="toggleE21"
+                        ref="toggleE21"
                         onToggle={this._handleBestellungArtChange}
                         defaultToggled={this.state.BestellungArt.E21}/>
                     </TableRowColumn>
                   </TableRow>
 
+                  <TableRow>
+                    <TableRowColumn>
+                      E22
+                    </TableRowColumn>
+                    
+                    <TableRowColumn>
+                      <TextField
+                        hintText="BestellungMenge"
+                        id="E22"
+                        errorText={this.state.errorTextBestellungMenge.E22}
+                        errorStyle={{color:'orange'}}
+                        onChange={this._handleBestellungMengeChange}
+                        value= {this.state.BestellungMenge.E22}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <Toggle
+                        id="E22"
+                        name="toggleE22"
+                        value="toggleE22"
+                        ref="toggleE22"
+                        onToggle={this._handleBestellungArtChange}
+                        defaultToggled={this.state.BestellungArt.E22}/>
+                    </TableRowColumn>
+                  </TableRow>
+
+                  <TableRow>
+                    <TableRowColumn>
+                      E23
+                    </TableRowColumn>
+                    
+                    <TableRowColumn>
+                      <TextField
+                        hintText="BestellungMenge"
+                        id="E23"
+                        errorText={this.state.errorTextBestellungMenge.E23}
+                        errorStyle={{color:'orange'}}
+                        onChange={this._handleBestellungMengeChange}
+                        value= {this.state.BestellungMenge.E22}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <Toggle
+                        id="E23"
+                        name="toggleE23"
+                        value="toggleE23"
+                        ref="toggleE23"
+                        onToggle={this._handleBestellungArtChange}
+                        defaultToggled={this.state.BestellungArt.E23}/>
+                    </TableRowColumn>
+                  </TableRow>
+
+                  <TableRow>
+                    <TableRowColumn>
+                      E24
+                    </TableRowColumn>
+                   
+                    <TableRowColumn>
+                      <TextField
+                        hintText="BestellungMenge"
+                        id="E24"
+                        errorText={this.state.errorTextBestellungMenge.E24}
+                        errorStyle={{color:'orange'}}
+                        onChange={this._handleBestellungMengeChange}
+                        value= {this.state.BestellungMenge.E24}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <Toggle
+                        id="E24"
+                        name="toggleE24"
+                        value="toggleE24"
+                        ref="toggleE24"
+                        onToggle={this._handleBestellungArtChange}
+                        defaultToggled={this.state.BestellungArt.E24}/>
+                    </TableRowColumn>
+                  </TableRow>
+
+                  <TableRow>
+                    <TableRowColumn>
+                      E25
+                    </TableRowColumn>
+                    
+                    <TableRowColumn>
+                      <TextField
+                        hintText="BestellungMenge"
+                        id="E25"
+                        errorText={this.state.errorTextBestellungMenge.E25}
+                        errorStyle={{color:'orange'}}
+                        onChange={this._handleBestellungMengeChange}
+                        value= {this.state.BestellungMenge.E25}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <Toggle
+                        id="E25"
+                        name="toggleE25"
+                        value="toggleE25"
+                        ref="toggleE25"
+                        onToggle={this._handleBestellungArtChange}
+                        defaultToggled={this.state.BestellungArt.E25}/>
+                    </TableRowColumn>
+                  </TableRow>
+
+                  <TableRow>
+                    <TableRowColumn>
+                      E27
+                    </TableRowColumn>
+                    
+                    <TableRowColumn>
+                      <TextField
+                        hintText="BestellungMenge"
+                        id="E27"
+                        errorText={this.state.errorTextBestellungMenge.E27}
+                        errorStyle={{color:'orange'}}
+                        onChange={this._handleBestellungMengeChange}
+                        value= {this.state.BestellungMenge.E27}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <Toggle
+                        id="E27"
+                        name="toggleE27"
+                        value="toggleE27"
+                        ref="toggleE27"
+                        onToggle={this._handleBestellungArtChange}
+                        defaultToggled={this.state.BestellungArt.E27}/>
+                    </TableRowColumn>
+                  </TableRow>
+
+                  <TableRow>
+                    <TableRowColumn>
+                      E28
+                    </TableRowColumn>
+                    
+                    <TableRowColumn>
+                      <TextField
+                        hintText="BestellungMenge"
+                        id="E28"
+                        errorText={this.state.errorTextBestellungMenge.E28}
+                        errorStyle={{color:'orange'}}
+                        onChange={this._handleBestellungMengeChange}
+                        value= {this.state.BestellungMenge.E28}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <Toggle
+                        id="E28"
+                        name="toggleE28"
+                        value="toggleE28"
+                        ref="toggleE28"
+                        onToggle={this._handleBestellungArtChange}
+                        defaultToggled={this.state.BestellungArt.E28}/>
+                    </TableRowColumn>
+                  </TableRow>
+
+                  <TableRow>
+                    <TableRowColumn>
+                      E32
+                    </TableRowColumn>
+                    
+                    <TableRowColumn>
+                      <TextField
+                        hintText="BestellungMenge"
+                        id="E32"
+                        errorText={this.state.errorTextBestellungMenge.E32}
+                        errorStyle={{color:'orange'}}
+                        onChange={this._handleBestellungMengeChange}
+                        value= {this.state.BestellungMenge.E32}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <Toggle
+                        id="E32"
+                        name="toggleE32"
+                        value="toggleE32"
+                        ref="toggleE32"
+                        onToggle={this._handleBestellungArtChange}
+                        defaultToggled={this.state.BestellungArt.E32}/>
+                    </TableRowColumn>
+                  </TableRow>
+
+                  <TableRow>
+                    <TableRowColumn>
+                      E33
+                    </TableRowColumn>
+                    
+                    <TableRowColumn>
+                      <TextField
+                        hintText="BestellungMenge"
+                        id="E33"
+                        errorText={this.state.errorTextBestellungMenge.E33}
+                        errorStyle={{color:'orange'}}
+                        onChange={this._handleBestellungMengeChange}
+                        value= {this.state.BestellungMenge.E33}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <Toggle
+                        id="E33"
+                        name="toggleE33"
+                        value="toggleE33"
+                        ref="toggleE33"
+                        onToggle={this._handleBestellungArtChange}
+                        defaultToggled={this.state.BestellungArt.E33}/>
+                    </TableRowColumn>
+                  </TableRow>
+
+                  <TableRow>
+                    <TableRowColumn>
+                      E34
+                    </TableRowColumn>
+                    
+                    <TableRowColumn>
+                      <TextField
+                        hintText="BestellungMenge"
+                        id="E34"
+                        errorText={this.state.errorTextBestellungMenge.E34}
+                        errorStyle={{color:'orange'}}
+                        onChange={this._handleBestellungMengeChange}
+                        value= {this.state.BestellungMenge.E34}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <Toggle
+                        id="E34"
+                        name="toggleE34"
+                        value="toggleE34"
+                        ref="toggleE34"
+                        onToggle={this._handleBestellungArtChange}
+                        defaultToggled={this.state.BestellungArt.E34}/>
+                    </TableRowColumn>
+                  </TableRow>
+
+                  <TableRow>
+                    <TableRowColumn>
+                      E35
+                    </TableRowColumn>
+                    
+                    <TableRowColumn>
+                      <TextField
+                        hintText="BestellungMenge"
+                        id="E35"
+                        errorText={this.state.errorTextBestellungMenge.E35}
+                        errorStyle={{color:'orange'}}
+                        onChange={this._handleBestellungMengeChange}
+                        value= {this.state.BestellungMenge.E35}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <Toggle
+                        id="E35"
+                        name="toggleE35"
+                        value="toggleE35"
+                        ref="toggleE35"
+                        onToggle={this._handleBestellungArtChange}
+                        defaultToggled={this.state.BestellungArt.E35}/>
+                    </TableRowColumn>
+                  </TableRow>
+
+                  <TableRow>
+                    <TableRowColumn>
+                      E36
+                    </TableRowColumn>
+                    
+                  
+                    <TableRowColumn>
+                      <TextField
+                        hintText="BestellungMenge"
+                        id="E36"
+                        errorText={this.state.errorTextBestellungMenge.E36}
+                        errorStyle={{color:'orange'}}
+                        onChange={this._handleBestellungMengeChange}
+                        value= {this.state.BestellungMenge.E36}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <Toggle
+                        id="E36"
+                        name="toggleE36"
+                        value="toggleE36"
+                        ref="toggleE36"
+                        onToggle={this._handleBestellungArtChange}
+                        defaultToggled={this.state.BestellungArt.E36}/>
+                    </TableRowColumn>
+                  </TableRow>
+
+                  <TableRow>
+                    <TableRowColumn>
+                      E37
+                    </TableRowColumn>
+                    
+                    <TableRowColumn>
+                      <TextField
+                        hintText="BestellungMenge"
+                        id="E37"
+                        errorText={this.state.errorTextBestellungMenge.E37}
+                        errorStyle={{color:'orange'}}
+                        onChange={this._handleBestellungMengeChange}
+                        value= {this.state.BestellungMenge.E37}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <Toggle
+                        id="E37"
+                        name="toggleE37"
+                        value="toggleE37"
+                        ref="toggleE37"
+                        onToggle={this._handleBestellungArtChange}
+                        defaultToggled={this.state.BestellungArt.E37}/>
+                    </TableRowColumn>
+                  </TableRow>
+
+                  <TableRow>
+                    <TableRowColumn>
+                      E38
+                    </TableRowColumn>
+                    
+                    <TableRowColumn>
+                      <TextField
+                        hintText="BestellungMenge"
+                        id="E38"
+                        errorText={this.state.errorTextBestellungMenge.E38}
+                        errorStyle={{color:'orange'}}
+                        onChange={this._handleBestellungMengeChange}
+                        value= {this.state.BestellungMenge.E38}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <Toggle
+                        id="E38"
+                        name="toggleE38"
+                        value="toggleE38"
+                        ref="toggleE38"
+                        onToggle={this._handleBestellungArtChange}
+                        defaultToggled={this.state.BestellungArt.E38}/>
+                    </TableRowColumn>
+                  </TableRow>
+
+                  <TableRow>
+                    <TableRowColumn>
+                      E39
+                    </TableRowColumn>
+                    
+                    <TableRowColumn>
+                      <TextField
+                        hintText="BestellungMenge"
+                        id="E39"
+                        errorText={this.state.errorTextBestellungMenge.E39}
+                        errorStyle={{color:'orange'}}
+                        onChange={this._handleBestellungMengeChange}
+                        value= {this.state.BestellungMenge.E39}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <Toggle
+                        id="E39"
+                        name="toggleE39"
+                        value="toggleE39"
+                        ref="toggleE39"
+                        onToggle={this._handleBestellungArtChange}
+                        defaultToggled={this.state.BestellungArt.E39}/>
+                    </TableRowColumn>
+                  </TableRow>
+
+                  <TableRow>
+                    <TableRowColumn>
+                      E40
+                    </TableRowColumn>
+                    
+                    <TableRowColumn>
+                      <TextField
+                        hintText="BestellungMenge"
+                        id="E40"
+                        errorText={this.state.errorTextBestellungMenge.E40}
+                        errorStyle={{color:'orange'}}
+                        onChange={this._handleBestellungMengeChange}
+                        value= {this.state.BestellungMenge.E40}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <Toggle
+                        id="E40"
+                        name="toggleE40"
+                        value="toggleE40"
+                        ref="toggleE40"
+                        onToggle={this._handleBestellungArtChange}
+                        defaultToggled={this.state.BestellungArt.E40}/>
+                    </TableRowColumn>
+                  </TableRow>
+
+                  <TableRow>
+                    <TableRowColumn>
+                      E41
+                    </TableRowColumn>
+                    
+                    <TableRowColumn>
+                      <TextField
+                        hintText="BestellungMenge"
+                        id="E41"
+                        errorText={this.state.errorTextBestellungMenge.E41}
+                        errorStyle={{color:'orange'}}
+                        onChange={this._handleBestellungMengeChange}
+                        value= {this.state.BestellungMenge.E41}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <Toggle
+                        id="E41"
+                        name="toggleE41"
+                        value="toggleE41"
+                        ref="toggleE41"
+                        onToggle={this._handleBestellungArtChange}
+                        defaultToggled={this.state.BestellungArt.E41}/>
+                    </TableRowColumn>
+                  </TableRow>
+
+                   <TableRow>
+                    <TableRowColumn>
+                      E42
+                    </TableRowColumn>
+                    
+                    <TableRowColumn>
+                      <TextField
+                        hintText="BestellungMenge"
+                        id="E42"
+                        errorText={this.state.errorTextBestellungMenge.E42}
+                        errorStyle={{color:'orange'}}
+                        onChange={this._handleBestellungMengeChange}
+                        value= {this.state.BestellungMenge.E42}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <Toggle
+                        id="E42"
+                        name="toggleE42"
+                        value="toggleE42"
+                        ref="toggleE42"
+                        onToggle={this._handleBestellungArtChange}
+                        defaultToggled={this.state.BestellungArt.E42}/>
+                    </TableRowColumn>
+                  </TableRow>
+
+                   <TableRow>
+                    <TableRowColumn>
+                      E43
+                    </TableRowColumn>
+                    
+                    <TableRowColumn>
+                      <TextField
+                        hintText="BestellungMenge"
+                        id="E43"
+                        errorText={this.state.errorTextBestellungMenge.E43}
+                        errorStyle={{color:'orange'}}
+                        onChange={this._handleBestellungMengeChange}
+                        value= {this.state.BestellungMenge.E43}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <Toggle
+                        id="E43"
+                        name="toggleE43"
+                        value="toggleE43"
+                        ref="toggleE43"
+                        onToggle={this._handleBestellungArtChange}
+                        defaultToggled={this.state.BestellungArt.E43}/>
+                    </TableRowColumn>
+                  </TableRow>
+
+                  <TableRow>
+                    <TableRowColumn>
+                      E44
+                    </TableRowColumn>
+                    
+                    <TableRowColumn>
+                      <TextField
+                        hintText="BestellungMenge"
+                        id="E44"
+                        errorText={this.state.errorTextBestellungMenge.E44}
+                        errorStyle={{color:'orange'}}
+                        onChange={this._handleBestellungMengeChange}
+                        value= {this.state.BestellungMenge.E44}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <Toggle
+                        id="E44"
+                        name="toggleE44"
+                        value="toggleE44"
+                        ref="toggleE44"
+                        onToggle={this._handleBestellungArtChange}
+                        defaultToggled={this.state.BestellungArt.E44}/>
+                    </TableRowColumn>
+                  </TableRow>
+
+
+                  <TableRow>
+                    <TableRowColumn>
+                      E45
+                    </TableRowColumn>
+                    
+                    <TableRowColumn>
+                      <TextField
+                        hintText="BestellungMenge"
+                        id="E45"
+                        errorText={this.state.errorTextBestellungMenge.E45}
+                        errorStyle={{color:'orange'}}
+                        onChange={this._handleBestellungMengeChange}
+                        value= {this.state.BestellungMenge.E45}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <Toggle
+                        id="E45"
+                        name="toggleE45"
+                        value="toggleE45"
+                        ref="toggleE45"
+                        onToggle={this._handleBestellungArtChange}
+                        defaultToggled={this.state.BestellungArt.E45}/>
+                    </TableRowColumn>
+                  </TableRow>
+
+
+                  <TableRow>
+                    <TableRowColumn>
+                      E46
+                    </TableRowColumn>
+                    
+                    <TableRowColumn>
+                      <TextField
+                        hintText="BestellungMenge"
+                        id="E46"
+                        errorText={this.state.errorTextBestellungMenge.E46}
+                        errorStyle={{color:'orange'}}
+                        onChange={this._handleBestellungMengeChange}
+                        value= {this.state.BestellungMenge.E46}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <Toggle
+                        id="E46"
+                        name="toggleE46"
+                        value="toggleE46"
+                        ref="toggleE46"
+                        onToggle={this._handleBestellungArtChange}
+                        defaultToggled={this.state.BestellungArt.E46}/>
+                    </TableRowColumn>
+                  </TableRow>
+
+                  <TableRow>
+                    <TableRowColumn>
+                      E47
+                    </TableRowColumn>
+                    
+                    <TableRowColumn>
+                      <TextField
+                        hintText="BestellungMenge"
+                        id="E47"
+                        errorText={this.state.errorTextBestellungMenge.E47}
+                        errorStyle={{color:'orange'}}
+                        onChange={this._handleBestellungMengeChange}
+                        value= {this.state.BestellungMenge.E47}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <Toggle
+                        id="E47"
+                        name="toggleE47"
+                        value="toggleE47"
+                        ref="toggleE47"
+                        onToggle={this._handleBestellungArtChange}
+                        defaultToggled={this.state.BestellungArt.E47}/>
+                    </TableRowColumn>
+                  </TableRow>
+
+
+                  <TableRow>
+                    <TableRowColumn>
+                      E48
+                    </TableRowColumn>
+                    
+                    <TableRowColumn>
+                      <TextField
+                        hintText="BestellungMenge"
+                        id="E48"
+                        errorText={this.state.errorTextBestellungMenge.E48}
+                        errorStyle={{color:'orange'}}
+                        onChange={this._handleBestellungMengeChange}
+                        value= {this.state.BestellungMenge.E48}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <Toggle
+                        id="E48"
+                        name="toggleE48"
+                        value="toggleE48"
+                        ref="toggleE48"
+                        onToggle={this._handleBestellungArtChange}
+                        defaultToggled={this.state.BestellungArt.E48}/>
+                    </TableRowColumn>
+                  </TableRow>
+
+
+                  <TableRow>
+                    <TableRowColumn>
+                      E52
+                    </TableRowColumn>
+                    
+                    <TableRowColumn>
+                      <TextField
+                        hintText="BestellungMenge"
+                        id="E52"
+                        errorText={this.state.errorTextBestellungMenge.E52}
+                        errorStyle={{color:'orange'}}
+                        onChange={this._handleBestellungMengeChange}
+                        value= {this.state.BestellungMenge.E52}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <Toggle
+                        id="E52"
+                        name="toggleE52"
+                        value="toggleE52"
+                        ref="toggleE52"
+                        onToggle={this._handleBestellungArtChange}
+                        defaultToggled={this.state.BestellungArt.E52}/>
+                    </TableRowColumn>
+                  </TableRow>
+
+
+                  <TableRow>
+                    <TableRowColumn>
+                      E53
+                    </TableRowColumn>
+                    
+                    <TableRowColumn>
+                      <TextField
+                        hintText="BestellungMenge"
+                        id="E53"
+                        errorText={this.state.errorTextBestellungMenge.E53}
+                        errorStyle={{color:'orange'}}
+                        onChange={this._handleBestellungMengeChange}
+                        value= {this.state.BestellungMenge.E53}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <Toggle
+                        id="E53"
+                        name="toggleE53"
+                        value="toggleE53"
+                        ref="toggleE53"
+                        onToggle={this._handleBestellungArtChange}
+                        defaultToggled={this.state.BestellungArt.E53}/>
+                    </TableRowColumn>
+                  </TableRow>
+
+                    <TableRow>
+                    <TableRowColumn>
+                      E57
+                    </TableRowColumn>
+                    
+                    <TableRowColumn>
+                      <TextField
+                        hintText="BestellungMenge"
+                        id="E57"
+                        errorText={this.state.errorTextBestellungMenge.E57}
+                        errorStyle={{color:'orange'}}
+                        onChange={this._handleBestellungMengeChange}
+                        value= {this.state.BestellungMenge.E57}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <Toggle
+                        id="E57"
+                        name="toggleE57"
+                        value="toggleE57"
+                        ref="toggleE57"
+                        onToggle={this._handleBestellungArtChange}
+                        defaultToggled={this.state.BestellungArt.E57}/>
+                    </TableRowColumn>
+                  </TableRow>
+
+
+                  <TableRow>
+                    <TableRowColumn>
+                      E58
+                    </TableRowColumn>
+                    
+                    <TableRowColumn>
+                      <TextField
+                        hintText="BestellungMenge"
+                        id="E58"
+                        errorText={this.state.errorTextBestellungMenge.E58}
+                        errorStyle={{color:'orange'}}
+                        onChange={this._handleBestellungMengeChange}
+                        value= {this.state.BestellungMenge.E58}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <Toggle
+                        id="E58"
+                        name="toggleE58"
+                        value="toggleE58"
+                        ref="toggleE58"
+                        onToggle={this._handleBestellungArtChange}
+                        defaultToggled={this.state.BestellungArt.E58}/>
+                    </TableRowColumn>
+                  </TableRow>
+
+                   <TableRow>
+                    <TableRowColumn>
+                      E59
+                    </TableRowColumn>
+                    
+                    <TableRowColumn>
+                      <TextField
+                        hintText="BestellungMenge"
+                        id="E59"
+                        errorText={this.state.errorTextBestellungMenge.E59}
+                        errorStyle={{color:'orange'}}
+                        onChange={this._handleBestellungMengeChange}
+                        value= {this.state.BestellungMenge.E59}/>
+                    </TableRowColumn>
+                    <TableRowColumn>
+                      <Toggle
+                        id="E59"
+                        name="toggleE59"
+                        value="toggleE59"
+                        ref="toggleE59"
+                        onToggle={this._handleBestellungArtChange}
+                        defaultToggled={this.state.BestellungArt.E59}/>
+                    </TableRowColumn>
+                  </TableRow>
+
                 </TableBody>
+            
               </Table>
           
 
