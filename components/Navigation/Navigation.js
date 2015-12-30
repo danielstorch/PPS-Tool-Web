@@ -160,7 +160,7 @@ console.log(menuItemsLanguage)
           <AppBar title={
                     <div>
                       <h1 style={this.getStyles().title1} >PPSTool</h1>
-                      <h1  style={this.getStyles().title2}>{this.props.NavigationReducer.CurrentPage}</h1>
+                      <h1  style={this.getStyles().title2}>ZweiRad</h1>
                     </div>
                   }
                   iconClassNameLeft={this.state.iconClassName} 
@@ -188,11 +188,11 @@ console.log(menuItemsLanguage)
                   <MenuItem index={4} style={{"lineHeight":"30px" }}>
                     <a className="Navigation-sub-link" href="/auftragsplanung/gesamt" onClick={Link.handleClick} >{this.props.internationalReducer.activeLanguage.strings.Gesamt}</a>
                   </MenuItem>
-                  <MenuItem index={5} style={{"lineHeight":"30px" }}>
-                    <a className="Navigation-sub-link" href="/auftragsplanung/damen" onClick={Link.handleClick}>{this.props.internationalReducer.activeLanguage.strings.Damen}</a>
-                  </MenuItem>
-                  <MenuItem index={6} style={{"lineHeight":"30px"}}>
+                  <MenuItem index={5} style={{"lineHeight":"30px"}}>
                     <a className="Navigation-sub-link" href="/auftragsplanung/herren" onClick={Link.handleClick}>{this.props.internationalReducer.activeLanguage.strings.Herren}</a>
+                  </MenuItem>
+                  <MenuItem index={6} style={{"lineHeight":"30px" }}>
+                    <a className="Navigation-sub-link" href="/auftragsplanung/damen" onClick={Link.handleClick}>{this.props.internationalReducer.activeLanguage.strings.Damen}</a>
                   </MenuItem>
                   <MenuItem index={7} style={{"lineHeight":"30px"}}>
                     <a className="Navigation-sub-link" href="/auftragsplanung/kinder" onClick={Link.handleClick}>{this.props.internationalReducer.activeLanguage.strings.Kinder}</a>
