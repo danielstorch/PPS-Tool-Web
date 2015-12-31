@@ -18,7 +18,8 @@ var AppBar = mui.AppBar
   , MenuItem = mui.MenuItem
   , IconButton = mui.IconButton
   , MenuDivider = mui.MenuDivider
-  , DropDownMenu = mui.DropDownMenu;
+  , DropDownMenu = mui.DropDownMenu
+  , RaisedButton = mui.RaisedButton;
  
 class Navigation extends React.Component {
 
@@ -27,6 +28,7 @@ class Navigation extends React.Component {
  
     this._handleClick = this._handleClick.bind(this);
     this._onLeftNavChange = this._onLeftNavChange.bind(this);
+    this._onDeleteLocalStorage = this._onDeleteLocalStorage.bind(this);
     this.state = { 
                     isDocked: false
                   , iconClassName: "AppBar-icon-open" 
@@ -50,6 +52,16 @@ class Navigation extends React.Component {
             this.props.dispatch(saveInputXML(localData));
         }
       }
+      
+    }else{
+      alert('LocalStorage is not supported in your browser');
+    }
+  }
+
+  _onDeleteLocalStorage(){
+    if (window.localStorage) {
+     
+      localStorage.clear();
       
     }else{
       alert('LocalStorage is not supported in your browser');
@@ -205,6 +217,9 @@ console.log(menuItemsLanguage)
               </MenuItem>
               <MenuItem index={10} iconClassName="MenuItem-icon-download" iconStyle={{"marginRight":"0px", "top":"10px"}}>
                 <a className="Navigation-link" href="/download" onClick={Link.handleClick}>{this.props.internationalReducer.activeLanguage.strings.Download}</a>
+              </MenuItem>
+              <MenuItem index={11} iconClassName="MenuItem-icon-delete" iconStyle={{"marginRight":"0px", "top":"10px"}}>
+                <a className="Navigation-link" href="/" onClick={this._onDeleteLocalStorage}>{this.props.internationalReducer.activeLanguage.strings.localStorageDeleteButton}</a>
               </MenuItem>
           </LeftNav>
         </div>
