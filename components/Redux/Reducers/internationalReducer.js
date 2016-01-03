@@ -93,7 +93,8 @@ const initialState = {
         DropDownNormal: 'Normal',
         DropDownPessimistisch: 'Pessimistisch',
         DropDownOptimistisch: 'Optimistisch',
-        localStorageDeleteButton: 'Lösche Speicher'
+        localStorageDeleteButton: 'Lösche Speicher',
+        PeriodeWählen: 'Periode wählen'
 
 
 
@@ -189,7 +190,8 @@ const initialState = {
               DropDownNormal: 'Normal',
               DropDownPessimistisch: 'Pessimistisch',
               DropDownOptimistisch: 'Optimistisch',
-              localStorageDeleteButton: 'Lösche Speicher'
+              localStorageDeleteButton: 'Lösche Speicher',
+              PeriodeWählen: 'Periode wählen'
 
 
             }},
@@ -284,7 +286,8 @@ const initialState = {
               DropDownNormal: 'normal',
               DropDownPessimistisch: 'pessimistic',
               DropDownOptimistisch: 'optimistic',
-              localStorageDeleteButton: 'Delete storage'
+              localStorageDeleteButton: 'Delete storage',
+              PeriodeWählen: 'choose periode'
 
 
             }}]}

@@ -1,5 +1,5 @@
 // components/App.js
- 
+
 import React, { PropTypes } from 'react';
 import mui from 'material-ui';
 import './Navigation.scss';
@@ -7,7 +7,7 @@ import Link from '../Link';
 import { connect } from 'react-redux';
 import { saveUploadResultsXML, setActiveUploadResultsXMLData, saveInputXML,  setLanguage} from '../Redux/Actions';
 
- 
+
  // dont need this anymore in react 1.0
  // but now we need it to register clicks like for the left navigation
 import injectTapEventPlugin from 'react-tap-event-plugin';
@@ -20,18 +20,18 @@ var AppBar = mui.AppBar
   , MenuDivider = mui.MenuDivider
   , DropDownMenu = mui.DropDownMenu
   , RaisedButton = mui.RaisedButton;
- 
+
 class Navigation extends React.Component {
 
   constructor() {
     super();
- 
+
     this._handleClick = this._handleClick.bind(this);
     this._onLeftNavChange = this._onLeftNavChange.bind(this);
     this._onDeleteLocalStorage = this._onDeleteLocalStorage.bind(this);
-    this.state = { 
+    this.state = {
                     isDocked: false
-                  , iconClassName: "AppBar-icon-open" 
+                  , iconClassName: "AppBar-icon-open"
                   , currentPage: "Home"
                  };
   }
@@ -52,7 +52,7 @@ class Navigation extends React.Component {
             this.props.dispatch(saveInputXML(localData));
         }
       }
-      
+
     }else{
       alert('LocalStorage is not supported in your browser');
     }
@@ -60,9 +60,9 @@ class Navigation extends React.Component {
 
   _onDeleteLocalStorage(){
     if (window.localStorage) {
-     
+
       localStorage.clear();
-      
+
     }else{
       alert('LocalStorage is not supported in your browser');
     }
@@ -70,7 +70,7 @@ class Navigation extends React.Component {
 
   _handleClick(e) {
     e.preventDefault();
-  
+
     //über this.state.isDocked ging es nicht, es hat beim start nicht reagiert
     var isDocked = !this.state.isDocked;
 
@@ -90,7 +90,7 @@ class Navigation extends React.Component {
       });
     }
   }
- 
+
   _onLeftNavChange(e, key, payload) {
     // Do DOM Diff refresh
     this.context.router.transitionTo(payload.route);
@@ -152,12 +152,12 @@ class Navigation extends React.Component {
   render() {
 
     //Create DropDown menuitems
-    let menuItemsPeriod = [{payload: 'result_P-1', text: 'choose Result'}];
+    let menuItemsPeriod = [{payload: 'result_P-1', text: this.props.internationalReducer.activeLanguage.strings.PeriodeWählen}];
     for(let uploadResults of this.props.UploadXMLReducer) {
       menuItemsPeriod.push({payload: uploadResults.id, text: uploadResults.id});
     }
 
-    //Create DropDown menuitems 
+    //Create DropDown menuitems
     console.log(this.props.internationalReducer.activeLanguage.id)
     let menuItemsLanguage = [{payload: 'DE', text: 'DE'}];
     for(let languages of this.props.internationalReducer.languages) {
@@ -175,8 +175,8 @@ console.log(menuItemsLanguage)
                       <h1  style={this.getStyles().title2}>ZweiRad</h1>
                     </div>
                   }
-                  iconClassNameLeft={this.state.iconClassName} 
-                  onLeftIconButtonTouchTap={this._handleClick} 
+                  iconClassNameLeft={this.state.iconClassName}
+                  onLeftIconButtonTouchTap={this._handleClick}
                   style={{"width":"100%" }}
                   iconStyleRight={{"marginTop": "0"}}
                   iconElementRight={
@@ -225,13 +225,13 @@ console.log(menuItemsLanguage)
         </div>
     );
   }
- 
+
 }
- 
+
 Navigation.childContextTypes = {
   muiTheme: React.PropTypes.object
 };
- 
+
 Navigation.contextTypes = {
   router: React.PropTypes.func
 };
