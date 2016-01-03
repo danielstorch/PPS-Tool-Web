@@ -12,7 +12,15 @@ import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import xml2js from 'xml2js';
 
-var RaisedButton = mui.RaisedButton;
+var RaisedButton = mui.RaisedButton
+  , TextField = mui.TextField
+  , Toggle = mui.Toggle
+  , TableBody = mui.TableBody
+  , TableHeader = mui.TableHeader
+  , TableRow = mui.TableRow
+  , Table = mui.Table
+  , TableHeaderColumn = mui.TableHeaderColumn
+  , TableRowColumn = mui.TableRowColumn;
 
 const style = {
   textAlign: "center"
@@ -26,6 +34,15 @@ const style = {
     this._downloadXML = this._downloadXML.bind(this);
     this._updateVariables = this._updateVariables.bind(this);
     this.state = {
+          displayRowCheckbox: false,
+          fixedHeader: true,
+          fixedFooter: true,
+          stripedRows: false,
+          showRowHover: false,
+          selectable: false,
+          multiSelectable: false,
+          enableSelectAll: false,
+          deselectOnClickaway: false,
           auftraege:[]
     };
   }
@@ -186,8 +203,49 @@ const style = {
 
     return (
       <div className="wrapperdownload">
-
         <h1>Export Xml</h1>
+        
+        
+        
+        
+
+        <Table
+                    height={this.state.height}
+                    fixedHeader={this.state.fixedHeader}
+                    selectable={this.state.selectable}
+                    >
+
+                    <TableHeader adjustForCheckbox={this.state.displayRowCheckbox}
+                                 displaySelectAll={this.state.displayRowCheckbox}
+                                 enableSelectAll={this.state.enableSelectAll}>
+                      <TableRow selectable={this.state.selectable}>
+                        <TableHeaderColumn  style={{textAlign: 'center'}}>
+                          {this.props.internationalReducer.activeLanguage.strings.TitelGesamt}
+                        </TableHeaderColumn>
+                      </TableRow>
+                    </TableHeader>
+
+                    <TableBody displayRowCheckbox={this.state.displayRowCheckbox}>
+                      <TableRow>
+                        <TableRowColumn> 
+
+                          <TextField hintText="Hint Text"/>
+
+                        </TableRowColumn>
+                        <TableRowColumn>
+                          <TextField hintText="Hint Text" />
+                        </TableRowColumn>
+                        <TableRowColumn>
+                          <Toggle name="toggleName1" value="toggleValue1" />
+                        </TableRowColumn>
+                        <TableRowColumn>
+                          <RaisedButton label="Primary" primary={true} />
+                        </TableRowColumn>
+
+                      </TableRow>
+
+                    </TableBody>
+                  </Table>
 
         <div style={style}>
           {this.state.auftraege.map((auftrag, i) => {
