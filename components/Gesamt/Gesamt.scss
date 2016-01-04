@@ -1,5 +1,18 @@
 @import '../variables.scss';
 
+
+.area{
+        margin: 0 auto;
+        width: 300px;
+        height: 300px;
+    }
+
+        .content{
+            width: 400px;
+        }
+
+
+
 .nextButton{
 text-decoration: none;
  	did-flip: true;

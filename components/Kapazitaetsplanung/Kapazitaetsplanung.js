@@ -124,7 +124,7 @@ class Kapazitaetsplanung extends React.Component {
         E30: 0,
         Kapazitätsbedarf: 0,
         RüstzeitVorgang: 80,
-        RüstVorgänge: 1.4,
+        RüstVorgänge: 1,
         RüstzeitGesamt: 0,
         Warteschlange: 0,
         Gesamtkapazitätbedarf: 0,
@@ -138,7 +138,7 @@ class Kapazitaetsplanung extends React.Component {
         E31: 0,
         Kapazitätsbedarf: 0,
         RüstzeitVorgang: 60,
-        RüstVorgänge: 1.67,
+        RüstVorgänge: 1,
         RüstzeitGesamt: 0,
         Warteschlange: 0,
         Gesamtkapazitätbedarf: 0,
@@ -188,7 +188,7 @@ class Kapazitaetsplanung extends React.Component {
         E26: 0,
         Kapazitätsbedarf: 0,
         RüstzeitVorgang: 200,
-        RüstVorgänge: 3,
+        RüstVorgänge: 1,
         RüstzeitGesamt: 0,
         Warteschlange: 0,
         Gesamtkapazitätbedarf: 0,
@@ -208,7 +208,7 @@ class Kapazitaetsplanung extends React.Component {
         E20: 0,
         Kapazitätsbedarf: 0,
         RüstzeitVorgang: 135,
-        RüstVorgänge: 2.67,
+        RüstVorgänge: 1,
         RüstzeitGesamt: 0,
         Warteschlange: 0,
         Gesamtkapazitätbedarf: 0,
@@ -321,7 +321,7 @@ class Kapazitaetsplanung extends React.Component {
         E26: 0,
         Kapazitätsbedarf: 0,
         RüstzeitVorgang: 30,
-        RüstVorgänge: 7,
+        RüstVorgänge: 1,
         RüstzeitGesamt: 0,
         Warteschlange: 0,
         Gesamtkapazitätbedarf: 0,
@@ -915,9 +915,9 @@ class Kapazitaetsplanung extends React.Component {
     console.log('rechnen')
 
 
-    this.state.Auftragsmenge.E16 = this.state.Auftragsmenge.KE16 + this.state.Auftragsmenge.HE16 + this.state.Auftragsmenge.HE16;
-    this.state.Auftragsmenge.E17 = this.state.Auftragsmenge.KE17 + this.state.Auftragsmenge.HE17 + this.state.Auftragsmenge.HE17;
-    this.state.Auftragsmenge.E26 = this.state.Auftragsmenge.KE26 + this.state.Auftragsmenge.HE26 + this.state.Auftragsmenge.HE26;
+    this.state.Auftragsmenge.E16 = this.state.Auftragsmenge.KE16 + this.state.Auftragsmenge.HE16 + this.state.Auftragsmenge.DE16;
+    this.state.Auftragsmenge.E17 = this.state.Auftragsmenge.KE17 + this.state.Auftragsmenge.HE17 + this.state.Auftragsmenge.DE17;
+    this.state.Auftragsmenge.E26 = this.state.Auftragsmenge.KE26 + this.state.Auftragsmenge.HE26 + this.state.Auftragsmenge.DE26;
 
     this.state.Arbeitsplatz1.E49 = 6 * this.state.Auftragsmenge.E49;
     this.state.Arbeitsplatz1.E54 = 6 * this.state.Auftragsmenge.E54;
@@ -1068,7 +1068,7 @@ class Kapazitaetsplanung extends React.Component {
     this.state.Arbeitsplatz14.Gesamtkapazitätbedarf = this.state.Arbeitsplatz14.Kapazitätsbedarf + this.state.Arbeitsplatz14.RüstzeitGesamt + this.state.Arbeitsplatz14.Warteschlange;
     this.state.Arbeitsplatz15.Gesamtkapazitätbedarf = this.state.Arbeitsplatz15.Kapazitätsbedarf + this.state.Arbeitsplatz15.RüstzeitGesamt + this.state.Arbeitsplatz15.Warteschlange;
 
-    if(!currentInputXML.inputDataObject.kapazitaetsplanung){
+    if(currentInputXML && !currentInputXML.inputDataObject.kapazitaetsplanung){
       console.log('schichten nochmal berechnen')
       if (this.state.Arbeitsplatz1.Gesamtkapazitätbedarf < 2400) {
         console.log('1 Schicht')
@@ -1344,7 +1344,8 @@ class Kapazitaetsplanung extends React.Component {
 
       }
     } else {
-      this.state.Arbeitsplatz1.Schichten = currentInputXML.inputDataObject.kapazitaetsplanung.Arbeitsplatz1.Schichten;
+      if(currentInputXML){
+        this.state.Arbeitsplatz1.Schichten = currentInputXML.inputDataObject.kapazitaetsplanung.Arbeitsplatz1.Schichten;
       this.state.Arbeitsplatz1.Überstunden = currentInputXML.inputDataObject.kapazitaetsplanung.Arbeitsplatz1.Überstunden;
 
       this.state.Arbeitsplatz2.Schichten = currentInputXML.inputDataObject.kapazitaetsplanung.Arbeitsplatz2.Schichten;
@@ -1388,6 +1389,7 @@ class Kapazitaetsplanung extends React.Component {
 
 
       console.log('schichten nicht nochmal berechnen')
+      }
     }
 
   }

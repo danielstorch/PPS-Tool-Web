@@ -217,7 +217,9 @@ class UploadXML extends React.Component {
     ];
 
     return (
-      <div>
+      <div> <div className="wrappper">
+              <h1 className="headder">{this.props.internationalReducer.activeLanguage.strings.Willkommen}</h1>
+            </div>
             <Dialog
               ref="standardDialog"
               title={this.state.dialogTitle}

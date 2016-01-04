@@ -143,14 +143,15 @@ class Gesamt extends React.Component {
     this.state.P3.Lagerbestand = this._getLagerbestand('3');
 
     //Produktion für Auftrag
-    this.state.P1.ProduktionAuftraege = this.state.P1.Prognose - this.state.P1.Lagerbestand;
-    this.state.P2.ProduktionAuftraege = this.state.P2.Prognose - this.state.P2.Lagerbestand;
-    this.state.P3.ProduktionAuftraege = this.state.P3.Prognose - this.state.P3.Lagerbestand;
+    this.state.P1.ProduktionAuftraege = Math.max(0, (this.state.P1.Prognose - this.state.P1.Lagerbestand));
+    this.state.P2.ProduktionAuftraege = Math.max(0,(this.state.P2.Prognose - this.state.P2.Lagerbestand));
+    this.state.P3.ProduktionAuftraege = Math.max(0,(this.state.P3.Prognose - this.state.P3.Lagerbestand));
+
 
     //Produktion Gesamt
-    this.state.P1.ProduktionGesamt = this.state.P1.ProduktionAuftraege + this.state.P1.ProduktionLager;
-    this.state.P2.ProduktionGesamt = this.state.P2.ProduktionAuftraege + this.state.P2.ProduktionLager;
-    this.state.P3.ProduktionGesamt = this.state.P3.ProduktionAuftraege + this.state.P3.ProduktionLager;
+    this.state.P1.ProduktionGesamt = Math.max(0, (this.state.P1.ProduktionAuftraege + this.state.P1.ProduktionLager));
+    this.state.P2.ProduktionGesamt = Math.max(0, (this.state.P2.ProduktionAuftraege + this.state.P2.ProduktionLager));
+    this.state.P3.ProduktionGesamt = Math.max(0,(this.state.P3.ProduktionAuftraege + this.state.P3.ProduktionLager));
 
     //Summe
     this.state.Summe.Prognose = this.state.P1.Prognose + this.state.P2.Prognose + this.state.P3.Prognose
@@ -374,6 +375,8 @@ class Gesamt extends React.Component {
       { text: 'Ok', onTouchTap: this._onDialogOk.bind(this), ref: 'ok' }
     ];
 
+    let scrollBarStyles = {borderRadius: 5};
+
     return (
      <div>
       <h1>{this.props.internationalReducer.activeLanguage.strings.TitelGesamt}</h1>
@@ -391,8 +394,7 @@ class Gesamt extends React.Component {
           </div>
         </div>
 
-
-              <div>
+           <div>
                   <Table
                     height={this.state.height}
                     fixedHeader={this.state.fixedHeader}
@@ -571,6 +573,10 @@ class Gesamt extends React.Component {
                     </TableBody>
                   </Table>
               </div>
+
+
+
+              
         </div>
       <div>
         <Dialog

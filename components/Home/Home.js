@@ -22,7 +22,7 @@ class Home extends React.Component {
     return (
         <div>
           <div className="wrappper">
-            <h1 className="headder">{this.props.internationalReducer.activeLanguage.strings.Willkommen}</h1>
+            <h1 ></h1>
 
             <div className="shake-slow shake-constant shake-constant--hover startButtonWrapper">
                 <a className="startButton" href="/auftragsplanung/gesamt" onClick={Link.handleClick}>{this.props.internationalReducer.activeLanguage.strings.Starten}</a>
