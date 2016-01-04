@@ -572,7 +572,7 @@ class Gesamt extends React.Component {
 
                     </TableBody>
                   </Table>
-              </div>
+            </div>
 
 
 

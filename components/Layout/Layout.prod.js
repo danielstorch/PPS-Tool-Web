@@ -9,7 +9,7 @@ const store = configureStore();
 function Layout({ children }) {
   return (
   	<Provider store={store}>
-	    <div className="Layout">
+	    <div style={{"minWidth":"1300px"}} className="Layout">
 	      <Navigation />
 	      <div style={{"marginLeft": "60", "marginRight":"60"}}>
             {children}
