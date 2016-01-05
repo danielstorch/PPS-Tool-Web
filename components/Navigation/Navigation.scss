@@ -1,6 +1,6 @@
 @import '../variables.scss';
 
-.AppBar-icon-close {
+.AppBar-icon-close:before {
     content: url(../../static/ic_close_white_32dp_1x.png);
     position: absolute;
     height: 100%;
@@ -10,7 +10,7 @@
     overflow: hidden;
 }
 
-.AppBar-icon-open{
+.AppBar-icon-open:before{
     content: url(../../static/ic_menu_white_48dp_1x.png);
     position: absolute;
     height: 100%;
@@ -21,47 +21,47 @@
 }
 
 
-.MenuItem-icon-delete{
+.MenuItem-icon-delete:before{
     content: url(../../static/ic_delete_black_24dp_1x.png);
 }
 
-.MenuItem-icon-home{
+.MenuItem-icon-home:before{
     content: url(../../static/ic_home_black_24dp_1x.png);
 }
 
-.MenuItem-icon-kapazitaetsplanung{
+.MenuItem-icon-kapazitaetsplanung:before{
     content: url(../../static/ic_watch_later_black_24dp_1x.png);
 }
 
-.MenuItem-icon-download{
+.MenuItem-icon-download:before{
     content: url(../../static/ic_file_download_black_24dp_1x.png);
 }
 
-.MenuItem-icon-upload{
+.MenuItem-icon-upload:before{
     content: url(../../static/ic_file_upload_black_24dp_1x.png);
 }
 
-.MenuItem-icon-settings{
+.MenuItem-icon-settings:before{
     content: url(../../static/ic_settings_black_24dp_1x.png);
 }
 
-.MenuItem-icon-auftragsplanung{
+.MenuItem-icon-auftragsplanung:before{
     content: url(../../static/ic_directions_bike_black_24dp_1x.png);
 }
 
-.MenuItem-icon-kaufteildisposition{
+.MenuItem-icon-kaufteildisposition:before{
     content: url(../../static/ic_shopping_cart_black_24dp_1x.png);
 }
 
-.MenuItem-icon-anleitung{
+.MenuItem-icon-anleitung:before{
     content: url(../../static/ic_import_contacts_black_24dp_1x.png);
 }
 
-.MenuItem-icon-tips{
+.MenuItem-icon-tips:before{
     content: url(../../static/ic_announcement_black_24dp_1x.png);
 }
 
-.MenuItem-icon-metriken{
+.MenuItem-icon-metriken:before{
     content: url(../../static/ic_timeline_black_24dp_1x.png);
 }
 
