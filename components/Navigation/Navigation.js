@@ -189,36 +189,33 @@ console.log(menuItemsLanguage)
               <MenuItem index={0} iconClassName="MenuItem-icon-home" iconStyle={{"marginRight":"0px", "top":"10px"}}>
                 <a className="Navigation-link" href="/" onClick={Link.handleClick}>{this.props.internationalReducer.activeLanguage.strings.Home}</a>
               </MenuItem>
-              <MenuItem index={1} iconClassName="MenuItem-icon-anleitung" iconStyle={{"marginRight":"0px", "top":"10px"}}>
-                <a className="Navigation-link" href="/anleitung" onClick={Link.handleClick}>{this.props.internationalReducer.activeLanguage.strings.Anleitung}</a>
+              <MenuItem index={1} className="Navigation-divider">
               </MenuItem>
-              <MenuItem index={2} className="Navigation-divider">
-              </MenuItem>
-              <MenuItem index={3} iconClassName="MenuItem-icon-auftragsplanung" iconStyle={{"marginRight":"0px", "top":"10px"}}>
+              <MenuItem index={2} iconClassName="MenuItem-icon-auftragsplanung" iconStyle={{"marginRight":"0px", "top":"10px"}}>
                 <a className="Navigation-title">{this.props.internationalReducer.activeLanguage.strings.Auftragsplanung}</a>
               </MenuItem>
-                  <MenuItem index={4} style={{"lineHeight":"30px" }}>
+                  <MenuItem index={3} style={{"lineHeight":"30px" }}>
                     <a className="Navigation-sub-link" href="/auftragsplanung/gesamt" onClick={Link.handleClick} >{this.props.internationalReducer.activeLanguage.strings.Gesamt}</a>
                   </MenuItem>
-                  <MenuItem index={5} style={{"lineHeight":"30px"}}>
+                  <MenuItem index={4} style={{"lineHeight":"30px"}}>
                     <a className="Navigation-sub-link" href="/auftragsplanung/herren" onClick={Link.handleClick}>{this.props.internationalReducer.activeLanguage.strings.Herren}</a>
                   </MenuItem>
-                  <MenuItem index={6} style={{"lineHeight":"30px" }}>
+                  <MenuItem index={5} style={{"lineHeight":"30px" }}>
                     <a className="Navigation-sub-link" href="/auftragsplanung/damen" onClick={Link.handleClick}>{this.props.internationalReducer.activeLanguage.strings.Damen}</a>
                   </MenuItem>
-                  <MenuItem index={7} style={{"lineHeight":"30px"}}>
+                  <MenuItem index={6} style={{"lineHeight":"30px"}}>
                     <a className="Navigation-sub-link" href="/auftragsplanung/kinder" onClick={Link.handleClick}>{this.props.internationalReducer.activeLanguage.strings.Kinder}</a>
                   </MenuItem>
+              <MenuItem index={7} iconClassName="MenuItem-icon-kapazitaetsplanung" iconStyle={{"marginRight":"0px", "top":"10px"}}>
+                <a className="Navigation-link" href="/kapazitaetsplanung" onClick={Link.handleClick}>{this.props.internationalReducer.activeLanguage.strings.Kapazitaetsplanung}</a>
+              </MenuItem>
               <MenuItem index={8} iconClassName="MenuItem-icon-kaufteildisposition" iconStyle={{"marginRight":"0px", "top":"10px"}}>
                 <a className="Navigation-link" href="/kaufteildisposition" onClick={Link.handleClick}>{this.props.internationalReducer.activeLanguage.strings.Kaufteildisposition}</a>
               </MenuItem>
-              <MenuItem index={9} iconClassName="MenuItem-icon-kapazitaetsplanung" iconStyle={{"marginRight":"0px", "top":"10px"}}>
-                <a className="Navigation-link" href="/kapazitaetsplanung" onClick={Link.handleClick}>{this.props.internationalReducer.activeLanguage.strings.Kapazitaetsplanung}</a>
-              </MenuItem>
-              <MenuItem index={10} iconClassName="MenuItem-icon-download" iconStyle={{"marginRight":"0px", "top":"10px"}}>
+              <MenuItem index={9} iconClassName="MenuItem-icon-download" iconStyle={{"marginRight":"0px", "top":"10px"}}>
                 <a className="Navigation-link" href="/download" onClick={Link.handleClick}>{this.props.internationalReducer.activeLanguage.strings.Download}</a>
               </MenuItem>
-              <MenuItem index={11} iconClassName="MenuItem-icon-delete" iconStyle={{"marginRight":"0px", "top":"10px"}}>
+              <MenuItem index={10} iconClassName="MenuItem-icon-delete" iconStyle={{"marginRight":"0px", "top":"10px"}}>
                 <a className="Navigation-link" href="/" onClick={this._onDeleteLocalStorage}>{this.props.internationalReducer.activeLanguage.strings.localStorageDeleteButton}</a>
               </MenuItem>
           </LeftNav>

@@ -19,8 +19,6 @@ componentDidMount(){
   render() {
     return (
       <div>
-        <h1>Manual Page</h1>
-        <p>Coming soon.</p>
       </div>
     );
   }

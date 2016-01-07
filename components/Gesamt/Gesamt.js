@@ -404,7 +404,7 @@ class Gesamt extends React.Component {
                                  displaySelectAll={this.state.displayRowCheckbox}
                                  enableSelectAll={this.state.enableSelectAll}>
                       <TableRow selectable={this.state.selectable}>
-                        <TableHeaderColumn colSpan="6" tooltip='Gesamt' style={{textAlign: 'center'}}>
+                        <TableHeaderColumn colSpan="6" style={{textAlign: 'center'}}>
                           {this.props.internationalReducer.activeLanguage.strings.TitelGesamt}
                         </TableHeaderColumn>
                       </TableRow>
