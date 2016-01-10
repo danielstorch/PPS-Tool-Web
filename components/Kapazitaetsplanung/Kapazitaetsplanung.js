@@ -366,18 +366,18 @@ class Kapazitaetsplanung extends React.Component {
   }
 
   componentWillMount() {
-    console.log('componentWillMount')
+
     this._updateVariables(true)
   }
 
   componentDidUpdate() {
-    console.log('componentDidUpdate')
+
     this._updateVariables(false);
 
   }
 
   _updateVariables(initial) {
-    console.log('_updateVariables Method');
+
 
     var activePeriodID = this.props.ActiveUploadXML.activeUploadXMLData.id.substring(7);
     var currentInputXML = this.props.InputXMLs.find(xml => xml.id.substring(6) === activePeriodID);
@@ -385,10 +385,10 @@ class Kapazitaetsplanung extends React.Component {
     if (initial == true || this.state.currentPeriode != activePeriodID) {
 
       if (currentInputXML) {
-        console.log('currentInputXML')
+
 
         if (currentInputXML && currentInputXML.inputDataObject.kaufteildisposition) {
-          console.log('currentInputXML && currentInputXML.inputDataObject.kaufteildisposition')
+
 
           if (currentInputXML.inputDataObject.kaufteildisposition.Arbeitsplatz1) {
             this.state.Arbeitsplatz1.Schichten = currentInputXML.inputDataObject.kaufteildisposition.Arbeitsplatz1.Schichten;
@@ -479,7 +479,7 @@ class Kapazitaetsplanung extends React.Component {
           this.state.resetButtonDisabled = false
 
         } if(currentInputXML.inputDataObject) {
-          console.log('schauen ob Herren Damen Kinder vorhanden')
+
           this.state.resetButtonDisabled = true
 
           if (currentInputXML.inputDataObject.auftragsplanungHerren) {
@@ -511,7 +511,6 @@ class Kapazitaetsplanung extends React.Component {
 
           }
           if (currentInputXML.inputDataObject.auftragsplanungDamen) {
-            console.log('werden die Damen richtig abgefragt?')
             this.state.Auftragsmenge.P2 = currentInputXML.inputDataObject.auftragsplanungDamen.AU.P2;
             this.state.Auftragsmenge.DE26 = currentInputXML.inputDataObject.auftragsplanungDamen.AU.E26;
             this.state.Auftragsmenge.E56 = currentInputXML.inputDataObject.auftragsplanungDamen.AU.E56;
@@ -570,7 +569,7 @@ class Kapazitaetsplanung extends React.Component {
             this.state.Auftragsmenge.E20 = 0;
           }
           if (currentInputXML.inputDataObject.kapazitaetsplanung) {
-            console.log('currentInputXML.inputDataObject.kapazitaetsplanung')
+            // console.log('currentInputXML.inputDataObject.kapazitaetsplanung')
             this.state.Arbeitsplatz1.Schichten = currentInputXML.inputDataObject.kapazitaetsplanung.Arbeitsplatz1.Schichten;
             this.state.Arbeitsplatz2.Schichten = currentInputXML.inputDataObject.kapazitaetsplanung.Arbeitsplatz2.Schichten;
             this.state.Arbeitsplatz3.Schichten = currentInputXML.inputDataObject.kapazitaetsplanung.Arbeitsplatz3.Schichten;
@@ -604,28 +603,28 @@ class Kapazitaetsplanung extends React.Component {
             this.state.resetButtonDisabled = true
 
           } else {
-            console.log('Werte müssen berechnet werden')
+
             //1
-            console.log('Bedarf ' + this.state.Arbeitsplatz1.Gesamtkapazitätbedarf)
+
             if (this.state.Arbeitsplatz1.Gesamtkapazitätbedarf < 2400) {
-              console.log('1 Schicht')
+
               this.state.Arbeitsplatz1.Schichten = 1
             } else if (this.state.Arbeitsplatz1.Gesamtkapazitätbedarf > 2401 && this.state.Arbeitsplatz1.Gesamtkapazitätbedarf < 3599) {
-              console.log('1 Schicht mit ÜS')
+
               this.state.Arbeitsplatz1.Schichten = 1
               this.state.Arbeitsplatz1.Überstunden = (this.state.Arbeitsplatz1.Gesamtkapazitätbedarf - 2400) / 5;
             } else if (this.state.Arbeitsplatz1.Gesamtkapazitätbedarf > 3600 && this.state.Arbeitsplatz1.Gesamtkapazitätbedarf < 4800) {
-              console.log('2 Schicht')
+
               this.state.Arbeitsplatz1.Schichten = 2
             } else if (this.state.Arbeitsplatz1.Gesamtkapazitätbedarf > 4801 && this.state.Arbeitsplatz1.Gesamtkapazitätbedarf < 6000) {
-              console.log('2 Schicht mit ÜS')
+
               this.state.Arbeitsplatz1.Schichten = 2
               this.state.Arbeitsplatz1.Überstunden = (this.state.Arbeitsplatz1.Gesamtkapazitätbedarf - 4800) / 5;
             } else if (this.state.Arbeitsplatz1.Gesamtkapazitätbedarf > 6001 && this.state.Arbeitsplatz1.Gesamtkapazitätbedarf < 7200) {
-              console.log('3 Schicht')
+
               this.state.Arbeitsplatz1.Schichten = 3
             } else {
-              console.log('Fehler')
+
               //Fehlermeldung
             }
 
@@ -858,7 +857,7 @@ class Kapazitaetsplanung extends React.Component {
 
 
       } else {
-        console.log('alles reseten')
+
 
         //Herren
         this.state.Auftragsmenge.P1 = 0;
@@ -907,12 +906,12 @@ class Kapazitaetsplanung extends React.Component {
 
         currentPeriode: activePeriodID
       });
-      console.log('current Periode setzen')
+
 
 
     }
 
-    console.log('rechnen')
+
 
 
     this.state.Auftragsmenge.E16 = this.state.Auftragsmenge.KE16 + this.state.Auftragsmenge.HE16 + this.state.Auftragsmenge.DE16;
@@ -1069,26 +1068,26 @@ class Kapazitaetsplanung extends React.Component {
     this.state.Arbeitsplatz15.Gesamtkapazitätbedarf = this.state.Arbeitsplatz15.Kapazitätsbedarf + this.state.Arbeitsplatz15.RüstzeitGesamt + this.state.Arbeitsplatz15.Warteschlange;
 
     if(currentInputXML && !currentInputXML.inputDataObject.kapazitaetsplanung){
-      console.log('schichten nochmal berechnen')
+
       if (this.state.Arbeitsplatz1.Gesamtkapazitätbedarf < 2400) {
-        console.log('1 Schicht')
+        // console.log('1 Schicht')
         this.state.Arbeitsplatz1.Schichten = 1
       } else if (this.state.Arbeitsplatz1.Gesamtkapazitätbedarf > 2401 && this.state.Arbeitsplatz1.Gesamtkapazitätbedarf < 3599) {
-        console.log('1 Schicht mit ÜS')
+        // console.log('1 Schicht mit ÜS')
         this.state.Arbeitsplatz1.Schichten = 1
         this.state.Arbeitsplatz1.Überstunden = Math.ceil((this.state.Arbeitsplatz1.Gesamtkapazitätbedarf - 2400) / 5);
       } else if (this.state.Arbeitsplatz1.Gesamtkapazitätbedarf > 3600 && this.state.Arbeitsplatz1.Gesamtkapazitätbedarf < 4800) {
-        console.log('2 Schicht')
+        // console.log('2 Schicht')
         this.state.Arbeitsplatz1.Schichten = 2
       } else if (this.state.Arbeitsplatz1.Gesamtkapazitätbedarf > 4801 && this.state.Arbeitsplatz1.Gesamtkapazitätbedarf < 6000) {
-        console.log('2 Schicht mit ÜS')
+        // console.log('2 Schicht mit ÜS')
         this.state.Arbeitsplatz1.Schichten = 2
         this.state.Arbeitsplatz1.Überstunden = Math.ceil((this.state.Arbeitsplatz1.Gesamtkapazitätbedarf - 4800) / 5);
       } else if (this.state.Arbeitsplatz1.Gesamtkapazitätbedarf > 6001 && this.state.Arbeitsplatz1.Gesamtkapazitätbedarf < 7200) {
-        console.log('3 Schicht')
+        // console.log('3 Schicht')
         this.state.Arbeitsplatz1.Schichten = 3
       } else {
-        console.log('Fehler')
+        // console.log('Fehler')
         this.state.Arbeitsplatz1.Schichten = 3
         this.state.Arbeitsplatz1.Überstunden = 0;
 
@@ -1104,7 +1103,7 @@ class Kapazitaetsplanung extends React.Component {
         this.state.Arbeitsplatz2.Schichten = 2
       } else if (this.state.Arbeitsplatz2.Gesamtkapazitätbedarf > 4801 && this.state.Arbeitsplatz2.Gesamtkapazitätbedarf < 6000) {
         this.state.Arbeitsplatz2.Schichten = 2
-        console.log('runden')
+        // console.log('runden')
         this.state.Arbeitsplatz2.Überstunden = Math.ceil((this.state.Arbeitsplatz2.Gesamtkapazitätbedarf - 4800) / 5);
       } else if (this.state.Arbeitsplatz2.Gesamtkapazitätbedarf > 6001 && this.state.Arbeitsplatz2.Gesamtkapazitätbedarf < 7200) {
         this.state.Arbeitsplatz2.Schichten = 3
@@ -1388,7 +1387,7 @@ class Kapazitaetsplanung extends React.Component {
       this.state.Arbeitsplatz15.Überstunden = currentInputXML.inputDataObject.kapazitaetsplanung.Arbeitsplatz15.Überstunden;
 
 
-      console.log('schichten nicht nochmal berechnen')
+      // console.log('schichten nicht nochmal berechnen')
       }
     }
 
@@ -1398,7 +1397,7 @@ class Kapazitaetsplanung extends React.Component {
     if (window.localStorage) {
       var activePeriodID = this.props.ActiveUploadXML.activeUploadXMLData.id.substring(7);
       var currentInputXML = this.props.InputXMLs.find(xml => xml.id.substring(6) === activePeriodID);
-      console.log(currentInputXML)
+      // console.log(currentInputXML)
       localStorage.removeItem(currentInputXML.id);
       localStorage.setItem(currentInputXML.id, JSON.stringify(currentInputXML.inputDataObject));
 
@@ -1409,7 +1408,7 @@ class Kapazitaetsplanung extends React.Component {
 
   _handleSaveButtonClick(e) {
 
-    console.log('Speichern')
+    // console.log('Speichern')
 
     var errorlol = false;
     if (this.props.ActiveUploadXML.activeUploadXMLData.id !== 'result_P-1') {
@@ -1453,7 +1452,7 @@ class Kapazitaetsplanung extends React.Component {
           resetButtonDisabled: false
         });
       } else {
-        console.log('error');
+        // console.log('error');
         this.setState({
           openDialogStandardActions: true,
           dialogTitle: "Error",
@@ -1498,9 +1497,9 @@ class Kapazitaetsplanung extends React.Component {
   _handleResetButtonClick(e) {
     this.props.dispatch(resetKapazitaetsplanungInputXML(this.props.ActiveUploadXML.activeUploadXMLData.id))
 
-    console.log('MINUTE DAVOR' + this.state.Arbeitsplatz1.Überstunden);
+    // console.log('MINUTE DAVOR' + this.state.Arbeitsplatz1.Überstunden);
 
-    console.log('Minuten' + this.state.Arbeitsplatz1.Überstunden);
+    // console.log('Minuten' + this.state.Arbeitsplatz1.Überstunden);
     this._updateLocalStorage();
 
 
@@ -1761,7 +1760,7 @@ class Kapazitaetsplanung extends React.Component {
 
   _handleSchichtenChange(e) {
 
-    console.log('Schichten Change');
+    // console.log('Schichten Change');
 
     let arbeitsplatzId = e.target.id
     let value = e.target.value;
@@ -1773,10 +1772,10 @@ class Kapazitaetsplanung extends React.Component {
 
     if (isNumeric) {
       if (value > 3) {
-        console.log('bigger than 3 ');
+        // console.log('bigger than 3 ');
         errorTextList[arbeitsplatzId] = this.props.internationalReducer.activeLanguage.strings.ErrorKleinerDrei
       } else {
-        console.log('isNumeric ');
+        // console.log('isNumeric ');
         errorTextList[arbeitsplatzId] = ''
       }
     } else {
@@ -1792,22 +1791,22 @@ class Kapazitaetsplanung extends React.Component {
   }
 
   _handleStundenChange(e) {
-    console.log('Stunden Change');
+    // console.log('Stunden Change');
 
     let arbeitsplatzId = e.target.id;
     let value = e.target.value;
     let arbeitsplatzList = this.state[arbeitsplatzId];
     let errorTextList = this.state.errorTextStunden;
 
-    console.log('value ' + value);
+    // console.log('value ' + value);
 
     let isNumeric = !isNaN(parseFloat(value)) && isFinite(value);
 
     if (isNumeric) {
-      console.log('isNumeric ');
+      // console.log('isNumeric ');
       errorTextList[arbeitsplatzId] = ''
     } else {
-      console.log('is not Numeric ');
+      // console.log('is not Numeric ');
       errorTextList[arbeitsplatzId] = this.props.internationalReducer.activeLanguage.strings.NumericError
       value = 0
     }

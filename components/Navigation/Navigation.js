@@ -158,7 +158,7 @@ class Navigation extends React.Component {
     }
 
     //Create DropDown menuitems
-    console.log(this.props.internationalReducer.activeLanguage.id)
+    // console.log(this.props.internationalReducer.activeLanguage.id)
     let menuItemsLanguage = [{payload: 'DE', text: 'DE'}];
     for(let languages of this.props.internationalReducer.languages) {
       if(languages.id != 'DE'){
@@ -166,7 +166,7 @@ class Navigation extends React.Component {
       }
     }
 
-console.log(menuItemsLanguage)
+// console.log(menuItemsLanguage)
     return (
         <div id="menu">
           <AppBar title={

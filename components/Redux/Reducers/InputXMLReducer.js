@@ -41,7 +41,7 @@ export default function InputXMLReducer(state = [], action) {
     case SET_AUFTRAGSPLANUNG_DAMEN_INPUT_XML:
        let givenObjDamen = state.filter(inputXML => inputXML.id.substring(6) === action.id.substring(7))[0]
 
-       console.log(givenObjGesamt)
+       // console.log(givenObjGesamt)
         if(givenObjDamen.inputDataObject.auftragsplanungDamen){
           givenObjDamen.inputDataObject.auftragsplanungDamen = action.auftragsplanungDamen
         }else{

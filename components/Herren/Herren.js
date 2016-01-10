@@ -408,8 +408,6 @@ class Herren extends React.Component {
       }.bind(this))
 
     }
-
-    //console.log("Waitingslistworkstation: "+ articleId, currentAmount)
     return currentAmount
   }
 
@@ -428,8 +426,6 @@ class Herren extends React.Component {
     }
 
     }
-
-    console.log("Ordersinwork: "+ articleId, currentAmount)
     return currentAmount
   }
 
@@ -463,7 +459,6 @@ class Herren extends React.Component {
     if (window.localStorage) {
           var activePeriodID = this.props.ActiveUploadXML.activeUploadXMLData.id.substring(7);
           var currentInputXML = this.props.InputXMLs.find(xml => xml.id.substring(6) === activePeriodID);
-          console.log(currentInputXML)
           localStorage.removeItem(currentInputXML.id);
           localStorage.setItem(currentInputXML.id, JSON.stringify(currentInputXML.inputDataObject));
 

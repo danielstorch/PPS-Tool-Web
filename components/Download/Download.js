@@ -70,7 +70,6 @@ const style = {
   }
 
   _updateVariables(initial) {
-    console.log('_updateVariables Method');
 
     var activePeriodID = this.props.ActiveUploadXML.activeUploadXMLData.id.substring(7);
     var currentInputXML = this.props.InputXMLs.find(xml => xml.id.substring(6) === activePeriodID);
@@ -84,7 +83,6 @@ const style = {
           if(currentInputXML.inputDataObject.auftragsplanungHerren){
               let objHerren = currentInputXML.inputDataObject.auftragsplanungHerren.AU
               Object.keys(objHerren).forEach(function(key){
-                  console.log(key, objHerren[key]);
                   if(objHerren[key] > 0){
                     var tmpidHerren = "H"+key
                     this.state.auftraege.push({id:tmpidHerren, article:key, quantity: objHerren[key], bikeType:"Herren"})
@@ -96,7 +94,6 @@ const style = {
             if(currentInputXML.inputDataObject.auftragsplanungDamen){
               let objDamen = currentInputXML.inputDataObject.auftragsplanungDamen.AU
               Object.keys(objDamen).forEach(function(key){
-                  console.log(key, objDamen[key]);
                   if(objDamen[key] > 0){
                     var tmpidDamen = "D"+key
                     this.state.auftraege.push({id:tmpidDamen, article:key, quantity: objDamen[key], bikeType:"Damen"})
@@ -108,7 +105,6 @@ const style = {
             if(currentInputXML.inputDataObject.auftragsplanungKinder){
               let objKinder = currentInputXML.inputDataObject.auftragsplanungKinder.AU
               Object.keys(objKinder).forEach(function(key){
-                  console.log(key, objKinder[key]);
                   if(objKinder[key] > 0){
                     var tmpidKinder = "K"+key
                     this.state.auftraege.push({id:tmpidKinder, article:key, quantity: objKinder[key], bikeType:"Kinder"})
@@ -116,8 +112,6 @@ const style = {
                   }
               }.bind(this));
             }
-            console.log(this.state.auftraege)
-            console.log(this.state.errorTextList)
 
       } else {
 
@@ -136,7 +130,6 @@ const style = {
       if(e.target.value.substring(1) == "S"){
         errorSplitIDlol = "Error"
       }else{
-        console.log("SPLIT ID GEFUNDEN")
         errorSplitIdDisabled = false
       }
       
@@ -181,8 +174,6 @@ const style = {
   }
 
   _handleSplitQuantityChange(e){
-
-    console.log(e.target.value)
     let value = e.target.value;
     let errorSplitQuantitylol = this.state.errorSplitQuantity
 
@@ -212,16 +203,11 @@ const style = {
   }
 
   _addAuftragButton(e){
-    console.log("ButtonClicked")
-
-    console.log("this.refs.valueSplitIDREF.getValue()", this.refs.valueSplitIDREF.getValue())
-    console.log("this.refs.valueSplitQuantityREF.getValue()",this.refs.valueSplitQuantityREF.getValue())
 
     var errorSplitQuantitylol = ""
 
 
     if(this.state.auftraege.find(auftrag => auftrag.article == this.refs.valueSplitIDREF.getValue())){
-      console.log("SPLIT ID GEFUNDEN")
 
       var amountGesamt = 0;
       if(this.refs.valueSplitQuantityREF.getValue() == "" || this.refs.valueSplitQuantityREF.getValue() <= 0){
@@ -239,11 +225,6 @@ const style = {
             }
           }.bind(this))
 
-          console.log("amountGesamt", amountGesamt)
-          console.log(parseInt(this.refs.valueSplitQuantityREF.getValue()))
-
-          console.log(amountGesamt < parseInt(this.refs.valueSplitQuantityREF.getValue()))
-
           if(amountGesamt < parseInt(this.refs.valueSplitQuantityREF.getValue())){
             errorSplitQuantitylol = this.props.internationalReducer.activeLanguage.strings.ExportSplitKleinerAlsGesamt
 
@@ -252,18 +233,14 @@ const style = {
               errorSplitQuantity: errorSplitQuantitylol
             });
           }else{
-              console.log("HAT FUNKTIONIERT")
               var tmpid = "S1" + this.refs.valueSplitIDREF.getValue()
               var error = false;
 
               var lolanz = 1;
               this.state.auftraege.forEach(function(auftrag){
-                  console.log("auftrag.article",auftrag.article)
-                  console.log("this.refs.valueSplitIDREF.getValue()",this.refs.valueSplitIDREF.getValue())
-                  console.log(auftrag.article == this.refs.valueSplitIDREF.getValue())
+
                   if(auftrag.article == this.refs.valueSplitIDREF.getValue()){
 
-                    console.log(auftrag.id.charAt(0))
                     if(auftrag.id.charAt(0) == "S"){
 
                      lolanz = lolanz + 1
@@ -273,7 +250,7 @@ const style = {
               }.bind(this))
 
               errorSplitQuantitylol = this.props.internationalReducer.activeLanguage.strings.ExportSplitMax
-              console.log("SplitMenge", lolanz)
+          
               if(lolanz > 9){
                 this.setState({
                       errorColorSplitQuantity: {color:'red'},
@@ -310,7 +287,6 @@ const style = {
   }
 
   _handleAuftragMengeChange(e){
-    console.log("menge geändert")
 
     let errorTextListlol = this.state.errorTextList
     let value = e.target.value;
@@ -385,7 +361,6 @@ const style = {
       let objectKaufteildispositionArt = currentInputXML.inputDataObject.kaufteildisposition.BestellungArt;
 
       Object.keys(objectKaufteildispositionMenge).forEach(function(key){
-        console.log(key, objectKaufteildispositionMenge[key]);
         if(objectKaufteildispositionMenge[key] > 0){
           let ordermodusBool = objectKaufteildispositionArt[key]
           let ordermodus = 5;
@@ -403,7 +378,6 @@ const style = {
       let kapazitaetsplanung = currentInputXML.inputDataObject.kapazitaetsplanung;
 
       Object.keys(kapazitaetsplanung).forEach(function(key){
-        console.log(key, kapazitaetsplanung[key]);
           obj.workingtimelist.workingtime.push({$: {station:key.substring(12), shift:kapazitaetsplanung[key].Schichten, overtime:kapazitaetsplanung[key].Überstunden}});
       }.bind(this));
     }
@@ -419,13 +393,11 @@ const style = {
 
     }.bind(this))
 
-    console.log(obj);
 
     var builder = new xml2js.Builder({rootName: 'input'});
     var xml = builder.buildObject(obj);
 
 
-    console.log(xml); // <-- show me the XML
 
     var url = 'data:text/plain;charset=utf-8,' + encodeURIComponent(xml);
     var link = this.refs.link;

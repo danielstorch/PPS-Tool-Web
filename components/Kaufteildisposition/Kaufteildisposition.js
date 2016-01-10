@@ -1121,7 +1121,7 @@ class Kaufteildisposition extends React.Component {
       this.state.BestellungMenge.E58 = this._calculateBestellungMenge("E58")
       this.state.BestellungMenge.E59 = this._calculateBestellungMenge("E59")
 
-      console.log("EVERYTHING CALCULATED")
+      // console.log("EVERYTHING CALCULATED")
   }
 
   _calculateBedarf(articleId, periode){
@@ -1139,16 +1139,16 @@ class Kaufteildisposition extends React.Component {
   }
 
   _calculateBestellungMenge(articleId){
-    console.log(articleId)
+    // console.log(articleId)
     var gesamtBedarf = this._getBedarfGesamt(articleId);
     let bestellMenge = 0;
 
-    console.log("Anfangsbestand: ", this.state.Anfangsbestand[articleId])
-    console.log("BEDARF 1 Periode ", this.state.Bedarf1[articleId])
+    // console.log("Anfangsbestand: ", this.state.Anfangsbestand[articleId])
+    // console.log("BEDARF 1 Periode ", this.state.Bedarf1[articleId])
 
     if(this.state.Anfangsbestand[articleId] < this.state.Bedarf1[articleId]){
-      console.log("EEEEEIIIIIILLLLLL")
-      console.log("!this.state.BestellungArt[articleId]", !this.state.BestellungArt[articleId])
+      // console.log("EEEEEIIIIIILLLLLL")
+      // console.log("!this.state.BestellungArt[articleId]", !this.state.BestellungArt[articleId])
       let refname = "toggle" + articleId
       this.state.BestellungArt[articleId] = true
 
@@ -1157,16 +1157,16 @@ class Kaufteildisposition extends React.Component {
     }
 
     if(gesamtBedarf > this.state.Anfangsbestand[articleId]){
-      console.log("gesamtBedarf",gesamtBedarf)
+      // console.log("gesamtBedarf",gesamtBedarf)
       let fehlenderBedarf = gesamtBedarf - this.state.Anfangsbestand[articleId]
-      console.log("fehlenderBedarf",fehlenderBedarf)
+      // console.log("fehlenderBedarf",fehlenderBedarf)
 
       let geteiltDurchDiskontmenge = fehlenderBedarf/this.state.Diskontmenge[articleId]
-      console.log("geteiltDurchDiskontmenge",geteiltDurchDiskontmenge)
-      console.log("geteiltDurchDiskontmenge GERUNDET auf ganze zahl: ", Math.ceil(geteiltDurchDiskontmenge))
+      // console.log("geteiltDurchDiskontmenge",geteiltDurchDiskontmenge)
+      // console.log("geteiltDurchDiskontmenge GERUNDET auf ganze zahl: ", Math.ceil(geteiltDurchDiskontmenge))
 
       bestellMenge = Math.ceil(geteiltDurchDiskontmenge) * this.state.Diskontmenge[articleId]
-      console.log("Was wir bestellen: ", bestellMenge)
+      // console.log("Was wir bestellen: ", bestellMenge)
 
     }
 
@@ -1175,7 +1175,7 @@ class Kaufteildisposition extends React.Component {
   }
 
   _getBedarfGesamt(articleId){
-    console.log(this.state.dropDownValue)
+    // console.log(this.state.dropDownValue)
     let liferzeit = 0;
     if(this.state.dropDownValue == 2){
       liferzeit = this.state.Lieferzeit[articleId] - this.state.Abweichung[articleId]
@@ -1186,8 +1186,8 @@ class Kaufteildisposition extends React.Component {
       liferzeit = this.state.Lieferzeit[articleId]
     }
 
-    console.log("liferzeit getBearf: ", liferzeit)
-    console.log("liferzeit gerundet ganze zahl: ", Math.ceil(liferzeit))
+    // console.log("liferzeit getBearf: ", liferzeit)
+    // console.log("liferzeit gerundet ganze zahl: ", Math.ceil(liferzeit))
 
     let bedarfGesamt = 0;
     if(liferzeit <= 1){
@@ -1200,7 +1200,7 @@ class Kaufteildisposition extends React.Component {
       bedarfGesamt = this.state.Bedarf1[articleId] + this.state.Bedarf2[articleId] + this.state.Bedarf4[articleId]
     }
 
-    console.log("bedarf Gesamt", bedarfGesamt)
+    // console.log("bedarf Gesamt", bedarfGesamt)
 
     return bedarfGesamt
   }
@@ -1220,7 +1220,7 @@ class Kaufteildisposition extends React.Component {
 
     }
 
-    console.log("anfangsbestand", amount)
+    // console.log("anfangsbestand", amount)
 
     return Math.round(amount);
   }
@@ -1242,13 +1242,13 @@ class Kaufteildisposition extends React.Component {
 
     }
 
-    console.log("zukunfbestand", amount)
+    // console.log("zukunfbestand", amount)
 
     return Math.round(amount);
   }
 
   _handleDropDownChange(e, index, value){
-    console.log("_handleDropDownChange", value)
+    // console.log("_handleDropDownChange", value)
     this.setState({
       dropDownValue : value.payload
     })
@@ -1342,8 +1342,8 @@ class Kaufteildisposition extends React.Component {
     let articleId = e.target.id
 
     let BestellungArtList = this.state.BestellungArt;
-    console.log(e.target.id)
-    console.log("Davor BestellungArtList[articleId]: ",BestellungArtList[articleId])
+    // console.log(e.target.id)
+    // console.log("Davor BestellungArtList[articleId]: ",BestellungArtList[articleId])
 
     if(BestellungArtList[articleId] == true){
        BestellungArtList[articleId] = false;
@@ -1351,7 +1351,7 @@ class Kaufteildisposition extends React.Component {
        BestellungArtList[articleId] = true
     }
 
-    console.log("Danach BestellungArtList[articleId]: ",BestellungArtList[articleId])
+    // console.log("Danach BestellungArtList[articleId]: ",BestellungArtList[articleId])
 
     this.setState({
       BestellungArt: BestellungArtList
@@ -1389,7 +1389,7 @@ class Kaufteildisposition extends React.Component {
     if (window.localStorage) {
           var activePeriodID = this.props.ActiveUploadXML.activeUploadXMLData.id.substring(7);
           var currentInputXML = this.props.InputXMLs.find(xml => xml.id.substring(6) === activePeriodID);
-          console.log(currentInputXML)
+          // console.log(currentInputXML)
           localStorage.removeItem(currentInputXML.id);
           localStorage.setItem(currentInputXML.id, JSON.stringify(currentInputXML.inputDataObject));
 
@@ -1540,7 +1540,7 @@ class Kaufteildisposition extends React.Component {
   }
 
   _handleDetailModeChange(e){
-    console.log(!this.state.detailMode)
+    // console.log(!this.state.detailMode)
     this.setState({
       detailMode: !this.state.detailMode
     });

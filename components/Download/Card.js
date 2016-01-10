@@ -91,10 +91,7 @@ class Card extends Component {
     const { bikeType, id, errorText ,handleAuftragMengeChange, index, articleId, menge, isDragging, connectDragSource, connectDropTarget } = this.props;
     const opacity = isDragging ? 0 : 1;
     let lol ="dsa"
-
-    console.log("TextFieldId", "text"+id)
-    console.log("errorText",errorText)
-    console.log("ArticleId", articleId)
+    
     return connectDragSource(connectDropTarget(
       <div style={{ ...style, opacity }}>
         <div style={{"display": "inline-block", "marginRight":"10px"}} > {this.props.internationalReducer.activeLanguage.strings.CardIndex}  {index + 1} </div>

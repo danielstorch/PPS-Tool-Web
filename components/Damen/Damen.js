@@ -400,8 +400,6 @@ class Damen extends React.Component {
 
     }
 
-    //console.log("Warehousestock: "+ articleId, amount)
-
     return amount
   }
 
@@ -423,7 +421,6 @@ class Damen extends React.Component {
 
     }
 
-    //console.log("Waitingslistworkstation: "+ articleId, currentAmount)
     return currentAmount
   }
 
@@ -443,7 +440,6 @@ class Damen extends React.Component {
 
     }
 
-    //console.log("Ordersinwork: "+ articleId, currentAmount)
     return currentAmount
   }
 
@@ -473,7 +469,6 @@ class Damen extends React.Component {
   }
 
   _handleVetriebswunschChange(e) {
-    console.log("_handleVetriebswunschChange")
     let articleId = e.target.id
     let value = e.target.value;
     let VRList = this.state.VR;
@@ -557,7 +552,6 @@ class Damen extends React.Component {
     if (window.localStorage) {
       var activePeriodID = this.props.ActiveUploadXML.activeUploadXMLData.id.substring(7);
       var currentInputXML = this.props.InputXMLs.find(xml => xml.id.substring(6) === activePeriodID);
-      console.log("currentInputXML", currentInputXML)
       localStorage.removeItem(currentInputXML.id);
       localStorage.setItem(currentInputXML.id, JSON.stringify(currentInputXML.inputDataObject));
 
@@ -611,11 +605,6 @@ class Damen extends React.Component {
   }
 
   render() {
-    // if(this.state.currentPeriode !== this.props.ActiveUploadXML.activeUploadXMLData.id){
-    //   this._updateVariables()
-    //   console.log("ALLES WIRD GEUPDATED")
-    // }
-    //this._updateVariables()
 
     let standardActions = [
       {text: 'Ok', onTouchTap: this._onDialogOk.bind(this), ref: 'ok'}
