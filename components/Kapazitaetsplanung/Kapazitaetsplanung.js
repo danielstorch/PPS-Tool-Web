@@ -1040,7 +1040,7 @@ class Kapazitaetsplanung extends React.Component {
 
 
 
-    console.log("dsadsadsadasdsadsadsadasdsa")
+    // console.log("dsadsadsadasdsadsadsadasdsa")
 
     this.state.Arbeitsplatz1.Warteschlange = 0;
     this.state.Arbeitsplatz2.Warteschlange = 0;
@@ -1661,8 +1661,8 @@ class Kapazitaetsplanung extends React.Component {
     }
 
     }
-    console.log("Arbeitsplatz", apID )
-    console.log("ORDERINDWORK", currentAmount )
+    // console.log("Arbeitsplatz", apID )
+    // console.log("ORDERINDWORK", currentAmount )
     return currentAmount
   }
 
@@ -1679,23 +1679,23 @@ class Kapazitaetsplanung extends React.Component {
             elementStation.waitinglist.forEach(function (elementWaitinglist){
               if(elementWaitinglist.$.item === articleID){ 
 
-                console.log("parseInt(elementWaitinglist.$.amount) * minutenProTeil " ,elementWaitinglist.$.amount + " * " + minutenProTeil)
+                // console.log("parseInt(elementWaitinglist.$.amount) * minutenProTeil " ,elementWaitinglist.$.amount + " * " + minutenProTeil)
 
                 var gesamtMinuten = parseInt(elementWaitinglist.$.amount)
 
-                console.log("GesamtMinuten ",gesamtMinuten)
+                // conso/le.log("GesamtMinuten ",gesamtMinuten)
 
-                console.log("MAIN Vorher " + workstationId + " für teil " + articleID, this.state[workstationId].Warteschlange)
+                // console.log("MAIN Vorher " + workstationId + " für teil " + articleID, this.state[workstationId].Warteschlange)
                 this.state[workstationId].Warteschlange = this.state[workstationId].Warteschlange + gesamtMinuten * minutenProTeil
-                console.log("MAIN Danach " + workstationId + " für teil " + articleID, this.state[workstationId].Warteschlange)
+                // console.log("MAIN Danach " + workstationId + " für teil " + articleID, this.state[workstationId].Warteschlange)
                 arbeitsplatzListeID.forEach(function(arbeitsplatz){
-                  console.log("arbeitsplatz.apdsadasdasdas", arbeitsplatz.ap)
+                  // console.log("arbeitsplatz.apdsadasdasdas", arbeitsplatz.ap)
 
-                  console.log("davor: " + arbeitsplatz + " für teil " + articleID, this.state[arbeitsplatz.ap].Warteschlange)
+                  // console.log("davor: " + arbeitsplatz + " für teil " + articleID, this.state[arbeitsplatz.ap].Warteschlange)
 
                   this.state[arbeitsplatz.ap].Warteschlange = this.state[arbeitsplatz.ap].Warteschlange + gesamtMinuten * arbeitsplatz.min
 
-                  console.log("danach: " + arbeitsplatz + " für teil " + articleID, this.state[arbeitsplatz.ap].Warteschlange)
+                  // console.log("danach: " + arbeitsplatz + " für teil " + articleID, this.state[arbeitsplatz.ap].Warteschlange)
 
                 }.bind(this))
               }
