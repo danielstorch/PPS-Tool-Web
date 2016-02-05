@@ -761,14 +761,14 @@ class Kinder extends React.Component {
                   hintText="Warteschlange"
                   value = {this.state.WS.E26}
                   disabled = {true}/>
-                />
+                
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
                   hintText="Bearbeitung"
                   value = {this.state.BA.E26}
                   disabled = {true}/>
-                />
+                
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
@@ -816,14 +816,14 @@ class Kinder extends React.Component {
                   hintText="Warteschlange"
                   value = {this.state.WS.E31}
                   disabled = {true}/>
-                />
+                
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
                   hintText="Bearbeitung"
                   value = {this.state.BA.E31}
                   disabled = {true}/>
-                />
+                
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
@@ -870,14 +870,14 @@ class Kinder extends React.Component {
                   hintText="Warteschlange"
                   value = {this.state.WS.E16}
                   disabled = {true}/>
-                />
+                
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
                   hintText="Bearbeitung"
                   value = {this.state.BA.E16}
                   disabled = {true}/>
-                />
+                
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
@@ -924,14 +924,14 @@ class Kinder extends React.Component {
                   hintText="Warteschlange"
                   value = {this.state.WS.E17}
                   disabled = {true}/>
-                />
+                
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
                   hintText="Bearbeitung"
                   value = {this.state.BA.E17}
                   disabled = {true}/>
-                />
+                
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
@@ -978,14 +978,14 @@ class Kinder extends React.Component {
                 hintText="Warteschlange"
                 value = {this.state.WS.E30}
                 disabled = {true}/>
-              />
+              
             </TableRowColumn>
             <TableRowColumn>
               <TextField
                 hintText="Bearbeitung"
                 value = {this.state.BA.E30}
                 disabled = {true}/>
-              />
+              
             </TableRowColumn>
             <TableRowColumn>
               <TextField
@@ -1032,14 +1032,14 @@ class Kinder extends React.Component {
                   hintText="Warteschlange"
                   value = {this.state.WS.E6}
                   disabled = {true}/>
-                />
+       
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
                   hintText="Bearbeitung"
                   value = {this.state.BA.E6}
                   disabled = {true}/>
-                />
+             
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
@@ -1086,14 +1086,12 @@ class Kinder extends React.Component {
                   hintText="Warteschlange"
                   value = {this.state.WS.E12}
                   disabled = {true}/>
-                />
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
                   hintText="Bearbeitung"
                   value = {this.state.BA.E12}
                   disabled = {true}/>
-                />
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
@@ -1140,14 +1138,14 @@ class Kinder extends React.Component {
                   hintText="Warteschlange"
                   value = {this.state.WS.E29}
                   disabled = {true}/>
-                />
+                
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
                   hintText="Bearbeitung"
                   value = {this.state.BA.E29}
                   disabled = {true}/>
-                />
+                
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
@@ -1194,14 +1192,14 @@ class Kinder extends React.Component {
                   hintText="Warteschlange"
                   value = {this.state.WS.E9}
                   disabled = {true}/>
-                />
+                
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
                   hintText="Bearbeitung"
                   value = {this.state.BA.E9}
                   disabled = {true}/>
-                />
+                
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
@@ -1248,14 +1246,14 @@ class Kinder extends React.Component {
                   hintText="Warteschlange"
                   value = {this.state.WS.E15}
                   disabled = {true}/>
-                />
+                
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
                   hintText="Bearbeitung"
                   value = {this.state.BA.E15}
                   disabled = {true}/>
-                />
+                
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
@@ -1302,14 +1300,14 @@ class Kinder extends React.Component {
                   hintText="Warteschlange"
                   value = {this.state.WS.E20}
                   disabled = {true}/>
-                />
+                
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
                   hintText="Bearbeitung"
                   value = {this.state.BA.E20}
                   disabled = {true}/>
-                />
+                
               </TableRowColumn>
               <TableRowColumn>
                 <TextField

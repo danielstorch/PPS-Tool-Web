@@ -1057,19 +1057,19 @@ class Kapazitaetsplanung extends React.Component {
     this.state.Arbeitsplatz14.Warteschlange = 0;
     this.state.Arbeitsplatz15.Warteschlange = 0;
 
-    this._getWaitingslistworkstation('Arbeitsplatz2');
-    this._getWaitingslistworkstation('Arbeitsplatz3');
-    this._getWaitingslistworkstation('Arbeitsplatz4');
-    this._getWaitingslistworkstation('Arbeitsplatz6');
-    this._getWaitingslistworkstation('Arbeitsplatz7');
-    this._getWaitingslistworkstation('Arbeitsplatz8');
-    this._getWaitingslistworkstation('Arbeitsplatz9');
-    this._getWaitingslistworkstation('Arbeitsplatz10');
-    this._getWaitingslistworkstation('Arbeitsplatz11');
-    this._getWaitingslistworkstation('Arbeitsplatz12');
-    this._getWaitingslistworkstation('Arbeitsplatz13');
-    this._getWaitingslistworkstation('Arbeitsplatz14');
-    this._getWaitingslistworkstation('Arbeitsplatz15');
+    // this._getWaitingslistworkstation('Arbeitsplatz2');
+    // this._getWaitingslistworkstation('Arbeitsplatz3');
+    // this._getWaitingslistworkstation('Arbeitsplatz4');
+    // this._getWaitingslistworkstation('Arbeitsplatz6');
+    // this._getWaitingslistworkstation('Arbeitsplatz7');
+    // this._getWaitingslistworkstation('Arbeitsplatz8');
+    // this._getWaitingslistworkstation('Arbeitsplatz9');
+    // this._getWaitingslistworkstation('Arbeitsplatz10');
+    // this._getWaitingslistworkstation('Arbeitsplatz11');
+    // this._getWaitingslistworkstation('Arbeitsplatz12');
+    // this._getWaitingslistworkstation('Arbeitsplatz13');
+    // this._getWaitingslistworkstation('Arbeitsplatz14');
+    // this._getWaitingslistworkstation('Arbeitsplatz15');
 
     // P1 E13
     this._getWaitingslistworkstation('Arbeitsplatz13', "13", 2,[{ap:"Arbeitsplatz12",min:3}, {ap:"Arbeitsplatz8",min:1}, {ap:"Arbeitsplatz7",min:2}, {ap:"Arbeitsplatz9",min:3}]);
